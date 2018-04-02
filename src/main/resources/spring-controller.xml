@@ -29,6 +29,7 @@
 		
 	</bean>
 	
+	
 	<bean class="controller.VendorController">
 		<property name="vendorService" ref="vendorService" />
 		

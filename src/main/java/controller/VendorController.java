@@ -1,7 +1,9 @@
 package controller;
 
-import service.VendorService;
+import org.springframework.stereotype.Controller;
 
+import service.VendorService;
+@Controller
 public class VendorController {
 	private VendorService vendorService;
 

@@ -1,7 +1,9 @@
 package controller;
 
-import service.LoginService;
+import org.springframework.stereotype.Controller;
 
+import service.LoginService;
+@Controller
 public class LoginController {
 
 	private LoginService loginService ;
