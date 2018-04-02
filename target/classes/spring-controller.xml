@@ -7,4 +7,30 @@
 		http://www.springframework.org/schema/mvc
 		http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
+	<bean class="controller.MainController">
+	</bean>
+	
+	<bean class="controller.AuditController">
+		<property name="auditService" ref="auditService" />
+		
+	</bean>
+	
+	<bean class="controller.LoginController">
+		<property name="loginService" ref="loginService" />
+		
+	</bean>
+	
+	<bean class="controller.AdminController">
+		<property name="adminService" ref="adminService" />
+	</bean>
+	
+	<bean class="controller.NcrController">
+		<property name="ncrService" ref="ncrService" />
+		
+	</bean>
+	
+	<bean class="controller.VendorController">
+		<property name="vendorService" ref="vendorService" />
+		
+	</bean>
 </beans>

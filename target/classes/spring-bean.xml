@@ -6,7 +6,14 @@
 	http://www.springframework.org/schema/beans/spring-beans.xsd
 	http://www.springframework.org/schema/tx
 	http://www.springframework.org/schema/tx/spring-tx.xsd">
-
+	
+	<bean id="adminService" class="service.AdminService" />
+	<bean id="loginService" class="service.LoginService" />
+	<bean id="auditService" class="service.AuditService" />
+	<bean id="mainService" class="service.MainService" />
+	<bean id="ncrService" class="service.NcrService" />
+	<bean id="vendorService" class="service.VendorService" />
+	
 	
 
 </beans>
