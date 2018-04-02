@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="adminSQL">
+
+	<select id="cateCount" resultType="int">
+		SELECT NVL(MAX(CATEGORY_ID),0)+1 FROM CATEGORY_INFO
+	</select>
+
+	<insert id="cateInsert" parameterType="bean.BeanCategory">
+		INSERT INTO CATEGORY_INFO VALUES(
+			#{categoryId},
+			#{categoryName},
+			'N'
+		)
+	</insert>
+	
+	<select id="cateList" resultType="bean.BeanCategory">
+		SELECT *FROM CATEGORY_INFO ORDER BY CATEGORY_NAME
+	</select>
+	
+
+</mapper>
+
