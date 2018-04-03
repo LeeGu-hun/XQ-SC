@@ -20,6 +20,12 @@
 		#prod{float:right; width:50%; background-color:orange;}
 		
 	</style>
+	<script>
+		function prodTable(){
+			location.href = "./Setting?selCate="+selCate.value;		
+		}
+	
+	</script>
       
 </head>
 
@@ -40,8 +46,10 @@
 			<p>
 				${cateCount} 개 
 				<br>
-				<input name="cateName" value="${cateName}">
-				<input type="submit" value="등록">
+				<form action ="Setting" method="post">
+					<input name="cateName" value="${cateName}">
+					<input type="submit" value="등록">
+				</form>
 			</p>
 			<table width=50% border="0" cellpadding="0" cellspacing="0">
 				<thead>
@@ -74,9 +82,16 @@
 		</div>
 		<div id ="prod">
 			<p>
-				${map.prodCount} 개 
+				${map.prodCount} 개 ....
 				<br>
-				
+				<form name = "selCateForm" action ="Setting" method="post">
+					<select name = "selCate" id = "selCate" onchange = "prodTable();">
+						<option value = "cate" selected="selected">카테고리</option>
+							<c:forEach var = "c" items ="${map.cateList}">
+								<option value = "${c.CATEGORY_ID}" selected>${c.CATEGORY_NAME}</option>
+							</c:forEach>
+					</select>
+				</form>
 				<form name="deleteForm" method="post">
 					<input name="cateName" value="${cateName}">
 					<input type="submit" value="등록">

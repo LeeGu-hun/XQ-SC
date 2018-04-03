@@ -20,7 +20,7 @@ public class AdminService {
 	public void uploadCate(String cateName, int cateCount) {
 		
 		BeanCategory category = new BeanCategory();
-		category.setCATEGORY_ID("CATE_"+cateCount+1);
+		category.setCATEGORY_ID("CATE_"+(cateCount+1));
 		category.setCATEGORY_NAME(cateName);
 		sqlSession.insert("adminSQL.cateInsert", category);
 	}
@@ -31,6 +31,18 @@ public class AdminService {
 	
 	public int prodCount() {
 		return sqlSession.selectOne("adminSQL.prodCount");
+	}
+	
+	public List<BeanProduct> selCateList(String cateId) {
+		return sqlSession.selectList("adminSQL.selCateList", cateId);
+	}
+	
+	public void uploadProduct(String cateId, String prodName, int prodCount) {
+		BeanProduct product = new BeanProduct();
+		product.setCATEGORY_ID(cateId);
+		product.setPRODUCT_ID("P_"+(prodCount+1));
+		product.setPRODUCT_NAME(prodName);
+		sqlSession.insert("adminSQL.prodInsert", product);
 	}
 	
 	public List<BeanProduct> prodList(){
