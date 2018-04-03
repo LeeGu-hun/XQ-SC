@@ -2,42 +2,42 @@ package bean;
 
 public class BeanCategory {
 	
-	private String categoryId;
-	private String categoryName;
-	private String categoryValid;
+	private String CATEGORY_ID;
+	private String CATEGORY_NAME;
+	private String PRODUCT_VALID;
 	
 	public BeanCategory() {
 	
 	}
 
-	public BeanCategory(String categoryId, String categoryName, String categoryValid) {
-		this.categoryId = categoryId;
-		this.categoryName = categoryName;
-		this.categoryValid = categoryValid;
+	public BeanCategory(String cATEGORY_ID, String cATEGORY_NAME, String pRODUCT_VALID) {
+		CATEGORY_ID = cATEGORY_ID;
+		CATEGORY_NAME = cATEGORY_NAME;
+		PRODUCT_VALID = pRODUCT_VALID;
 	}
 
-	public String getCategoryId() {
-		return categoryId;
+	public String getCATEGORY_ID() {
+		return CATEGORY_ID;
 	}
 
-	public void setCategoryId(String categoryId) {
-		this.categoryId = categoryId;
+	public void setCATEGORY_ID(String cATEGORY_ID) {
+		CATEGORY_ID = cATEGORY_ID;
 	}
 
-	public String getCategoryName() {
-		return categoryName;
+	public String getCATEGORY_NAME() {
+		return CATEGORY_NAME;
 	}
 
-	public void setCategoryName(String categoryName) {
-		this.categoryName = categoryName;
+	public void setCATEGORY_NAME(String cATEGORY_NAME) {
+		CATEGORY_NAME = cATEGORY_NAME;
 	}
 
-	public String getCategoryValid() {
-		return categoryValid;
+	public String getPRODUCT_VALID() {
+		return PRODUCT_VALID;
 	}
 
-	public void setCategoryValid(String categoryValid) {
-		this.categoryValid = categoryValid;
+	public void setPRODUCT_VALID(String pRODUCT_VALID) {
+		PRODUCT_VALID = pRODUCT_VALID;
 	}
 	
 }

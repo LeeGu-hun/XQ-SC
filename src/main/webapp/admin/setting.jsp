@@ -3,6 +3,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ page import="bean.*"%>
+<%@ page import="java.util.*"%>
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -30,12 +33,13 @@
 	</blockquote>
 	
 	<div id = "kind">
-		Audit 설정....... :
+		Audit 설정:
 	</div>
 	<div id = "product">
 		<div id ="cate">
 			<p>
-			${cateCount} 개.
+				${cateCount} 개 
+				<br>
 				<input name="cateName" value="${cateName}">
 				<input type="submit" value="등록">
 			</p>
@@ -53,13 +57,13 @@
 						</th>
 					</tr>
 				</thead>
-				<c:forEach var="c" items="${cateList}">
+				<c:forEach var="cate" items="${map.cateList}">
 					<tr align="center" valign="middle">
 						<td>
-							<div align="center">${c.categoryName}</div>
+							<div align="center"><c:out value="${cate.CATEGORY_NAME}"/></div>
 						</td>
 						<td>
-							<div align="center">${c.categoryValid}</div>
+							<div align="center">${cate.PRODUCT_VALID}</div>
 						</td>
 						<td>
 							<div align="center">수정</div>
@@ -70,8 +74,13 @@
 		</div>
 		<div id ="prod">
 			<p>
-				<input name="cateName" value="${map.cateName}">
-				<input type="submit" value="등록">
+				${map.prodCount} 개 
+				<br>
+				
+				<form name="deleteForm" method="post">
+					<input name="cateName" value="${cateName}">
+					<input type="submit" value="등록">
+				</form>
 			</p>
 			<table width=50% border="0" cellpadding="0" cellspacing="0">
 				<thead>
@@ -87,17 +96,16 @@
 						</th>
 					</tr>
 				</thead>
-				<c:forEach var="p" items="${map.boardList}">
+				<c:forEach var="prod" items="${map.prodList}">
 					<tr align="center" valign="middle">
-						<td> ${p.BOARD_NUM} </td>
 						<td>
-							<div align="center">${p.BOARD_NAME}</div>
+							<div align="center"><c:out value="${prod.CATEGORY_NAME}"/></div>
 						</td>
 						<td>
-							<div align="center">${p.BOARD_DATE}</div>
+							<div align="center">${prod.PRODUCT_VALID}</div>
 						</td>
 						<td>
-							<div align="center">${p.BOARD_READCOUNT}</div>
+							<div align="center">수정</div>
 						</td>
 					</tr>
 				</c:forEach>

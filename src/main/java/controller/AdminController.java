@@ -1,6 +1,8 @@
 package controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import bean.BeanCategory;
+import bean.BeanProduct;
 import service.AdminService;
 @Controller
 public class AdminController {
@@ -24,17 +27,24 @@ public class AdminController {
             @RequestParam(defaultValue="") String prodName,
             @RequestParam(defaultValue="1") int curPage,
 			Model model) {
-		
+				
 		int cateCount = adminService.cateCount();
+		int prodCount = adminService.prodCount();
 		
 		if(!cateName.equals("")) {
 			adminService.uploadCate(cateName, cateCount);
 		}
 		
 		List<BeanCategory> cateList = adminService.cateList();
+		List<BeanProduct> prodList = adminService.prodList();
 
-		model.addAttribute("cateCount", cateCount-1);
-		model.addAttribute("cateList", cateList);
+	    Map<String, Object> map = new HashMap<String, Object>();
+	    map.put("cateList", cateList); // list
+	    map.put("prodList", prodList);
+	    map.put("prodCount", prodCount);
+		model.addAttribute("cateCount", cateCount);
+	    model.addAttribute("map", map);
+	//	model.addAttribute("cateList", cateList);
 		
 		return "admin/setting";
 	}
