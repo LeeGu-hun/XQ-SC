@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="adminSQL">
+
+	<select id="cateCount" resultType="int">
+		SELECT COUNT(*) FROM CATEGORY_INFO
+	</select>
+
+	<insert id="cateInsert" parameterType="bean.BeanCategory">
+		INSERT INTO CATEGORY_INFO VALUES(
+			#{CATEGORY_ID},
+			#{CATEGORY_NAME},
+			'N'
+		)
+	</insert>
+	
+	<select id="cateList" resultType="bean.BeanCategory">
+		SELECT *FROM CATEGORY_INFO ORDER BY CATEGORY_NAME
+	</select>
+	
+	<select id="prodCount" resultType="int">
+		SELECT COUNT(*) FROM PRODUCT_ITEM
+	</select>
+	
+	
+	<select id="selCateList" parameterType="String" resultType="bean.BeanProduct">
+		SELECT *FROM PRODUCT_ITEM WHERE CATEGORY_ID=#{id};
+	</select>
+	
+	<insert id="prodInsert" parameterType="bean.BeanProduct">
+		INSERT INTO PRODUCT_ITEM VALUES(
+			#{CATEGORY_ID},
+			#{PRODUCT_ID},
+			#{PRODUCT_NAME},
+			'N'
+		)
+	</insert>
+	
+	<select id="prodList" resultType="bean.BeanProduct">
+		SELECT *FROM PRODUCT_ITEM ORDER BY PRODUCT_NAME
+	</select>
+	
+
+</mapper>
+
