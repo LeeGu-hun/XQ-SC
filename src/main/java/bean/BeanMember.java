@@ -1,5 +1,7 @@
 package bean;
 
+import spring.IdPasswordNotMatchingException;
+
 public class BeanMember {
 	private String MEMBER_ID;
 	private String MEMBER_NAME;
@@ -68,6 +70,17 @@ public class BeanMember {
 
 	public void setMBMBER_VALID(String mBMBER_VALID) {
 		MBMBER_VALID = mBMBER_VALID;
+	}
+	public void changePassword(String oldPassword, String newPassword) {
+		if (!MEMBER_PASS.equals(oldPassword))
+			throw new IdPasswordNotMatchingException();
+		this.MEMBER_PASS = newPassword;
+	}
+	public boolean mathPassword(String password) {
+		if (this.MEMBER_PASS.equals(password))
+			return true;
+		else 
+			return false;
 	}
 	
 }
