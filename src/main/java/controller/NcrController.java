@@ -39,13 +39,13 @@ public class NcrController {
             @RequestParam(defaultValue="") String dateFrom,
             @RequestParam(defaultValue="") String dateTo) {
 		
-		List<NcrAuditListCommand> al =null;
+		List<NcrAuditListCommand> auditList =null;
 		
-		try {
-			al= ncrService.getAuditList(vendorName,dateFrom,dateTo);
+		try {						
+			auditList= ncrService.getAuditList(vendorName,dateFrom,dateTo);			
 		} catch (Exception e) {e.printStackTrace();}
 		
-		model.addAttribute("auditList",al);
+		model.addAttribute("auditList",auditList);
 		
 		return "ncr/searchAudit";
 	}

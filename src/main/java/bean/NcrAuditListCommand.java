@@ -3,78 +3,84 @@ package bean;
 public class NcrAuditListCommand {
 
 	
-	String auditNo; 
-	String vendorName;
-	String auditDate;
-	String auditKindCode;
-	String auditKind;
-	String auditResult;
-	String auditorId;
-	String auditorName;
-	public String getAuditNo() {
-		return auditNo;
+	String audit_id; 
+	String vendor_name;
+	String audit_comp_date;
+	String audit_kind_id;
+	String audit_kind;
+	String audit_result;
+	String auditor_id;
+	String auditor_name;
+	
+	public String getAudit_id() {
+		return audit_id;
 	}
-	public void setAuditNo(String auditNo) {
-		this.auditNo = auditNo;
+	public String getAuditor_name() {
+		return auditor_name;
 	}
-	public String getVendorName() {
-		return vendorName;
+	public void setAuditor_name(String auditor_name) {
+		this.auditor_name = auditor_name;
 	}
-	public void setVendorName(String vendorName) {
-		this.vendorName = vendorName;
+	public void setAudit_id(String audit_id) {
+		this.audit_id = audit_id;
 	}
-	public String getAuditDate() {
-		return auditDate;
+	public String getVendor_name() {
+		return vendor_name;
 	}
-	public void setAuditDate(String auditDate) {
-		this.auditDate = auditDate;
+	public void setVendor_name(String vendor_name) {
+		this.vendor_name = vendor_name;
 	}
-	public String getAuditKindCode() {
-		return auditKindCode;
+	public String getAudit_comp_date() {
+		return audit_comp_date;
 	}
-	public void setAuditKindCode(String auditKindCode) {
-		this.auditKindCode = auditKindCode;
+	public void setAudit_comp_date(String audit_comp_date) {
+		this.audit_comp_date = audit_comp_date;
 	}
-	public String getAuditKind() {
-		return auditKind;
+	public String getAudit_kind_id() {
+		return audit_kind_id;
 	}
-	public void setAuditKind(String auditKind) {
-		this.auditKind = auditKind;
+	public void setAudit_kind_id(String audit_kind_id) {
+		this.audit_kind_id = audit_kind_id;
 	}
-	public String getAuditResult() {
-		return auditResult;
+	public String getAudit_kind() {
+		return audit_kind;
 	}
-	public void setAuditResult(String auditResult) {
-		this.auditResult = auditResult;
+	public void setAudit_kind(String audit_kind) {
+		this.audit_kind = audit_kind;
 	}
-	public String getAuditorId() {
-		return auditorId;
+	public String getAudit_result() {
+		return audit_result;
 	}
-	public void setAuditorId(String auditorId) {
-		this.auditorId = auditorId;
+	public void setAudit_result(String audit_result) {
+		this.audit_result = audit_result;
 	}
-	public String getAuditorName() {
-		return auditorName;
+	public String getAuditor_id() {
+		return auditor_id;
 	}
-	public void setAuditorName(String auditorName) {
-		this.auditorName = auditorName;
+	public void setAuditor_id(String auditor_id) {
+		this.auditor_id = auditor_id;
 	}
-	public NcrAuditListCommand(String auditNo, String vendorName, String auditDate, String auditKindCode,
-			String auditKind, String auditResult, String auditorId, String auditorName) {
+	public NcrAuditListCommand(String audit_id, String vendor_name, String audit_comp_date, String audit_kind_id,
+			String audit_kind, String audit_result, String auditor_id, String auditor_name) {
 		super();
-		this.auditNo = auditNo;
-		this.vendorName = vendorName;
-		this.auditDate = auditDate;
-		this.auditKindCode = auditKindCode;
-		this.auditKind = auditKind;
-		this.auditResult = auditResult;
-		this.auditorId = auditorId;
-		this.auditorName = auditorName;
+		this.audit_id = audit_id;
+		this.vendor_name = vendor_name;
+		this.audit_comp_date = audit_comp_date;
+		this.audit_kind_id = audit_kind_id;
+		this.audit_kind = audit_kind;
+		this.audit_result = audit_result;
+		this.auditor_id = auditor_id;
+		this.auditor_name = auditor_name;
 	}
 	public NcrAuditListCommand() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+	
+	
+	
+	
 	
 	
 	

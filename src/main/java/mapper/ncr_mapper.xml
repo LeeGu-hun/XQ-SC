@@ -4,13 +4,14 @@
 
 <mapper namespace="ncrSQL">
 
-   <select id="getAuditList"  resultType="bean.NcrAuditListCommand">
+   <select id="getAuditList"  parameterType = "bean.NcrAuditSearchCommand" resultType="bean.NcrAuditListCommand">
    
-      select a.audit_Id,v.vendor_name,a.audit_comp_date,a.audit_kind_Id,ak.audit_kind,
+      select a.audit_id,v.vendor_name,a.audit_comp_date,a.audit_kind_Id,ak.audit_kind,
       a.audit_result,a.auditor_id,m.member_name
       from audit_info a, vendor_info v, audit_kind ak, member_info m
       where a.vendor_id=v.vendor_id and a.audit_kind_Id=ak.audit_kind_id and a.auditor_id=m.member_id
       and v.vendor_name like '%'||#{vendorName}||'%'
+      
     </select>  
   
 

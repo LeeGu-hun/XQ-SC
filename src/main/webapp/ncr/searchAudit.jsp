@@ -53,14 +53,14 @@ $(function() {
 			</tr>
 		</thead>
 		<tbody>
- 		<c:forEach items="${auditList}">
+ 		<c:forEach var="a" items="${auditList}">
 		<tr>		
-			<td>${auditList.auditNo}</td>
-			<td>${auditList.vendorName}</td>
-			<td>${auditList.auditDate}</td>
-			<td>${auditList.auditKind}</td>
-			<td>${auditList.auditResult}</td>
-			<td>${auditList.auditorName}</td>
+			<td>${a.audit_id}</td>
+			<td>${a.vendor_name}</td>
+			<td>${a.audit_comp_date}</td>
+			<td>${a.audit_kind}</td>
+			<td>${a.auditor_id}</td>
+			<td>${a.auditor_name}</td>
 		</tr>
 		</c:forEach>
 		</tbody>
