@@ -8,7 +8,7 @@ public class MainController {
 	
 	@RequestMapping("/")
 	public String root() {
-		return "login/login";
+		return "ncr/ncrRegister";
 	}
 		
 }
