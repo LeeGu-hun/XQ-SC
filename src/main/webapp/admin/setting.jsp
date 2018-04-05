@@ -23,6 +23,7 @@
 	<script>
 		function prodTable(){
 			location.href = "./Setting?selCate="+selCate.value;		
+			selCateTrue();
 		}
 	
 	</script>
@@ -48,6 +49,7 @@
 				<br>
 				<form action ="Setting" method="post">
 					<input name="cateName" value="${cateName}">
+					<input type="checkbox" name="useCate" id="useCate" value="${useCate}" />
 					<input type="submit" value="등록">
 				</form>
 			</p>
@@ -86,14 +88,15 @@
 				<br>
 				<form name = "selCateForm" action ="Setting" method="post">
 					<select name = "selCate" id = "selCate" onchange = "prodTable();">
-						<option value = "cate" selected="selected">카테고리</option>
+						<option value = "cate">카테고리</option>
 							<c:forEach var = "c" items ="${map.cateList}">
-								<option value = "${c.CATEGORY_ID}" selected>${c.CATEGORY_NAME}</option>
+								<option value = "${c.CATEGORY_ID}">${c.CATEGORY_NAME}</option>
 							</c:forEach>
 					</select>
 				</form>
-				<form name="deleteForm" method="post">
-					<input name="cateName" value="${cateName}">
+				<form method="post">
+					<input name="prodName" value="${prodName}">
+					<input type="checkbox" name="useProd" id="useProd" value="${useProd}" />
 					<input type="submit" value="등록">
 				</form>
 			</p>
@@ -114,7 +117,7 @@
 				<c:forEach var="prod" items="${map.prodList}">
 					<tr align="center" valign="middle">
 						<td>
-							<div align="center"><c:out value="${prod.CATEGORY_NAME}"/></div>
+							<div align="center"><c:out value="${prod.PRODUCT_NAME}"/></div>
 						</td>
 						<td>
 							<div align="center">${prod.PRODUCT_VALID}</div>

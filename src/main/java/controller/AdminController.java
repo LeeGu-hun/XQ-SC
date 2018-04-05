@@ -32,7 +32,7 @@ public class AdminController {
 		List<BeanProduct> prodList = adminService.prodList();
 
 		if(!selCate.equals("cate")) {
-			prodList = adminService.selCateList(selCate);		
+			prodList = adminService.selCateList(selCate);
 		}
 				
 		int cateCount = adminService.cateCount();
@@ -41,7 +41,7 @@ public class AdminController {
 		List<BeanCategory> cateList = adminService.cateList();
 
 	    Map<String, Object> map = new HashMap<String, Object>();
-	    map.put("cateList", cateList); // list
+	    map.put("cateList", cateList);
 	    map.put("prodList", prodList);
 	    map.put("prodCount", prodCount);
 		model.addAttribute("cateCount", cateCount);
@@ -66,9 +66,30 @@ public class AdminController {
 		
 		if(!selCate.equals("cate")) {
 			System.out.println("ddd");
+			if(!prodName.equals("")) {
+				adminService.uploadProduct(selCate, prodName, prodCount);
+				System.out.println("upP");
+			}
 		}
+		
+		
 		System.out.println("post");
 
 		return "redirect:/Setting";
 	}
+	
+	@RequestMapping(value="CLSet", method=RequestMethod.GET)
+	public String clsetGet() {
+
+		return "admin/clset";
+	}
+	@RequestMapping(value="CLSet", method=RequestMethod.POST)
+	public String clsetPost() {
+
+		return "admin/clset";
+	}
+	
+	
+	
+	
 }
