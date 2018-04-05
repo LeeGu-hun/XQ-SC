@@ -26,7 +26,7 @@
 	
 	
 	<select id="selCateList" parameterType="String" resultType="bean.BeanProduct">
-		SELECT *FROM PRODUCT_ITEM WHERE CATEGORY_ID=#{id};
+		SELECT *FROM PRODUCT_ITEM WHERE CATEGORY_ID=#{cateId}
 	</select>
 	
 	<insert id="prodInsert" parameterType="bean.BeanProduct">
