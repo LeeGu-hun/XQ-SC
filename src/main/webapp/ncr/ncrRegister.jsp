@@ -9,13 +9,22 @@
 
 function searchAuditPopup(){
 
-	var popup = window.open("<c:url value='ncr/searchAuditPopup'/>", "" , "width=800,height=600,toolba=no,dependent=true");
+	var popup = window.open("<c:url value='./searchAuditPopup'/>", "" , "width=800,height=600,toolba=no,dependent=true");
 	popup.moveTo(500,100);
 }
 
+function setChildValue(audit_no,vendor_name,dudit_date,audit_kind,audit_result,auditor_name){
+	document.getElementById("audit_no").value = audit_no;
+	document.getElementById("vendor_name").value = vendor_name;
+	document.getElementById("dudit_date").value = dudit_date;
+	document.getElementById("audit_kind").value = audit_kind;
+	document.getElementById("audit_result").value = audit_result;
+	document.getElementById("auditor_name").value = auditor_name;	
+
+}
 
 </script>
-<title>Insert title here</title>
+<title>NCR Register</title>
 </head>
 <body>
 <div id=mainBox>
@@ -23,20 +32,20 @@ function searchAuditPopup(){
 		<table > 
 			<tr>
 				<td>Audit No.</td>
-				<td><input type="text"/>
+				<td><input type="text" id="audit_no"/>
 					<image src="/images/icon_search.gif" , onclick="searchAuditPopup()"></td>
 				<td>Vendor Name</td>
-				<td><input type="text" ></td>
+				<td><input type="text" id="vendor_name"></td>
 				<td>Audit date</td>
-				<td><input type="date" ></td>
+				<td><input type="date" id="audit_date"></td>
 			<tr>
 			<tr>
 				<td>Kind of Audit</td>
-				<td><select></select></td>
+				<td><input type="text" id="audit_kind"></td>
 				<td>Audit Result</td>
-				<td><input type="text" ></td>
+				<td><input type="text"  id="audit_result"></td>
 				<td>Auditor</td>
-				<td><input type="text" ></td>
+				<td><input type="text"  id="auditor_name"></td>
 			<tr>		
 		</table>	
 	</div>

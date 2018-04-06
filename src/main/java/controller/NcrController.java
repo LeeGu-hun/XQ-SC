@@ -22,6 +22,12 @@ public class NcrController {
 		
 	}
 	
+	@RequestMapping("ncr/ncrRegister")
+	public String ncrRegisterget() {
+		return "ncr/ncrRegister";
+	}
+	
+	
 	@RequestMapping("ncr/searchAuditPopup")
 	public String searchAuditPopup() {
 		

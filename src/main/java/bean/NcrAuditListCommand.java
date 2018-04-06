@@ -10,17 +10,18 @@ public class NcrAuditListCommand {
 	String audit_kind;
 	String audit_result;
 	String auditor_id;
-	String auditor_name;
+	String member_name;
 	
+	public String getMember_name() {
+		return member_name;
+	}
+	public void setMember_name(String member_name) {
+		this.member_name = member_name;
+	}
 	public String getAudit_id() {
 		return audit_id;
 	}
-	public String getAuditor_name() {
-		return auditor_name;
-	}
-	public void setAuditor_name(String auditor_name) {
-		this.auditor_name = auditor_name;
-	}
+	
 	public void setAudit_id(String audit_id) {
 		this.audit_id = audit_id;
 	}
@@ -60,8 +61,13 @@ public class NcrAuditListCommand {
 	public void setAuditor_id(String auditor_id) {
 		this.auditor_id = auditor_id;
 	}
+	
+	public NcrAuditListCommand() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	public NcrAuditListCommand(String audit_id, String vendor_name, String audit_comp_date, String audit_kind_id,
-			String audit_kind, String audit_result, String auditor_id, String auditor_name) {
+			String audit_kind, String audit_result, String auditor_id, String member_name) {
 		super();
 		this.audit_id = audit_id;
 		this.vendor_name = vendor_name;
@@ -70,11 +76,7 @@ public class NcrAuditListCommand {
 		this.audit_kind = audit_kind;
 		this.audit_result = audit_result;
 		this.auditor_id = auditor_id;
-		this.auditor_name = auditor_name;
-	}
-	public NcrAuditListCommand() {
-		super();
-		// TODO Auto-generated constructor stub
+		this.member_name = member_name;
 	}
 	
 	
