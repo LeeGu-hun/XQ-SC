@@ -6,58 +6,26 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>  
 <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>  
-
 <!DOCTYPE html>
 <html lang="ko">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script>
-
 $(function() {
-	$("#auditDateFrom, #auditDateTo").datepicker({
-				dateFormat : 'yy-mm-dd'			
-			});
-	
-});
-
-
-function sendInfo(){ 	
-		var str = ""
-		var tdArr = new Array();		
+		$("#auditDateFrom, #auditDateTo").datepicker({
+					dateFormat : 'yy-mm-dd'			
+				});
 		
-		var tr = $(this);
-		var td = tr.children();
-		
-		console.log("클릭한 Row의 모든 데이터 : "+tr.text());
-		
-		td.each(function(i){
-			tdArr.push(td.eq(i).text());
-		});
-		
-		console.log("배열에 담긴 값 : "+tdArr);
-		
-		var audit_no = td.eq(0).text();
-		var vendor_name = td.eq(1).text();
-		var audit_date = td.eq(2).text();
-		var audit_kind = td.eq(3).text();
-		var audit_result = td.eq(4).text();
-		var auditor_name = td.eq(5).text();		
-	
-	opener.setChildValue(audit_no,vendor_name,audit_date,audit_kind,audit_result,auditor_name);	
-	window.close();
-
-};
+	});
 
 
 </script>
-<title>Audit Search</title>
+<title>Insert title here</title>
 </head>
 <body>
-<script src="http://code.jquery.com/jquery-1.4.4.js"></script>
 <div>
 	<form id="formSearchAudit" name="formSearchAudit" method="post" action="./searchAudit">
 	<table > 
@@ -73,8 +41,7 @@ function sendInfo(){
 	</form>
 </div>
 	
-	<table  table id="tableAuditList" width="100%" class="table table-bordered table-hover text-center"
-		onclick="sendInfo()">
+	<table>
 		<thead>
 			<tr>
 				<th>Audit No.</th>
@@ -87,7 +54,7 @@ function sendInfo(){
 		</thead>
 		<tbody>
  		<c:forEach var="a" items="${auditList}">
-		<tr >		
+		<tr>		
 			<td>${a.audit_id}</td>
 			<td>${a.vendor_name}</td>
 			<td>${a.audit_comp_date}</td>
