@@ -6,11 +6,13 @@ import java.util.Map;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import bean.BeanCategory;
+import bean.BeanMember;
 import bean.BeanProduct;
 import service.AdminService;
 @Controller
@@ -79,14 +81,25 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value="CLSet", method=RequestMethod.GET)
-	public String clsetGet() {
+	public String clsetGet(@ModelAttribute("uploadMember")BeanMember member, Model model) {
+		
+		List<BeanMember> memberList = adminService.allMemberList();
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+	    map.put("memberList", memberList);
+		model.addAttribute("map", map);
 
 		return "admin/clset";
 	}
 	@RequestMapping(value="CLSet", method=RequestMethod.POST)
-	public String clsetPost() {
+	public String clsetPost(@ModelAttribute("uploadMember")BeanMember member) {
 
-		return "admin/clset";
+		if( member != null) {
+			adminService.uploadMember(member);
+		}
+		
+
+		return "redirect:/CLSet";
 	}
 	
 	

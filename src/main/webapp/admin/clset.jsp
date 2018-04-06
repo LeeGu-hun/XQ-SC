@@ -10,7 +10,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Setting</title>
       <link rel="stylesheet" href="./css/table.css" type="text/css">
-
 </head>
 
 <body>
@@ -22,37 +21,111 @@
 		<a href="../logout">로그아웃</a>
 	</blockquote>
 
-	<div>
-	</div>	
-
-	<table width=50% border="0" cellpadding="0" cellspacing="0">
+	<table width=80% border="0" cellpadding="0" cellspacing="0">
 		<thead>
 			<tr align="center" valign="middle">
-				<th width="70%">
-					<div align="center">카테고리</div>
+				<th width="10%">
+					<div align="center">DEPART</div>
+				</th>
+				<th width="10%">
+					<div align="center">ID</div>
+				</th>
+				<th width="10%">
+					<div align="center">PASSWORD</div>
 				</th>
 				<th width="15%">
-					<div align="center">사용</div>
+					<div align="center">NAME</div>
 				</th>
-				<th  width="15%">
-					<div align="center">수정</div>
+				<th width="20%">
+					<div align="center">EMAIL</div>
+				</th>
+				<th width="20%">
+					<div align="center">TEL</div>
+				</th>
+				<th width="10%">
+					<div align="center">VALID</div>
+				</th>
+				<th width="5%">
 				</th>
 			</tr>
 		</thead>
-		<c:forEach var="cate" items="${map.cateList}">
-			<tr align="center" valign="middle">
+		<tbody>
+		<form:form commandName="uploadMember" method="post">
+			<tr>
 				<td>
-					<div align="center"><c:out value="${cate.CATEGORY_NAME}"/></div>
+					<div align="center">
+						<form:select path="MEMBER_DEPART">
+							<form:option value="ADMIN"/>
+							<form:option value="QUALITY"/>
+							<form:option value="PURCHASE"/>
+							<form:option value="VENDOR"/>
+						</form:select>
+					</div>
 				</td>
 				<td>
-					<div align="center">${cate.PRODUCT_VALID}</div>
+					<form:input path="MEMBER_ID"/>
 				</td>
 				<td>
-					<div align="center">수정</div>
+					<form:password path="MEMBER_PASS"/>
+				</td>
+				<td>
+					<form:input path="MEMBER_NAME"/>
+				</td>
+				<td>
+					<form:input path="MEMBER_EMAIL"/>
+				</td>
+				<td>
+					<form:input path="MEMBER_TEL"/>
+				</td>
+				<td>
+					<form:radiobutton path="MBMBER_VALID" value="Y" label="VALID"/>
+					<form:radiobutton path="MBMBER_VALID" value="N" label="INVALID"/>
+				</td>
+				<td>
+					<input type="submit" value="등록">
 				</td>
 			</tr>
-		</c:forEach>
+		</form:form>
+			<c:forEach var="m" items="${map.memberList}">
+				<tr>
+					<td>
+						<div align="center">
+							${m.MEMBER_DEPART}
+						</div>
+					</td>
+					<td>
+						<div align="center">
+							${m.MEMBER_ID}
+						</div>
+					</td>
+					<td>
+						<div align="center">
+							${m.MEMBER_PASS}
+						</div>
+					</td>
+					<td>
+						<div align="center">
+							${m.MEMBER_NAME}
+						</div>
+					</td>
+					<td>
+						<div align="center">
+							${m.MEMBER_EMAIL}
+						</div>
+					</td>
+					<td>
+						<div align="center">
+							${m.MEMBER_TEL}
+						</div>
+					</td>
+					<td>
+						<div align="center">
+							${m.MBMBER_VALID}
+						</div>
+					</td>
+				</tr>
+			</c:forEach>
+		</tbody>
 	</table>
-
 </body>
 </html>
