@@ -90,7 +90,11 @@
 					<select name = "selCate" id = "selCate" onchange = "prodTable();">
 						<option value = "cate">카테고리</option>
 							<c:forEach var = "c" items ="${map.cateList}">
-								<option value = "${c.CATEGORY_ID}">${c.CATEGORY_NAME}</option>
+								<option value = "${c.CATEGORY_ID}" 
+									<c:out value="${map.selCate == c.CATEGORY_ID?'selected':''}"/>
+								>
+									${c.CATEGORY_NAME}
+								</option>
 							</c:forEach>
 					</select>
 				</form>
