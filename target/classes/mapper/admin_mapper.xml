@@ -4,6 +4,32 @@
 
 <mapper namespace="adminSQL">
 
+	
+	<!-- //////////////	Member ///////////// -->
+	
+	<select id="memberList" resultType="bean.BeanMember">
+		SELECT *FROM MEMBER_INFO
+	</select>
+	
+	<select id="memberCount" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM MEMBER_INFO WHERE MEMBER_DEPART = #{depart}
+	</select>
+	
+	
+	<insert id="memberInsert" parameterType="bean.BeanMember">
+		INSERT INTO MEMBER_INFO VALUES(
+			#{MEMBER_ID},
+			#{MEMBER_NAME},
+			#{MEMBER_DEPART},
+			#{MEMBER_PASS},
+			#{MEMBER_TEL},
+			#{MEMBER_EMAIL},
+			'Y'
+		)
+	</insert>
+
+	<!-- //////////////	Setting ///////////// -->
+	
 	<select id="cateCount" resultType="int">
 		SELECT COUNT(*) FROM CATEGORY_INFO
 	</select>

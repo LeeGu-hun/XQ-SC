@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="auditSQL">
+
+	<select id="auditList" resultType="bean.AuditBean">
+		SELECT
+		ROWNUM RNUM,
+		AU.AUDIT_ID,
+		V.VENDOR_NAME,
+		AU.AUDIT_PLAN_DATE,
+		AU.AUDIT_KIND_ID,
+		M.MEMBER_NAME,
+		M.MEMBER_ID,
+		M.MEMBER_TEL,
+		V.VENDOR_Q_NAME,
+		V.VENDOR_Q_TEL,
+		V.VENDOR_ADDRESS
+		FROM
+		VENDOR_INFO V,
+		PRODUCT_ITEM P,
+		AUDIT_INFO AU,
+		MEMBER_INFO M
+		WHERE M.MEMBER_ID = AU.AUDITOR_ID
+		AND
+		V.VENDOR_ID = AU.VENDOR_ID
+		AND P.PRODUCT_ID = V.PRODUCT_ID
+
+	</select>
+
+
+	<select id="auditListNotYet" resultType="bean.AuditBean">
+		SELECT
+		ROWNUM RNUM,
+		AU.AUDIT_ID,
+		V.VENDOR_NAME,
+		AU.AUDIT_PLAN_DATE,
+		AU.AUDIT_KIND_ID,
+		M.MEMBER_NAME,
+		M.MEMBER_ID,
+		M.MEMBER_TEL,
+		V.VENDOR_Q_NAME,
+		V.VENDOR_Q_TEL,
+		V.VENDOR_ADDRESS
+		FROM
+		VENDOR_INFO V,
+		PRODUCT_ITEM P,
+		AUDIT_INFO AU,
+		MEMBER_INFO M
+		WHERE M.MEMBER_ID = AU.AUDITOR_ID
+		AND
+		V.VENDOR_ID = AU.VENDOR_ID
+		AND P.PRODUCT_ID = V.PRODUCT_ID
+		AND
+		AU.AUDIT_PLAN_DATE IS NULL
+
+	</select>
+
+	<select id="auditListConfirm" resultType="bean.AuditBean">
+		SELECT
+		ROWNUM RNUM,
+		AU.AUDIT_ID,
+		V.VENDOR_NAME,
+		AU.AUDIT_PLAN_DATE,
+		AU.AUDIT_KIND_ID,
+		M.MEMBER_NAME,
+		M.MEMBER_ID,
+		M.MEMBER_TEL,
+		V.VENDOR_Q_NAME,
+		V.VENDOR_Q_TEL,
+		V.VENDOR_ADDRESS
+		FROM
+		VENDOR_INFO V,
+		PRODUCT_ITEM P,
+		AUDIT_INFO AU,
+		MEMBER_INFO M
+		WHERE M.MEMBER_ID = AU.AUDITOR_ID
+		AND
+		V.VENDOR_ID = AU.VENDOR_ID
+		AND P.PRODUCT_ID = V.PRODUCT_ID
+		AND
+		AU.AUDIT_PLAN_DATE IS NULL
+		AND AU.AUDIT_PLAN_DATE IS NOT NULL
+	</select>
+
+
+	<select id="auditListResult" resultType="bean.AuditBean">
+		SELECT
+		ROWNUM RNUM,
+		V.VENDOR_NAME,
+		V.VENDOR_ID,
+		P.PRODUCT_NAME,
+		P.PRODUCT_ID,
+		Au.AUDIT_PLAN_DATE,
+		Au.AUDIT_KIND_ID,
+		M.MEMBER_NAME,
+		M.MEMBER_ID,
+		M.MEMBER_tel
+		FROM
+		VENDOR_INFO V,
+		PRODUCT_ITEM P,
+		AUDIT_INFO AU,
+		MEMBER_INFO M
+		WHERE M.MEMBER_ID = AU.AUDITOR_ID
+		AND V.VENDOR_ID = AU.VENDOR_ID
+		AND P.PRODUCT_ID = V.PRODUCT_ID
+	</select>
+
+   
+
+	<select id="selCate" resultType="bean.AuditBean">
+		SELECT CATEGORY_NAME FROM CATEGORY_INFO
+	</select>
+
+
+	<select id="selectCount" resultType="int">
+		select count(*) from
+		AUDIT_INFO
+	</select>
+
+	<select id="selCountNotYet" resultType="int">
+		select count(*) from
+		AUDIT_INFO where AUDIT_PLAN_DATE is null
+	</select>
+
+	<select id="selCountConfirm" resultType="int">
+		select
+		count(audit_plan_date) from AUDIT_INFO
+	</select>
+</mapper>
+
