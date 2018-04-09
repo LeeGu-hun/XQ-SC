@@ -23,7 +23,7 @@ th, td {
 }
 </style>
 
-<link rel="stylesheet" type="text/css" href="/css/style.css?ver=1">
+<link rel="stylesheet" type="text/css" href="/css/style.css?ver=2">
 
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"
 	integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
@@ -45,11 +45,6 @@ th, td {
 
 <script>
 
-$(function(){
-	
-	
-}
-
 function prodList() {
 	var selCate = document.getElementById("selCate").value;
 	var selProdVal = $("#selProd option:selected").val();
@@ -60,12 +55,19 @@ function prodList() {
 		document.getElementById('selProd').options.length = 0;
 		return;
 	}
+	
 	$.ajax({
-		type : "GET",
-		
+		type : "POST",
+		url : "./AuditReport",
 		data : "selCate=" + selCate + "&All=y&selProd=" + selProdVal,
 		success : result
 	});
+	
+
+}
+
+function result(msg) {
+	document.getElementById("spProd").innerHTML = msg;
 }
 
 </script>
@@ -95,24 +97,29 @@ function prodList() {
 				</td>
 				<td colspan="2">Manager &nbsp; <select id="1234" width="300px">
 						<option value="All" selected>All</option>
-						<c:forEach var="selCate" items="${selCate}">
-							<option value="">${selCate.CATEGORY_NAME}</option>
-						</c:forEach>
+					
 				</select></td>
-				<td colspan="2">Category &nbsp; <select id="1234" width="300px">
+				<td colspan="2">Category &nbsp; 
+				<select id="1234" width="300px" onchange="prodList();">
 						<option value="All" selected>All</option>
-						<c:forEach var="selCate" items="${selCate}">
-							<option value="">${selCate.CATEGORY_NAME}</option>
+						<c:forEach var="data" items="${requestScope.cateList}">
+							<option value='<c:out value="${data}"/>'
+								${requestScope.selCate == data?" selected":"" }>
+								<c:out value="${data}" />
+							</option>
 						</c:forEach>
 				</select></td>
-				<td colspan="2">Product &nbsp; <select id="selProd"
+				<td colspan="2">Product &nbsp; <span id = "spProd"> 
+				<select id="selProd"
 					width="300px">
 						<option value="All" selected>All</option>
-						<c:forEach var="selProd" items="${selProd}">
-							<option value="">${selProd.PRODUCT_NAME}</option>
+							<c:forEach var="data" items="${requestScope.prodList}">
+							<option value='<c:out value="${data}"/>'
+								${requestScope.prodList }>
+								<c:out value="${data}" />
+							</option>
 						</c:forEach>
-				</select><input type="hidden" id="selProdW" name="selProdW"
-					value="${requestScope.selProd==null?'All':requestScope.selProd}" /></td>
+				</select></span></td>
 				<td colspan="2"><input type="button" value="View"></td>
 			</tr>
 		</table>
@@ -159,7 +166,7 @@ function prodList() {
 							<div align="center">${auditBeans.MEMBER_TEL}</div>
 						</td>
 					
-						<td style="font-family: Tahoma; font-size: 12pt;"><a href='#'><span>Submit</span></a>
+						<td style="font-family: Tahoma; font-size: 12pt;"><a href='./AuditInsert'><span>Register</span></a>
 						</td>
 					</tr>
 				</c:if>

@@ -68,6 +68,32 @@
 		SELECT *FROM PRODUCT_ITEM ORDER BY PRODUCT_NAME
 	</select>
 	
+	
+	
+	<!-- //////////////	CHECKLIST ///////////// -->
+	
+	<select id="allckList" resultType="bean.BeanChecklist">
+		SELECT A.AUDIT_KIND AS AUDIT_KIND_ID  , 
+		C.CHECKLIST_DISCRIPTION AS CHECKLIST_DISCRIPTION,
+		C.CHECKLIST_FULLSCORE AS CHECKLIST_FULLSCORE,
+		C.CHECKLIST_VALID AS CHECKLIST_VALID
+		FROM CHECKLIST C, AUDIT_KIND A WHERE C.AUDIT_KIND_ID = A.AUDIT_KIND_ID
+	</select>
+	
+	<select id="ckLCount" resultType="int">
+		SELECT COUNT(*) FROM CHECKLIST
+	</select>
+	
+	
+	<insert id="ckListInsert" parameterType="bean.BeanChecklist">
+		INSERT INTO CHECKLIST VALUES(
+			#{CHECKLIST_ID},
+			#{CHECKLIST_DISCRIPTION},
+			#{AUDIT_KIND_ID},
+			#{CHECKLIST_FULLSCORE},
+			#{CHECKLIST_VALID}
+		)
+	</insert>
 
 </mapper>
 

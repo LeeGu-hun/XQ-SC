@@ -2,6 +2,7 @@ package controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -62,20 +63,31 @@ public class AuditController {
 
 	// 평가결과입력
 	@RequestMapping(value = "/AuditReport", method = RequestMethod.GET)
-	public String auditReportGet(Model model, AuditBean auditBean, AuditProd auditProd) {
+	public String auditReportGet(Model model, 
+								 AuditBean auditBean, 
+								 AuditProd auditProd,
+								 HttpServletRequest request ) {
 		List<AuditBean> auditBeans = auditService.auditListReport();
-		List<AuditProd> selProd = auditService.selProd();
-		List<AuditBean> selCate = auditService.selCate();
-		
-		
-		model.addAttribute("auditBeans",auditBeans);
-		model.addAttribute("selCate",selCate);
-		model.addAttribute("selProd",selProd);
+		List<AuditProd> prodList = auditService.selProd();
+		List<AuditBean> cateList = auditService.selCate();
+		request.setAttribute("cateList", cateList);
+		request.setAttribute("prodList", prodList);
+		request.setAttribute("auditBeans",auditBeans);
 		return "audit/auditReport";
 	}
 
 	@RequestMapping(value = "/AuditReport", method = RequestMethod.POST)
-	public String auditReportPost(Model model, AuditBean auditBean) {
+	public String auditReportPost(Model model, 
+								 AuditBean auditBean, 
+								 AuditProd auditProd,
+								 HttpServletRequest request) {
+		List<AuditBean> auditBeans = auditService.auditListReport();
+		List<AuditProd> prodList = auditService.selProd();
+		List<AuditBean> cateList = auditService.selCate();
+		request.setAttribute("cateList", cateList);
+		request.setAttribute("prodList", prodList);
+		request.setAttribute("auditBeans",auditBeans);
+		
 		return "audit/auditReport";
 	}
 
@@ -101,6 +113,20 @@ public class AuditController {
 		
 		return "audit/auditResult";
 	}
+	
+	
+	@RequestMapping(value = "/AuditInsert", method = RequestMethod.GET)
+	public String auditInsertGet(Model model, AuditBean auditBean) {
+		
+		return "audit/auditInsert";
+	}
+
+	@RequestMapping(value = "/AuditInsert", method = RequestMethod.POST)
+	public String auditInsertPost(Model model, AuditBean auditBean) {
+		
+		return "audit/auditInsert";
+	}
+	
 	
 
 
