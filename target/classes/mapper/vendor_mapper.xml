@@ -3,8 +3,27 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="vendorSQL">
-	<select id="vendorCnt" resultType="int">
-		select count(*) from VENDOR_INFO
+	<select id="vendorCount" resultType="int">
+		SELECT COUNT(*) FROM
+		VENDOR_INFO
 	</select>
+
+	<select id="cateList" resultType="bean.BeanCategory">
+		SELECT * FROM CATEGORY_INFO ORDER BY CATEGORY_NAME
+	</select>
+	
+	<select id="prodList" resultType="bean.BeanProduct" parameterType="String">
+	select * from product_item 
+	where CATEGORY_ID = #{CATEGORY_ID}
+	</select>
+
+	<insert id="vendorRegister" parameterType="bean.BeanVendor">
+		insert into vendor_info
+		values(#{VENDOR_NAME},#{PRODUCT_ID},#{VENDOR_ADDRESS},#{VENDOR_EMP_NO},#{VENDOR_ISO_FILE},
+		#{VENDOR_CERT_FILE},#{VENDOR_REQ_DATE},#{VENDOR_ID},#{VENDOR_VALID},
+		#{VENDOR_Q_NAME},#{VENDOR_Q_TEL},#{VENDOR_Q_EMAIL},#{VENDOR_S_NAME},
+		#{VENDOR_S_TEL},#{VENDOR_S_EMAIL})
+	</insert>
+
 
 </mapper>

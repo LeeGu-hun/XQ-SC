@@ -18,6 +18,8 @@ public class BeanVendor {
 	private String VENDOR_S_NAME;
 	private String VENDOR_S_TEL;
 	private String VENDOR_S_EMAIL;
+	
+	public BeanVendor(){}
 	public BeanVendor(String vENDOR_NAME, String pRODUCT_ID, String vENDOR_ADDRESS, int vENDOR_EMP_NO,
 			String vENDOR_ISO_FILE, String vENDOR_CERT_FILE, Date vENDOR_REQ_DATE, String vENDOR_ID,
 			String vENDOR_VALID, String vENDOR_Q_NAME, String vENDOR_Q_TEL, String vENDOR_Q_EMAIL, String vENDOR_S_NAME,
