@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import bean.BeanCategory;
+import bean.BeanChecklist;
 import bean.BeanMember;
 import bean.BeanProduct;
 import service.AdminService;
@@ -43,6 +44,7 @@ public class AdminController {
 		List<BeanCategory> cateList = adminService.cateList();
 
 	    Map<String, Object> map = new HashMap<String, Object>();
+	    map.put("selCate", selCate);
 	    map.put("cateList", cateList);
 	    map.put("prodList", prodList);
 	    map.put("prodCount", prodCount);
@@ -80,8 +82,8 @@ public class AdminController {
 		return "redirect:/Setting";
 	}
 	
-	@RequestMapping(value="CLSet", method=RequestMethod.GET)
-	public String clsetGet(@ModelAttribute("uploadMember")BeanMember member, Model model) {
+	@RequestMapping(value="MSet", method=RequestMethod.GET)
+	public String msetGet(@ModelAttribute("uploadMember")BeanMember member, Model model) {
 		
 		List<BeanMember> memberList = adminService.allMemberList();
 		
@@ -89,20 +91,40 @@ public class AdminController {
 	    map.put("memberList", memberList);
 		model.addAttribute("map", map);
 
-		return "admin/clset";
+		return "admin/mset";
 	}
-	@RequestMapping(value="CLSet", method=RequestMethod.POST)
-	public String clsetPost(@ModelAttribute("uploadMember")BeanMember member) {
+	@RequestMapping(value="MSet", method=RequestMethod.POST)
+	public String msetPost(@ModelAttribute("uploadMember")BeanMember member) {
 
 		if( member != null) {
 			adminService.uploadMember(member);
 		}
 		
 
-		return "redirect:/CLSet";
+		return "redirect:/MSet";
 	}
 	
-	
+	@RequestMapping(value="CLSet", method=RequestMethod.GET)
+	public String clsetGet(@ModelAttribute("uploadCkList")BeanChecklist ckList, Model model) {
+		
+		List<BeanChecklist> allckList = adminService.allCKList();
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+	    map.put("allckList", allckList);
+		model.addAttribute("map", map);
+
+		return "admin/clset";
+	}
+	@RequestMapping(value="CLSet", method=RequestMethod.POST)
+	public String clsetPost(@ModelAttribute("uploadCkList")BeanChecklist ckList) {
+
+		if( ckList != null) {
+			adminService.uploadCKList(ckList);;
+		}
+		
+
+		return "redirect:/CLSet";
+	}
 	
 	
 }

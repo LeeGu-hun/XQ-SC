@@ -22,12 +22,6 @@ public class NcrController {
 		
 	}
 	
-	@RequestMapping("ncr/ncrRegister")
-	public String ncrRegisterget() {
-		return "ncr/ncrRegister";
-	}
-	
-	
 	@RequestMapping("ncr/searchAuditPopup")
 	public String searchAuditPopup() {
 		
@@ -43,7 +37,7 @@ public class NcrController {
 	public String searchAudit(Model model, HttpSession session,
 			@RequestParam(defaultValue="") String vendorName,
             @RequestParam(defaultValue="") String dateFrom,
-            @RequestParam(defaultValue="") String dateTo) {
+            @RequestParam(defaultValue="") String dateTo ){
 		
 		List<NcrAuditListCommand> auditList =null;
 		

@@ -16,8 +16,8 @@ public class NcrService {
 	
 	public List<NcrAuditListCommand> getAuditList(String vendorName, String dateFrom, 
 			String dateTo)throws Exception {
-		NcrAuditSearchCommand sc=new NcrAuditSearchCommand(vendorName,dateFrom,dateTo);
 		
+		NcrAuditSearchCommand sc=new NcrAuditSearchCommand(vendorName,dateFrom,dateTo);
 		List<NcrAuditListCommand>auditList = sqlSession.selectList("ncrSQL.getAuditList", sc);		
 		
 		return auditList;

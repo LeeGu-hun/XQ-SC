@@ -10,6 +10,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Setting</title>
       <link rel="stylesheet" href="./css/table.css" type="text/css">
+<script>
+	function test() {
+		
+	}
+</script>
 </head>
 
 <body>
@@ -20,108 +25,95 @@
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<a href="../logout">로그아웃</a>
 	</blockquote>
-
+	<form:form commandName="uploadCkList" method="post">
+		<div>
+			<label>KIND</label>
+			<form:radiobutton path="AUDIT_KIND_ID" value="NE" label="NEW"/>
+			<form:radiobutton path="AUDIT_KIND_ID" value="RE" label="REGULAR"/>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<label>VALID</label>
+			<form:radiobutton path="CHECKLIST_VALID" value="Y" label="VALID"/>
+			<form:radiobutton path="CHECKLIST_VALID" value="N" label="INVALID"/>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<label>FULLSCORE..</label>
+			<form:input path="CHECKLIST_FULLSCORE"/>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<input type="submit" value="등록">	
+			<br>
+			
+			<label>DISCRIPTION</label>
+			<form:textarea path="CHECKLIST_DISCRIPTION" cols="100" rows="3"/>
+		</div>
+	</form:form>
+	<br>
+	<br>
+	<div>
+		<label>KIND</label>
+		<input id = "new" type = "radio", name="auditKindId" value="NE" />
+		<label for = "new">NEW</label>
+		<input id = "regular" type = "radio", name="auditKindId" value="RE" />
+		<label for = "regular">REGULAR</label>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<label>VALID</label>
+		<input id = "valid" type = "radio", name="cklValid" value="Y" />
+		<label for = "valid">VALID</label>
+		<input id = "invalid" type = "radio", name="cklValid" value="N" />
+		<label for = "invalid">INVALID..</label>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<label id = "keyword">DISCRIPTION</label>
+		<input id = "keyword" type="text" name = "keyword" value="${map.keyword}" />
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<input type="submit" value="조회">
+		<br>
+	</div>
+	
 	<table width=80% border="0" cellpadding="0" cellspacing="0">
 		<thead>
 			<tr align="center" valign="middle">
-				<th width="10%">
-					<div align="center">DEPART</div>
+				<th>
+					<div align="center">KIND</div>
 				</th>
-				<th width="10%">
-					<div align="center">ID</div>
+				<th>
+					<div align="center">DISCRIPTION</div>
 				</th>
-				<th width="10%">
-					<div align="center">PASSWORD</div>
+				<th>
+					<div align="center">FULLSCORE</div>
 				</th>
-				<th width="15%">
-					<div align="center">NAME</div>
-				</th>
-				<th width="20%">
-					<div align="center">EMAIL</div>
-				</th>
-				<th width="20%">
-					<div align="center">TEL</div>
-				</th>
-				<th width="10%">
+				<th>
 					<div align="center">VALID</div>
 				</th>
-				<th width="5%">
+				<th>
+					<div align="center">
+    					<a href="javascript:test()">수정</a>
+    				</div>
 				</th>
 			</tr>
 		</thead>
 		<tbody>
-		<form:form commandName="uploadMember" method="post">
-			<tr>
-				<td>
-					<div align="center">
-						<form:select path="MEMBER_DEPART">
-							<form:option value="ADMIN"/>
-							<form:option value="QUALITY"/>
-							<form:option value="PURCHASE"/>
-							<form:option value="VENDOR"/>
-						</form:select>
-					</div>
-				</td>
-				<td>
-					<form:input path="MEMBER_ID"/>
-				</td>
-				<td>
-					<form:password path="MEMBER_PASS"/>
-				</td>
-				<td>
-					<form:input path="MEMBER_NAME"/>
-				</td>
-				<td>
-					<form:input path="MEMBER_EMAIL"/>
-				</td>
-				<td>
-					<form:input path="MEMBER_TEL"/>
-				</td>
-				<td>
-					<form:radiobutton path="MBMBER_VALID" value="Y" label="VALID"/>
-					<form:radiobutton path="MBMBER_VALID" value="N" label="INVALID"/>
-				</td>
-				<td>
-					<input type="submit" value="등록">
-				</td>
-			</tr>
-		</form:form>
-			<c:forEach var="m" items="${map.memberList}">
+		
+			<c:forEach var="c" items="${map.allckList}">
 				<tr>
 					<td>
 						<div align="center">
-							${m.MEMBER_DEPART}
+							${c.AUDIT_KIND_ID}
 						</div>
 					</td>
 					<td>
 						<div align="center">
-							${m.MEMBER_ID}
+							${c.CHECKLIST_DISCRIPTION}
 						</div>
 					</td>
 					<td>
 						<div align="center">
-							${m.MEMBER_PASS}
+							${c.CHECKLIST_FULLSCORE}
 						</div>
 					</td>
 					<td>
 						<div align="center">
-							${m.MEMBER_NAME}
+							${c.CHECKLIST_VALID}
 						</div>
 					</td>
 					<td>
-						<div align="center">
-							${m.MEMBER_EMAIL}
-						</div>
-					</td>
-					<td>
-						<div align="center">
-							${m.MEMBER_TEL}
-						</div>
-					</td>
-					<td>
-						<div align="center">
-							${m.MBMBER_VALID}
-						</div>
 					</td>
 				</tr>
 			</c:forEach>

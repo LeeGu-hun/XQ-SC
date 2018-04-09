@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import bean.BeanCategory;
+import bean.BeanChecklist;
 import bean.BeanMember;
 import bean.BeanProduct;
 
@@ -88,5 +89,24 @@ public class AdminService {
 	
 	
 	/////////////////////////////////////////
+	
+	/////////////////////////////////////////CHECKLIST////////
+	
+	public List<BeanChecklist> allCKList() {
+		return sqlSession.selectList("adminSQL.allckList");
+	}
+	
+	public int cklCount() {
+		return sqlSession.selectOne("adminSQL.ckLCount");
+	}
+	
+	public void uploadCKList(BeanChecklist ckList) {
+
+		int dM = cklCount();
+		
+		ckList.setCHECKLIST_ID("ck"+idForm.format(dM+1));
+		sqlSession.insert("adminSQL.ckListInsert", ckList);
+	}
+
 	
 }
