@@ -105,24 +105,41 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value="CLSet", method=RequestMethod.GET)
-	public String clsetGet(@ModelAttribute("uploadCkList")BeanChecklist ckList, Model model) {
+	public String clsetGet(@ModelAttribute("uploadCkList")BeanChecklist ckList,
+			@RequestParam(defaultValue="0") int state, 
+			@RequestParam(defaultValue="") String ckId, Model model) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+
+		if(state==1) {
+			System.out.println("ss"+state);
+			System.out.println("sd"+ckId);
+			BeanChecklist selCkList = adminService.selCkList(ckId);
+			map.put("selCkList", selCkList);
+		//	return "redirect:/CLSet?state=1&ckId="+ckId;
+		}
+		
 		
 		List<BeanChecklist> allckList = adminService.allCKList();
 		
-		Map<String, Object> map = new HashMap<String, Object>();
 	    map.put("allckList", allckList);
+	    map.put("state", state);
 		model.addAttribute("map", map);
 
 		return "admin/clset";
 	}
 	@RequestMapping(value="CLSet", method=RequestMethod.POST)
-	public String clsetPost(@ModelAttribute("uploadCkList")BeanChecklist ckList) {
+	public String clsetPost(@RequestParam(defaultValue="0") int state, 
+			@ModelAttribute("uploadCkList")BeanChecklist ckList) {
 
-		if( ckList != null) {
-			adminService.uploadCKList(ckList);;
+		if(state == 1) {
+			System.out.println(">>>>>"+ckList.getCHECKLIST_ID());
+		}else {
+			if( ckList != null) {
+				adminService.uploadCkList(ckList);;
+			}	
 		}
 		
-
 		return "redirect:/CLSet";
 	}
 	
