@@ -9,7 +9,6 @@
 </head>
 <body>
 
-vendor등록
 
 </body>
 </html>
