@@ -15,11 +15,13 @@ public class AuditBean {
 	private String VENDOR_Q_NAME;
 	private String VENDOR_Q_TEL;
 	private String VENDOR_ADDRESS;
-	
+	private int AUDIT_SCORE;
+
 	private String VENDOR_ID;
 	private String PRODUCT_ID;
-	
+
 	private String CATEGORY_NAME;
+	private String PRODUCT_NAME;
 
 	public AuditBean() {
 	}
@@ -40,8 +42,6 @@ public class AuditBean {
 		VENDOR_Q_TEL = vENDOR_Q_TEL;
 		VENDOR_ADDRESS = vENDOR_ADDRESS;
 	}
-	
-	
 
 	public AuditBean(int rNUM, String vENDOR_NAME, Date aUDIT_PLAN_DATE, String aUDIT_KIND_ID, String mEMBER_NAME,
 			String mEMBER_ID, String mEMBER_TEL, String vENDOR_ID, String pRODUCT_ID) {
@@ -59,9 +59,44 @@ public class AuditBean {
 	
 	
 
+	public AuditBean(int rNUM, String aUDIT_ID, String vENDOR_NAME, Date aUDIT_PLAN_DATE, String aUDIT_KIND_ID,
+			String mEMBER_NAME, String mEMBER_ID, int aUDIT_SCORE, String vENDOR_ID, String pRODUCT_ID,
+			String pRODUCT_NAME) {
+		super();
+		RNUM = rNUM;
+		AUDIT_ID = aUDIT_ID;
+		VENDOR_NAME = vENDOR_NAME;
+		AUDIT_PLAN_DATE = aUDIT_PLAN_DATE;
+		AUDIT_KIND_ID = aUDIT_KIND_ID;
+		MEMBER_NAME = mEMBER_NAME;
+		MEMBER_ID = mEMBER_ID;
+		AUDIT_SCORE = aUDIT_SCORE;
+		VENDOR_ID = vENDOR_ID;
+		PRODUCT_ID = pRODUCT_ID;
+		PRODUCT_NAME = pRODUCT_NAME;
+	}
+
 	public AuditBean(String cATEGORY_NAME) {
 		super();
 		CATEGORY_NAME = cATEGORY_NAME;
+	}
+	
+	
+
+	public int getAUDIT_SCORE() {
+		return AUDIT_SCORE;
+	}
+
+	public void setAUDIT_SCORE(int aUDIT_SCORE) {
+		AUDIT_SCORE = aUDIT_SCORE;
+	}
+
+	public String getPRODUCT_NAME() {
+		return PRODUCT_NAME;
+	}
+
+	public void setPRODUCT_NAME(String pRODUCT_NAME) {
+		PRODUCT_NAME = pRODUCT_NAME;
 	}
 
 	public String getCATEGORY_NAME() {
@@ -69,7 +104,7 @@ public class AuditBean {
 	}
 
 	public void setCATEGORY_NAME(String cATEGORY_NAME) {
-		CATEGORY_NAME = cATEGORY_NAME; 
+		CATEGORY_NAME = cATEGORY_NAME;
 	}
 
 	public String getPRODUCT_ID() {

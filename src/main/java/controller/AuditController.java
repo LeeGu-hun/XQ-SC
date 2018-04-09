@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import bean.AuditBean;
-
+import bean.AuditProd;
 import oracle.net.aso.a;
 import service.AuditService;
 
@@ -62,25 +62,28 @@ public class AuditController {
 
 	// 평가결과입력
 	@RequestMapping(value = "/AuditReport", method = RequestMethod.GET)
-	public String auditReportGet(Model model, AuditBean auditBean) {
-		List<AuditBean> auditBeans = auditService.auditListResult();
+	public String auditReportGet(Model model, AuditBean auditBean, AuditProd auditProd) {
+		List<AuditBean> auditBeans = auditService.auditListReport();
+		List<AuditProd> selProd = auditService.selProd();
 		List<AuditBean> selCate = auditService.selCate();
-
+		
+		
 		model.addAttribute("auditBeans",auditBeans);
 		model.addAttribute("selCate",selCate);
+		model.addAttribute("selProd",selProd);
 		return "audit/auditReport";
 	}
 
 	@RequestMapping(value = "/AuditReport", method = RequestMethod.POST)
 	public String auditReportPost(Model model, AuditBean auditBean) {
-		
-		
 		return "audit/auditReport";
 	}
 
 	// 평가현황
 	@RequestMapping(value = "/AuditResult", method = RequestMethod.GET)
-	public String auditResultGet(AuditBean auditBean) {
+	public String auditResultGet(Model model, AuditBean auditBean) {
+		List<AuditBean> auditBeans = auditService.auditResult();
+		model.addAttribute("auditBeans",auditBeans);
 		return "audit/auditResult";
 	}
 

@@ -57,6 +57,7 @@
 
 	</select>
 
+<!-- 평가 완료 리스트 -->
 	<select id="auditListConfirm" resultType="bean.AuditBean">
 		SELECT
 		ROWNUM RNUM,
@@ -85,18 +86,19 @@
 	</select>
 
 
-	<select id="auditListResult" resultType="bean.AuditBean">
+	<select id="auditListReport" resultType="bean.AuditBean">
 		SELECT
 		ROWNUM RNUM,
+		AU.AUDIT_ID,
 		V.VENDOR_NAME,
 		V.VENDOR_ID,
 		P.PRODUCT_NAME,
 		P.PRODUCT_ID,
 		Au.AUDIT_PLAN_DATE,
 		Au.AUDIT_KIND_ID,
-		M.MEMBER_NAME,
+		M. MEMBER_NAME,
 		M.MEMBER_ID,
-		M.MEMBER_tel
+		M.MEMBER_TEL
 		FROM
 		VENDOR_INFO V,
 		PRODUCT_ITEM P,
@@ -105,14 +107,65 @@
 		WHERE M.MEMBER_ID = AU.AUDITOR_ID
 		AND V.VENDOR_ID = AU.VENDOR_ID
 		AND P.PRODUCT_ID = V.PRODUCT_ID
+		AND AU.AUDIT_PLAN_DATE IS NOT NULL
+		
 	</select>
 
-   
+<!-- 평가 현황 리스트 -->
+	<select id="auditResult" resultType="bean.AuditBean">
+		SELECT
+		ROWNUM RNUM,
+		AU.AUDIT_ID,
+		V.VENDOR_NAME,
+		V.VENDOR_ID,
+		P.PRODUCT_NAME,
+		P.PRODUCT_ID,
+		Au.AUDIT_PLAN_DATE,
+		Au.AUDIT_KIND_ID,
+		M. MEMBER_NAME,
+		M.MEMBER_ID,
+		M.MEMBER_TEL,
+		AU.AUDIT_SCORE
+		FROM
+		VENDOR_INFO V,
+		PRODUCT_ITEM P,
+		AUDIT_INFO AU,
+		MEMBER_INFO M
+		WHERE M.MEMBER_ID = AU.AUDITOR_ID
+		AND V.VENDOR_ID = AU.VENDOR_ID
+		AND P.PRODUCT_ID = V.PRODUCT_ID
+		AND AU.AUDIT_PLAN_DATE IS NOT NULL
+		
+	</select>
+
 
 	<select id="selCate" resultType="bean.AuditBean">
-		SELECT CATEGORY_NAME FROM CATEGORY_INFO
+		SELECT CATEGORY_NAME FROM
+		CATEGORY_INFO
 	</select>
 
+
+
+	<select id="selProd" resultType="bean.AuditProd">
+		SELECT PRODUCT_NAME FROM
+		PRODUCT_ITEM
+	</select>
+
+
+	<select id="selProd1" resultType="bean.AuditProd">
+		SELECT PRODUCT_NAME FROM
+		PRODUCT_ITEM P, CATEGORY_INFO C
+		WHERE C.CATEGORY_ID = P.CATEGORY_ID
+		AND
+		C.CATEGORY_NAME= #{CATEGORY_NAME}
+	</select>
+
+
+
+	<select id="selManager" resultType="bean.AuditProd">
+		SELECT MEMBER_NAME FROM
+		MEMBER_INFO
+	</select>
 
 	<select id="selectCount" resultType="int">
 		select count(*) from

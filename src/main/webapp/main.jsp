@@ -15,6 +15,7 @@
 <title></title>
 </head>
 <body>
-	main
+	
+<li><a href="./AuditManage">평가관리</a></li>
 </body>
 </html>

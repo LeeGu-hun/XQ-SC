@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import bean.AuditBean;
+import bean.AuditProd;
 
 @Service
 public class AuditService {
@@ -19,11 +20,14 @@ public class AuditService {
 		return listBean;
 	}
 	
-	public List<AuditBean> auditListResult() {
-		List<AuditBean> listResult = sqlSession.selectList("auditSQL.auditListResult");
+	public List<AuditBean> auditListReport() {
+		List<AuditBean> listResult = sqlSession.selectList("auditSQL.auditListReport");
 		return listResult; 
 	}
-	
+	public List<AuditBean> auditResult() {
+		List<AuditBean> auditResult = sqlSession.selectList("auditSQL.auditResult");
+		return auditResult; 
+	}
 
 	
 	public int auditCount() {
@@ -40,9 +44,16 @@ public class AuditService {
 	
 	public List<AuditBean> selCate() {
 		List<AuditBean> selCate = sqlSession.selectList("auditSQL.selCate");
-		
 		return selCate;
 	}
+	
+	public List<AuditProd> selProd() {
+		List<AuditProd> selProd = sqlSession.selectList("auditSQL.selProd");
+		return selProd;
+		
+	}
+	
+	
 
 
 }

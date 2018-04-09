@@ -42,54 +42,92 @@ th, td {
 	type="text/javascript"></script>
 
 
+
+<script>
+
+$(function(){
+	
+	
+}
+
+function prodList() {
+	var selCate = document.getElementById("selCate").value;
+	var selProdVal = $("#selProd option:selected").val();
+	<c:if test = "${requestScope.selProd!=null}">
+		var selProdVal = "${requestScope.selProd}";
+	</c:if>
+	if (selCate == "" || selCate == "All") {
+		document.getElementById('selProd').options.length = 0;
+		return;
+	}
+	$.ajax({
+		type : "GET",
+		
+		data : "selCate=" + selCate + "&All=y&selProd=" + selProdVal,
+		success : result
+	});
+}
+
+</script>
+
 </head>
 <body>
-
-
 	<form>
-
-		<div id='hjkj'>
+		<div id=''>
 			<ul>
 				<li><a href='#'><span>Vendor 등록관리</span></a></li>
 				<li class='active has-sub'><a href='#'><span>평가관리</span></a>
 					<ul>
-						<li class='has-sub'><a href='#'><span>평가계획</span></a></li>
-						<li class='has-sub'><a href='#'><span>평가결과입력</span></a></li>
-						<li class='has-sub'><a href='#'><span>평가현황</span></a></li>
+						<li class='has-sub'><a href='./AuditManage'><span>평가계획</span></a></li>
+						<li class='has-sub'><a href='./AuditReport'><span>평가결과입력</span></a></li>
+						<li class='has-sub'><a href='./AuditResult'><span>평가현황</span></a></li>
 					</ul></li>
 				<li><a href='#'><span>부적합관리</span></a></li>
 				<li class='last'><a href='#'><span>시스템 관리</span></a></li>
 			</ul>
 		</div>
-		
-			<table>
-				<tr>
-					<td colspan="2">&nbsp; Date : <span><input type="date"></span>
-						~<span><input type="date"></span> <input type="hidden"
-						id="seq" value="0"> <input type="hidden" id="frh"
-						value="300">
-					</td>
-
-					<td colspan="1">카테고리 &nbsp; 
-							<select id="1234" width="300px">
-					<c:forEach var="selCate" items="${selCate}">
-								<option value="">${selCate.CATEGORY_NAME}</option>
-					</c:forEach>
-							</select></td>
-					<td colspan="2"><input type="button" value="View"></td>
-				</tr>
-
-			</table>
-		
+		<table>
+			<tr>
+				<td colspan="2">&nbsp; Date : <span><input type="date"></span>
+					~<span><input type="date"></span> <input type="hidden"
+					id="seq" value="0"> <input type="hidden" id="frh"
+					value="300">
+				</td>
+				<td colspan="2">Manager &nbsp; <select id="1234" width="300px">
+						<option value="All" selected>All</option>
+						<c:forEach var="selCate" items="${selCate}">
+							<option value="">${selCate.CATEGORY_NAME}</option>
+						</c:forEach>
+				</select></td>
+				<td colspan="2">Category &nbsp; <select id="1234" width="300px">
+						<option value="All" selected>All</option>
+						<c:forEach var="selCate" items="${selCate}">
+							<option value="">${selCate.CATEGORY_NAME}</option>
+						</c:forEach>
+				</select></td>
+				<td colspan="2">Product &nbsp; <select id="selProd"
+					width="300px">
+						<option value="All" selected>All</option>
+						<c:forEach var="selProd" items="${selProd}">
+							<option value="">${selProd.PRODUCT_NAME}</option>
+						</c:forEach>
+				</select><input type="hidden" id="selProdW" name="selProdW"
+					value="${requestScope.selProd==null?'All':requestScope.selProd}" /></td>
+				<td colspan="2"><input type="button" value="View"></td>
+			</tr>
+		</table>
+		<br> <br>
 		<table border="1" id="auditTable">
 			<tr>
 				<th>No</th>
+				<th>Audit ID</th>
 				<th>Vendor (ID)</th>
 				<th>Product (ID)</th>
 				<th>Date</th>
 				<th>Audit Type</th>
 				<th>Manager(ID)</th>
 				<th>Manager H.P</th>
+				
 				<th>Submit Result</th>
 			</tr>
 			<c:forEach var="auditBeans" items="${auditBeans}">
@@ -98,11 +136,14 @@ th, td {
 						<td style="font-family: Tahoma; font-size: 12pt;" height="">
 							<div align="center">${auditBeans.RNUM}</div>
 						</td>
+						<td style="font-family: Tahoma; font-size: 12pt;" height="">
+							<div align="center">${auditBeans.AUDIT_ID}</div>
+						</td>
 						<td style="font-family: Tahoma; font-size: 12pt;">
 							<div align="center">${auditBeans.VENDOR_NAME}(${auditBeans.VENDOR_ID})</div>
 						</td>
 						<td style="font-family: Tahoma; font-size: 12pt;">
-							<div align="center">${auditBeans.PRODUCT_ID}</div>
+							<div align="center">${auditBeans.PRODUCT_NAME}(${auditBeans.PRODUCT_ID})</div>
 						</td>
 						<td style="font-family: Tahoma; font-size: 12pt;">
 							<div align="center">${auditBeans.AUDIT_PLAN_DATE}</div>
@@ -117,6 +158,7 @@ th, td {
 						<td style="font-family: Tahoma; font-size: 12pt;">
 							<div align="center">${auditBeans.MEMBER_TEL}</div>
 						</td>
+					
 						<td style="font-family: Tahoma; font-size: 12pt;"><a href='#'><span>Submit</span></a>
 						</td>
 					</tr>

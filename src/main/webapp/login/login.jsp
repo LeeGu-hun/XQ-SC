@@ -50,6 +50,7 @@ function vendorInsert() {
 	</div>
 
 
+<li><a href="./AuditManage">평가관리</a></li>
 
 </body>
 </html>

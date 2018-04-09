@@ -4,6 +4,20 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
+
+<style>
+table {
+	width: 100%;
+	border-top: 1px solid #444444;
+	border-collapse: collapse;
+}
+
+th, td {
+	border-bottom: 1px solid #444444;
+	padding: 10px;
+}
+</style>
+
 <script>
 	$(function() {
 		$('#menuBottom li').on('click', function() {
@@ -56,29 +70,103 @@
 <body>
 
 	<div id="">
-		<form id="" name="" method="" action="">
-			<table>
-				<tr>
-				<td colspan="2">입고 일자 <input class="txtSty" type="text"
-					name="saleDate" id="saleDate" readonly> <input
-					type="hidden" id="seq" value="0"> <input type="hidden"
-					id="frh" value="300">
+<form>
+		<div id=''>
+			<ul>
+				<li><a href='#'><span>Vendor 등록관리</span></a></li>
+				<li class='active has-sub'><a href='#'><span>평가관리</span></a>
+					<ul>
+						<li class='has-sub'><a href='./AuditManage'><span>평가계획</span></a></li>
+						<li class='has-sub'><a href='./AuditReport'><span>평가결과입력</span></a></li>
+						<li class='has-sub'><a href='./AuditResult'><span>평가현황</span></a></li>
+					</ul></li>
+				<li><a href='#'><span>부적합관리</span></a></li>
+				<li class='last'><a href='#'><span>시스템 관리</span></a></li>
+			</ul>
+		</div>
+		<table>
+			<tr>
+				<td colspan="2">&nbsp; Date : <span><input type="date"></span>
+					~<span><input type="date"></span> <input type="hidden"
+					id="seq" value="0"> <input type="hidden" id="frh"
+					value="300">
 				</td>
-					<td colspan="2">No<input class="" type="text" name="" id=""></td>
-					<td colspan="2">회사 ID<input class="" type="text" name="" id=""></td>
-					<td colspan="2">회사명 <input class="" type="text" name="" id=""></td>
-					<td colspan="2">품목 <input class="" type="text" name="" id=""></td>
-				</tr>
-				<tr>
-					<td colspan="2">Audit 실시일<input class="" type="text" name=""
-						id=""></td>
-					<td colspan="2">Audit 종류<input class="" type="text" name=""
-						id=""></td>
-					<td colspan="2">담당자 ID<input class="" type="text" name="" id=""></td>
-					<td colspan="2">Audit 담당자<input class="" type="text" name="" id=""></td>
-				</tr>
-			</table>
-		</form>
+				<td colspan="2">Manager &nbsp; <select id="1234" width="300px">
+						<option value="All" selected>All</option>
+						<c:forEach var="selCate" items="${selCate}">
+							<option value="">${selCate.CATEGORY_NAME}</option>
+						</c:forEach>
+				</select></td>
+				<td colspan="2">Category &nbsp; <select id="1234" width="300px">
+						<option value="All" selected>All</option>
+						<c:forEach var="selCate" items="${selCate}">
+							<option value="">${selCate.CATEGORY_NAME}</option>
+						</c:forEach>
+				</select></td>
+				<td colspan="2">Product &nbsp; <select id="selProd"
+					width="300px">
+						<option value="All" selected>All</option>
+						<c:forEach var="selProd" items="${selProd}">
+							<option value="">${selProd.PRODUCT_NAME}</option>
+						</c:forEach>
+				</select><input type="hidden" id="selProdW" name="selProdW"
+					value="${requestScope.selProd==null?'All':requestScope.selProd}" /></td>
+				<td colspan="2"><input type="button" value="View"></td>
+			</tr>
+		</table>
+		<br> <br>
+		<table border="1" id="auditTable">
+			<tr>
+				<th>No</th>
+				<th>Audit ID</th>
+				<th>Vendor (ID)</th>
+				<th>Product (ID)</th>
+				<th>Date</th>
+				<th>Audit Type</th>
+				<th>Manager(ID)</th>
+				<th>Manager H.P</th>
+				<th>Score</th>
+				<th>Submit Result</th>
+			</tr>
+			<c:forEach var="auditBeans" items="${auditBeans}">
+				<c:if test="${auditBeans.AUDIT_PLAN_DATE!=null}">
+					<tr align="center" valign="middle" bordercolor="#333333">
+						<td style="font-family: Tahoma; font-size: 12pt;" height="">
+							<div align="center">${auditBeans.RNUM}</div>
+						</td>
+						<td style="font-family: Tahoma; font-size: 12pt;">
+							<div align="center">${auditBeans.AUDIT_ID}</div>
+						</td>
+						<td style="font-family: Tahoma; font-size: 12pt;">
+							<div align="center">${auditBeans.VENDOR_NAME}(${auditBeans.VENDOR_ID})</div>
+						</td>
+						<td style="font-family: Tahoma; font-size: 12pt;">
+							<div align="center">${auditBeans.PRODUCT_NAME}(${auditBeans.PRODUCT_ID})</div>
+						</td>
+						<td style="font-family: Tahoma; font-size: 12pt;">
+							<div align="center">${auditBeans.AUDIT_PLAN_DATE}</div>
+						</td>
+
+						<td style="font-family: Tahoma; font-size: 12pt;">
+							<div align="center">${auditBeans.AUDIT_KIND_ID}</div>
+						</td>
+						<td style="font-family: Tahoma; font-size: 12pt;">
+							<div align="center">${auditBeans.MEMBER_NAME}(${auditBeans.MEMBER_ID})</div>
+						</td>
+						<td style="font-family: Tahoma; font-size: 12pt;">
+							<div align="center">${auditBeans.MEMBER_TEL}</div>
+						</td>
+						<td style="font-family: Tahoma; font-size: 12pt;">
+							<div align="center">${auditBeans.AUDIT_SCORE}</div>
+						</td>
+						<td style="font-family: Tahoma; font-size: 12pt;"><a href='#'><span>Submit</span></a>
+						</td>
+					</tr>
+				</c:if>
+			</c:forEach>
+
+		</table>
+	</form>
 	</div>
 </body>
 </html>

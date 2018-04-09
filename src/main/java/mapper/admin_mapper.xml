@@ -43,7 +43,7 @@
 	</insert>
 	
 	<select id="cateList" resultType="bean.BeanCategory">
-		SELECT *FROM CATEGORY_INFO ORDER BY CATEGORY_NAME
+		SELECT * FROM CATEGORY_INFO ORDER BY CATEGORY_NAME
 	</select>
 	
 	<select id="prodCount" resultType="int">
