@@ -96,11 +96,15 @@ public class AdminService {
 		return sqlSession.selectList("adminSQL.allckList");
 	}
 	
+	public BeanChecklist selCkList(String ckId) {
+		return sqlSession.selectOne("adminSQL.selCkL", ckId);
+	}
+	
 	public int cklCount() {
 		return sqlSession.selectOne("adminSQL.ckLCount");
 	}
 	
-	public void uploadCKList(BeanChecklist ckList) {
+	public void uploadCkList(BeanChecklist ckList) {
 
 		int dM = cklCount();
 		
@@ -108,5 +112,12 @@ public class AdminService {
 		sqlSession.insert("adminSQL.ckListInsert", ckList);
 	}
 
+	public  void updateCkList(BeanChecklist ckList) {
+		sqlSession.update("adminSQL.ckListUpdate", ckList);
+	}
+	
+	public void changeCkList(BeanChecklist ckList) {
+		
+	}
 	
 }

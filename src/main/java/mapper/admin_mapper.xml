@@ -73,17 +73,19 @@
 	<!-- //////////////	CHECKLIST ///////////// -->
 	
 	<select id="allckList" resultType="bean.BeanChecklist">
-		SELECT A.AUDIT_KIND AS AUDIT_KIND_ID  , 
-		C.CHECKLIST_DISCRIPTION AS CHECKLIST_DISCRIPTION,
-		C.CHECKLIST_FULLSCORE AS CHECKLIST_FULLSCORE,
-		C.CHECKLIST_VALID AS CHECKLIST_VALID
-		FROM CHECKLIST C, AUDIT_KIND A WHERE C.AUDIT_KIND_ID = A.AUDIT_KIND_ID
+		SELECT A.AUDIT_KIND_ID, A.AUDIT_KIND, C.CHECKLIST_ID,
+		C.CHECKLIST_DISCRIPTION, C.CHECKLIST_FULLSCORE, C.CHECKLIST_VALID
+		FROM CHECKLIST C, AUDIT_KIND A 
+		WHERE C.AUDIT_KIND_ID = A.AUDIT_KIND_ID
 	</select>
 	
 	<select id="ckLCount" resultType="int">
 		SELECT COUNT(*) FROM CHECKLIST
 	</select>
-	
+
+	<select id="selCkL" parameterType="String" resultType="bean.BeanChecklist">
+		SELECT *FROM CHECKLIST WHERE CHECKLIST_ID = #{ckId}
+	</select>
 	
 	<insert id="ckListInsert" parameterType="bean.BeanChecklist">
 		INSERT INTO CHECKLIST VALUES(
@@ -94,6 +96,14 @@
 			#{CHECKLIST_VALID}
 		)
 	</insert>
+	
+	<update id="ckListUpdate" parameterType="bean.BeanChecklist">
+		UPDATE CHECKLIST SET AUDIT_KIND_ID = #{AUDIT_KIND_ID},
+		CHECKLIST_DISCRIPTION = #{CHECKLIST_DISCRIPTION}, 
+		CHECKLIST_FULLSCORE = #{CHECKLIST_FULLSCORE},
+		CHECKLIST_VALID = #{CHECKLIST_VALID}
+		WHERE CHECKLIST_ID = #{CHECKLIST_ID}
+	</update>
 
 </mapper>
 

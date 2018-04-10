@@ -8,6 +8,8 @@ public class BeanChecklist {
 	private int CHECKLIST_FULLSCORE;
 	private String CHECKLIST_VALID;
 	
+	private String AUDIT_KIND;
+	
 	public BeanChecklist() {
 	
 	}
@@ -19,6 +21,18 @@ public class BeanChecklist {
 		AUDIT_KIND_ID = aUDIT_KIND_ID;
 		CHECKLIST_FULLSCORE = cHECKLIST_FULLSCORE;
 		CHECKLIST_VALID = cHECKLIST_VALID;
+	}
+	
+	
+
+	public BeanChecklist(String cHECKLIST_ID, String cHECKLIST_DISCRIPTION, String aUDIT_KIND_ID,
+			int cHECKLIST_FULLSCORE, String cHECKLIST_VALID, String aUDIT_KIND) {
+		CHECKLIST_ID = cHECKLIST_ID;
+		CHECKLIST_DISCRIPTION = cHECKLIST_DISCRIPTION;
+		AUDIT_KIND_ID = aUDIT_KIND_ID;
+		CHECKLIST_FULLSCORE = cHECKLIST_FULLSCORE;
+		CHECKLIST_VALID = cHECKLIST_VALID;
+		AUDIT_KIND = aUDIT_KIND;
 	}
 
 	public String getCHECKLIST_ID() {
@@ -59,6 +73,14 @@ public class BeanChecklist {
 
 	public void setCHECKLIST_VALID(String cHECKLIST_VALID) {
 		CHECKLIST_VALID = cHECKLIST_VALID;
+	}
+
+	public String getAUDIT_KIND() {
+		return AUDIT_KIND;
+	}
+
+	public void setAUDIT_KIND(String aUDIT_KIND) {
+		AUDIT_KIND = aUDIT_KIND;
 	}
 	
 }
