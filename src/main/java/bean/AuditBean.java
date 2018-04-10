@@ -16,10 +16,8 @@ public class AuditBean {
 	private String VENDOR_Q_TEL;
 	private String VENDOR_ADDRESS;
 	private int AUDIT_SCORE;
-
 	private String VENDOR_ID;
 	private String PRODUCT_ID;
-
 	private String CATEGORY_NAME;
 	private String PRODUCT_NAME;
 

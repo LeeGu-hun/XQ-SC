@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import bean.AuditBean;
 import bean.AuditProd;
+import bean.BeanCategory;
+import bean.BeanProduct;
 
 @Service
 public class AuditService {
@@ -29,6 +31,24 @@ public class AuditService {
 		return auditResult; 
 	}
 
+	//카테고리 리스트
+	public List<BeanCategory> cateList() {
+		return sqlSession.selectList("auditSQL.cateList");
+	}
+	
+	//프로덕트 리스트
+	public List<BeanProduct> prodList(String CATEGORY_ID) {
+		List<BeanProduct> list = sqlSession.selectList("auditSQL.prodList",CATEGORY_ID);
+		return list;
+		
+	}
+	
+	//아이디 선택시 해당사항 보여줌
+	public List<AuditBean> auditSelectId(String AUDIT_ID) {
+		List<AuditBean> auditSelectId = sqlSession.selectList("auditSQL.selectAuditID",AUDIT_ID);
+		return auditSelectId; 
+	}
+	
 	
 	public int auditCount() {
 		return sqlSession.selectOne("auditSQL.selectCount");
@@ -42,18 +62,5 @@ public class AuditService {
 		return sqlSession.selectOne("auditSQL.selCountConfirm");
 	}
 	
-	public List<AuditBean> selCate() {
-		List<AuditBean> selCate = sqlSession.selectList("auditSQL.selCate");
-		return selCate;
-	}
-	
-	public List<AuditProd> selProd() {
-		List<AuditProd> selProd = sqlSession.selectList("auditSQL.selProd");
-		return selProd;
-		
-	}
-	
-	
-
 
 }
