@@ -14,6 +14,15 @@
 	function updateCkL(ckId) {
 		location.href = "./CLSet?state=1&ckId="+ckId;
 	}
+	function totalAdd(){
+		var total = document.getElementById("total");
+		var haps = document.getElementsByName("haps");
+		var sum = 0;
+		for(var i = 0 ; i < haps.length ; i++){
+			sum = sum + parseInt(haps[i].value);
+		}
+		total.value = sum;
+	}
 </script>
 </head>
 
@@ -49,18 +58,37 @@
 	<c:if test="${map.state eq 1}">
 		<form:form commandName="uploadCkList" method="post">
 			<div>
+				<form:hidden path="CHECKLIST_ID" value ="${map.selCkList.CHECKLIST_ID}"/>
+				
 				<label>KIND</label>
-				<form:radiobutton path="AUDIT_KIND_ID" value="NE" label="NEW"/>
-				<form:radiobutton path="AUDIT_KIND_ID" value="RE" label="REGULAR"/>
+				<c:choose>
+					<c:when test="${map.selCkList.AUDIT_KIND_ID eq 'NE'}">
+						<form:radiobutton path="AUDIT_KIND_ID" value="NE" label="NEW" checked="checked"/>
+						<form:radiobutton path="AUDIT_KIND_ID" value="RE" label="REGULAR"/>
+					</c:when>
+					<c:otherwise>
+						<form:radiobutton path="AUDIT_KIND_ID" value="NE" label="NEW"/>
+						<form:radiobutton path="AUDIT_KIND_ID" value="RE" label="REGULAR" checked="checked"/>
+					</c:otherwise>
+				</c:choose>
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				<label>VALID</label>
-				<form:radiobutton path="CHECKLIST_VALID" value="Y" label="VALID"/>
-				<form:radiobutton path="CHECKLIST_VALID" value="N" label="INVALID"/>
+				<c:choose>
+					<c:when test="${map.selCkList.CHECKLIST_VALID eq 'Y'}">
+						<form:radiobutton path="CHECKLIST_VALID" value="Y" label="VALID" checked="checked"/>
+						<form:radiobutton path="CHECKLIST_VALID" value="N" label="INVALID"/>
+					</c:when>
+					<c:otherwise>
+						<form:radiobutton path="CHECKLIST_VALID" value="Y" label="VALID"/>
+						<form:radiobutton path="CHECKLIST_VALID" value="N" label="INVALID" checked="checked"/>
+					</c:otherwise>
+				</c:choose>
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				<label>FULLSCORE</label>
 				<form:input path="CHECKLIST_FULLSCORE" value="${map.selCkList.CHECKLIST_FULLSCORE}"/>
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				<input type="submit" value="수정">	
+				<input type="submit" value="수정">		
+				<a href="./CLSet">취소</a>
 				<br>
 				<label>DISCRIPTION</label>
 				<form:textarea path="CHECKLIST_DISCRIPTION" cols="100" rows="3"
@@ -72,24 +100,31 @@
 	<br>
 	<div>
 		<label>KIND</label>
+		<input id = "aaki" type = "radio" name="auditKindId" value="ALL" checked="checked"
+			onclick="location.href='./CLSet'"/>
+		<label for = "aaki">ALL</label>
 		<input id = "new" type = "radio" name="auditKindId" value="NE" />
 		<label for = "new">NEW</label>
 		<input id = "regular" type = "radio" name="auditKindId" value="RE" />
 		<label for = "regular">REGULAR</label>
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<label id = "keyword">DISCRIPTION</label>
-		<input id = "keyword" type="text" name = "keyword" value="${map.keyword}" />
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<label>VALID</label>
+		<input id = "alv" type = "radio" name="cklValid" value="A" checked="checked"/>
+		<label for = "alv">ALL</label>
 		<input id = "valid" type = "radio" name="cklValid" value="Y" />
 		<label for = "valid">VALID</label>
 		<input id = "invalid" type = "radio" name="cklValid" value="N" />
 		<label for = "invalid">INVALID</label>
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<label id = "keyword">DISCRIPTION</label>
+		<input id = "keyword" type="text" name = "keyword" value="${map.keyword}" />
+		&nbsp;&nbsp;&nbsp;&nbsp;
 		<input type="submit" value="조회">
 		<br>
 	</div>
 	
+	<br>
+	<br>
 	<table width=80% border="0" cellpadding="0" cellspacing="0">
 		<thead>
 			<tr align="center" valign="middle">

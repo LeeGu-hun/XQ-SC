@@ -112,8 +112,6 @@ public class AdminController {
 		Map<String, Object> map = new HashMap<String, Object>();
 
 		if(state==1) {
-			System.out.println("ss"+state);
-			System.out.println("sd"+ckId);
 			BeanChecklist selCkList = adminService.selCkList(ckId);
 			map.put("selCkList", selCkList);
 		//	return "redirect:/CLSet?state=1&ckId="+ckId;
@@ -133,7 +131,7 @@ public class AdminController {
 			@ModelAttribute("uploadCkList")BeanChecklist ckList) {
 
 		if(state == 1) {
-			System.out.println(">>>>>"+ckList.getCHECKLIST_ID());
+			adminService.updateCkList(ckList);
 		}else {
 			if( ckList != null) {
 				adminService.uploadCkList(ckList);;
