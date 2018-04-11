@@ -8,7 +8,7 @@
 	<!-- //////////////	Member ///////////// -->
 	
 	<select id="memberList" resultType="bean.BeanMember">
-		SELECT *FROM MEMBER_INFO
+		SELECT *FROM MEMBER_INFO  ORDER BY MEMBER_ID
 	</select>
 	
 	<select id="memberCount" parameterType="String" resultType="int">
@@ -50,7 +50,7 @@
 		INSERT INTO CATEGORY_INFO VALUES(
 			#{CATEGORY_ID},
 			#{CATEGORY_NAME},
-			'N'
+			#{CATEGORY_VALID}
 		)
 	</insert>
 	
@@ -58,6 +58,12 @@
 		SELECT * FROM CATEGORY_INFO ORDER BY CATEGORY_NAME
 	</select>
 	
+	<select id="selCategory" parameterType="String" resultType="bean.BeanCategory">
+		SELECT *FROM CATEGORY_INFO WHERE CATEGORY_ID=#{cateId}
+	</select>
+
+
+
 	<select id="prodCount" resultType="int">
 		SELECT COUNT(*) FROM PRODUCT_ITEM
 	</select>
@@ -66,7 +72,7 @@
 	<select id="selCateList" parameterType="String" resultType="bean.BeanProduct">
 		SELECT *FROM PRODUCT_ITEM WHERE CATEGORY_ID=#{cateId}
 	</select>
-	
+
 	<insert id="prodInsert" parameterType="bean.BeanProduct">
 		INSERT INTO PRODUCT_ITEM VALUES(
 			#{CATEGORY_ID},

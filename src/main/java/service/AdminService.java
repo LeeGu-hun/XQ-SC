@@ -61,19 +61,19 @@ public class AdminService {
 		return sqlSession.selectOne("adminSQL.cateCount");
 	}
 
-	public void uploadCate(String cateName, int cateCount) {
-		
-		BeanCategory category = new BeanCategory();
-		category.setCATEGORY_ID("C_"+idForm.format(cateCount+1));
-		category.setCATEGORY_NAME(cateName);
-		
-		System.out.println(category.getCATEGORY_ID());
+	public void insertCate(BeanCategory category) {
+		category.setCATEGORY_ID("C_"+idForm.format(cateCount()+1));
 		sqlSession.insert("adminSQL.cateInsert", category);
 	}
 	
 	public List<BeanCategory> cateList(){
 		return sqlSession.selectList("adminSQL.cateList");
 	}
+	
+	public BeanCategory selCate(String cateId) {
+		return sqlSession.selectOne("adminSQL.selCategory", cateId.trim());
+	}
+	
 	
 	public int prodCount() {
 		return sqlSession.selectOne("adminSQL.prodCount");

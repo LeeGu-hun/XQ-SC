@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -20,13 +22,15 @@ import service.AdminService;
 public class AdminController {
 	
 	private AdminService adminService;
-
+	
+/////////********************************************************
 	public void setAdminService(AdminService adminService) {
 		this.adminService = adminService;
 	}
 	
 	@RequestMapping(value="Setting", method=RequestMethod.GET)
-	public String settingGet(@RequestParam(defaultValue="cate") String selCate,
+	public String settingGet(@ModelAttribute("cateCommand")BeanCategory category,
+			@RequestParam(defaultValue="cate") String selCate,
             @RequestParam(defaultValue="") String cateName,
             @RequestParam(defaultValue="") String prodName,
             @RequestParam(defaultValue="1") int curPage,
@@ -55,7 +59,8 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value="Setting", method=RequestMethod.POST)
-	public String settingPost(@RequestParam(defaultValue="cate") String selCate,
+	public String settingPost(@ModelAttribute("cateCommand")BeanCategory category,
+			@RequestParam(defaultValue="cate") String selCate,
             @RequestParam(defaultValue="") String cateName,
             @RequestParam(defaultValue="") String prodName,
             @RequestParam(defaultValue="1") int curPage,
@@ -64,8 +69,11 @@ public class AdminController {
 		int cateCount = adminService.cateCount();
 		int prodCount = adminService.prodCount();
 		
-		if(!cateName.equals("")) {
-			adminService.uploadCate(cateName, cateCount);
+		System.out.println(category.getCATEGORY_NAME());
+		System.out.println(category.getCATEGORY_VALID());
+		
+		if(category != null) {
+			adminService.insertCate(category);
 		}
 		
 		if(!selCate.equals("cate")) {
@@ -81,6 +89,24 @@ public class AdminController {
 
 		return "redirect:/Setting";
 	}
+	
+	
+	@RequestMapping("Setting/Update")
+	public String setUpdate(HttpServletRequest request,
+			Model model) {
+		
+		String cateId = request.getParameter("cateId");
+		if(cateId != null) {
+			BeanCategory selCate = adminService.selCate(cateId);
+			model.addAttribute("selCate", selCate);
+		}
+	    		
+		return "admin/set_cateUp";
+	}
+	
+	
+	
+	//**************************************************************************
 	
 	@RequestMapping(value="MSet", method=RequestMethod.GET)
 	public String msetGet(@ModelAttribute("MemberCommand")BeanMember member,
@@ -117,6 +143,8 @@ public class AdminController {
 		
 		return "redirect:/MSet";
 	}
+	
+	//***************************************************************************
 	
 	@RequestMapping(value="CLSet", method=RequestMethod.GET)
 	public String clsetGet(@ModelAttribute("uploadCkList")BeanChecklist ckList,

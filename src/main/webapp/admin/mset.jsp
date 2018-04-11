@@ -67,7 +67,7 @@
 						</div>
 					</td>
 					<td>
-						<input type="submit" value="등록">
+						<input type="submit" value="등록">	
 					</td>
 				</tr>
 			</table>
@@ -124,6 +124,7 @@
 					</td>
 					<td>
 						<input type="submit" value="수정">
+						<a href="./MSet">취소</a>
 					</td>
 				</tr>
 			</table>
