@@ -14,13 +14,12 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
 <script language="javascript">
 
-
-	function prodList() {
+	
+	function prodListse() {
 		var selCate = document.getElementById("selCate").value;
 
 		$.ajax({
@@ -28,17 +27,18 @@
 			url : "vendor/prodList",
 			data : "selCate=" + selCate,
 			//"&selProd="+selProdVal,
-			success : result
+			success : resultse
 		});
 
 	}
 
-	function result(msg) {
+	function resultse(msg){
 		$("#spProd").html(msg);
-
+		
+		
 	}
 	
-	$(function() {
+/*	$("#")$(function() {
 		$("#saleDate").datepicker(
 				{
 					dateFormat : 'yy-mm-dd',
@@ -54,7 +54,9 @@
 					showMonthAfterYear : true,
 					yearSuffix : '년'
 				});
+		$(this).datepicker("show");
 		getDate();
+		
 
 	});
 
@@ -73,87 +75,88 @@
 		<c:if test="${requestScope.date1 eq null }">
 		document.getElementById("saleDate").value = toDay;
 		</c:if>
+
 	}
-	
+*/
+function addvendor() {
+	vendorform.submit();
+}
+
+
 </script>
 
+
 </head>
-<body>
-	<div class="modal-header">
-		<h2>신규등록</h2>
+<body><div class="modal-header">
+	<h2>신규등록</h2>
 	</div>
-	<div class="modal-body"">
-		<form:form method="POST" commandName="vendorCommand"
-			enctype="multipart/form-data" name="Vendorform"
-			data-target="#myModal">
-			<table>
-				<tr>
-					<td nowrap>회사ID :</td>
-					<td><input type="text" value="${cnt}" readonly></td>
-					<td nowrap>회사명 :</td>
-					<td><input type="text"></td>
-				</tr>
-				<tr>
-					<td nowrap>사원수 :</td>
-					<td><input type="text"></td>
-				</tr>
+	<div class="modal-body" >
+	<form action="./vendor/newVendor" method="POST" enctype="multipart/form-data"  name="vendorform" >
+		<table class="table">
+			<tr>
+				<td >회사ID :</td>
+				<td><input type="text" name="VENDOR_ID" value="${cnt}" readonly></td>
+				<td>회사명 :</td>
+				<td><input type="text" name="VENDOR_NAME"></td>
+			</tr>
+			<tr>
+				<td >사원수 :</td>
+				<td><input type="text" name="VENDOR_EMP_NO"></td>
+			</tr>
+			
+			<tr>
+				<td>회사주소 :</td>
+				<td><input type="text" name="VENDOR_ADDRESS"></td>
+			</tr>
+			<tr>
 
-				<tr>
-					<td nowrap>회사주소 :</td>
-					<td colspan="2"><input type="text"></td>
-				</tr>
-				<tr>
+				<td>카테고리 :</td>
+				<td><select name="selCate" id="selCate" onchange="prodListse();">
+						<option value="cate">카테고리</option>
+						<c:forEach var="c" items="${map.cateList}">
+							<option value="${c.CATEGORY_ID}">${c.CATEGORY_NAME}</option>
+						</c:forEach>
+				</select>
+				<td>품목:</td>
+				<td><span id="spProd"><select name="PRODUCT_ID" id="PRODUCT_ID"><option value="" >상품을 선택하세요</option>
+					   </select></span></td>
+				</td>
+			<tr>
+				<td>요청일자 :</td>
+				<td><input type="date" name="VENDOR_REQ_DATE" id="saleDate" >
+			</tr>
+			<tr>
+				<td>품질담당자이름 :</td>
+				<td><input type="text" name="VENDOR_Q_NAME"></td>
+				<td>품질 담당자 이메일 :</td>
+				<td><input type="text" name="VENDOR_Q_EMAIL"></td>
+				<td>품질담당자연락처 :</td>
+				<td><input type="text" name="VENDOR_Q_TEL"></td>
+			</tr>
+			<tr>
+				<td >영업담당자이름 :</td>
+				<td><input type="text" name="VENDOR_S_NAME"></td>
+				<td >영업담당자이메일 :</td>
+				<td><input type="text" name="VENDOR_S_EMAIL"></td>
+				<td >영업담당자연락처 :</td>
+				<td><input type="text" name="VENDOR_S_TEL"></td>
+			</tr>
+			<tr>
+				<td>품질보증서 :</td>
+				<td><input type="file" name="VENDOR_ISO_FILE"></td>
+			</tr>
+			<tr>
+				<td >사업자등록증 :</td>
+				<td><input type="file" name="VENDOR_CERT_FILE"></td>
+			</tr>
 
-					<td nowrap>카테고리 :</td>
-					<td><select name="selCate" id="selCate" onchange="prodList();">
-							<option value="cate">카테고리</option>
-							<c:forEach var="c" items="${map.cateList}">
-								<option value="${c.CATEGORY_ID}">${c.CATEGORY_NAME}</option>
-							</c:forEach>
-					</select>
-					<td nowrap>품목:</td>
-					<td><span id="spProd"> 
-						<select>
-							<option value="" selected>상품을 선택하세요</option>
-						</select>
-					</span></td>
-					</td>
-				<tr>
-					<td nowrap>요청일자 :</td>
-					<td><input type="text" name="saleDate" id="saleDate"></td>
-				</tr>
-				<tr>
-					<td nowrap>품질담당자이름 :</td>
-					<td><input type="text"></td>
-					<td nowrap>품질 담당자 전화번호 :</td>
-					<td><input type="text"></td>
-					<td nowrap>품질담당자연락처 :</td>
-					<td><input type="text"></td>
-				</tr>
-				<tr>
-					<td nowrap>구매담당자이름 :</td>
-					<td><input type="text"></td>
-					<td nowrap>구매담당자전화번호 :</td>
-					<td><input type="text"></td>
-					<td nowrap>구매담당자연락처 :</td>
-					<td><input type="text"></td>
-				</tr>
-				<tr>
-					<td nowrap>품질보증서 :</td>
-					<td><input type="file"></td>
-				</tr>
-				<tr>
-					<td nowrap>사업자등록증 :</td>
-					<td><input type="file"></td>
-				</tr>
-
-			</table>
-	</div>
-	</form:form>
-	<div class="modal-footer">
-		<a href="javascript:addvendor()">[등록]</a>
+		</table>
+		</div>
+		</form>
+		<div class="modal-footer">
+		<button type="button" class="btn btn-default" onclick="addvendor()">등록</button>
 		<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
 	</div>
-
+	
 </body>
 </html>

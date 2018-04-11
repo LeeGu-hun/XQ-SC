@@ -5,18 +5,18 @@ import java.sql.Date;
 import org.springframework.web.multipart.MultipartFile;
 
 public class VendorCommand {
-	private String VENDOR_NAME,VENDOR_ADDRESS,PRODUCT_ID,VENDOR_Q_NAME,VENDOR_Q_TEL,
-	VENDOR_Q_EMAIL,VENDOR_S_NAME,VENDOR_S_TEL,VENDOR_S_EMAIL;
+	private String VENDOR_ID, VENDOR_NAME, VENDOR_ADDRESS, PRODUCT_ID, VENDOR_Q_NAME, VENDOR_Q_TEL, VENDOR_Q_EMAIL,
+			VENDOR_S_NAME, VENDOR_S_TEL, VENDOR_S_EMAIL;
 	private int VENDOR_EMP_NO;
 	private Date VENDOR_REQ_DATE;
-	private MultipartFile VENDOR_ISO_FILE,VENDOR_CERT_FILE;
+	private MultipartFile VENDOR_ISO_FILE, VENDOR_CERT_FILE;
 
-
-	public VendorCommand(String vENDOR_NAME, String vENDOR_ADDRESS, String pRODUCT_ID, String vENDOR_Q_NAME,
-			String vENDOR_Q_TEL, String vENDOR_Q_EMAIL, String vENDOR_S_NAME, String vENDOR_S_TEL,
+	public VendorCommand(String vENDOR_ID, String vENDOR_NAME, String vENDOR_ADDRESS, String pRODUCT_ID,
+			String vENDOR_Q_NAME, String vENDOR_Q_TEL, String vENDOR_Q_EMAIL, String vENDOR_S_NAME, String vENDOR_S_TEL,
 			String vENDOR_S_EMAIL, int vENDOR_EMP_NO, Date vENDOR_REQ_DATE, MultipartFile vENDOR_ISO_FILE,
 			MultipartFile vENDOR_CERT_FILE) {
 		super();
+		VENDOR_ID = vENDOR_ID;
 		VENDOR_NAME = vENDOR_NAME;
 		VENDOR_ADDRESS = vENDOR_ADDRESS;
 		PRODUCT_ID = pRODUCT_ID;
@@ -32,7 +32,16 @@ public class VendorCommand {
 		VENDOR_CERT_FILE = vENDOR_CERT_FILE;
 	}
 
-	public VendorCommand() {}
+	public VendorCommand() {
+	}
+
+	public String getVENDOR_ID() {
+		return VENDOR_ID;
+	}
+
+	public void setVENDOR_ID(String vENDOR_ID) {
+		VENDOR_ID = vENDOR_ID;
+	}
 
 	public String getVENDOR_NAME() {
 		return VENDOR_NAME;
@@ -137,11 +146,5 @@ public class VendorCommand {
 	public void setVENDOR_CERT_FILE(MultipartFile vENDOR_CERT_FILE) {
 		VENDOR_CERT_FILE = vENDOR_CERT_FILE;
 	}
-	
-	
 
-	
-	
-	
-	
 }

@@ -2,28 +2,55 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
+
 <mapper namespace="vendorSQL">
+
+
+	<!-- vendor등록 -->
+	<select id="registerList" resultType="bean.BeanVendor">
+		select v.vendor_id,v.vendor_name,p.PRODUCT_NAME AS PRODUCT_NAME,v.vendor_req_date,v.vendor_s_name,v.vendor_s_tel
+from vendor_info v,product_item p
+where v.product_id=p.product_id and V.VENDOR_VALID='N'
+	</select>
+
+	<select id="registerCount" resultType="int">
+		SELECT COUNT(*) FROM
+		VENDOR_INFO where vendor_valid='N'
+	</select>
+	
+	<select id="vendordView"  resultType="bean.BeanVendor">
+		SELECT * FROM VENDOR_INFO WHERE VENDOR_ID=#{VENDOR_ID}
+	</select>
+
+
+
+
+	<!-- newVendor등록 -->
 	<select id="vendorCount" resultType="int">
 		SELECT COUNT(*) FROM
 		VENDOR_INFO
 	</select>
 
 	<select id="cateList" resultType="bean.BeanCategory">
-		SELECT * FROM CATEGORY_INFO ORDER BY CATEGORY_NAME
-	</select>
-	
-	<select id="prodList" resultType="bean.BeanProduct" parameterType="String">
-	select * from product_item 
-	where CATEGORY_ID = #{CATEGORY_ID}
+		SELECT * FROM CATEGORY_INFO
+		ORDER BY CATEGORY_NAME
 	</select>
 
-	<insert id="vendorRegister" parameterType="bean.BeanVendor">
-		insert into vendor_info
+	<select id="prodList" resultType="bean.BeanProduct"
+		parameterType="String">
+		select * from product_item
+		where CATEGORY_ID = #{CATEGORY_ID}
+	</select>
+
+	<insert id="newVendorRegister" parameterType="bean.BeanVendor">
+		insert into
+		vendor_info
 		values(#{VENDOR_NAME},#{PRODUCT_ID},#{VENDOR_ADDRESS},#{VENDOR_EMP_NO},#{VENDOR_ISO_FILE},
-		#{VENDOR_CERT_FILE},#{VENDOR_REQ_DATE},#{VENDOR_ID},#{VENDOR_VALID},
+		#{VENDOR_CERT_FILE},#{VENDOR_REQ_DATE},#{VENDOR_ID},'N',
 		#{VENDOR_Q_NAME},#{VENDOR_Q_TEL},#{VENDOR_Q_EMAIL},#{VENDOR_S_NAME},
 		#{VENDOR_S_TEL},#{VENDOR_S_EMAIL})
 	</insert>
+
 
 
 </mapper>

@@ -10,11 +10,31 @@ import bean.BeanProduct;
 import bean.BeanVendor;
 
 
+
+
 public class VendorService {
 
 	@Autowired
 	private SqlSession sqlSession;
 	
+	
+	
+	/*   vendor등록   */
+	public List<BeanVendor> registerList() {
+		List<BeanVendor> list = sqlSession.selectList("vendorSQL.registerList");
+		return list;
+	}
+	
+	public int registerCount() {
+		return sqlSession.selectOne("vendorSQL.registerCount");
+	}
+	
+	public BeanVendor vendorView(String VENDOR_ID) {
+		BeanVendor vendor = sqlSession.selectOne("boardSQL.boardView", VENDOR_ID);
+		return vendor;
+	}
+	
+	/*   newVendor등록   */
 	public int vendorCount() {
 		return sqlSession.selectOne("vendorSQL.vendorCount");
 	}
@@ -30,9 +50,12 @@ public class VendorService {
 	}
 	
 	public void vendorRegister(BeanVendor beanvendor) {
-		sqlSession.insert("vendorSQL.vendorRegister", beanvendor);
+		 sqlSession.insert("vendorSQL.newVendorRegister", beanvendor);
+		 
 
 	}
+
+	
 
 	
 

@@ -25,6 +25,7 @@ import bean.BeanVendor;
 import bean.VendorCommand;
 import service.VendorService;
 import spring.AuthInfo;
+
 @Controller
 public class VendorController {
 	private VendorService vendorService;
@@ -33,8 +34,9 @@ public class VendorController {
 		this.vendorService = vendorService;
 	}
 	
+	
 	@RequestMapping(value="/vendor/newVendor", method=RequestMethod.GET)
-	public String form(HttpServletRequest request, BeanCategory beancategory,Model model) {
+	public String newVendorGet(HttpServletRequest request, BeanCategory beancategory, Model model) {
 		List<BeanCategory> cateList = vendorService.cateList();
 		int cnt = vendorService.vendorCount();
 		
@@ -50,55 +52,99 @@ public class VendorController {
 	@RequestMapping("vendor/prodList")
 	public String prodList(HttpServletRequest request, Model model) {
 		String selCate = request.getParameter("selCate");
-		System.out.println(selCate);
 		List<BeanProduct> prodList = vendorService.prodList(selCate);
 		
-		for(int i=0;i<prodList.size();i++) {
+/*		for(int i=0;i<prodList.size();i++) {
 			BeanProduct bp = prodList.get(i);
 			System.out.println(bp.getPRODUCT_NAME());
 		}
-	
+	*/
 		 model.addAttribute("prodList", prodList);
 	
 		return "vendor/newVendor2";
 	}
 	
 	@RequestMapping(value = "/vendor/newVendor", method = RequestMethod.POST)
-	public String boardWritePost(VendorCommand vendorcommand, HttpSession session, HttpServletRequest request) {
+	public String newVendorPost(HttpServletRequest request, VendorCommand vendorcommand, HttpSession session) {
+		MultipartFile isofile = vendorcommand.getVENDOR_ISO_FILE();
+		MultipartFile certfile = vendorcommand.getVENDOR_CERT_FILE();
+		String originalFilename1 = "", newFilename1 = "";
+		String originalFilename2 = "", newFilename2 = "";
 
-		MultipartFile multi = vendorcommand.getVENDOR_CERT_FILE();
-		
-		String originalFilename = "", newFilename = "";
-
-		if (multi != null) {
-			originalFilename = multi.getOriginalFilename();
+		if (isofile != null || certfile != null) {
+			originalFilename1 = isofile.getOriginalFilename();
+			originalFilename2 = certfile.getOriginalFilename();
 			// 파일이 중복되지 않게 파일명에 시간추가
-			newFilename = System.currentTimeMillis() + "_" + originalFilename;
+			newFilename1 = System.currentTimeMillis() + "_" + originalFilename1;
+			newFilename2 = System.currentTimeMillis() + "_" + originalFilename2;
 
 			// 파일 업로드 경로
-			String root_path = request.getSession().getServletContext().getRealPath("/");
-			String attach_path = "upload/";
-			String path = root_path + attach_path + newFilename;
-
+			String root_path1 = request.getSession().getServletContext().getRealPath("/");
+			String attach_path1 = "upload/";
+			String root_path2 = request.getSession().getServletContext().getRealPath("/");
+			String attach_path2 = "upload/";
+			String path1 = root_path1 + attach_path1 + newFilename1;
+			String path2 = root_path2 + attach_path2 + newFilename2; 
+			
 			try {
-				File file = new File(path);
-				multi.transferTo(file);
+				File file1 = new File(path1);
+				isofile.transferTo(file1);
+				
+				File file2 = new File(path2);
+				certfile.transferTo(file2);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
-		AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
+	
 		BeanVendor bv = new BeanVendor();
 		bv.setVENDOR_NAME(vendorcommand.getVENDOR_NAME());
-//		bv.setBOARD_PASS(board.getBOARD_PASS());
-//		bv.setBOARD_SUBJECT(board.getBOARD_SUBJECT());
-//		bv.setBOARD_CONTENT(board.getBOARD_CONTENT());
-//		bv.setBOARD_FILE(newFilename);
-//		bv.setHOST(authInfo.getId());
-//		bv.setWRITER(authInfo.getId());
+		bv.setPRODUCT_ID(vendorcommand.getPRODUCT_ID());
+		bv.setVENDOR_ADDRESS(vendorcommand.getVENDOR_ADDRESS());
+		bv.setVENDOR_EMP_NO(vendorcommand.getVENDOR_EMP_NO());
+		bv.setVENDOR_ISO_FILE(newFilename1);
+		bv.setVENDOR_CERT_FILE(newFilename2);
+		bv.setVENDOR_REQ_DATE(vendorcommand.getVENDOR_REQ_DATE());
+		bv.setVENDOR_ID(vendorcommand.getVENDOR_ID());
+		bv.setVENDOR_Q_NAME(vendorcommand.getVENDOR_Q_NAME());
+		bv.setVENDOR_Q_TEL(vendorcommand.getVENDOR_Q_TEL());
+		bv.setVENDOR_Q_EMAIL(vendorcommand.getVENDOR_Q_EMAIL());
+		bv.setVENDOR_S_NAME(vendorcommand.getVENDOR_S_NAME());
+		bv.setVENDOR_S_TEL(vendorcommand.getVENDOR_S_TEL());
+		bv.setVENDOR_S_EMAIL(vendorcommand.getVENDOR_S_EMAIL());
 		vendorService.vendorRegister(bv);
-		return "/vendorRegister";
+		
+		return "login/login";
 	}
+	
+
+	@RequestMapping(value="/vendor/vendorRegister")
+	public String registList (HttpServletRequest request,Model model,BeanVendor beanvendor) {
+		
+		List<BeanVendor> list = vendorService.registerList();	
+		int cnts = vendorService.registerCount();
+		
+		model.addAttribute("list", list);
+		model.addAttribute("cnts",cnts);
+	
+		return "/vendor/vendorRegister";
+	}
+	
+	@RequestMapping("/vendor/vendorView/{VENDOR_ID}")
+	public String vendorView(@PathVariable("VENDOR_ID") String VENDOR_ID, Model model) {
+		
+		BeanVendor view = vendorService.vendorView(VENDOR_ID);
+		model.addAttribute("view", view);
+	
+		return "vendor/vendorView";
+	}
+	
+	
+	
+	
+	
+	
+	
 
 	
 	

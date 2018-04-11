@@ -7,15 +7,9 @@
 
 
 
-<select>
+<select name="PRODUCT_ID" id="PRODUCT_ID">
 	<c:forEach var="c" items="${prodList}">
 		<option value="${c.PRODUCT_ID}">${c.PRODUCT_NAME}</option>
 	</c:forEach>
-	<option value=1>1</option>
-	<option value=1>1</option>
-	<option value=1>1</option>
-	<option value=1>1</option>
-	<option value=1>1</option>
-	<option value=1>1</option>
 </select>
 
