@@ -9,32 +9,32 @@ public class BeanMember {
 	private String MEMBER_PASS;
 	private String MEMBER_TEL;
 	private String MEMBER_EMAIL;
-	private String MBMBER_VALID;
+	private String MEMBER_VALID;
 	
 	public BeanMember() {
 	
 	}
 
 	public BeanMember(String mEMBER_ID, String mEMBER_NAME, String mEMBER_DEPART, String mEMBER_PASS,
-			String mEMBER_EMAIL, String mBMBER_VALID) {
+			String mEMBER_EMAIL, String mEMBER_VALID) {
 		MEMBER_ID = mEMBER_ID;
 		MEMBER_NAME = mEMBER_NAME;
 		MEMBER_DEPART = mEMBER_DEPART;
 		MEMBER_PASS = mEMBER_PASS;
 		MEMBER_EMAIL = mEMBER_EMAIL;
-		MBMBER_VALID = mBMBER_VALID;
+		MEMBER_VALID = mEMBER_VALID;
 	}
 	
-	public BeanMember(String mEMBER_DEPART, String mEMBER_ID, String mEMBER_PASS, String mEMBER_NAME,
-			String mEMBER_EMAIL, String mEMBER_TEL, String mBMBER_VALID) {
+	public BeanMember(String mEMBER_ID, String mEMBER_NAME, String mEMBER_DEPART, String mEMBER_PASS, String mEMBER_TEL,
+			String mEMBER_EMAIL, String mEMBER_VALID) {
 		super();
-		MEMBER_DEPART = mEMBER_DEPART;
 		MEMBER_ID = mEMBER_ID;
-		MEMBER_PASS = mEMBER_PASS;
 		MEMBER_NAME = mEMBER_NAME;
-		MEMBER_EMAIL = mEMBER_EMAIL;
+		MEMBER_DEPART = mEMBER_DEPART;
+		MEMBER_PASS = mEMBER_PASS;
 		MEMBER_TEL = mEMBER_TEL;
-		MBMBER_VALID = mBMBER_VALID;
+		MEMBER_EMAIL = mEMBER_EMAIL;
+		MEMBER_VALID = mEMBER_VALID;
 	}
 
 	public String getMEMBER_ID() {
@@ -77,14 +77,14 @@ public class BeanMember {
 		MEMBER_EMAIL = mEMBER_EMAIL;
 	}
 
-	public String getMBMBER_VALID() {
-		return MBMBER_VALID;
+	public String getMEMBER_VALID() {
+		return MEMBER_VALID;
 	}
 
-	public void setMBMBER_VALID(String mBMBER_VALID) {
-		MBMBER_VALID = mBMBER_VALID;
+	public void setMEMBER_VALID(String mEMBER_VALID) {
+		MEMBER_VALID = mEMBER_VALID;
 	}
-	
+
 	public String getMEMBER_TEL() {
 		return MEMBER_TEL;
 	}
