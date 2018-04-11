@@ -7,8 +7,11 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />
+<link href="<c:url value="/css/bootstrap.css" />" rel="stylesheet">
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>  
 <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>  
+<script src="${pageContext.request.contextPath}/js/bootstrap.js"></script>
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -41,7 +44,7 @@ $(function() {
 	</form>
 </div>
 	
-	<table>
+	<table >
 		<thead>
 			<tr>
 				<th>Audit No.</th>
