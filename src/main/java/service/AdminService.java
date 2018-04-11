@@ -30,7 +30,7 @@ public class AdminService {
 		return sqlSession.selectOne("adminSQL.memberCount", depart);
 	}
 	
-	public void uploadMember(BeanMember member) {
+	public void insertMember(BeanMember member) {
 		String depart = member.getMEMBER_DEPART().trim();
 		int dM = memberCount(depart);
 		
@@ -45,6 +45,14 @@ public class AdminService {
 		}
 
 		sqlSession.insert("adminSQL.memberInsert", member);
+	}
+	
+	public BeanMember selMember(String mId) {
+		return sqlSession.selectOne("adminSQL.selMember", mId);
+	}
+
+	public void updateMember(BeanMember member) {
+		sqlSession.update("adminSQL.memberUpdate", member);
 	}
 
 	/////////////////////////////////////////Setting////////
@@ -112,7 +120,7 @@ public class AdminService {
 		sqlSession.insert("adminSQL.ckListInsert", ckList);
 	}
 
-	public  void updateCkList(BeanChecklist ckList) {
+	public void updateCkList(BeanChecklist ckList) {
 		sqlSession.update("adminSQL.ckListUpdate", ckList);
 	}
 	

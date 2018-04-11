@@ -83,24 +83,38 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value="MSet", method=RequestMethod.GET)
-	public String msetGet(@ModelAttribute("uploadMember")BeanMember member, Model model) {
+	public String msetGet(@ModelAttribute("MemberCommand")BeanMember member,
+			@RequestParam(defaultValue="0") int state, 
+			@RequestParam(defaultValue="") String mId,  Model model) {
 		
-		List<BeanMember> memberList = adminService.allMemberList();
 		
 		Map<String, Object> map = new HashMap<String, Object>();
+		
+		if(state==1) {
+			BeanMember selMember = adminService.selMember(mId);
+			map.put("selMember", selMember);
+		}
+
+		List<BeanMember> memberList = adminService.allMemberList();
+		
 	    map.put("memberList", memberList);
+	    map.put("state", state);
 		model.addAttribute("map", map);
 
 		return "admin/mset";
 	}
 	@RequestMapping(value="MSet", method=RequestMethod.POST)
-	public String msetPost(@ModelAttribute("uploadMember")BeanMember member) {
+	public String msetPost(@RequestParam(defaultValue="0") int state, 
+			@ModelAttribute("MemberCommand")BeanMember member) {
 
-		if( member != null) {
-			adminService.uploadMember(member);
+		if(state == 1) {
+			adminService.updateMember(member);
+		}else {
+			if( member != null) {
+				adminService.insertMember(member);
+			}			
 		}
 		
-
 		return "redirect:/MSet";
 	}
 	
@@ -114,7 +128,6 @@ public class AdminController {
 		if(state==1) {
 			BeanChecklist selCkList = adminService.selCkList(ckId);
 			map.put("selCkList", selCkList);
-		//	return "redirect:/CLSet?state=1&ckId="+ckId;
 		}
 		
 		

@@ -15,6 +15,9 @@
 		SELECT COUNT(*) FROM MEMBER_INFO WHERE MEMBER_DEPART = #{depart}
 	</select>
 	
+	<select id="selMember" parameterType="String" resultType="bean.BeanMember">
+		SELECT *FROM MEMBER_INFO WHERE MEMBER_ID=#{member}
+	</select>
 	
 	<insert id="memberInsert" parameterType="bean.BeanMember">
 		INSERT INTO MEMBER_INFO VALUES(
@@ -24,9 +27,18 @@
 			#{MEMBER_PASS},
 			#{MEMBER_TEL},
 			#{MEMBER_EMAIL},
-			'Y'
+			#{MEMBER_VALID}
 		)
 	</insert>
+	
+	<update id="memberUpdate" parameterType="bean.BeanMember">
+		UPDATE MEMBER_INFO SET MEMBER_NAME = #{MEMBER_NAME},
+		MEMBER_PASS = #{MEMBER_PASS},
+		MEMBER_TEL = #{MEMBER_TEL},
+		MEMBER_EMAIL = #{MEMBER_EMAIL},
+		MEMBER_VALID = #{MEMBER_VALID}
+		WHERE MEMBER_ID = #{MEMBER_ID}
+	</update>
 
 	<!-- //////////////	Setting ///////////// -->
 	
