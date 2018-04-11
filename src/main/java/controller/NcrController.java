@@ -1,7 +1,11 @@
 package controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -9,9 +13,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import bean.NcrAuditListCommand;
+import bean.NcrBean;
+import bean.ncrIssueCommand;
 import service.NcrService;
+import spring.AuthInfo;
 
 @Controller
 public class NcrController {
@@ -34,7 +43,7 @@ public class NcrController {
 	
 	
 	@RequestMapping(value = "ncr/searchAudit", method = RequestMethod.POST)
-	public String searchAudit(Model model, HttpSession session,
+	public String searchAudit(Model model, HttpServletRequest request, HttpSession session,
 			@RequestParam(defaultValue="") String vendorName,
             @RequestParam(defaultValue="") String dateFrom,
             @RequestParam(defaultValue="") String dateTo ){
@@ -46,9 +55,67 @@ public class NcrController {
 		} catch (Exception e) {e.printStackTrace();}
 		
 		model.addAttribute("auditList",auditList);
-		
-		return "ncr/searchAudit";
+		request.setAttribute("auditList", auditList);
+				
+		return "ncr/ncrAuditList";
 	}
 	
+	@RequestMapping(value = "ncr/ncrIssue", method = RequestMethod.POST)
+	public String issue(ncrIssueCommand nic , HttpSession session, HttpServletRequest request, MultipartHttpServletRequest mhsq) 
+			throws IllegalStateException,IOException {
 
+		AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
+		NcrBean nb = new NcrBean();
+		nb.setAudit_id(nic.getAudit_id());
+		nb.setIssuer_id(authInfo.getId());
+		nb.setNcr_title(nic.getNcr_title());
+		nb.setNcr_description(nic.getNcr_description());
+		nb.setNcr_grade_id(nic.getNcr_grade_id());
+		
+		ncrService.issueNcr(nb);		
+				
+		       
+         // 넘어온 파일을 리스트로 저장
+        List<MultipartFile> mf = mhsq.getFiles("ncr_file");
+        if (mf.size() == 1 && mf.get(0).getOriginalFilename().equals("")) {
+             
+        } else {
+            for (int i = 0; i < mf.size(); i++) {
+                // 파일 중복명 처리
+                String genId = UUID.randomUUID().toString();
+                // 본래 파일명
+                String originalfileName = mf.get(i).getOriginalFilename();
+                 
+                String saveFileName = genId + "." + originalfileName;
+                // 저장되는 파일 이름
+                String root_path = request.getSession().getServletContext().getRealPath("/");
+        		String attach_path = "upload/";
+        		String savePath = root_path + attach_path + saveFileName;        		
+        		System.out.println(savePath);
+                long fileSize = mf.get(i).getSize(); // 파일 사이즈
+ 
+                mf.get(i).transferTo(new File(savePath)); // 파일 저장
+ 
+                ncrService.ncrFileUpload(originalfileName, saveFileName, fileSize);
+               
+            }
+        }
+        
+        
+		return "ncr/ncrRegister";
+	}
+	
+	
+	
+	
+	@RequestMapping(value = "ncr/ncrRegister", method = RequestMethod.GET)
+		public String ncrRegister(HttpSession session ,Model model) {
+		AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
+		String loginId = authInfo.getId();
+		String loginName = authInfo.getName();
+		model.addAttribute("issuer_id",loginId);
+		model.addAttribute("issuer_name",loginName);
+		return"ncr/ncrRegister";
+	}
+	
 }

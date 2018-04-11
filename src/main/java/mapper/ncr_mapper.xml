@@ -14,5 +14,15 @@
       
     </select>  
   
+  
+	<insert id="ncrIssue" parameterType="bean.NcrBean">
+      insert into ncr_info values((select count(*)from ncr_info)+1,#{audit_id},#{issuer_id},
+      sysdate,null,null,#{ncr_title},#{ncr_description},#{ncr_grade_id})  
+	</insert>
+	
+	<insert id="ncrFileUpload" parameterType="HashMap">
+    INSERT INTO ncr_attach values((select count(*)from ncr_info),(select count(*)from ncr_attach)+1, #{originalfileName}, #{saveFileName},#{fileSize})
+    </insert>
 
+	
 </mapper>

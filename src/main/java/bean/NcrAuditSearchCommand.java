@@ -30,7 +30,7 @@ public class NcrAuditSearchCommand {
 		this.dateFrom = dateFrom;
 		this.dateTo = dateTo;
 	}
-	public NcrAuditSearchCommand() {
+	public NcrAuditSearchCommand(String vendorName2) {
 		super();
 		// TODO Auto-generated constructor stub
 	}

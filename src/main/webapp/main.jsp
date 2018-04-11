@@ -15,6 +15,7 @@
 <title></title>
 </head>
 <body>
+<%@ include file="/include/header.jsp"%>
 	
 <li><a href="./AuditManage">평가관리</a></li>
 </body>
