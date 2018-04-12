@@ -30,29 +30,21 @@ public class AdminController {
 	
 	@RequestMapping(value="Setting", method=RequestMethod.GET)
 	public String settingGet(@ModelAttribute("cateCommand")BeanCategory category,
-			@RequestParam(defaultValue="cate") String selCate,
-            @RequestParam(defaultValue="") String cateName,
-            @RequestParam(defaultValue="") String prodName,
-            @RequestParam(defaultValue="1") int curPage,
+			@ModelAttribute("prodCommand")BeanProduct product,
 			Model model) {
 		
+		List<BeanCategory> cateList = adminService.cateList();
 		List<BeanProduct> prodList = adminService.prodList();
 
-		if(!selCate.equals("cate")) {
-			prodList = adminService.selCateList(selCate);
-		}
-				
 		int cateCount = adminService.cateCount();
 		int prodCount = adminService.prodCount();
 				
-		List<BeanCategory> cateList = adminService.cateList();
-
-	    Map<String, Object> map = new HashMap<String, Object>();
-	    map.put("selCate", selCate);
+		Map<String, Object> map = new HashMap<String, Object>();
+	    
 	    map.put("cateList", cateList);
-	    map.put("prodList", prodList);
 	    map.put("prodCount", prodCount);
-		model.addAttribute("cateCount", cateCount);
+	    map.put("cateCount", cateCount);
+		model.addAttribute("prodList", prodList);
 	    model.addAttribute("map", map);
 	    		
 		return "admin/setting";
@@ -60,42 +52,29 @@ public class AdminController {
 	
 	@RequestMapping(value="Setting", method=RequestMethod.POST)
 	public String settingPost(@ModelAttribute("cateCommand")BeanCategory category,
-			@RequestParam(defaultValue="cate") String selCate,
-            @RequestParam(defaultValue="") String cateName,
-            @RequestParam(defaultValue="") String prodName,
-            @RequestParam(defaultValue="1") int curPage,
+			@ModelAttribute("prodCommand")BeanProduct product,
+			@RequestParam(defaultValue="0") int state,
 			Model model) {
-		
-		int cateCount = adminService.cateCount();
-		int prodCount = adminService.prodCount();
-		
-		System.out.println(category.getCATEGORY_NAME());
-		System.out.println(category.getCATEGORY_VALID());
-		
-		if(category != null) {
-			adminService.insertCate(category);
+				
+		if(state == 1) {
+			adminService.cateUpdate(category);
+		}else if(state == 2){
+			System.out.println("2");
+		}else if(state == 3){
+			System.out.println("3");
+		}else {
+			adminService.cateInsert(category);
 		}
-		
-		if(!selCate.equals("cate")) {
-			System.out.println("ddd");
-			if(!prodName.equals("")) {
-				adminService.uploadProduct(selCate, prodName, prodCount);
-				System.out.println("upP");
-			}
-		}
-		
-		
-		System.out.println("post");
-
+				
 		return "redirect:/Setting";
 	}
 	
 	
-	@RequestMapping("Setting/Update")
-	public String setUpdate(HttpServletRequest request,
-			Model model) {
+	@RequestMapping("Setting/CateUpdate")
+	public String setCateUpdate(@ModelAttribute("cateCommand")BeanCategory category,
+			HttpServletRequest request, Model model) {
 		
-		String cateId = request.getParameter("cateId");
+		String cateId = request.getParameter("cateId").trim();
 		if(cateId != null) {
 			BeanCategory selCate = adminService.selCate(cateId);
 			model.addAttribute("selCate", selCate);
@@ -104,7 +83,48 @@ public class AdminController {
 		return "admin/set_cateUp";
 	}
 	
+	@RequestMapping("Setting/ProdUpdate")
+	public String setProdUpdate(@ModelAttribute("prodCommand")BeanProduct product,
+			HttpServletRequest request, Model model) {
+		
+		String prodId = request.getParameter("prodId").trim();
+		if(prodId != null) {
+			BeanProduct selProd = adminService.selProd(prodId);
+			model.addAttribute("selProd", selProd);
+		}
+	    		
+		return "admin/set_prodUp";
+	}
 	
+	@RequestMapping("Setting/InsertCateForm")
+	public String setInsertCateForm(@ModelAttribute("cateCommand")BeanCategory category) {
+			
+		return "admin/set_cateIn";
+	}	
+	
+	@RequestMapping("Setting/InsertProdForm")
+	public String setInsertProdForm(@ModelAttribute("prodCommand")BeanProduct product) {
+			
+		return "admin/set_prodIn";
+	}
+	
+	@RequestMapping("Setting/ProdCate")
+	public String setProdCate(HttpServletRequest request, Model model) {
+		
+		String id = request.getParameter("id").trim();
+		List<BeanProduct> prodList = adminService.prodList();
+		
+		if(id != null) {
+			if(id.equals("cate")) {
+				
+			}else {				
+				prodList = adminService.selProdCate(id);
+			}
+			model.addAttribute("selProd", prodList);
+		}
+	    		
+		return "admin/set_prodUp";
+	}
 	
 	//**************************************************************************
 	

@@ -61,7 +61,7 @@ public class AdminService {
 		return sqlSession.selectOne("adminSQL.cateCount");
 	}
 
-	public void insertCate(BeanCategory category) {
+	public void cateInsert(BeanCategory category) {
 		category.setCATEGORY_ID("C_"+idForm.format(cateCount()+1));
 		sqlSession.insert("adminSQL.cateInsert", category);
 	}
@@ -73,14 +73,25 @@ public class AdminService {
 	public BeanCategory selCate(String cateId) {
 		return sqlSession.selectOne("adminSQL.selCategory", cateId.trim());
 	}
+
+	public void cateUpdate(BeanCategory category) {
+		sqlSession.update("adminSQL.cateUpdate", category);
+	}	
 	
+	
+	
+	
+	
+	public List<BeanProduct> selProdCate(String cateId) {
+		return sqlSession.selectList("adminSQL.selProdCate", cateId);
+	}
 	
 	public int prodCount() {
 		return sqlSession.selectOne("adminSQL.prodCount");
 	}
-	
-	public List<BeanProduct> selCateList(String cateId) {
-		return sqlSession.selectList("adminSQL.selCateList", cateId);
+
+	public BeanProduct selProd(String prodId) {
+		return sqlSession.selectOne("adminSQL.selProduct", prodId.trim());
 	}
 	
 	public void uploadProduct(String cateId, String prodName, int prodCount) {

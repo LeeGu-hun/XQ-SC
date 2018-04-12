@@ -4,11 +4,11 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
-<form:form commandName="cateCommand" method="post" id="icf">
-	<form:radiobutton path="CATEGORY_VALID" value="Y" label="VALID" checked="checked"/>
-	<form:radiobutton path="CATEGORY_VALID" value="N" label="INVALID"/>
+<form:form commandName="prodCommand" method="post" action="Setting?state=2" id="ipf">
+	<form:radiobutton path="PRODUCT_VALID" value="Y" label="VALID" checked="checked"/>
+	<form:radiobutton path="PRODUCT_VALID" value="N" label="INVALID"/>
 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	<form:input path="CATEGORY_NAME" id="inCateName"/>
-	<input type="button" value="등록" onclick="cateInsert()">
+	<form:input path="PRODUCT_NAME" id="inProdName"/>
+	<input type="button" value="등록" onclick="prodInsert()">
 </form:form>
 			

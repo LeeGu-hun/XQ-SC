@@ -61,6 +61,12 @@
 	<select id="selCategory" parameterType="String" resultType="bean.BeanCategory">
 		SELECT *FROM CATEGORY_INFO WHERE CATEGORY_ID=#{cateId}
 	</select>
+	
+	<update id="cateUpdate" parameterType="bean.BeanCategory">
+		UPDATE CATEGORY_INFO SET CATEGORY_NAME = #{CATEGORY_NAME},
+		CATEGORY_VALID = #{CATEGORY_VALID}
+		WHERE CATEGORY_ID = #{CATEGORY_ID}
+	</update>
 
 
 
@@ -69,8 +75,12 @@
 	</select>
 	
 	
-	<select id="selCateList" parameterType="String" resultType="bean.BeanProduct">
+	<select id="selProdCate" parameterType="String" resultType="bean.BeanProduct">
 		SELECT *FROM PRODUCT_ITEM WHERE CATEGORY_ID=#{cateId}
+	</select>
+	
+	<select id="selProduct" parameterType="String" resultType="bean.BeanProduct">
+		SELECT *FROM PRODUCT_ITEM WHERE PRODUCT_ID=#{prodId}
 	</select>
 
 	<insert id="prodInsert" parameterType="bean.BeanProduct">
