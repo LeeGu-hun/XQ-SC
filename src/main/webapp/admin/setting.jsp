@@ -36,7 +36,7 @@
 		
 		$.ajax({
 			type : "POST",
-			url : "./Setting/CateUpdate",
+			url : "./Setting/CateUpdateForm",
 			data : "cateId=" + cateId,
 			success : cateForm
 		});				
@@ -78,7 +78,7 @@
 		
 		$.ajax({
 			type : "POST",
-			url : "./Setting/ProdUpdate",
+			url : "./Setting/ProdUpdateForm",
 			data : "prodId=" + prodId,
 			success : prodForm
 		});				
@@ -165,7 +165,7 @@
 						</th>
 					</tr>
 				</thead>
-				<c:forEach var="cate" items="${map.cateList}">
+				<c:forEach var="cate" items="${cateList}">
 					<tr align="center" valign="middle">
 						<td>
 							<div align="center">${cate.CATEGORY_VALID}</div>

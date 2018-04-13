@@ -8,7 +8,15 @@
 	<!-- //////////////	Member ///////////// -->
 	
 	<select id="memberList" resultType="bean.BeanMember">
-		SELECT *FROM MEMBER_INFO  ORDER BY MEMBER_ID
+		SELECT *FROM MEMBER_INFO ORDER BY MEMBER_ID
+	</select>
+	
+	<select id="ingMemberList" resultType="bean.BeanMember">
+		SELECT *FROM MEMBER_INFO WHERE MEMBER_VALID = 'V' ORDER BY MEMBER_ID
+	</select>
+	
+	<select id="edMemberList" resultType="bean.BeanMember">
+		SELECT *FROM MEMBER_INFO WHERE MEMBER_VALID != 'V' ORDER BY MEMBER_ID
 	</select>
 	
 	<select id="memberCount" parameterType="String" resultType="int">

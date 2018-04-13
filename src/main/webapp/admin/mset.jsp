@@ -10,126 +10,132 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Setting</title>
       <link rel="stylesheet" href="./css/table.css" type="text/css">
+      
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<script>
+	function inMemForm() {
+		$.ajax({
+			type : "POST",
+			url : "./MSet/MInsertForm",
+			success : mForm
+		});
+	}
+	
+	function upMemForm(id) {
+		$.ajax({
+			type : "POST",
+			url : "./MSet/MUpdateForm",
+			data : "id=" + id,
+			success : mForm
+		});				
+	}
+	
+	function mForm(msg) {
+		$("#mInUpForm").html(msg);
+	}
+	
+	function mInsert() {
+		var name = document.getElementById('MEMBER_NAME'); 
+			document.getElementById('mInUp').textContent= name.value;
+		
+		if(name.value == "" ){
+			document.getElementById('mInUp').textContent= '내용을 입력해주세요';
+			return;
+		}
+		document.getElementById('MemberCommand').submit();
+	}
+	
+	function mUpdate() {
+
+		var name = document.getElementById('MEMBER_NAME'); 
+		
+		if(name.value == ""){
+			document.getElementById('mInUp').textContent= '내용을 입력해주세요';
+			name.focus();
+			return;
+		}
+		document.getElementById('MemberCommand').submit();
+	//	document.getElementById('mInUp').textContent= name.value;
+	}
+</script>
 </head>
 
 <body>
     <blockquote> <br>
 		<a href="<c:url value='/main'/>"> [ dddddd ]</a>
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<a href="./admin/setting.jsp">다른 회원의 게시판보기</a>
+		<a href="./admin/setting.jsp">다른 회원의 게시판보기aaffff</a>
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<a href="../logout">로그아웃</a>
 	</blockquote>
-
-	<c:if test="${map.state ne 1}">
-		<form:form commandName="MemberCommand" method="post">
-			<table width=80% border="0" cellpadding="0" cellspacing="0">
+	
+	<table width=80% border="0" cellpadding="0" cellspacing="0">
+		<thead>
+			<tr align="center" valign="middle">
+				<th>
+					<div align="center">DEPART</div>
+				</th>
+				<th>
+					<div align="center">NAME</div>
+				</th>
+				<th>
+					<div align="center">EMAIL</div>
+				</th>
+				<th>
+					<div align="center">TEL</div>
+				</th>
+				<th>
+					<div align="center">VALID</div>
+				</th>
+				<th>
+					<div align="center">ID</div>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<c:forEach var="m" items="${map.ingMemberList}">
 				<tr>
 					<td>
 						<div align="center">
-							<label>DEPART</label><br>
-							<form:radiobutton path="MEMBER_DEPART" value="ADMIN" label="ADMIN" checked="checked"/>
-							<form:radiobutton path="MEMBER_DEPART" value="PURCHASE" label="PURCHASE"/>
-							<br>
-							<form:radiobutton path="MEMBER_DEPART" value="QUALITY" label="QUALITY"/>
-							<form:radiobutton path="MEMBER_DEPART" value="VENDOR" label="VENDOR"/>
+							${m.MEMBER_DEPART}
 						</div>
 					</td>
 					<td>
 						<div align="center">
-							<label>NAME</label><br>
-							<form:input path="MEMBER_NAME"/>
+							${m.MEMBER_NAME}
 						</div>
 					</td>
 					<td>
 						<div align="center">
-							<label>EMAIL</label><br>
-							<form:input path="MEMBER_EMAIL"/>
+							${m.MEMBER_EMAIL}
 						</div>
 					</td>
 					<td>
 						<div align="center">
-							<label>PASSWORD</label><br>
-							<form:password path="MEMBER_PASS"/>
+							${m.MEMBER_TEL}
 						</div>
 					</td>
 					<td>
 						<div align="center">
-							<label>TEL</label><br>
-							<form:input path="MEMBER_TEL"/>
+							${m.MEMBER_VALID}
 						</div>
 					</td>
 					<td>
 						<div align="center">
-							<label>VALID</label><br>
-							<form:radiobutton path="MEMBER_VALID" value="Y" label="VALID" checked="checked"/>
-							<form:radiobutton path="MEMBER_VALID" value="N" label="INVALID"/>
+							<a href="javascript:upMemForm('${m.MEMBER_ID}')">${m.MEMBER_ID}</a>
 						</div>
-					</td>
-					<td>
-						<input type="submit" value="등록">	
 					</td>
 				</tr>
-			</table>
-		</form:form>
-	</c:if>
-	<c:if test="${map.state eq 1}">
-		<form:form commandName="MemberCommand" method="post">
-			<table width=80% border="0" cellpadding="0" cellspacing="0">
-				<tr>
-					<td colspan="7" align="center">
-						${map.selMember.MEMBER_DEPART} > ${map.selMember.MEMBER_ID}
-						<form:hidden path="MEMBER_ID" value ="${map.selMember.MEMBER_ID}"/>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<div align="center">
-							<label>VALID</label><br>
-							<c:choose>
-								<c:when test="${map.selMember.MEMBER_VALID eq 'Y'}">
-									<form:radiobutton path="MEMBER_VALID" value="Y" label="VALID" checked="checked"/>
-									<form:radiobutton path="MEMBER_VALID" value="N" label="INVALID"/>
-								</c:when>
-								<c:otherwise>
-									<form:radiobutton path="MEMBER_VALID" value="Y" label="VALID"/>
-									<form:radiobutton path="MEMBER_VALID" value="N" label="INVALID" checked="checked"/>
-								</c:otherwise>
-							</c:choose>
-						</div>
-					</td>
-					<td>
-						<div align="center">
-							<label>NAME</label><br>
-							<form:input path="MEMBER_NAME" value="${map.selMember.MEMBER_NAME}"/>
-						</div>
-					</td>
-					<td>
-						<div align="center">
-							<label>EMAIL</label><br>
-							<form:input path="MEMBER_EMAIL" value="${map.selMember.MEMBER_EMAIL}"/>
-						</div>
-					</td>
-					<td>
-						<div align="center">
-							<label>PASSWORD</label><br>
-							<form:password path="MEMBER_PASS" value="${map.selMember.MEMBER_PASS}"/>
-						</div>
-					</td>
-					<td>
-						<div align="center">
-							<label>TEL</label><br>
-							<form:input path="MEMBER_TEL" value="${map.selMember.MEMBER_TEL}"/>
-						</div>
-					</td>
-					<td>
-						<input type="submit" value="수정">
-						<a href="./MSet">취소</a>
-					</td>
-				</tr>
-			</table>
-		</form:form>
-	</c:if>
+			</c:forEach>
+		</tbody>
+	</table>
+	<br>
+	<br>
+	<div id="mInUpForm"><%@include file="/admin/m_In.jsp" %></div>
+	<br><span id="mInUp" style="font-size:9pt;color:red;"></span>
 	<br>
 	<br>
 	<table width=80% border="0" cellpadding="0" cellspacing="0">
@@ -159,7 +165,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			<c:forEach var="m" items="${map.memberList}">
+			<c:forEach var="m" items="${map.edMemberList}">
 				<tr>
 					<td>
 						<div align="center">
@@ -193,7 +199,7 @@
 					</td>
 					<td>
 						<div align="center">
-							<a href="./MSet?state=1&mId=${m.MEMBER_ID}">${m.MEMBER_ID}</a>
+							<a href="javascript:upMemForm('${m.MEMBER_ID}')">${m.MEMBER_ID}</a>
 						</div>
 					</td>
 				</tr>

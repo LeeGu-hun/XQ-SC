@@ -72,7 +72,7 @@ public class AdminController {
 	}
 	
 	
-	@RequestMapping("Setting/CateUpdate")
+	@RequestMapping("Setting/CateUpdateForm")
 	public String setCateUpdate(@ModelAttribute("cateCommand")BeanCategory category,
 			HttpServletRequest request, Model model) {
 		
@@ -85,7 +85,7 @@ public class AdminController {
 		return "admin/set_cateUp";
 	}
 	
-	@RequestMapping("Setting/ProdUpdate")
+	@RequestMapping("Setting/ProdUpdateForm")
 	public String setProdUpdate(@ModelAttribute("prodCommand")BeanProduct product,
 			HttpServletRequest request, Model model) {
 		
@@ -150,14 +150,13 @@ public class AdminController {
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		
-		if(state==1) {
-			BeanMember selMember = adminService.selMember(mId);
-			map.put("selMember", selMember);
-		}
-
 		List<BeanMember> memberList = adminService.allMemberList();
+		List<BeanMember> ingMemberList = adminService.ingMemberList();
+		List<BeanMember> edMemberList = adminService.edMemberList();
 		
 	    map.put("memberList", memberList);
+	    map.put("ingMemberList", ingMemberList);
+	    map.put("edMemberList", edMemberList);
 	    map.put("state", state);
 		model.addAttribute("map", map);
 
@@ -165,8 +164,9 @@ public class AdminController {
 	}
 	@RequestMapping(value="MSet", method=RequestMethod.POST)
 	public String msetPost(@RequestParam(defaultValue="0") int state, 
-			@ModelAttribute("MemberCommand")BeanMember member) {
-
+			@ModelAttribute("MemberCommand")BeanMember member, HttpServletRequest request) {
+		System.out.println(request.getParameter("MEMBER_EMAIL")); 
+		
 		if(state == 1) {
 			adminService.updateMember(member);
 		}else {
@@ -178,43 +178,82 @@ public class AdminController {
 		return "redirect:/MSet";
 	}
 	
+	
+	@RequestMapping("MSet/MUpdateForm")
+	public String setMUpdateForm(@ModelAttribute("MemberCommand")BeanMember member,
+			HttpServletRequest request, Model model) {
+		
+		String id = request.getParameter("id").trim();
+		if(id != null) {
+
+			BeanMember selMember = adminService.selMember(id);
+			
+			model.addAttribute("selMember", selMember);
+		}
+		
+		return "admin/m_Up";
+	}
+	
+
+	@RequestMapping("MSet/MInsertForm")
+	public String setMInsertForm(@ModelAttribute("MemberCommand")BeanMember member,
+			Model model) {
+				    
+		return "admin/m_In";
+	}
+	
+	
+	
 	//***************************************************************************
 	
 	@RequestMapping(value="CLSet", method=RequestMethod.GET)
-	public String clsetGet(@ModelAttribute("uploadCkList")BeanChecklist ckList,
-			@RequestParam(defaultValue="0") int state, 
-			@RequestParam(defaultValue="") String ckId, Model model) {
+	public String clsetGet(@ModelAttribute("CkLCommand")BeanChecklist ckList,
+			Model model) {
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 
-		if(state==1) {
-			BeanChecklist selCkList = adminService.selCkList(ckId);
-			map.put("selCkList", selCkList);
-		}
-		
-		
 		List<BeanChecklist> allckList = adminService.allCKList();
 		
 	    map.put("allckList", allckList);
-	    map.put("state", state);
 		model.addAttribute("map", map);
 
 		return "admin/clset";
 	}
 	@RequestMapping(value="CLSet", method=RequestMethod.POST)
 	public String clsetPost(@RequestParam(defaultValue="0") int state, 
-			@ModelAttribute("uploadCkList")BeanChecklist ckList) {
+			@ModelAttribute("CkLCommand")BeanChecklist ckList) {
 
 		if(state == 1) {
 			adminService.updateCkList(ckList);
 		}else {
 			if( ckList != null) {
-				adminService.uploadCkList(ckList);;
+				adminService.insertCkList(ckList);;
 			}	
 		}
 		
 		return "redirect:/CLSet";
 	}
 	
+	@RequestMapping("CLSet/CkLUpdateForm")
+	public String setCkLUpdateForm(@ModelAttribute("CkLCommand")BeanChecklist checklist,
+			HttpServletRequest request, Model model) {
+		
+		String id = request.getParameter("id").trim();
+		if(id != null) {
+			BeanChecklist selCkList = adminService.selCkList(id);
+			
+			model.addAttribute("selCkList", selCkList);
+		}
+		
+		return "admin/ckl_Up";
+	}
+	
+
+	@RequestMapping("CLSet/CkLInsertForm")
+	public String setCkLInsertForm(@ModelAttribute("CkLCommand")BeanChecklist checklist,
+			Model model) {
+				    
+		return "admin/ckl_In";
+	}
 	
 }

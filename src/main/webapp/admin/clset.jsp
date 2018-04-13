@@ -10,18 +10,54 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Setting</title>
       <link rel="stylesheet" href="./css/table.css" type="text/css">
+      
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
 <script>
-	function updateCkL(ckId) {
-		location.href = "./CLSet?state=1&ckId="+ckId;
+		
+	function insertForm() {
+		$.ajax({
+			type : "POST",
+			url : "./CLSet/CkLInsertForm",
+			success : ckLForm
+		});
 	}
-	function totalAdd(){
-		var total = document.getElementById("total");
-		var haps = document.getElementsByName("haps");
-		var sum = 0;
-		for(var i = 0 ; i < haps.length ; i++){
-			sum = sum + parseInt(haps[i].value);
+	
+	function updateForm(id) {
+		$.ajax({
+			type : "POST",
+			url : "./CLSet/CkLUpdateForm",
+			data : "id=" + id,
+			success : ckLForm
+		});				
+	}
+	
+	function ckLForm(msg) {
+		$("#ckLInUp").html(msg);
+	}
+	
+	function ckLInsert() {
+		var inds = document.getElementById('inDiscription'); 
+		
+		if(inds.value == ""){
+			document.getElementById('ckDs').textContent= '내용을 입력해주세요';
+			inds.focus();
+			return;
 		}
-		total.value = sum;
+		document.getElementById('cif').submit();
+	}
+	
+	function ckLUpdate() {
+		var upds = document.getElementById('upDiscription');
+		
+		if(upds.value == ""){
+			document.getElementById('ckDs').textContent= '내용을 입력해주세요';
+			upds.focus();
+			return;
+		}
+		document.getElementById('cuf').submit();
 	}
 </script>
 </head>
@@ -34,68 +70,9 @@
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<a href="../logout">로그아웃</a>
 	</blockquote>
-	<c:if test="${map.state ne 1}">
-		<form:form commandName="uploadCkList" method="post">
-			<div>
-				<label>KIND</label>
-				<form:radiobutton path="AUDIT_KIND_ID" value="NE" label="NEW"/>
-				<form:radiobutton path="AUDIT_KIND_ID" value="RE" label="REGULAR"/>
-				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				<label>VALID</label>
-				<form:radiobutton path="CHECKLIST_VALID" value="Y" label="VALID"/>
-				<form:radiobutton path="CHECKLIST_VALID" value="N" label="INVALID"/>
-				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				<label>FULLSCORE..</label>
-				<form:input path="CHECKLIST_FULLSCORE"/>
-				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				<input type="submit" value="등록">	
-				<br>
-				<label>DISCRIPTION</label>
-				<form:textarea path="CHECKLIST_DISCRIPTION" cols="100" rows="3"/>
-			</div>
-		</form:form>
-	</c:if>
-	<c:if test="${map.state eq 1}">
-		<form:form commandName="uploadCkList" method="post">
-			<div>
-				<form:hidden path="CHECKLIST_ID" value ="${map.selCkList.CHECKLIST_ID}"/>
-				
-				<label>KIND</label>
-				<c:choose>
-					<c:when test="${map.selCkList.AUDIT_KIND_ID eq 'NE'}">
-						<form:radiobutton path="AUDIT_KIND_ID" value="NE" label="NEW" checked="checked"/>
-						<form:radiobutton path="AUDIT_KIND_ID" value="RE" label="REGULAR"/>
-					</c:when>
-					<c:otherwise>
-						<form:radiobutton path="AUDIT_KIND_ID" value="NE" label="NEW"/>
-						<form:radiobutton path="AUDIT_KIND_ID" value="RE" label="REGULAR" checked="checked"/>
-					</c:otherwise>
-				</c:choose>
-				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				<label>VALID</label>
-				<c:choose>
-					<c:when test="${map.selCkList.CHECKLIST_VALID eq 'Y'}">
-						<form:radiobutton path="CHECKLIST_VALID" value="Y" label="VALID" checked="checked"/>
-						<form:radiobutton path="CHECKLIST_VALID" value="N" label="INVALID"/>
-					</c:when>
-					<c:otherwise>
-						<form:radiobutton path="CHECKLIST_VALID" value="Y" label="VALID"/>
-						<form:radiobutton path="CHECKLIST_VALID" value="N" label="INVALID" checked="checked"/>
-					</c:otherwise>
-				</c:choose>
-				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				<label>FULLSCORE</label>
-				<form:input path="CHECKLIST_FULLSCORE" value="${map.selCkList.CHECKLIST_FULLSCORE}"/>
-				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				<input type="submit" value="수정">		
-				<a href="./CLSet">취소</a>
-				<br>
-				<label>DISCRIPTION</label>
-				<form:textarea path="CHECKLIST_DISCRIPTION" cols="100" rows="3"
-				placeholder="${map.selCkList.CHECKLIST_DISCRIPTION}"/>
-			</div>
-		</form:form>
-	</c:if>
+	<span id="ckLInUp">
+		<%@include file="/admin/ckl_In.jsp" %>
+	</span>	
 	<br>
 	<br>
 	<div>
@@ -170,7 +147,7 @@
 					</td>
 					<td>
 						<div align="center">
-	    					<a href="./CLSet?state=1&ckId=${c.CHECKLIST_ID}">수정</a>
+							<a href="javascript:updateForm('${c.CHECKLIST_ID}')">수정</a>
 	    				</div>
 					</td>
 				</tr>

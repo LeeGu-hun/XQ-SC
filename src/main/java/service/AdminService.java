@@ -26,6 +26,14 @@ public class AdminService {
 		return sqlSession.selectList("adminSQL.memberList");
 	}
 	
+	public List<BeanMember> ingMemberList() {
+		return sqlSession.selectList("adminSQL.ingMemberList");
+	}
+	
+	public List<BeanMember> edMemberList() {
+		return sqlSession.selectList("adminSQL.edMemberList");
+	}
+	
 	public int memberCount(String depart) {
 		return sqlSession.selectOne("adminSQL.memberCount", depart);
 	}
@@ -54,6 +62,8 @@ public class AdminService {
 	public void updateMember(BeanMember member) {
 		sqlSession.update("adminSQL.memberUpdate", member);
 	}
+	
+	
 
 	/////////////////////////////////////////Setting////////
 	
@@ -131,11 +141,8 @@ public class AdminService {
 		return sqlSession.selectOne("adminSQL.ckLCount");
 	}
 	
-	public void uploadCkList(BeanChecklist ckList) {
-
-		int dM = cklCount();
-		
-		ckList.setCHECKLIST_ID("ck"+idForm.format(dM+1));
+	public void insertCkList(BeanChecklist ckList) {
+		ckList.setCHECKLIST_ID("ck"+idForm.format(cklCount()+1));
 		sqlSession.insert("adminSQL.ckListInsert", ckList);
 	}
 
