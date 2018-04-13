@@ -18,10 +18,10 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<style>
-		#kind { background-color : green; height:100px;}
+		#period { height:100px;}
 		#product{overflow:hidden;}
-		#cate{float:left; width:50%; background-color:lime;}
-		#prod{float:right; width:50%; background-color:orange;}
+		#cate{float:left; width:50%; }
+		#prod{float:right; width:50%; }
 	</style>
 <script>
 	function cateInsertForm() {
@@ -91,8 +91,10 @@
 	
 	function prodInsert() {
 		var name = document.getElementById('inProdName'); 
-		if(name.value == "" ){
-			document.getElementById('ckProd').textContent= '내용을 입력해주세요';
+		var cate = document.getElementById('prodCate').value;
+		
+		if(name.value == ""||cate == "cate"){
+			document.getElementById('ckProd').textContent= '카테고리를 선택하거나 내용을 입력해주세요';
 			name.focus();
 			return;
 		}
@@ -101,8 +103,9 @@
 	
 	function prodUpdate() {
 		var name = document.getElementById('upProdName'); 
-		if(name.value == "" ){
-			document.getElementById('ckProd').textContent= '내용을 입력해주세요';
+		var cate = document.getElementById('prodCate').value;
+		if(name.value == ""||cate == "cate"){
+			document.getElementById('ckProd').textContent= '카테고리를 선택하거나 내용을 입력해주세요';
 			name.focus();
 			return;
 		}
@@ -110,7 +113,7 @@
 	}
 	
 	function prodTable() {
-		var id = document.getElementById('prodCate');
+		var id = document.getElementById('prodCate').value;
 		$.ajax({
 			type : "POST",
 			url : "./Setting/ProdCate",
@@ -136,8 +139,8 @@
 		<a href="../logout">로그아웃</a>
 	</blockquote>
 	
-	<div id = "kind">
-		Audit 설정:dsdfffffffffss
+	<div id = "period">
+		Audit period : ${map.auditPeriod} YEARS
 	</div>
 	<div id = "product">
 		<div id ="cate">
@@ -183,16 +186,7 @@
 				${map.prodCount} 개
 			</p>
 			<br>
-			<select name = "prodCate" id = "prodCate" onchange = "prodTable();">
-				<option value = "cate">카테고리</option>
-					<c:forEach var = "c" items ="${map.cateList}">
-						<option value = "${c.CATEGORY_ID}" 
-							<c:out value="${map.selCate == c.CATEGORY_ID?'selected':''}"/>
-						>
-							${c.CATEGORY_NAME}
-						</option>
-					</c:forEach>
-			</select>
+			
 			<span id ="prodInUp">
 				<%@include file="/admin/set_prodIn.jsp" %>
 			</span>
@@ -209,9 +203,9 @@
 						</th>
 					</tr>
 				</thead>
-				<span id ="prodList">
+				<tbody id = "prodList">
 					<%@include file="/admin/set_prodList.jsp" %>
-				</span>
+				</tbody>
 			</table>
 		</div>
 	</div>

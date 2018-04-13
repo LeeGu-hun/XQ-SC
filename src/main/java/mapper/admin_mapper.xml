@@ -42,6 +42,13 @@
 
 	<!-- //////////////	Setting ///////////// -->
 	
+	<select id="auditPeriod" resultType="int">
+		SELECT AUDIT_KIND_PERIOD FROM AUDIT_KIND WHERE AUDIT_KIND_ID = 'RE'
+	</select>
+	
+	
+	
+	
 	<select id="cateCount" resultType="int">
 		SELECT COUNT(*) FROM CATEGORY_INFO
 	</select>
@@ -88,9 +95,16 @@
 			#{CATEGORY_ID},
 			#{PRODUCT_ID},
 			#{PRODUCT_NAME},
-			'N'
+			#{PRODUCT_VALID}
 		)
 	</insert>
+	
+	<update id="prodUpdate" parameterType="bean.BeanProduct">
+		UPDATE PRODUCT_ITEM SET CATEGORY_ID = #{CATEGORY_ID},
+		PRODUCT_NAME = #{PRODUCT_NAME},
+		PRODUCT_VALID = #{PRODUCT_VALID}
+		WHERE PRODUCT_ID = #{PRODUCT_ID}
+	</update>
 	
 	<select id="prodList" resultType="bean.BeanProduct">
 		SELECT *FROM PRODUCT_ITEM ORDER BY PRODUCT_NAME

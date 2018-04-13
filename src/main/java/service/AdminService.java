@@ -57,6 +57,13 @@ public class AdminService {
 
 	/////////////////////////////////////////Setting////////
 	
+	public int auditPeriod() {
+		return sqlSession.selectOne("adminSQL.auditPeriod");
+	}
+
+	
+	
+	
 	public int cateCount() {
 		return sqlSession.selectOne("adminSQL.cateCount");
 	}
@@ -94,13 +101,14 @@ public class AdminService {
 		return sqlSession.selectOne("adminSQL.selProduct", prodId.trim());
 	}
 	
-	public void uploadProduct(String cateId, String prodName, int prodCount) {
-		BeanProduct product = new BeanProduct();
-		product.setCATEGORY_ID(cateId);
-		product.setPRODUCT_ID("P_"+idForm.format(prodCount+1));
-		product.setPRODUCT_NAME(prodName);
+	public void prodInsert(BeanProduct product) {
+		product.setPRODUCT_ID("P_"+idForm.format(prodCount()+1));
 		sqlSession.insert("adminSQL.prodInsert", product);
 	}
+	
+	public void prodUpdate(BeanProduct product) {
+		sqlSession.update("adminSQL.prodUpdate", product);
+	}	
 	
 	public List<BeanProduct> prodList(){
 		return sqlSession.selectList("adminSQL.prodList");

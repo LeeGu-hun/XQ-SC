@@ -5,6 +5,13 @@
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 <form:form commandName="prodCommand" method="post" action="Setting?state=3" id="upf">
+	<form:select path="CATEGORY_ID" onchange="prodTable();" id="prodCate">
+		<form:option value="cate">카테고리</form:option>
+		<c:forEach var = "c" items="${cateList}">
+			<form:option value="${c.CATEGORY_ID}"
+			>${c.CATEGORY_NAME}</form:option>
+		</c:forEach>
+	</form:select>
 	<c:choose>
 		<c:when test="${selProd.PRODUCT_VALID eq 'Y'}">
 			<form:radiobutton path="PRODUCT_VALID" value="Y" label="VALID" checked="checked"/>

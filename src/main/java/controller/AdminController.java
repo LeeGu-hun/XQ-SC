@@ -38,13 +38,15 @@ public class AdminController {
 
 		int cateCount = adminService.cateCount();
 		int prodCount = adminService.prodCount();
+		int auditPeriod = adminService.auditPeriod();
 				
 		Map<String, Object> map = new HashMap<String, Object>();
 	    
-	    map.put("cateList", cateList);
 	    map.put("prodCount", prodCount);
 	    map.put("cateCount", cateCount);
-		model.addAttribute("prodList", prodList);
+	    map.put("auditPeriod", auditPeriod);
+	    model.addAttribute("cateList", cateList);
+	    model.addAttribute("prodList", prodList);
 	    model.addAttribute("map", map);
 	    		
 		return "admin/setting";
@@ -59,9 +61,9 @@ public class AdminController {
 		if(state == 1) {
 			adminService.cateUpdate(category);
 		}else if(state == 2){
-			System.out.println("2");
+			adminService.prodInsert(product);
 		}else if(state == 3){
-			System.out.println("3");
+			adminService.prodUpdate(product);
 		}else {
 			adminService.cateInsert(category);
 		}
@@ -92,7 +94,11 @@ public class AdminController {
 			BeanProduct selProd = adminService.selProd(prodId);
 			model.addAttribute("selProd", selProd);
 		}
-	    		
+		
+		List<BeanCategory> cateList = adminService.cateList();
+		
+	    model.addAttribute("cateList", cateList);
+
 		return "admin/set_prodUp";
 	}
 	
@@ -103,8 +109,13 @@ public class AdminController {
 	}	
 	
 	@RequestMapping("Setting/InsertProdForm")
-	public String setInsertProdForm(@ModelAttribute("prodCommand")BeanProduct product) {
+	public String setInsertProdForm(@ModelAttribute("prodCommand")BeanProduct product,
+			Model model) {
 			
+		List<BeanCategory> cateList = adminService.cateList();
+		
+	    model.addAttribute("cateList", cateList);
+	    
 		return "admin/set_prodIn";
 	}
 	
@@ -112,18 +123,21 @@ public class AdminController {
 	public String setProdCate(HttpServletRequest request, Model model) {
 		
 		String id = request.getParameter("id").trim();
-		List<BeanProduct> prodList = adminService.prodList();
-		
+
+		List<BeanProduct> prodList = null;
+				
 		if(id != null) {
 			if(id.equals("cate")) {
-				
+				prodList = adminService.prodList();
 			}else {				
 				prodList = adminService.selProdCate(id);
 			}
-			model.addAttribute("selProd", prodList);
 		}
-	    		
-		return "admin/set_prodUp";
+		
+
+	    model.addAttribute("prodList", prodList);
+	    	    		
+		return "admin/set_prodList";
 	}
 	
 	//**************************************************************************
