@@ -14,7 +14,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-<title></title>
+<title>Audit Report</title>
 </head>
 <style>
 .modal-dialog {
@@ -76,7 +76,6 @@ th, td {
 			type : "GET",
 			url : "audit/prodList",
 			data : "selCate=" + selCate,
-			//"&selProd="+selProdVal,
 			success : result
 		});
 
@@ -84,6 +83,23 @@ th, td {
 
 	function result(msg) {
 		("#spProd").html(msg);
+	}
+
+	function selectId() {
+		var auditId = document.getElementById("auditId").value;
+
+		$.ajax({
+			type : "GET",
+			url : "audit/auditInsert",
+			data : "selId=" + selId,
+			success : result
+		});
+
+	}
+
+	function result(msg) {
+		$("#spProd").html(msg);
+
 	}
 </script>
 
@@ -107,9 +123,9 @@ th, td {
 			</div>
 			<table>
 				<tr>
-					<td colspan="2" align="right">
-					<input type="Text" value="Audit ID" name ="search" onfocus="this.value=''">
-					<input type="button" value="Search"></td>
+					<td colspan="2" align="right"><input type="Text"
+						value="Audit ID" name="search" onfocus="this.value=''"> <input
+						type="button" value="Search"></td>
 				</tr>
 			</table>
 			<br> <br>
@@ -117,12 +133,13 @@ th, td {
 				<tr>
 					<th>No</th>
 					<th>Audit ID</th>
-					<th>Vendor (ID)</th>
-					<th>Product (ID)</th>
 					<th>Date</th>
+					<th>Vendor(ID)</th>
+					<th>Category</th>
+					<th>Product(ID)</th>
 					<th>Audit Type</th>
 					<th>Manager(ID)</th>
-					<th>Manager H.P</th>
+					<th>Vendor Address</th>
 					<th>Submit Result</th>
 				</tr>
 				<c:forEach var="auditBeans" items="${auditBeans}">
@@ -135,42 +152,47 @@ th, td {
 								<div align="center">${auditBeans.AUDIT_ID}</div>
 							</td>
 							<td style="font-family: Tahoma; font-size: 12pt;">
+								<div align="center">${auditBeans.AUDIT_PLAN_DATE}</div>
+							</td>
+							<td style="font-family: Tahoma; font-size: 12pt;">
 								<div align="center">${auditBeans.VENDOR_NAME}(${auditBeans.VENDOR_ID})</div>
+							</td>
+							<td style="font-family: Tahoma; font-size: 12pt;">
+								<div align="center">${auditBeans.CATEGORY_NAME}</div>
 							</td>
 							<td style="font-family: Tahoma; font-size: 12pt;">
 								<div align="center">${auditBeans.PRODUCT_NAME}(${auditBeans.PRODUCT_ID})</div>
 							</td>
-							<td style="font-family: Tahoma; font-size: 12pt;">
-								<div align="center">${auditBeans.AUDIT_PLAN_DATE}</div>
-							</td>
-
 							<td style="font-family: Tahoma; font-size: 12pt;">
 								<div align="center">${auditBeans.AUDIT_KIND_ID}</div>
 							</td>
 							<td style="font-family: Tahoma; font-size: 12pt;">
 								<div align="center">${auditBeans.MEMBER_NAME}(${auditBeans.MEMBER_ID})</div>
 							</td>
+
 							<td style="font-family: Tahoma; font-size: 12pt;">
-								<div align="center">${auditBeans.MEMBER_TEL}</div>
+								<div align="center">${auditBeans.VENDOR_ADDRESS}</div>
 							</td>
-
-							<td>
-
-								<button href="audit/auditInsert" class="btn-btn-default"
-									type="button" data-toggle="modal" data-target="#myModal">Register</button>
-							</td>
+							<td><a
+								href="audit/auditInsert?vendorname=${auditBeans.VENDOR_NAME}
+								&vendorid=${auditBeans.VENDOR_ID}
+								&date=${auditBeans.AUDIT_PLAN_DATE}
+								&manager=${auditBeans.MEMBER_NAME}
+								&category=${auditBeans.CATEGORY_NAME}
+								&product=${auditBeans.PRODUCT_NAME}
+								&auditid=${auditBeans.AUDIT_ID}
+								&auditType=${auditBeans.AUDIT_KIND_ID}"
+								class="btn-btn-default" type="button" data-toggle="modal"
+								data-target="#myModal">Register</a></td>
 
 						</tr>
 					</c:if>
 				</c:forEach>
-
 			</table>
 		</form>
-
-
 		<!-- 모달 -->
 		<div id="myModal" class="modal fade" role="dialog">
-			<div class="modal-dialog" style="width: 60%;">
+			<div class="modal-dialog" style="width: 70%">
 				<div class="modal-content"></div>
 			</div>
 		</div>

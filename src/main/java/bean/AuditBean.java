@@ -6,22 +6,45 @@ public class AuditBean {
 
 	private int RNUM;
 	private String AUDIT_ID;
-	private String VENDOR_NAME;
-	private Date AUDIT_PLAN_DATE;
 	private String AUDIT_KIND_ID;
+	private Date AUDIT_PLAN_DATE;
+	private Date AUDIT_NEXT_DATE;
+	private Date AUDIT_COMP_DATE;
+	private Date AUDIT_RSINPUT_DATE;
+	private String AUDITOR_ID;
+	private String VENDOR_ID;
+	private int AUDIT_SCORE;
+	private String AUDIT_RESULT;
+
+	private String VENDOR_NAME;
 	private String MEMBER_NAME;
 	private String MEMBER_ID;
 	private String MEMBER_TEL;
 	private String VENDOR_Q_NAME;
 	private String VENDOR_Q_TEL;
 	private String VENDOR_ADDRESS;
-	private int AUDIT_SCORE;
-	private String VENDOR_ID;
 	private String PRODUCT_ID;
 	private String CATEGORY_NAME;
 	private String PRODUCT_NAME;
 
+	private String VENDOR_S_NAME;
+	private String VENDOR_S_TEL;
+
 	public AuditBean() {
+	}
+
+	public AuditBean(String aUDIT_ID, int aUDIT_SCORE) {
+		super();
+		AUDIT_ID = aUDIT_ID;
+		AUDIT_SCORE = aUDIT_SCORE;
+	}
+
+	public AuditBean(String aUDIT_ID, String aUDIT_KIND_ID, String aUDITOR_ID, String vENDOR_ID) {
+		super();
+		AUDIT_ID = aUDIT_ID;
+		AUDIT_KIND_ID = aUDIT_KIND_ID;
+		AUDITOR_ID = aUDITOR_ID;
+		VENDOR_ID = vENDOR_ID;
 	}
 
 	public AuditBean(int rNUM, String aUDIT_ID, String vENDOR_NAME, Date aUDIT_PLAN_DATE, String aUDIT_KIND_ID,
@@ -54,8 +77,6 @@ public class AuditBean {
 		VENDOR_ID = vENDOR_ID;
 		PRODUCT_ID = pRODUCT_ID;
 	}
-	
-	
 
 	public AuditBean(int rNUM, String aUDIT_ID, String vENDOR_NAME, Date aUDIT_PLAN_DATE, String aUDIT_KIND_ID,
 			String mEMBER_NAME, String mEMBER_ID, int aUDIT_SCORE, String vENDOR_ID, String pRODUCT_ID,
@@ -72,14 +93,123 @@ public class AuditBean {
 		VENDOR_ID = vENDOR_ID;
 		PRODUCT_ID = pRODUCT_ID;
 		PRODUCT_NAME = pRODUCT_NAME;
+
+	}
+
+	public AuditBean(int rNUM, String aUDIT_ID, String aUDIT_KIND_ID, Date aUDIT_PLAN_DATE, Date aUDIT_NEXT_DATE,
+			Date aUDIT_COMP_DATE, Date aUDIT_RSINPUT_DATE, String aUDITOR_ID, String vENDOR_ID, int aUDIT_SCORE,
+			String aUDIT_RESULT, String vENDOR_NAME, String mEMBER_NAME, String mEMBER_ID, String mEMBER_TEL,
+			String vENDOR_Q_NAME, String vENDOR_Q_TEL, String vENDOR_ADDRESS, String pRODUCT_ID, String cATEGORY_NAME,
+			String pRODUCT_NAME, String vENDOR_S_NAME, String vENDOR_S_TEL) {
+		super();
+		RNUM = rNUM;
+		AUDIT_ID = aUDIT_ID;
+		AUDIT_KIND_ID = aUDIT_KIND_ID;
+		AUDIT_PLAN_DATE = aUDIT_PLAN_DATE;
+		AUDIT_NEXT_DATE = aUDIT_NEXT_DATE;
+		AUDIT_COMP_DATE = aUDIT_COMP_DATE;
+		AUDIT_RSINPUT_DATE = aUDIT_RSINPUT_DATE;
+		AUDITOR_ID = aUDITOR_ID;
+		VENDOR_ID = vENDOR_ID;
+		AUDIT_SCORE = aUDIT_SCORE;
+		AUDIT_RESULT = aUDIT_RESULT;
+		VENDOR_NAME = vENDOR_NAME;
+		MEMBER_NAME = mEMBER_NAME;
+		MEMBER_ID = mEMBER_ID;
+		MEMBER_TEL = mEMBER_TEL;
+		VENDOR_Q_NAME = vENDOR_Q_NAME;
+		VENDOR_Q_TEL = vENDOR_Q_TEL;
+		VENDOR_ADDRESS = vENDOR_ADDRESS;
+		PRODUCT_ID = pRODUCT_ID;
+		CATEGORY_NAME = cATEGORY_NAME;
+		PRODUCT_NAME = pRODUCT_NAME;
+		VENDOR_S_NAME = vENDOR_S_NAME;
+		VENDOR_S_TEL = vENDOR_S_TEL;
 	}
 
 	public AuditBean(String cATEGORY_NAME) {
 		super();
 		CATEGORY_NAME = cATEGORY_NAME;
 	}
-	
-	
+
+	public AuditBean(int rNUM, String aUDIT_ID, String aUDIT_KIND_ID, Date aUDIT_PLAN_DATE, Date aUDIT_COMP_DATE,
+			String vENDOR_ID, int aUDIT_SCORE, String vENDOR_NAME, String mEMBER_NAME, String mEMBER_ID,
+			String mEMBER_TEL, String vENDOR_Q_NAME, String vENDOR_Q_TEL, String vENDOR_ADDRESS, String vENDOR_S_NAME,
+			String vENDOR_S_TEL) {
+		super();
+		RNUM = rNUM;
+		AUDIT_ID = aUDIT_ID;
+		AUDIT_KIND_ID = aUDIT_KIND_ID;
+		AUDIT_PLAN_DATE = aUDIT_PLAN_DATE;
+		AUDIT_COMP_DATE = aUDIT_COMP_DATE;
+		VENDOR_ID = vENDOR_ID;
+		AUDIT_SCORE = aUDIT_SCORE;
+		VENDOR_NAME = vENDOR_NAME;
+		MEMBER_NAME = mEMBER_NAME;
+		MEMBER_ID = mEMBER_ID;
+		MEMBER_TEL = mEMBER_TEL;
+		VENDOR_Q_NAME = vENDOR_Q_NAME;
+		VENDOR_Q_TEL = vENDOR_Q_TEL;
+		VENDOR_ADDRESS = vENDOR_ADDRESS;
+		VENDOR_S_NAME = vENDOR_S_NAME;
+		VENDOR_S_TEL = vENDOR_S_TEL;
+	}
+
+	public String getVENDOR_S_NAME() {
+		return VENDOR_S_NAME;
+	}
+
+	public void setVENDOR_S_NAME(String vENDOR_S_NAME) {
+		VENDOR_S_NAME = vENDOR_S_NAME;
+	}
+
+	public String getVENDOR_S_TEL() {
+		return VENDOR_S_TEL;
+	}
+
+	public void setVENDOR_S_TEL(String vENDOR_S_TEL) {
+		VENDOR_S_TEL = vENDOR_S_TEL;
+	}
+
+	public Date getAUDIT_NEXT_DATE() {
+		return AUDIT_NEXT_DATE;
+	}
+
+	public void setAUDIT_NEXT_DATE(Date aUDIT_NEXT_DATE) {
+		AUDIT_NEXT_DATE = aUDIT_NEXT_DATE;
+	}
+
+	public Date getAUDIT_COMP_DATE() {
+		return AUDIT_COMP_DATE;
+	}
+
+	public void setAUDIT_COMP_DATE(Date aUDIT_COMP_DATE) {
+		AUDIT_COMP_DATE = aUDIT_COMP_DATE;
+	}
+
+	public Date getAUDIT_RSINPUT_DATE() {
+		return AUDIT_RSINPUT_DATE;
+	}
+
+	public void setAUDIT_RSINPUT_DATE(Date aUDIT_RSINPUT_DATE) {
+		AUDIT_RSINPUT_DATE = aUDIT_RSINPUT_DATE;
+	}
+
+	public String getAUDITOR_ID() {
+		return AUDITOR_ID;
+	}
+
+	public void setAUDITOR_ID(String aUDITOR_ID) {
+		AUDITOR_ID = aUDITOR_ID;
+	}
+
+	public String getAUDIT_RESULT() {
+		return AUDIT_RESULT;
+	}
+
+	public void setAUDIT_RESULT(String aUDIT_RESULT) {
+		AUDIT_RESULT = aUDIT_RESULT;
+	}
 
 	public int getAUDIT_SCORE() {
 		return AUDIT_SCORE;
