@@ -43,8 +43,8 @@
 		<a class="btn dropdown-toggle" data-toggle="dropdown" href='#'><span>부적합관리</span></a>
 		<ul class="dropdown-menu">
 			<li class='has-sub'><a href='ncr/ncrRegister'>NCR Register</a></li>
-			<li class='has-sub'><a href='ncr/ncr'>NCR Management</a></li>
-			<li class='has-sub'><a href='./AuditResult'>NCR Status</a></li>
+			<li class='has-sub'><a href='ncr/ncrManagement'>NCR Management</a></li>
+			<li class='has-sub'><a href='ncr/ncrStatus'>NCR Status</a></li>
 		</ul>
 		</div>
 		
