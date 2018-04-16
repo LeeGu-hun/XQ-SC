@@ -142,7 +142,9 @@ public class VendorController {
 		return "/vendor/vendorRegister";
 	}
 	
-	@RequestMapping(value ="/vendor/vendorView/{VENDOR_ID}", method = RequestMethod.POST)
+	
+	
+	@RequestMapping(value ="/vendor/vendorView/{VENDOR_ID}", method = RequestMethod.GET)
 	public String vendorView(@PathVariable("VENDOR_ID") String VENDOR_ID, Model model,BeanVendor beanvendor) {
 		
 		BeanVendor view = vendorService.vendorView(VENDOR_ID);
