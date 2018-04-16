@@ -9,6 +9,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import bean.BeanIssuer;
+import bean.BeanNcrAttach;
 import bean.BeanVendor;
 import bean.NcrAuditListCommand;
 import bean.NcrAuditSearchCommand;
@@ -60,9 +61,14 @@ public class NcrService {
 		return issuerlist;
 	}
 
-	public List<NcrBean> getNcrDetail(String ncr_id) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<NcrBean> getNcrDetail(int ncr_id) {
+		List<NcrBean> ncrlist = sqlSession.selectList("ncrSQL.getNcrDetailList",ncr_id);
+		return ncrlist;
+	}
+	
+	public List<BeanNcrAttach> getFileList(int ncr_id) {
+		List<BeanNcrAttach> uploadFileList = sqlSession.selectList("ncrSQL.getFileList",ncr_id);
+		return uploadFileList;
 	}
 	
 }

@@ -7,16 +7,17 @@
 <link href="<c:url value="/css/bootstrap.css" />" rel="stylesheet">
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>  
 <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
-<style>
-@media (min-width: 768px) {
-  .modal-dialog {
-    width: 600px;
-    margin: 30px auto;
-  }
-  </style>
+
 <script>
 
+function vendorReply(){
+
+}
+
+function complete(){
 	
+}
+
 function searchNcr(){
 	 var params = $('#formNcrSearch').serialize();
 	$.ajax({
@@ -29,7 +30,7 @@ function searchNcr(){
 
 function resultNcr(ncrList){
 	$("#ncrListBox").html(ncrList);
-}
+	}
 	
 
 function searchVendorId(){	
@@ -47,13 +48,10 @@ function result(msg){
 	$("#vendorList").html(msg);
 }
 
-
 function rowselect(vendor_name,vendor_id){
 	$("#vendor_name").val(vendor_name);
 	$("#vendor_id").val(vendor_id);
-	$('#vendorSearchModal').modal('hide');
-	
-   
+	$('#vendorSearchModal').modal('hide');   
 } 
 
 function searchIssuerId(){	
@@ -89,8 +87,7 @@ function rowselectDetail(ncr_id){
 	
 function showdetail(msg2){
 		$("#ncrDetailBox").html(msg2);
-	}
-	
+	}	
 	$('#detailModal').modal('show');
 }
 
@@ -121,15 +118,11 @@ function showdetail(msg2){
 					<td>Issuer</td>
 					<td><input type="text"  id="issuer_id" name="issuer_id" >
 					<image src="${pageContext.request.contextPath}/images/icon_search.gif" data-target="#issuerSearchModal" data-toggle="modal" ></image>
-					</td>					
+					</td>
 				</tr>
 				<tr>
-					<td>Issue Date</td>
-					<td colspan="5"><input type="date" class="txtSty" type="text" name="date1" id="date1" > </input>								
-					~ <input class="txtSty" type="date" name="date2" id="date2" > </input></td>							
-					<td colspan="2"><label> include completed<input type="checkbox" id ="isIncluded" name ="isIncluded"></label> 
-						<input type="button" value="search" onclick="searchNcr()"/></td>
-				<tr>		
+					<td colspan="8"><input type="button" value="search" onclick="searchNcr()"/></td>
+				</tr>		
 			</table>
 		</form>
 	</div>
@@ -229,51 +222,16 @@ function showdetail(msg2){
       <!-- body -->
       <div class="modal-body">
       <div id="ncrDetailBox">
-  		<table class="table"> 
-			<tr>
-				<td>Audit No.</td>
-				<td><input type="text" id="audit_id" name="audit_id" readonly/>	</td>
-				<td>Vendor Name</td>
-				<td><input type="text" id="vendor_name"  name="vendor_name" readonly></td>
-				<td>Audit date</td>
-				<td><input type="text" id="audit_date"  name="audit_date" readonly></td>
-			<tr>
-			<tr>
-				<td>Kind of Audit</td>
-				<td><input type="text" id="audit_kind" readonly></td>
-				<td>Audit Result</td>
-				<td><input type="text"  id="audit_result" readonly></td>
-				<td>Auditor</td>
-				<td><input type="text"  id="auditor_name" readonly></td>
-			<tr>		
-	
-	
-
-				<tr>
-					<td>Subject</td>
-					<td ><input type="text" name="ncr_title" readonly></td>
-					<td>Issuer</td>
-					<td><input type="text" name="issuer_name" readonly" ></td>
-					<td>Grade</td>
-					<td><input type="text" name="ncr_grade_name" readonly" ></td>
-				</tr>
-				<tr>
-					<td>Description</td>
-					<td colspan = "7">
-					<textarea style="width :100%; height:500px;" id="ncr_description" name="ncr_description" readonly></textarea>
-					</td>
-				</tr>
-				<tr>
-					<td>file_view</td>
-					<td colspan = "5">
-						<input type="file" multiple id="ncr_file" name="ncr_file"></input></td>
-					
-					</table>
+  	
 		</div>
       </div>
       <!-- Footer -->
       <div class="modal-footer">
+      	 <button type="button" class="btn btn-default" data-dismiss="modal" onclick="vendorReply()">vendor reply</button>
+      	 <button type="button" class="btn btn-default" data-dismiss="modal">auditor reply</button>
+      	 <button type="button" class="btn btn-default" data-dismiss="modal" onclick="complete()">complete</button>
          <button type="button" class="btn btn-default" data-dismiss="modal">close</button>
+         
       </div>
     </div>
   </div>

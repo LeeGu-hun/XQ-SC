@@ -24,10 +24,28 @@
     </insert>
 
 	<select id="getNcrList"  parameterType = "bean.NcrSearchCommand" resultType="bean.NcrBean">
-   		select n.ncr_id, n.ncr_title,n.ncr_comp , a.vendor_id, m.member_name as issuer_name ,g.ncr_grade_name, n.audit_id 
-		from ncr_info n , audit_info a, member_info m  ,ncr_grade g where
-		n.audit_id = a.audit_id and n.issuer_id=m.member_id and g.ncr_grade_id =n.ncr_grade_id
-		
+   				
+		 select n.ncr_id, n.ncr_title,n.ncr_comp , a.vendor_id, m.member_name as issuer_name ,g.ncr_grade_name, n.audit_id 
+		from ncr_info n , audit_info a, member_info m  ,ncr_grade g
+       
+		<where>
+		    n.audit_id=a.audit_id and n.issuer_id=m.member_id and n.ncr_grade_id=g.ncr_grade_id
+						
+			<if test="ncr_id!=null and ncr_id!='' ">
+				and n.ncr_id = #{ncr_id}
+			</if>
+			
+			<if test="ncr_title!=null and ncr_title!='' ">
+				and n.ncr_title like '%' || #{ncr_title} || '%'
+			</if>
+			<if test="vendor_id != null ||vendor_id !='' ">
+				 or a.vendor_id=#{vendor_id}
+			</if>
+			<if test="issuer_id!=null and issuer_id!='' ">
+				or n.issuer_id=#{issuer_id}
+			</if>		
+										
+		</where>
 		
     </select>  
 	
@@ -38,6 +56,19 @@
 	
 	<select id="getIssuerList"  parameterType = "String" resultType="bean.BeanIssuer">   
      select distinct n.issuer_id,m.member_name as issuer_name from ncr_info n, member_info m where m.member_id=n.issuer_id and m.member_name like '%'||#{isuer_name}||'%'		      
+    </select>  
+    
+    <select id="getNcrDetailList"  parameterType = "Int" resultType="bean.NcrBean">
+   		select n.ncr_id, n.audit_id,v.vendor_name,a.audit_comp_date,a.audit_kind_id,ak.audit_kind,a.audit_result
+        ,n.ncr_title,m.member_name as issuer_name,n.ncr_description,n.ncr_grade_id 
+        from audit_info a, member_info m, ncr_info n, audit_kind ak, vendor_info v
+        where n.audit_id = a.audit_id and a.audit_kind_id = ak.audit_kind_id and m.member_id=n.issuer_id
+            and a.vendor_id = v.vendor_id and ncr_id=#{ncr_id}
+		
+    </select>  
+    
+     <select id="getFileList"  parameterType = "Int" resultType="bean.BeanNcrAttach">
+   		select * from ncr_attach where ncr_id=#{ncr_id}		
     </select>  
 	
 </mapper>
