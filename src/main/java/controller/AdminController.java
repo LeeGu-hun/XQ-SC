@@ -13,10 +13,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import bean.AdminCkL;
 import bean.BeanCategory;
 import bean.BeanChecklist;
 import bean.BeanMember;
 import bean.BeanProduct;
+import bean.Paging;
 import service.AdminService;
 @Controller
 public class AdminController {
@@ -165,7 +167,6 @@ public class AdminController {
 	@RequestMapping(value="MSet", method=RequestMethod.POST)
 	public String msetPost(@RequestParam(defaultValue="0") int state, 
 			@ModelAttribute("MemberCommand")BeanMember member, HttpServletRequest request) {
-		System.out.println(request.getParameter("MEMBER_EMAIL")); 
 		
 		if(state == 1) {
 			adminService.updateMember(member);
@@ -208,17 +209,43 @@ public class AdminController {
 	
 	@RequestMapping(value="CLSet", method=RequestMethod.GET)
 	public String clsetGet(@ModelAttribute("CkLCommand")BeanChecklist ckList,
+			@RequestParam(defaultValue="ALL") String auditKindId,
+			@RequestParam(defaultValue="A") String cklValid,
+            @RequestParam(defaultValue="") String keyword,
+            @RequestParam(defaultValue="1") int curPage,
 			Model model) {
 		
+		
+		AdminCkL ackl = new AdminCkL(0, 0, auditKindId, cklValid, keyword);
+	    int listCnt = adminService.countCkL(ackl);
+	    
+	    Paging paging = new Paging();
+	    paging.setPageNo(curPage);
+	    paging.setPageSize(10);
+	    paging.setTotalCount(listCnt);
+	    int start = paging.getPageBegin();
+	    int end = paging.getPageEnd();
+	    
+	    ackl.setStart(start);
+	    ackl.setEnd(end);
+				
 		Map<String, Object> map = new HashMap<String, Object>();
 
 		List<BeanChecklist> allckList = adminService.allCKList();
+		List<BeanChecklist> getCkList = adminService.getCkList(ackl);
 		
 	    map.put("allckList", allckList);
+	    map.put("getCkList", getCkList);
+	    map.put("listCnt", listCnt);
+	    map.put("auditKindId", auditKindId);
+	    map.put("cklValid", cklValid);
+	    map.put("keyword", keyword);
+	    model.addAttribute("paging", paging);
 		model.addAttribute("map", map);
 
 		return "admin/clset";
 	}
+	
 	@RequestMapping(value="CLSet", method=RequestMethod.POST)
 	public String clsetPost(@RequestParam(defaultValue="0") int state, 
 			@ModelAttribute("CkLCommand")BeanChecklist ckList) {

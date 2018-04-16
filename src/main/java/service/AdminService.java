@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import bean.AdminCkL;
 import bean.BeanCategory;
 import bean.BeanChecklist;
 import bean.BeanMember;
@@ -152,6 +153,14 @@ public class AdminService {
 	
 	public void changeCkList(BeanChecklist ckList) {
 		
+	}
+
+	public int countCkL(AdminCkL ackl) {
+		return sqlSession.selectOne("adminSQL.countCkL", ackl);
+	}
+
+	public List<BeanChecklist> getCkList(AdminCkL ackl) {
+		return sqlSession.selectList("adminSQL.getCkList", ackl);
 	}
 	
 }

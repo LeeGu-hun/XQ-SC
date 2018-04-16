@@ -59,6 +59,13 @@
 		}
 		document.getElementById('cuf').submit();
 	}
+	
+	function list(curPage) {
+		location.href = "./CLSet?curPage=" + curPage
+				+ "&auditKindId=${map.auditKindId}"
+				+ "&cklValid=${map.cklValid}"
+				+ "&keyword=${map.keyword}";
+	}
 </script>
 </head>
 
@@ -70,34 +77,14 @@
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<a href="../logout">로그아웃</a>
 	</blockquote>
+	>>>>>>>>>>>>>>>>>>>>>>>>>>>>>${map.listCnt}
 	<span id="ckLInUp">
 		<%@include file="/admin/ckl_In.jsp" %>
 	</span>	
 	<br>
 	<br>
 	<div>
-		<label>KIND</label>
-		<input id = "aaki" type = "radio" name="auditKindId" value="ALL" checked="checked"
-			onclick="location.href='./CLSet'"/>
-		<label for = "aaki">ALL</label>
-		<input id = "new" type = "radio" name="auditKindId" value="NE" />
-		<label for = "new">NEW</label>
-		<input id = "regular" type = "radio" name="auditKindId" value="RE" />
-		<label for = "regular">REGULAR</label>
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<label>VALID</label>
-		<input id = "alv" type = "radio" name="cklValid" value="A" checked="checked"/>
-		<label for = "alv">ALL</label>
-		<input id = "valid" type = "radio" name="cklValid" value="Y" />
-		<label for = "valid">VALID</label>
-		<input id = "invalid" type = "radio" name="cklValid" value="N" />
-		<label for = "invalid">INVALID</label>
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<label id = "keyword">DISCRIPTION</label>
-		<input id = "keyword" type="text" name = "keyword" value="${map.keyword}" />
-		&nbsp;&nbsp;&nbsp;&nbsp;
-		<input type="submit" value="조회">
-		<br>
+		<%@include file="/admin/ckl_S.jsp" %>
 	</div>
 	
 	<br>
@@ -122,8 +109,7 @@
 			</tr>
 		</thead>
 		<tbody>
-		
-			<c:forEach var="c" items="${map.allckList}">
+			<c:forEach var="c" items="${map.getCkList}">
 				<tr>
 					<td>
 						<div align="center">
@@ -152,6 +138,19 @@
 					</td>
 				</tr>
 			</c:forEach>
+			<tr align=center height=20>
+				<td colspan=5 style="font-family: Tahoma; font-size: 10pt;">
+					<jsp:include page="/admin/paging.jsp" flush="true">
+						<jsp:param name="firstPageNo" value="${paging.firstPageNo}" />
+						<jsp:param name="prevPageNo" value="${paging.prevPageNo}" />
+						<jsp:param name="startPageNo" value="${paging.startPageNo}" />
+						<jsp:param name="pageNo" value="${paging.pageNo}" />
+						<jsp:param name="endPageNo" value="${paging.endPageNo}" />
+						<jsp:param name="nextPageNo" value="${paging.nextPageNo}" />
+						<jsp:param name="finalPageNo" value="${paging.finalPageNo}" />
+					</jsp:include>
+				</td>
+			</tr>
 		</tbody>
 	</table>
 </body>

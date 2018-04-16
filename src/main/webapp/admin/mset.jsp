@@ -39,7 +39,6 @@
 	
 	function mInsert() {
 		var name = document.getElementById('MEMBER_NAME'); 
-			document.getElementById('mInUp').textContent= name.value;
 		
 		if(name.value == "" ){
 			document.getElementById('mInUp').textContent= '내용을 입력해주세요';
@@ -67,7 +66,7 @@
     <blockquote> <br>
 		<a href="<c:url value='/main'/>"> [ dddddd ]</a>
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<a href="./admin/setting.jsp">다른 회원의 게시판보기aaffff</a>
+		<a href="./admin/setting.jsp">다른 회원의 게시판보기</a>
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<a href="../logout">로그아웃</a>
 	</blockquote>
