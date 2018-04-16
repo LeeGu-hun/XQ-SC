@@ -76,7 +76,7 @@
 	v.vendor_name,c.category_name,p.product_name,a.audit_rsinput_date,v.vendor_q_name,v.vendor_q_tel,v.vendor_q_email
 	from AUDIT_INFO a,VENDOR_INFO v,product_item p,category_info c
 	where a.vendor_id = v.vendor_id and p.product_id=v.product_id and
-	c.category_id=p.category_id and a.audit_rsinput_date between #{from} and #{to}	order by a.audit_rsinput_date desc
+	c.category_id=p.category_id and a.audit_rsinput_date between #{from} and #{to}
 	</select>
 
 
