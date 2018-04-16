@@ -19,23 +19,21 @@
 <script language="javascript">
 
 	
-	function prodListse() {
+	function prodList() {
 		var selCate = document.getElementById("selCate").value;
 
 		$.ajax({
 			type : "GET",
 			url : "vendor/prodList",
 			data : "selCate=" + selCate,
-			//"&selProd="+selProdVal,
-			success : resultse
+			success : result
 		});
 
 	}
 
-	function resultse(msg){
+	function result(msg){
 		$("#spProd").html(msg);
-		
-		
+	
 	}
 	
 /*	$("#")$(function() {
@@ -111,15 +109,18 @@ function addvendor() {
 			<tr>
 
 				<td>카테고리 :</td>
-				<td><select name="selCate" id="selCate" onchange="prodListse();">
+				<td><select name="selCate" id="selCate" onchange="prodList();">
 						<option value="cate">카테고리</option>
 						<c:forEach var="c" items="${map.cateList}">
 							<option value="${c.CATEGORY_ID}">${c.CATEGORY_NAME}</option>
 						</c:forEach>
 				</select>
 				<td>품목:</td>
-				<td><span id="spProd"><select name="PRODUCT_ID" id="PRODUCT_ID"><option value="" >상품을 선택하세요</option>
-					   </select></span></td>
+				<td><span id="spProd"><select name="PRODUCT_ID" id="PRODUCT_ID">
+				<option value="" >상품을 선택하세요</option>
+					   </select>
+					   </span>
+					   </td>
 				</td>
 			<tr>
 				<td>요청일자 :</td>

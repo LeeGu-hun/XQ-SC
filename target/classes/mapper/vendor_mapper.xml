@@ -8,18 +8,75 @@
 
 	<!-- vendor등록 -->
 	<select id="registerList" resultType="bean.BeanVendor">
-		select v.vendor_id,v.vendor_name,p.PRODUCT_NAME AS PRODUCT_NAME,v.vendor_req_date,v.vendor_s_name,v.vendor_s_tel
-from vendor_info v,product_item p
-where v.product_id=p.product_id and V.VENDOR_VALID='N'
+		select
+		v.vendor_id,v.vendor_name,p.PRODUCT_NAME AS
+		PRODUCT_NAME,v.vendor_req_date,v.vendor_s_name,v.vendor_s_tel,v.vendor_s_email
+		from
+		vendor_info v,product_item p
+		where v.product_id=p.product_id and
+		V.VENDOR_VALID='N'
 	</select>
 
 	<select id="registerCount" resultType="int">
 		SELECT COUNT(*) FROM
 		VENDOR_INFO where vendor_valid='N'
 	</select>
+
+	<select id="vendordView" resultType="bean.BeanVendor"
+		parameterType="String">
+		SELECT v.vendor_name,p.PRODUCT_NAME AS
+		PRODUCT_NAME,v.vendor_address,v.vendor_emp_no,v.vendor_iso_file,vendor_cert_file,v.vendor_req_date,v.vendor_id,
+		v.vendor_q_name,v.vendor_q_tel,v.vendor_q_email,v.vendor_s_name,v.vendor_s_tel,v.vendor_s_email,c.category_name
+		as CATEGORY_NAME
+		FROM VENDOR_INFO v,product_item p,category_info c
+		WHERE v.product_id=p.product_id and p.category_id=c.category_id and
+		v.VENDOR_ID=#{VENDOR_ID}
+	</select>
+
+	<update id="vendorUpdate" parameterType="bean.BeanVendor">
+		update vendor_info
+		set
+		vendor_valid='Y'
+		where VENDOR_ID=#{VENDOR_ID}
+	</update>
+
+	<update id="vendorDelete" parameterType="bean.BeanVendor">
+		update vendor_info
+		set
+		vendor_valid='C'
+		where VENDOR_ID=#{VENDOR_ID}
+	</update>
+
+	<!-- vendor를 member등록 -->
+	<insert id="vendorMemRegister" parameterType="bean.BeanVendor">
+		insert into
+		member_info
+		values(#{VENDOR_ID},#{VENDOR_NAME},'VENDOR','
+		',#{VENDOR_S_TEL},#{VENDOR_S_EMAIL},'V')
+	</insert>
 	
-	<select id="vendordView"  resultType="bean.BeanVendor">
-		SELECT * FROM VENDOR_INFO WHERE VENDOR_ID=#{VENDOR_ID}
+	
+
+	<!-- vendor Status -->
+	
+	<select id="vendorList" resultType="bean.BeanVendor"> 
+	SELECT * FROM VENDOR_INFO ORDER BY VENDOR_NAME
+	</select>
+
+	<select id="ncrAllList">
+		select count(*) from ncr_info n, audit_info a,
+		vendor_info v where
+		n.AUDIT_ID=a.AUDIT_ID and a.vendor_id=v.vendor_id
+		and
+		v.VENDOR_ID=#{VENDOR_ID}
+	</select>
+	
+	<select id="getStatusList" parameterType="bean.ListCommand" resultType="bean.VendorStatus">
+	select rownum rnum,v.vendor_id,
+	v.vendor_name,c.category_name,p.product_name,a.audit_rsinput_date,v.vendor_q_name,v.vendor_q_tel,v.vendor_q_email
+	from AUDIT_INFO a,VENDOR_INFO v,product_item p,category_info c
+	where a.vendor_id = v.vendor_id and p.product_id=v.product_id and
+	c.category_id=p.category_id and a.audit_rsinput_date between #{from} and #{to}	order by a.audit_rsinput_date desc
 	</select>
 
 
@@ -39,7 +96,8 @@ where v.product_id=p.product_id and V.VENDOR_VALID='N'
 	<select id="prodList" resultType="bean.BeanProduct"
 		parameterType="String">
 		select * from product_item
-		where CATEGORY_ID = #{CATEGORY_ID}
+		where CATEGORY_ID =
+		#{CATEGORY_ID}
 	</select>
 
 	<insert id="newVendorRegister" parameterType="bean.BeanVendor">

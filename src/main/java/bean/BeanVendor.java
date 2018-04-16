@@ -6,6 +6,7 @@ public class BeanVendor {
 	private String VENDOR_NAME;
 	private String PRODUCT_ID;
 	private String PRODUCT_NAME;
+	private String CATEGORY_NAME;
 	private String VENDOR_ADDRESS;
 	private int VENDOR_EMP_NO;
 	private String VENDOR_ISO_FILE;
@@ -22,14 +23,15 @@ public class BeanVendor {
 	
 	public BeanVendor(){}
 
-	public BeanVendor(String vENDOR_NAME, String pRODUCT_ID, String pRODUCT_NAME, String vENDOR_ADDRESS,
-			int vENDOR_EMP_NO, String vENDOR_ISO_FILE, String vENDOR_CERT_FILE, Date vENDOR_REQ_DATE, String vENDOR_ID,
-			String vENDOR_VALID, String vENDOR_Q_NAME, String vENDOR_Q_TEL, String vENDOR_Q_EMAIL, String vENDOR_S_NAME,
-			String vENDOR_S_TEL, String vENDOR_S_EMAIL) {
+	public BeanVendor(String vENDOR_NAME, String pRODUCT_ID, String pRODUCT_NAME, String cATEGORY_NAME,
+			String vENDOR_ADDRESS, int vENDOR_EMP_NO, String vENDOR_ISO_FILE, String vENDOR_CERT_FILE,
+			Date vENDOR_REQ_DATE, String vENDOR_ID, String vENDOR_VALID, String vENDOR_Q_NAME, String vENDOR_Q_TEL,
+			String vENDOR_Q_EMAIL, String vENDOR_S_NAME, String vENDOR_S_TEL, String vENDOR_S_EMAIL) {
 		super();
 		VENDOR_NAME = vENDOR_NAME;
 		PRODUCT_ID = pRODUCT_ID;
 		PRODUCT_NAME = pRODUCT_NAME;
+		CATEGORY_NAME = cATEGORY_NAME;
 		VENDOR_ADDRESS = vENDOR_ADDRESS;
 		VENDOR_EMP_NO = vENDOR_EMP_NO;
 		VENDOR_ISO_FILE = vENDOR_ISO_FILE;
@@ -67,6 +69,14 @@ public class BeanVendor {
 
 	public void setPRODUCT_NAME(String pRODUCT_NAME) {
 		PRODUCT_NAME = pRODUCT_NAME;
+	}
+
+	public String getCATEGORY_NAME() {
+		return CATEGORY_NAME;
+	}
+
+	public void setCATEGORY_NAME(String cATEGORY_NAME) {
+		CATEGORY_NAME = cATEGORY_NAME;
 	}
 
 	public String getVENDOR_ADDRESS() {
@@ -172,6 +182,6 @@ public class BeanVendor {
 	public void setVENDOR_S_EMAIL(String vENDOR_S_EMAIL) {
 		VENDOR_S_EMAIL = vENDOR_S_EMAIL;
 	}
-	
 
+	
 }
