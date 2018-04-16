@@ -8,9 +8,12 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import bean.BeanIssuer;
+import bean.BeanVendor;
 import bean.NcrAuditListCommand;
 import bean.NcrAuditSearchCommand;
 import bean.NcrBean;
+import bean.NcrSearchCommand;
 
 public class NcrService {
 
@@ -28,7 +31,7 @@ public class NcrService {
 	}
 
 	public void issueNcr(NcrBean nb) {
-		System.out.println(nb.getAudit_id());
+		
 		sqlSession.insert("ncrSQL.ncrIssue", nb);
 				
 	}
@@ -40,4 +43,26 @@ public class NcrService {
 	    hm.put("fileSize", fileSize);
 	    sqlSession.insert("ncrSQL.ncrFileUpload", hm);
 	}
+
+	public List<NcrBean> getNcrList(NcrSearchCommand nsc) {
+		List<NcrBean>ncrList = sqlSession.selectList("ncrSQL.getNcrList",nsc);
+		return ncrList;
+	}
+
+	public List<BeanVendor> getVendorList(String vendor_name) {
+		System.out.println(vendor_name);
+		List<BeanVendor> vendorlist = sqlSession.selectList("ncrSQL.getVendorList",vendor_name);	
+		return vendorlist;
+	}
+
+	public List<BeanIssuer> getIssuerList(String issuer_name) {	
+		List<BeanIssuer> issuerlist = sqlSession.selectList("ncrSQL.getIssuerList",issuer_name);	
+		return issuerlist;
+	}
+
+	public List<NcrBean> getNcrDetail(String ncr_id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 }

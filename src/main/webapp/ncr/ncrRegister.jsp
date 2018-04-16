@@ -50,15 +50,16 @@ function ncrIssue(){
 <body>
 <div id=mainBox class="container">
 	<div>
+		<form  action="./ncrIssue" method="post" name="formNcrIssue" enctype="multipart/form-data">
 		<table class="table"> 
 			<tr>
 				<td>Audit No.</td>
-				<td><input type="text" id="audit_id"/>
-					<image src="${pageContext.request.contextPath}/images/icon_search.gif" data-target="#layerpop" data-toggle="modal" onclick="searchAudit()"></image></td>
+				<td><input type="text" id="audit_id" name="audit_id"/>
+					<image src="${pageContext.request.contextPath}/images/icon_search.gif" data-target="#layerpop" data-toggle="modal" ></image></td>
 				<td>Vendor Name</td>
-				<td><input type="text" id="vendor_name" readonly></td>
+				<td><input type="text" id="vendor_name"  name="vendor_name" readonly></td>
 				<td>Audit date</td>
-				<td><input type="text" id="audit_date" maxlength="5" readonly></td>
+				<td><input type="text" id="audit_date"  name="audit_date" readonly></td>
 			<tr>
 			<tr>
 				<td>Kind of Audit</td>
@@ -70,11 +71,7 @@ function ncrIssue(){
 			<tr>		
 	
 	
-	
-		<form  action="./ncrIssue" method="post" name="formNcrIssue" enctype="multipart/form-data">
-		<input type="hidden" id="audit_id"  name="audit_id"/ >
-		
-		
+
 				<tr>
 					<td>Subject</td>
 					<td ><input type="text" name="ncr_title"></td>
@@ -101,7 +98,8 @@ function ncrIssue(){
 		</form>
 	</div>
 	
- 
+<!--  모달 시작 --> 
+
 <div class="modal fade" id="layerpop" >
   <div class="modal-dialog">
     <div class="modal-content">
@@ -137,7 +135,7 @@ function ncrIssue(){
   </div>
 </div>
 
-
+<!--  모달 끝 --> 
 
 </div>
 </body>

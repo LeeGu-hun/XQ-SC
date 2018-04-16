@@ -26,7 +26,7 @@
 				<li><a href='#'><span>부적합관리</span></a>
 					<ul>
 						<li class='has-sub'><a href='ncr/ncrRegister'>NCR Register</a></li>
-						<li class='has-sub'><a href='ncr/ncr'>NCR Management</a></li>
+						<li class='has-sub'><a href='ncr/ncrManagement'>NCR Management</a></li>
 						<li class='has-sub'><a href='./AuditResult'>NCR Status</a></li>
 					</ul>				
 				</li>

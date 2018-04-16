@@ -16,9 +16,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import bean.BeanIssuer;
+import bean.BeanVendor;
 import bean.NcrAuditListCommand;
 import bean.NcrBean;
-import bean.ncrIssueCommand;
+import bean.NcrIssueCommand;
+import bean.NcrSearchCommand;
 import service.NcrService;
 import spring.AuthInfo;
 
@@ -61,9 +64,9 @@ public class NcrController {
 	}
 	
 	@RequestMapping(value = "ncr/ncrIssue", method = RequestMethod.POST)
-	public String issue(ncrIssueCommand nic , HttpSession session, HttpServletRequest request, MultipartHttpServletRequest mhsq) 
+	public String issue(NcrIssueCommand nic , HttpSession session, HttpServletRequest request, MultipartHttpServletRequest mhsq) 
 			throws IllegalStateException,IOException {
-
+		System.out.println("nic는"+nic.getAudit_id());
 		AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
 		NcrBean nb = new NcrBean();
 		nb.setAudit_id(nic.getAudit_id());
@@ -102,12 +105,10 @@ public class NcrController {
         }
         
         
-		return "ncr/ncrRegister";
+		return "redirect:./ncrRegister";
 	}
 	
-	
-	
-	
+		
 	@RequestMapping(value = "ncr/ncrRegister", method = RequestMethod.GET)
 		public String ncrRegister(HttpSession session ,Model model) {
 		AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
@@ -118,4 +119,82 @@ public class NcrController {
 		return"ncr/ncrRegister";
 	}
 	
+	@RequestMapping(value = "ncr/ncrManagement", method = RequestMethod.GET)
+		public String ncrManagementGet(HttpSession session) {
+		
+		return"ncr/ncrManagement";
+		}
+	
+	@RequestMapping(value = "ncr/ncrSearch", method = RequestMethod.POST)
+	public String ncrSearch(NcrSearchCommand nsc , Model model) {
+		
+			List<NcrBean> ncrList =null;			
+		
+		try {						
+			ncrList= ncrService.getNcrList(nsc);			
+		} catch (Exception e) {e.printStackTrace();}
+		
+		
+		model.addAttribute("ncrList",ncrList);		
+		
+		System.out.println("ncrList"+ncrList);
+	return"ncr/ncrList";
+	}
+	
+	
+	@RequestMapping(value = "ncr/searchVendorId", method = RequestMethod.POST)
+	public String searchVendor(Model model, HttpServletRequest request, HttpSession session,
+			@RequestParam(defaultValue="") String vendor_name) {
+    		List<BeanVendor> vendorList =null;
+		
+		try {						
+			vendorList= ncrService.getVendorList(vendor_name);			
+		} catch (Exception e) {e.printStackTrace();}
+		
+		model.addAttribute("vendorList",vendorList);
+				
+		return "ncr/ncrVendorList";
+	}
+	
+	@RequestMapping(value = "ncr/searchVendorId", method = RequestMethod.GET)
+	public String searchVendorget(Model model) {
+		return "ncr/ncrManagement";
+	}
+	
+	
+	@RequestMapping(value = "ncr/searchIssuerId", method = RequestMethod.POST)
+	public String searchIssuer(Model model, HttpServletRequest request, HttpSession session,
+			@RequestParam(defaultValue="") String issuer_name) {
+    		List<BeanIssuer> issuerList =null;
+		
+		try {						
+			issuerList= ncrService.getIssuerList(issuer_name);			
+		} catch (Exception e) {e.printStackTrace();}
+		model.addAttribute("issuerList",issuerList);
+		System.out.println(issuerList.size());
+		return "ncr/ncrIssuerList";
+	}
+	
+	@RequestMapping(value = "ncr/searchIssuerId", method = RequestMethod.GET)
+	public String searchIssuerget(Model model) {
+		return "ncr/ncrManagement";
+	}
+	
+	@RequestMapping(value = "ncr/ncrDetail", method = RequestMethod.POST)
+	public String ncrDetailPost(Model model, HttpServletRequest request, HttpSession session,
+			@RequestParam(defaultValue="") String ncr_id) {
+    		List<NcrBean> ncrBean =null;
+		
+		try {						
+			ncrBean= ncrService.getNcrDetail(ncr_id);			
+		} catch (Exception e) {e.printStackTrace();}
+		model.addAttribute("ncrBean",ncrBean);
+		System.out.println(ncrBean.size());
+		return "ncr/ncrDetail";
+	}
+	
+	@RequestMapping(value = "ncr/ncrDetail", method = RequestMethod.GET)
+	public String ncrDetailget(Model model) {
+		return "ncr/ncrManagement";
+	}
 }

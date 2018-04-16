@@ -12,8 +12,7 @@
       where a.vendor_id=v.vendor_id and a.audit_kind_Id=ak.audit_kind_id and a.auditor_id=m.member_id
       and v.vendor_name like '%'||#{vendorName}||'%'
       
-    </select>  
-  
+    </select>    
   
 	<insert id="ncrIssue" parameterType="bean.NcrBean">
       insert into ncr_info values((select count(*)from ncr_info)+1,#{audit_id},#{issuer_id},
@@ -21,8 +20,24 @@
 	</insert>
 	
 	<insert id="ncrFileUpload" parameterType="HashMap">
-    INSERT INTO ncr_attach values((select count(*)from ncr_info),(select count(*)from ncr_attach)+1, #{originalfileName}, #{saveFileName},#{fileSize})
+    	INSERT INTO ncr_attach values((select count(*)from ncr_info),(select count(*)from ncr_attach)+1, #{originalfileName}, #{saveFileName},#{fileSize})
     </insert>
 
+	<select id="getNcrList"  parameterType = "bean.NcrSearchCommand" resultType="bean.NcrBean">
+   		select n.ncr_id, n.ncr_title,n.ncr_comp , a.vendor_id, m.member_name as issuer_name ,g.ncr_grade_name, n.audit_id 
+		from ncr_info n , audit_info a, member_info m  ,ncr_grade g where
+		n.audit_id = a.audit_id and n.issuer_id=m.member_id and g.ncr_grade_id =n.ncr_grade_id
+		
+		
+    </select>  
+	
+	<select id="getVendorList"  parameterType = "String" resultType="bean.BeanVendor">   
+     select vendor_id,vendor_name from vendor_info where vendor_name like '%'||#{vendor_name}||'%'		      
+    </select>    
+	
+	
+	<select id="getIssuerList"  parameterType = "String" resultType="bean.BeanIssuer">   
+     select distinct n.issuer_id,m.member_name as issuer_name from ncr_info n, member_info m where m.member_id=n.issuer_id and m.member_name like '%'||#{isuer_name}||'%'		      
+    </select>  
 	
 </mapper>
