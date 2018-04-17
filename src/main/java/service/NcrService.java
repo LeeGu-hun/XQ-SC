@@ -14,6 +14,7 @@ import bean.BeanVendor;
 import bean.NcrAuditListCommand;
 import bean.NcrAuditSearchCommand;
 import bean.NcrBean;
+import bean.NcrReplyCommand;
 import bean.NcrSearchCommand;
 
 public class NcrService {
@@ -69,6 +70,24 @@ public class NcrService {
 	public List<BeanNcrAttach> getFileList(int ncr_id) {
 		List<BeanNcrAttach> uploadFileList = sqlSession.selectList("ncrSQL.getFileList",ncr_id);
 		return uploadFileList;
+	}
+
+	public void ncrComplete(int ncr_id) {
+		
+		sqlSession.insert("ncrSQL.ncrComplete", ncr_id);
+	}
+
+	public void saveVendorReply(NcrReplyCommand nrc) {
+		System.out.println("service"+ nrc.getNcr_id());
+		sqlSession.insert("ncrSQL.saveVendorReply", nrc);
+		
+	}
+	public void replyFileUpload(String originalfileName, String saveFileName, long fileSize) {
+	    HashMap<String, Object> hm = new HashMap<>();
+	    hm.put("originalfileName", originalfileName);
+	    hm.put("saveFileName", saveFileName);
+	    hm.put("fileSize", fileSize);
+	    sqlSession.insert("ncrSQL.replyFileUpload", hm);
 	}
 	
 }

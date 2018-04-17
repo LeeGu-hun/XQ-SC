@@ -23,6 +23,7 @@ import bean.BeanVendor;
 import bean.NcrAuditListCommand;
 import bean.NcrBean;
 import bean.NcrIssueCommand;
+import bean.NcrReplyCommand;
 import bean.NcrSearchCommand;
 import service.NcrService;
 import spring.AuthInfo;
@@ -83,7 +84,7 @@ public class NcrController {
 				String root_path = request.getSession().getServletContext().getRealPath("/");
 				String attach_path = "upload/";
 				String savePath = root_path + attach_path + saveFileName;
-				System.out.println(savePath);
+				
 				long fileSize = mf.get(i).getSize(); // 파일 사이즈
 				mf.get(i).transferTo(new File(savePath)); // 파일 저장
 				ncrService.ncrFileUpload(originalfileName, saveFileName, fileSize);
@@ -157,7 +158,7 @@ public class NcrController {
 
 	@RequestMapping(value = "ncr/ncrDetail", method = RequestMethod.POST)
 	public String ncrDetailPost(Model model, HttpServletRequest request, HttpSession session,
-			@RequestParam(defaultValue = "") String ncr_id) {
+			@RequestParam String ncr_id) {
 		List<NcrBean> ncrBean = null;
 		try {
 			ncrBean = ncrService.getNcrDetail(Integer.parseInt(ncr_id));
@@ -169,7 +170,78 @@ public class NcrController {
 	}
 
 	@RequestMapping(value = "ncr/ncrDetail", method = RequestMethod.GET)
-	public String ncrDetailget(Model model) {
+	public String ncrDetailget() {
 		return "ncr/ncrManagement";
 	}
+	
+	@RequestMapping(value = "ncr/ncrComplete", method = RequestMethod.POST)
+	public String ncrComplete(@RequestParam(defaultValue = "") String ncr_id) {		
+		ncrService.ncrComplete(Integer.parseInt(ncr_id));
+		return "ncr/ncrManagement";
+	}
+	@RequestMapping(value = "ncr/ncrComplete", method = RequestMethod.GET)
+	public String ncrCompleteGet() {
+		return "ncr/ncrManagement";
+	}	
+
+	@RequestMapping(value = "ncr/ncrVendorReply", method = RequestMethod.POST)
+	public String ncrVendorReplyPost(HttpSession session, Model model,@RequestParam(defaultValue = "") String ncr_id) {		
+		
+		AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
+		String loginId = authInfo.getId();
+		String loginName = authInfo.getName();
+		model.addAttribute("issuer_id", loginId);
+		model.addAttribute("issuer_name", loginName);
+		model.addAttribute("ncr_id",ncr_id);
+		return "ncr/ncrVedorReplyForm";
+	}
+	
+	@RequestMapping(value = "ncr/ncrVendorReply", method = RequestMethod.GET)
+	public String ncrVendorReplyGet(HttpSession session , Model model,@RequestParam(defaultValue = "") String ncr_id) {
+		
+		AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
+		String loginId = authInfo.getId();
+		String loginName = authInfo.getName();
+		model.addAttribute("issuer_id", loginId);
+		model.addAttribute("issuer_name", loginName);
+		model.addAttribute("ncr_id",ncr_id);
+		return "ncr/ncrVedorReplyForm";
+	}
+	
+	
+	@RequestMapping(value = "ncr/ncrVendorReplySave", method = RequestMethod.POST)
+	public String issue(NcrReplyCommand nrc, HttpSession session, HttpServletRequest request,			
+			MultipartHttpServletRequest mhsq) throws IllegalStateException, IOException {			
+		AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
+		System.out.println("controller"+nrc.getNcr_id());
+		nrc.setReplier_id(authInfo.getId());
+		ncrService.saveVendorReply(nrc);
+		
+		
+
+
+		List<MultipartFile> mf = mhsq.getFiles("reply_file");
+		if (mf.size() == 1 && mf.get(0).getOriginalFilename().equals("")) {
+
+		} else {
+			for (int i = 0; i < mf.size(); i++) {
+				// 파일 중복명 처리
+				String genId = UUID.randomUUID().toString();
+				// 본래 파일명
+				String originalfileName = mf.get(i).getOriginalFilename();
+
+				String saveFileName = genId + "." + originalfileName;
+				// 저장되는 파일 이름
+				String root_path = request.getSession().getServletContext().getRealPath("/");
+				String attach_path = "upload2";
+				String savePath = root_path + attach_path + saveFileName;
+				
+				long fileSize = mf.get(i).getSize(); // 파일 사이즈
+				mf.get(i).transferTo(new File(savePath)); // 파일 저장
+				ncrService.replyFileUpload(originalfileName, saveFileName, fileSize);
+			}
+		}
+		return "ncr/ncrManagement";
+	}
+
 }

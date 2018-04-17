@@ -70,5 +70,20 @@
      <select id="getFileList"  parameterType = "Int" resultType="bean.BeanNcrAttach">
    		select * from ncr_attach where ncr_id=#{ncr_id}		
     </select>  
+    
+    <update id="ncrComplete" parameterType="Int">
+      update ncr_info set ncr_comp='Y' where ncr_id=#{ncr_id}  
+	</update>
+	
+	<insert id="saveVendorReply" parameterType="bean.NcrReplyCommand">
+      insert into ncr_reply values(#{ncr_id},(select count(*)from ncr_reply)+1,sysdate,#{replier_id},
+      #{reply_description},'VENDOR')  
+	</insert>
+	
+	<insert id="replyFileUpload" parameterType="HashMap">
+    	INSERT INTO reply_attach values((select count(*)from ncr_reply),(select count(*)from reply_attach)+1, #{originalfileName}, #{saveFileName},#{fileSize})
+    </insert>
+	
+	
 	
 </mapper>
