@@ -93,6 +93,11 @@
 		SELECT AUDIT_KIND_PERIOD FROM AUDIT_KIND WHERE AUDIT_KIND_ID = 'RE'
 	</select>
 	
+	<update id="periodUpdate" parameterType="int">
+		UPDATE AUDIT_KIND SET AUDIT_KIND_PERIOD = #{aPeriod}
+		WHERE AUDIT_KIND_ID = 'RE'
+	</update>
+	
 	
 	
 	

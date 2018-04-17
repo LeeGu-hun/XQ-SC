@@ -58,6 +58,7 @@ public class AdminController {
 	@RequestMapping(value="Setting", method=RequestMethod.POST)
 	public String settingPost(@ModelAttribute("cateCommand")BeanCategory category,
 			@ModelAttribute("prodCommand")BeanProduct product,
+			@RequestParam(value="aPeriod", defaultValue="") int aPeriod,
 			@RequestParam(defaultValue="0") int state,
 			Model model) {
 				
@@ -67,6 +68,8 @@ public class AdminController {
 			adminService.prodInsert(product);
 		}else if(state == 3){
 			adminService.prodUpdate(product);
+		}else if(state == 4){
+			adminService.periodUpdate(aPeriod);
 		}else {
 			adminService.cateInsert(category);
 		}
@@ -302,8 +305,7 @@ public class AdminController {
 	
 
 	@RequestMapping("CLSet/CkLInsertForm")
-	public String setCkLInsertForm(@ModelAttribute("CkLCommand")BeanChecklist checklist,
-			Model model) {
+	public String setCkLInsertForm(@ModelAttribute("CkLCommand")BeanChecklist checklist) {
 				    
 		return "admin/ckl_In";
 	}

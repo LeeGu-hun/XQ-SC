@@ -38,9 +38,12 @@
 	}
 	
 	function mInsert() {
-		var name = document.getElementById('MEMBER_NAME'); 
+		var name = document.getElementById('MEMBER_NAME').value; 
+		var email = document.getElementById('MEMBER_EMAIL').value;
+		var pass = document.getElementById('MEMBER_PASS').value;
+		var tel = document.getElementById('MEMBER_TEL').value;
 		
-		if(name.value == "" ){
+		if(name == "" || email == "" ||pass == "" ||tel == "" ){
 			document.getElementById('mInUp').textContent= '내용을 입력해주세요';
 			return;
 		}
@@ -49,11 +52,13 @@
 	
 	function mUpdate() {
 
-		var name = document.getElementById('MEMBER_NAME'); 
+		var name = document.getElementById('MEMBER_NAME').value; 
+		var email = document.getElementById('MEMBER_EMAIL').value;
+		var pass = document.getElementById('MEMBER_PASS').value;
+		var tel = document.getElementById('MEMBER_TEL').value;
 		
-		if(name.value == ""){
+		if(name == "" || email == "" ||pass == "" ||tel == "" ){
 			document.getElementById('mInUp').textContent= '내용을 입력해주세요';
-			name.focus();
 			return;
 		}
 		document.getElementById('MemberCommand').submit();

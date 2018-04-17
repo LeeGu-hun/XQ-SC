@@ -66,6 +66,23 @@
 				+ "&cklValid=${map.cklValid}"
 				+ "&keyword=${map.keyword}";
 	}
+	
+	function onlyNum(){
+		var keycode = window.event.keyCode;
+		if (keycode == 8
+				|| (keycode >= 35 && keycode <= 40)
+				|| (keycode >= 46 && keycode <= 57)
+				|| (keycode >= 96 && keycode <= 105)
+				|| keycode == 110
+				|| keycode == 190) {
+			window.event.returnValue = true;
+			calcHap();
+			return;
+		} else {
+			window.event.returnValue = false;
+			return;
+		}
+	}
 </script>
 </head>
 

@@ -81,6 +81,10 @@ public class AdminService {
 		return sqlSession.selectOne("adminSQL.auditPeriod");
 	}
 
+	public void periodUpdate(int aPeriod) {
+		sqlSession.update("adminSQL.periodUpdate", aPeriod);
+	}	
+	
 	
 	
 	

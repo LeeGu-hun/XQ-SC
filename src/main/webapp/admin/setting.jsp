@@ -11,6 +11,13 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Setting</title>
 
+		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+
+		<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+		<script src="http://googledrive.com/host/0B-QKv6rUoIcGREtrRTljTlQ3OTg"></script>
+		<script src="http://googledrive.com/host/0B-QKv6rUoIcGeHd6VV9JczlHUjg"></script>
+		
       <link rel="stylesheet" href="./css/table.css" type="text/css">
       
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -131,6 +138,25 @@
 		$("#prodList").html(msg);
 	}
 	
+	
+
+	function onlyNum(){
+		var keycode = window.event.keyCode;
+		if (keycode == 8
+				|| (keycode >= 35 && keycode <= 40)
+				|| (keycode >= 46 && keycode <= 57)
+				|| (keycode >= 96 && keycode <= 105)
+				|| keycode == 110
+				|| keycode == 190) {
+			window.event.returnValue = true;
+			calcHap();
+			return;
+		} else {
+			window.event.returnValue = false;
+			return;
+		}
+	}
+	
 </script>
 </head>
 
@@ -144,7 +170,8 @@
 	</blockquote>
 	
 	<div id = "period">
-		Audit period : ${map.auditPeriod} YEARS
+		Audit period : 
+		<a href="#" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">${map.auditPeriod} YEARS</a>
 	</div>
 	<div id = "product">
 		<div id ="cate">
@@ -214,4 +241,35 @@
 		</div>
 	</div>
 </body>
+
+
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+  <div class="modal-dialog">
+    <div class="modal-content">
+   		<form action="Setting?state=4" method="POST">
+		      <div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+					<span class="sr-only">Close</span>
+				</button>
+				<h4 class="modal-title" id="myModalLabel">AUDIT PERIOD</h4>
+		      </div>
+		      <div class="modal-body">
+					<input type="text" name = "aPeriod" onKeyUp="onlyNum();" onKeyPress="onlyNum();" onKeyDown="onlyNum();" />
+		      </div>
+		      <div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button type="submit" class="btn btn-primary">Save changes</button>
+		      </div>
+   		</form>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
 </html>

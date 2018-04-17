@@ -33,7 +33,8 @@
 		</c:choose>
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<label>FULLSCORE</label>
-		<form:input path="CHECKLIST_FULLSCORE" value="${selCkList.CHECKLIST_FULLSCORE}"/>
+		<form:input path="CHECKLIST_FULLSCORE" value="${selCkList.CHECKLIST_FULLSCORE}"
+		onKeyUp="onlyNum();" onKeyPress="onlyNum();" onKeyDown="onlyNum();"/>
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<input type="button" value="수정" onclick="ckLUpdate()">
 		<a href="javascript:insertForm()">취소</a>

@@ -14,8 +14,9 @@
 		<form:radiobutton path="CHECKLIST_VALID" value="Y" label="VALID" checked="checked"/>
 		<form:radiobutton path="CHECKLIST_VALID" value="N" label="INVALID"/>
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<label>FULLSCORE..</label>
-		<form:input path="CHECKLIST_FULLSCORE"/>
+		<label>FULLSCORE</label>
+		<form:input path="CHECKLIST_FULLSCORE"
+		onKeyUp="onlyNum();" onKeyPress="onlyNum();" onKeyDown="onlyNum();"/>
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<input type="button" value="등록" onclick="ckLInsert()">
 		<br>
