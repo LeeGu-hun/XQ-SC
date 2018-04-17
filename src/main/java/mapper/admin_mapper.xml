@@ -23,6 +23,45 @@
 		SELECT COUNT(*) FROM MEMBER_INFO WHERE MEMBER_DEPART = #{depart}
 	</select>
 	
+	
+	
+	
+	<select id="countMem" parameterType="bean.AdminMem" resultType="int">
+	SELECT COUNT(*) FROM MEMBER_INFO
+	<include refid="mSearch"></include>
+	</select>
+	
+	
+	<select id="getMemList" resultType="bean.BeanMember">
+		<include refid="pagingHeader"></include>
+		SELECT *FROM MEMBER_INFO
+		<include refid="mSearch"></include>
+		ORDER BY MEMBER_ID DESC
+		<include refid="pagingFooter"></include>
+	</select>
+
+	<sql id="mSearch">
+		<choose>
+			<when test='mValid != "A"'>
+				WHERE MEMBER_VALID = #{mValid}
+				<if test='mDepart != "ALL"'>
+					AND MEMBER_DEPART = #{mDepart}
+		    	</if> 
+			</when>
+			<otherwise>
+				WHERE MEMBER_VALID != 'V'
+				<if test='mDepart != "ALL"'>
+					AND MEMBER_DEPART = #{mDepart}
+		    	</if> 
+			</otherwise>
+		</choose>
+	</sql>
+	
+	
+	
+	
+	
+	
 	<select id="selMember" parameterType="String" resultType="bean.BeanMember">
 		SELECT *FROM MEMBER_INFO WHERE MEMBER_ID=#{member}
 	</select>
@@ -133,7 +172,15 @@
 		SELECT COUNT(*) FROM CHECKLIST
 	</select>
 	
+	<select id="ckLSumRe" resultType="int">
+		SELECT SUM(CHECKLIST_FULLSCORE) FROM CHECKLIST
+		WHERE AUDIT_KIND_ID ='RE' AND CHECKLIST_VALID = 'Y'
+	</select>
 	
+	<select id="ckLSumNe" resultType="int">
+		SELECT SUM(CHECKLIST_FULLSCORE) FROM CHECKLIST 
+		WHERE AUDIT_KIND_ID ='NE' AND CHECKLIST_VALID = 'Y'
+	</select>	
 
 	<!-- 페이징 sql -->
 	<sql id="pagingHeader">
@@ -158,7 +205,7 @@
 		C.CHECKLIST_DISCRIPTION, C.CHECKLIST_FULLSCORE, C.CHECKLIST_VALID
 		FROM CHECKLIST C, AUDIT_KIND A 
 		<include refid="ckLsearch"></include>
-		ORDER BY CHECKLIST_ID
+		ORDER BY CHECKLIST_ID DESC
 		<include refid="pagingFooter"></include>
 	</select>
 

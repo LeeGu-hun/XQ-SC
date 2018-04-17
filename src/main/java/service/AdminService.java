@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import bean.AdminCkL;
+import bean.AdminMem;
 import bean.BeanCategory;
 import bean.BeanChecklist;
 import bean.BeanMember;
@@ -62,6 +63,14 @@ public class AdminService {
 
 	public void updateMember(BeanMember member) {
 		sqlSession.update("adminSQL.memberUpdate", member);
+	}
+	
+	public int countMem(AdminMem mem) {
+		return sqlSession.selectOne("adminSQL.countMem", mem);
+	}
+
+	public List<BeanMember> getMemList(AdminMem mem) {
+		return sqlSession.selectList("adminSQL.getMemList", mem);
 	}
 	
 	
@@ -142,6 +151,14 @@ public class AdminService {
 		return sqlSession.selectOne("adminSQL.ckLCount");
 	}
 	
+	public int ckLSumRe() {
+		return sqlSession.selectOne("adminSQL.ckLSumRe");
+	}
+	
+	public int ckLSumNe() {
+		return sqlSession.selectOne("adminSQL.ckLSumNe");
+	}
+	
 	public void insertCkList(BeanChecklist ckList) {
 		ckList.setCHECKLIST_ID("ck"+idForm.format(cklCount()+1));
 		sqlSession.insert("adminSQL.ckListInsert", ckList);
@@ -151,10 +168,6 @@ public class AdminService {
 		sqlSession.update("adminSQL.ckListUpdate", ckList);
 	}
 	
-	public void changeCkList(BeanChecklist ckList) {
-		
-	}
-
 	public int countCkL(AdminCkL ackl) {
 		return sqlSession.selectOne("adminSQL.countCkL", ackl);
 	}

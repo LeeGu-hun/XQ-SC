@@ -59,6 +59,27 @@
 		document.getElementById('MemberCommand').submit();
 	//	document.getElementById('mInUp').textContent= name.value;
 	}
+	
+	
+	function ckdepart(md) {
+		location.href = "./MSet?mDepart=" + md
+		+ "&curPage=${map.curPage}"
+		+ "&mValid=${map.mValid}";
+	}
+	
+	function ckvalid(mv) {
+		location.href = "./MSet?mValid=" + mv
+		+ "&curPage=${map.curPage}"
+		+ "&mDepart=${map.mDepart}";
+	}
+	
+
+	function list(curPage) {
+		location.href = "./MSet?curPage=" + curPage
+				+ "&mDepart=${map.mDepart}"
+				+ "&mValid=${map.mValid}";
+	}
+	
 </script>
 </head>
 
@@ -136,6 +157,8 @@
 	<div id="mInUpForm"><%@include file="/admin/m_In.jsp" %></div>
 	<br><span id="mInUp" style="font-size:9pt;color:red;"></span>
 	<br>
+	<div id="mInUpForm"><%@include file="/admin/m_S.jsp" %></div>
+	<br>
 	<br>
 	<table width=80% border="0" cellpadding="0" cellspacing="0">
 		<thead>
@@ -164,7 +187,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			<c:forEach var="m" items="${map.edMemberList}">
+			<c:forEach var="m" items="${map.getMemList}">
 				<tr>
 					<td>
 						<div align="center">
@@ -203,6 +226,19 @@
 					</td>
 				</tr>
 			</c:forEach>
+			<tr align=center height=20>
+				<td colspan=7 style="font-family: Tahoma; font-size: 10pt;">
+					<jsp:include page="/admin/paging.jsp" flush="true">
+						<jsp:param name="firstPageNo" value="${paging.firstPageNo}" />
+						<jsp:param name="prevPageNo" value="${paging.prevPageNo}" />
+						<jsp:param name="startPageNo" value="${paging.startPageNo}" />
+						<jsp:param name="pageNo" value="${paging.pageNo}" />
+						<jsp:param name="endPageNo" value="${paging.endPageNo}" />
+						<jsp:param name="nextPageNo" value="${paging.nextPageNo}" />
+						<jsp:param name="finalPageNo" value="${paging.finalPageNo}" />
+					</jsp:include>
+				</td>
+			</tr>
 		</tbody>
 	</table>
 </body>

@@ -77,7 +77,13 @@
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<a href="../logout">로그아웃</a>
 	</blockquote>
-	>>>>>>>>>>>>>>>>>>>>>>>>>>>>>${map.listCnt}
+	>>>>>>>>>>>>>>>>>>>>>>>>>>>>><a href="./CLSet">${map.listCnt}</a>
+	<br>
+	
+	Regular : <a href="./CLSet?auditKindId=RE&cklValid=Y">총 ${map.ckLSumRe} 점</a>
+	<br>
+	New : <a href="./CLSet?auditKindId=NE&cklValid=Y">총 ${map.ckLSumNe} 점 </a>
+	<br>
 	<span id="ckLInUp">
 		<%@include file="/admin/ckl_In.jsp" %>
 	</span>	

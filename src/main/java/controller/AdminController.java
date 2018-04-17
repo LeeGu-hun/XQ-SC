@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import bean.AdminCkL;
+import bean.AdminMem;
 import bean.BeanCategory;
 import bean.BeanChecklist;
 import bean.BeanMember;
@@ -147,19 +148,40 @@ public class AdminController {
 	@RequestMapping(value="MSet", method=RequestMethod.GET)
 	public String msetGet(@ModelAttribute("MemberCommand")BeanMember member,
 			@RequestParam(defaultValue="0") int state, 
-			@RequestParam(defaultValue="") String mId,  Model model) {
+			@RequestParam(defaultValue="ALL") String mDepart,
+			@RequestParam(defaultValue="A") String mValid,
+            @RequestParam(defaultValue="1") int curPage, Model model) {
 		
+		AdminMem mem = new AdminMem(0, 0, mDepart, mValid);
+		int memCnt = adminService.countMem(mem);
+	    
+	    Paging paging = new Paging();
+	    paging.setPageNo(curPage);
+	    paging.setPageSize(10);
+	    paging.setTotalCount(memCnt);
+	    int start = paging.getPageBegin();
+	    int end = paging.getPageEnd();
+	    
+	    mem.setStart(start);
+	    mem.setEnd(end);		
+
+		List<BeanMember> getMemList = adminService.getMemList(mem);
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		
 		List<BeanMember> memberList = adminService.allMemberList();
 		List<BeanMember> ingMemberList = adminService.ingMemberList();
 		List<BeanMember> edMemberList = adminService.edMemberList();
-		
+
+	    map.put("getMemList", getMemList);
 	    map.put("memberList", memberList);
 	    map.put("ingMemberList", ingMemberList);
 	    map.put("edMemberList", edMemberList);
+	    map.put("mDepart", mDepart);
+	    map.put("mValid", mValid);
+	    map.put("curPage", curPage);
 	    map.put("state", state);
+	    model.addAttribute("paging", paging);
 		model.addAttribute("map", map);
 
 		return "admin/mset";
@@ -215,7 +237,6 @@ public class AdminController {
             @RequestParam(defaultValue="1") int curPage,
 			Model model) {
 		
-		
 		AdminCkL ackl = new AdminCkL(0, 0, auditKindId, cklValid, keyword);
 	    int listCnt = adminService.countCkL(ackl);
 	    
@@ -227,12 +248,14 @@ public class AdminController {
 	    int end = paging.getPageEnd();
 	    
 	    ackl.setStart(start);
-	    ackl.setEnd(end);
-				
-		Map<String, Object> map = new HashMap<String, Object>();
+	    ackl.setEnd(end);		
 
 		List<BeanChecklist> allckList = adminService.allCKList();
 		List<BeanChecklist> getCkList = adminService.getCkList(ackl);
+		int ckLSumNe = adminService.ckLSumNe();
+		int ckLSumRe = adminService.ckLSumRe();
+
+		Map<String, Object> map = new HashMap<String, Object>();
 		
 	    map.put("allckList", allckList);
 	    map.put("getCkList", getCkList);
@@ -240,6 +263,8 @@ public class AdminController {
 	    map.put("auditKindId", auditKindId);
 	    map.put("cklValid", cklValid);
 	    map.put("keyword", keyword);
+	    map.put("ckLSumNe", ckLSumNe);
+	    map.put("ckLSumRe", ckLSumRe);
 	    model.addAttribute("paging", paging);
 		model.addAttribute("map", map);
 

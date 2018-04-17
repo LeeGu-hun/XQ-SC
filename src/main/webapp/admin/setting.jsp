@@ -80,7 +80,8 @@
 			type : "POST",
 			url : "./Setting/ProdUpdateForm",
 			data : "prodId=" + prodId,
-			success : prodForm
+			success : prodForm,
+			complete : selectCate
 		});				
 	}
 	
@@ -88,6 +89,10 @@
 		$("#prodInUp").html(msg);
 	}
 	
+	function selectCate()	{
+		var cateid = document.getElementById("cateid").value;
+		$("#prodCate > option[value ="+cateid+"]").attr("selected", "ture");
+	}
 	
 	function prodInsert() {
 		var name = document.getElementById('inProdName'); 
@@ -125,7 +130,6 @@
 	function prodCateForm(msg) {
 		$("#prodList").html(msg);
 	}
-	
 	
 </script>
 </head>
