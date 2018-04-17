@@ -159,6 +159,9 @@
 	</table>
 	<br>
 	<br>
+	<a href="./MSet">전체보기</a>
+	<br>
+	<br>
 	<div id="mInUpForm"><%@include file="/admin/m_In.jsp" %></div>
 	<br><span id="mInUp" style="font-size:9pt;color:red;"></span>
 	<br>

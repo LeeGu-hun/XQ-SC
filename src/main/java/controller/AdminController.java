@@ -58,7 +58,6 @@ public class AdminController {
 	@RequestMapping(value="Setting", method=RequestMethod.POST)
 	public String settingPost(@ModelAttribute("cateCommand")BeanCategory category,
 			@ModelAttribute("prodCommand")BeanProduct product,
-			@RequestParam(value="aPeriod", defaultValue="") int aPeriod,
 			@RequestParam(defaultValue="0") int state,
 			Model model) {
 				
@@ -68,12 +67,19 @@ public class AdminController {
 			adminService.prodInsert(product);
 		}else if(state == 3){
 			adminService.prodUpdate(product);
-		}else if(state == 4){
-			adminService.periodUpdate(aPeriod);
 		}else {
 			adminService.cateInsert(category);
 		}
 				
+		return "redirect:/Setting";
+	}
+	
+	@RequestMapping(value="Setting/SetPeriod", method=RequestMethod.POST)
+	public String periodPost(
+			@RequestParam(value="aPeriod", defaultValue="") int aPeriod) {
+		
+			adminService.periodUpdate(aPeriod);
+		
 		return "redirect:/Setting";
 	}
 	

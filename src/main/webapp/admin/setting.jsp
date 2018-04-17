@@ -247,7 +247,7 @@
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
   <div class="modal-dialog">
     <div class="modal-content">
-   		<form action="Setting?state=4" method="POST">
+   		<form action="Setting/SetPeriod" method="POST">
 		      <div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
 					<span class="sr-only">Close</span>
