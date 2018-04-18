@@ -3,7 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 
-<form id="vendorReplyForm" action="./ncrVendorReplySave/${ncr_id }" method="post" name="vendorReplyForm"  enctype="multipart/form-data">
+<form id="vendorReplyForm" action="./ncrVendorReplySave" method="post" name="vendorReplyForm"  enctype="multipart/form-data">
+
 <table class="table">
 	<tr>
 		<td>Vendor Reply</td>
@@ -12,8 +13,7 @@
 		<td>Reply From </td>
 		<td>${issuer_id }</td>
 		<td>${issuer_name }</td>
-		<td><input type="hidden" name="ncr_id"></td>
-		
+		<input type="hidden" name="ncr_id" value=${ncr_id }>		
 		
 	</tr>
 	<tr>

@@ -10,15 +10,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import bean.BeanIssuer;
 import bean.BeanNcrAttach;
+import bean.BeanReplyAttach;
 import bean.BeanVendor;
 import bean.NcrAuditListCommand;
 import bean.NcrAuditSearchCommand;
 import bean.NcrBean;
-<<<<<<< HEAD
-=======
+import bean.NcrReplyBean;
 import bean.NcrReplyCommand;
 import bean.NcrSearchCommand;
->>>>>>> refs/remotes/origin/master
 
 public class NcrService {
 
@@ -36,20 +35,6 @@ public class NcrService {
 	}
 
 	public void issueNcr(NcrBean nb) {
-<<<<<<< HEAD
-		System.out.println(nb.getAudit_id());
-		sqlSession.insert("ncrSQL.ncrIssue", nb);
-				
-	}
-	
-	public void ncrFileUpload(String originalfileName, String saveFileName, long fileSize) {
-	    HashMap<String, Object> hm = new HashMap<>();
-	    hm.put("originalfileName", originalfileName);
-	    hm.put("saveFileName", saveFileName);
-	    hm.put("fileSize", fileSize);
-	    sqlSession.insert("ncrSQL.ncrFileUpload", hm);
-	}
-=======
 		
 		sqlSession.insert("ncrSQL.ncrIssue", nb);
 				
@@ -69,7 +54,7 @@ public class NcrService {
 	}
 
 	public List<BeanVendor> getVendorList(String vendor_name) {
-		System.out.println(vendor_name);
+		
 		List<BeanVendor> vendorlist = sqlSession.selectList("ncrSQL.getVendorList",vendor_name);	
 		return vendorlist;
 	}
@@ -95,17 +80,31 @@ public class NcrService {
 	}
 
 	public void saveVendorReply(NcrReplyCommand nrc) {
-		System.out.println("service"+ nrc.getNcr_id());
+		
 		sqlSession.insert("ncrSQL.saveVendorReply", nrc);
 		
 	}
-	public void replyFileUpload(String originalfileName, String saveFileName, long fileSize) {
+	public void replyFileUpload(String originalfileName, String saveFileName, long fileSize, int ncr_id) {
 	    HashMap<String, Object> hm = new HashMap<>();
 	    hm.put("originalfileName", originalfileName);
 	    hm.put("saveFileName", saveFileName);
 	    hm.put("fileSize", fileSize);
+	    hm.put("ncr_id", ncr_id);
 	    sqlSession.insert("ncrSQL.replyFileUpload", hm);
 	}
+
+	public List<NcrReplyBean> getReplyDetail(int ncr_id) {
+		List<NcrReplyBean> ncrReplyBean = sqlSession.selectList("ncrSQL.getReplyDetailList",ncr_id);
+		return ncrReplyBean;
+		
+	}
+	public List<BeanReplyAttach> getReplyFileList(int ncr_id) {
+		List<BeanReplyAttach> uploadReplyFileList = sqlSession.selectList("ncrSQL.getReplyFileList",ncr_id);
+		return uploadReplyFileList;
+	}
+
+	public void saveAuditorReply(NcrReplyCommand nrc) {
+		sqlSession.insert("ncrSQL.saveAuditorReply", nrc);		
+	}
 	
->>>>>>> refs/remotes/origin/master
 }

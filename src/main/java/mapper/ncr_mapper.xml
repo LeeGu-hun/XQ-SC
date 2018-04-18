@@ -14,16 +14,6 @@
       
     </select>    
   
-<<<<<<< HEAD
-  
-	<insert id="ncrIssue" parameterType="bean.NcrBean">
-      insert into ncr_info values((select count(*)from ncr_info)+1,#{audit_id},#{issuer_id},
-      sysdate,null,null,#{ncr_title},#{ncr_description},#{ncr_grade_id})  
-	</insert>
-	
-	<insert id="ncrFileUpload" parameterType="HashMap">
-    INSERT INTO ncr_attach values((select count(*)from ncr_info),(select count(*)from ncr_attach)+1, #{originalfileName}, #{saveFileName},#{fileSize})
-=======
 	<insert id="ncrIssue" parameterType="bean.NcrBean">
       insert into ncr_info values((select count(*)from ncr_info)+1,#{audit_id},#{issuer_id},
       sysdate,null,null,#{ncr_title},#{ncr_description},#{ncr_grade_id})  
@@ -31,11 +21,8 @@
 	
 	<insert id="ncrFileUpload" parameterType="HashMap">
     	INSERT INTO ncr_attach values((select count(*)from ncr_info),(select count(*)from ncr_attach)+1, #{originalfileName}, #{saveFileName},#{fileSize})
->>>>>>> refs/remotes/origin/master
     </insert>
 
-<<<<<<< HEAD
-=======
 	<select id="getNcrList"  parameterType = "bean.NcrSearchCommand" resultType="bean.NcrBean">
    				
 		 select n.ncr_id, n.ncr_title,n.ncr_comp , a.vendor_id, m.member_name as issuer_name ,g.ncr_grade_name, n.audit_id 
@@ -94,10 +81,23 @@
 	</insert>
 	
 	<insert id="replyFileUpload" parameterType="HashMap">
-    	INSERT INTO reply_attach values((select count(*)from ncr_reply),(select count(*)from reply_attach)+1, #{originalfileName}, #{saveFileName},#{fileSize})
+    	INSERT INTO reply_attach values((select count(*)from ncr_reply),(select count(*)from reply_attach)+1, #{originalfileName}, #{saveFileName},#{fileSize},#{ncr_id})
     </insert>
 	
 	
->>>>>>> refs/remotes/origin/master
+	 <select id="getReplyDetailList"  parameterType = "Int" resultType="bean.NcrReplyBean">
+   		select r.ncr_id,r.reply_id,r.replier_id,m.member_name as replier_name,r.reply_date,r.reply_description,r.reply_from
+		from ncr_reply r, member_info m 
+		where m.member_id=r.replier_id and ncr_id= #{ncr_id} order by reply_date desc
+		
+    </select>  
 	
+	<select id="getReplyFileList"  parameterType = "Int" resultType="bean.BeanReplyAttach">
+   		select * from reply_attach where ncr_id=#{ncr_id}		
+    </select> 
+	
+	<insert id="saveAuditorReply" parameterType="bean.NcrReplyCommand">
+      insert into ncr_reply values(#{ncr_id},(select count(*)from ncr_reply)+1,sysdate,#{replier_id},
+      #{reply_description},'AUDITOR')  
+	</insert>
 </mapper>

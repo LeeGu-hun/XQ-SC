@@ -12,14 +12,19 @@
 <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
 
 <script>
-function vendorReplySave(ncr_id){
-	alert(ncr_id);
-	vendorReplyForm.submit(ncr_id);	
 	
-}
+
+	function vendorReplySave(ncr_id) {
+		vendorReplyForm.submit(ncr_id);
+	}
+	
+	function auditorReplySave(ncr_id) {
+		auditorReplyForm.submit(ncr_id);
+	}	
+	
 
 	function vendorReply(ncr_id) {
-		
+
 		$.ajax({
 			type : "POST",
 			url : "./ncrVendorReply",
@@ -30,6 +35,20 @@ function vendorReplySave(ncr_id){
 
 	function resultvendorreply(reply) {
 		$("#vendorReplyPop").html(reply);
+	}
+	
+	function auditorReply(ncr_id) {
+
+		$.ajax({
+			type : "POST",
+			url : "./ncrAuditorReply",
+			data : "ncr_id=" + ncr_id,
+			success : resultauditorreply,
+		});
+	}
+
+	function resultauditorreply(replya) {
+		$("#auditorReplyPop").html(replya);
 	}
 
 	function complete(ncr_id) {
@@ -113,7 +132,8 @@ function vendorReplySave(ncr_id){
 		function showdetail(msg2) {
 			$("#ncrDetailBox").html(msg2);
 		}
-		$('#detailModal').modal('show');
+			$('#detailModal').modal('show');
+			$('#detailModal').modal({backdrop: 'static', keyboard: false}) ;
 	}
 </script>
 <html lang="ko">
@@ -122,6 +142,7 @@ function vendorReplySave(ncr_id){
 <title>NCR Management</title>
 </head>
 <body>
+<a href="/xqsc/main"> [ main ]</a>
 	<div id=mainBox class="container">
 		<div>
 			[검색조건]
@@ -140,7 +161,7 @@ function vendorReplySave(ncr_id){
 								src="${pageContext.request.contextPath}/images/icon_search.gif"
 								data-target="#vendorSearchModal" data-toggle="modal"></image></td>
 
-						<input type="hidden" id="vendor_id" name="vendor_id" />
+						
 						<td>Issuer</td>
 						<td><input type="text" id="issuer_id" name="issuer_id">
 							<image
@@ -158,7 +179,7 @@ function vendorReplySave(ncr_id){
 
 
 
-		<!--  모달 시작 -->
+		<!--  vendor Search 모달 시작 -->
 		<div class="modal fade" id="vendorSearchModal">
 			<div class="modal-dialog">
 				<div class="modal-content">
@@ -196,7 +217,7 @@ function vendorReplySave(ncr_id){
 
 		<!--  모달 끝 -->
 
-		<!--  모달 시작 -->
+		<!--  Issuer Search모달 시작 -->
 		<div class="modal fade" id="issuerSearchModal">
 			<div class="modal-dialog">
 				<div class="modal-content">
@@ -234,7 +255,7 @@ function vendorReplySave(ncr_id){
 
 		<!--  모달 끝 -->
 
-		<!--  모달 시작 -->
+		<!--  detail 모달 시작 -->
 		<div class="modal fade" id="detailModal">
 			<div class="modal-dialog">
 				<div class="modal-content">
@@ -248,7 +269,7 @@ function vendorReplySave(ncr_id){
 					<!-- body -->
 					<div class="modal-body">
 						<div id="ncrDetailBox"></div>
-						
+
 					</div>
 					<!-- Footer -->
 
