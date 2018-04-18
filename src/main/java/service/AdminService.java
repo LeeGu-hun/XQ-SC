@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 import bean.AdminCkL;
 import bean.AdminMem;
@@ -12,6 +13,7 @@ import bean.BeanCategory;
 import bean.BeanChecklist;
 import bean.BeanMember;
 import bean.BeanProduct;
+import spring.MemberNotFoundException;
 
 public class AdminService {
 	
@@ -19,6 +21,20 @@ public class AdminService {
 	private SqlSession sqlSession;
 	
 	DecimalFormat idForm = new DecimalFormat("00000");
+	
+	
+	//******************************************************
+	
+	@Transactional
+	public void changePassword(String mId, String oldPwd, String newPwd) {
+		BeanMember member = selMember(mId);
+		if (member == null)
+			throw new MemberNotFoundException();
+		member.changePassword(oldPwd, newPwd);
+		
+		updateMember(member);
+	}
+	
 	
 	
 
@@ -40,6 +56,7 @@ public class AdminService {
 		return sqlSession.selectOne("adminSQL.memberCount", depart);
 	}
 	
+	@Transactional
 	public void insertMember(BeanMember member) {
 		String depart = member.getMEMBER_DEPART().trim();
 		int dM = memberCount(depart);
@@ -92,6 +109,7 @@ public class AdminService {
 		return sqlSession.selectOne("adminSQL.cateCount");
 	}
 
+	@Transactional
 	public void cateInsert(BeanCategory category) {
 		category.setCATEGORY_ID("C_"+idForm.format(cateCount()+1));
 		sqlSession.insert("adminSQL.cateInsert", category);
@@ -125,6 +143,7 @@ public class AdminService {
 		return sqlSession.selectOne("adminSQL.selProduct", prodId.trim());
 	}
 	
+	@Transactional
 	public void prodInsert(BeanProduct product) {
 		product.setPRODUCT_ID("P_"+idForm.format(prodCount()+1));
 		sqlSession.insert("adminSQL.prodInsert", product);
@@ -163,6 +182,7 @@ public class AdminService {
 		return sqlSession.selectOne("adminSQL.ckLSumNe");
 	}
 	
+	@Transactional
 	public void insertCkList(BeanChecklist ckList) {
 		ckList.setCHECKLIST_ID("ck"+idForm.format(cklCount()+1));
 		sqlSession.insert("adminSQL.ckListInsert", ckList);

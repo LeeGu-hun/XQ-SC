@@ -5,9 +5,11 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,16 +23,49 @@ import bean.BeanMember;
 import bean.BeanProduct;
 import bean.Paging;
 import service.AdminService;
+import spring.AuthInfo;
+import spring.ChangePwdCommand;
+import spring.ChangePwdCommandValidator;
+import spring.IdPasswordNotMatchingException;
 @Controller
 public class AdminController {
 	
 	private AdminService adminService;
-	
-/////////********************************************************
+			
 	public void setAdminService(AdminService adminService) {
 		this.adminService = adminService;
 	}
+///************************************************************************
 	
+	@RequestMapping(value="ChangedPwd", method=RequestMethod.GET)
+	public String changedPwdGet(@ModelAttribute("changePwdCommand") ChangePwdCommand pwdCmd) {
+		return "admin/changePwdForm";
+	}
+	
+	@RequestMapping(value="ChangedPwd", method=RequestMethod.POST)
+	public String changedPwd(@ModelAttribute("changePwdCommand") ChangePwdCommand pwdCmd, 
+			Errors errors, HttpSession session) {
+		
+		new ChangePwdCommandValidator().validate(pwdCmd, errors);
+		if(errors.hasErrors())
+			return "admin/changePwdForm";
+		AuthInfo auth = (AuthInfo) session.getAttribute("authInfo");
+		try {
+			adminService.changePassword(auth.getId(), 
+				pwdCmd.getCurrentPassword(), pwdCmd.getNewPassword());
+		} catch (IdPasswordNotMatchingException e) {
+			errors.rejectValue("currentPassword", "notMatching");
+			return "admin/changePwdForm";
+		}
+		
+		
+		return "admin/changedPwd";
+	}
+	
+	
+	
+	
+/////////********************************************************
 	@RequestMapping(value="Setting", method=RequestMethod.GET)
 	public String settingGet(@ModelAttribute("cateCommand")BeanCategory category,
 			@ModelAttribute("prodCommand")BeanProduct product,

@@ -63,7 +63,7 @@
 	
 	
 	<select id="selMember" parameterType="String" resultType="bean.BeanMember">
-		SELECT *FROM MEMBER_INFO WHERE MEMBER_ID=#{member}
+		SELECT *FROM MEMBER_INFO WHERE MEMBER_ID=#{mId}
 	</select>
 	
 	<insert id="memberInsert" parameterType="bean.BeanMember">
