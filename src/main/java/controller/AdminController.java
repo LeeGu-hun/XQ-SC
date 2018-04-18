@@ -4,7 +4,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -21,6 +23,8 @@ import bean.BeanCategory;
 import bean.BeanChecklist;
 import bean.BeanMember;
 import bean.BeanProduct;
+import bean.LoginCommand;
+import bean.LoginCommandValidator;
 import bean.Paging;
 import service.AdminService;
 import spring.AuthInfo;
@@ -36,6 +40,56 @@ public class AdminController {
 		this.adminService = adminService;
 	}
 ///************************************************************************
+	
+	@RequestMapping(value="/loginDiv", method=RequestMethod.GET)
+	public String form() {
+		return "redirect:/";
+	}
+	
+	@RequestMapping(value="/loginDiv", method=RequestMethod.POST)
+	public String form(LoginCommand loginCommand,
+			Errors errors, HttpSession session,
+			HttpServletResponse response) {
+		new LoginCommandValidator().validate(loginCommand, errors);
+		if(errors.hasErrors())
+			return "login/login";
+		
+		try {
+			AuthInfo authInfo = adminService.authenticate(
+					loginCommand.getId(),
+					loginCommand.getPassword());
+			session.setAttribute("authInfo", authInfo);
+			Cookie rememberCookie = new Cookie("REMEMBER", loginCommand.getId());
+			rememberCookie.setPath("/");
+			if(loginCommand.isRememberid())
+				rememberCookie.setMaxAge(60*60*24*30);
+			else
+				rememberCookie.setMaxAge(0);
+			response.addCookie(rememberCookie);
+			
+			if(authInfo.getDepart().equals("ADMIN")) {
+				return "redirect:/mainA";
+			}else if(authInfo.getDepart().equals("QUALITY")) {
+				return "redirect:/main";
+			}else if(authInfo.getDepart().equals("PURCHASE")) {
+				return "redirect:/main";
+			}else if(authInfo.getDepart().equals("VENDOR")) {
+				return "redirect:/main";
+			}else{
+				return "login/login";
+			}
+			//return "redirect:/main";
+		} catch (IdPasswordNotMatchingException e) {
+			errors.reject("idPasswordNotMatching");
+			return "login/login";
+		}
+	}
+	
+	@RequestMapping("/mainA")
+	public String homeA() {
+		
+	    return "admin/mainA";
+	}
 	
 	@RequestMapping(value="ChangedPwd", method=RequestMethod.GET)
 	public String changedPwdGet(@ModelAttribute("changePwdCommand") ChangePwdCommand pwdCmd) {

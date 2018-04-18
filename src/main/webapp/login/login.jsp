@@ -42,10 +42,10 @@
 			<div style="width: 100%; height: 350px;">
 				<div style="width: 100%;">
 					<form:form class="form-signin" commandName="loginCommand"
-						action="login">
+						action="loginDiv">
 						<h2>Login</h2>
 						<input type="text" name="id" id="id" placeholder="Id"
-							value="S-1"
+							value="A00001"
 							style="height: 20px; width: 200px; margin: 30px 0;">
 
 						<input type="password" name="password" id="password"

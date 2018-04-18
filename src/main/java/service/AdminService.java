@@ -13,6 +13,8 @@ import bean.BeanCategory;
 import bean.BeanChecklist;
 import bean.BeanMember;
 import bean.BeanProduct;
+import spring.AuthInfo;
+import spring.IdPasswordNotMatchingException;
 import spring.MemberNotFoundException;
 
 public class AdminService {
@@ -25,6 +27,16 @@ public class AdminService {
 	
 	//******************************************************
 	
+	public AuthInfo authenticate(String id, String password) {
+		BeanMember m = sqlSession.selectOne("loginSQL.loginCheck", id);
+		if(m == null) 
+			throw new MemberNotFoundException();
+		if(!m.mathPassword(password))
+			throw new IdPasswordNotMatchingException();
+		return new AuthInfo(m.getMEMBER_ID(),m.getMEMBER_DEPART(),m.getMEMBER_NAME());
+	}
+	
+	
 	@Transactional
 	public void changePassword(String mId, String oldPwd, String newPwd) {
 		BeanMember member = selMember(mId);
@@ -34,8 +46,6 @@ public class AdminService {
 		
 		updateMember(member);
 	}
-	
-	
 	
 
 	/////////////////////////////////////////Member////////

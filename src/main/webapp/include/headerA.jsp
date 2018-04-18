@@ -48,6 +48,16 @@
 		</ul>
 		</div>
 		
+		<div class="btn-group">
+		<a class="btn dropdown-toggle" data-toggle="dropdown" href='#'><span>시스템 관리</span></a>
+		<ul class="dropdown-menu">
+			<li class='has-sub'><a href='./Setting'>System Configuration</a></li>
+			<li class='has-sub'><a href='./MSet'>Member Management</a></li>
+			<li class='has-sub'><a href='./CLSet'>Checklist Management</a></li>
+		</ul>
+		
+		</div>
+		
 
 </body>
 </html>

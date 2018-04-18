@@ -34,4 +34,41 @@
 		<property name="vendorService" ref="vendorService" />
 		
 	</bean>
+	
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/Setting/**" />
+			<mvc:mapping path="/MSet/**" />
+			<mvc:mapping path="/CLSet/**" />
+			<bean class="interceptor.AdminCheckInterceptor" />
+		</mvc:interceptor>
+	</mvc:interceptors>
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/audit/**" />
+			<mvc:mapping path="/AuditManage" />
+			<mvc:mapping path="/AuditPlanInsert" />
+			<mvc:mapping path="/AuditReport" />
+			<mvc:mapping path="/AuditResult" />
+			<bean class="interceptor.QualityCheckInterceptor" />
+		</mvc:interceptor>
+	</mvc:interceptors>
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/vendor/**" />
+			<bean class="interceptor.PurchaseCheckInterceptor" />
+		</mvc:interceptor>
+	</mvc:interceptors>
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/ncr/**" />
+			<bean class="interceptor.NcrCheckInterceptor" />
+		</mvc:interceptor>
+	</mvc:interceptors>
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/main" />
+			<bean class="interceptor.AuthCheckInterceptor" />
+		</mvc:interceptor>
+	</mvc:interceptors>
 </beans>
