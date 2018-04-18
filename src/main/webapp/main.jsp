@@ -15,6 +15,8 @@
 <title></title>
 </head>
 <body>
-	main
+<%@ include file="/include/header.jsp"%><br>
+<a href="./logout">로그아웃</a>	
+<li><a href="./AuditManage">평가관리</a></li>
 </body>
 </html>

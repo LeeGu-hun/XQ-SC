@@ -4,16 +4,17 @@ public class BeanCategory {
 	
 	private String CATEGORY_ID;
 	private String CATEGORY_NAME;
-	private String PRODUCT_VALID;
+	private String CATEGORY_VALID;
 	
 	public BeanCategory() {
 	
 	}
 
-	public BeanCategory(String cATEGORY_ID, String cATEGORY_NAME, String pRODUCT_VALID) {
+	public BeanCategory(String cATEGORY_ID, String cATEGORY_NAME, String cATEGORY_VALID) {
+		super();
 		CATEGORY_ID = cATEGORY_ID;
 		CATEGORY_NAME = cATEGORY_NAME;
-		PRODUCT_VALID = pRODUCT_VALID;
+		CATEGORY_VALID = cATEGORY_VALID;
 	}
 
 	public String getCATEGORY_ID() {
@@ -32,12 +33,11 @@ public class BeanCategory {
 		CATEGORY_NAME = cATEGORY_NAME;
 	}
 
-	public String getPRODUCT_VALID() {
-		return PRODUCT_VALID;
+	public String getCATEGORY_VALID() {
+		return CATEGORY_VALID;
 	}
 
-	public void setPRODUCT_VALID(String pRODUCT_VALID) {
-		PRODUCT_VALID = pRODUCT_VALID;
+	public void setCATEGORY_VALID(String cATEGORY_VALID) {
+		CATEGORY_VALID = cATEGORY_VALID;
 	}
-	
 }

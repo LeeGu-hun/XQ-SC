@@ -5,10 +5,15 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
+import bean.AdminCkL;
+import bean.AdminMem;
 import bean.BeanCategory;
+import bean.BeanChecklist;
 import bean.BeanMember;
 import bean.BeanProduct;
+import spring.MemberNotFoundException;
 
 public class AdminService {
 	
@@ -18,6 +23,20 @@ public class AdminService {
 	DecimalFormat idForm = new DecimalFormat("00000");
 	
 	
+	//******************************************************
+	
+	@Transactional
+	public void changePassword(String mId, String oldPwd, String newPwd) {
+		BeanMember member = selMember(mId);
+		if (member == null)
+			throw new MemberNotFoundException();
+		member.changePassword(oldPwd, newPwd);
+		
+		updateMember(member);
+	}
+	
+	
+	
 
 	/////////////////////////////////////////Member////////
 	
@@ -25,11 +44,20 @@ public class AdminService {
 		return sqlSession.selectList("adminSQL.memberList");
 	}
 	
+	public List<BeanMember> ingMemberList() {
+		return sqlSession.selectList("adminSQL.ingMemberList");
+	}
+	
+	public List<BeanMember> edMemberList() {
+		return sqlSession.selectList("adminSQL.edMemberList");
+	}
+	
 	public int memberCount(String depart) {
 		return sqlSession.selectOne("adminSQL.memberCount", depart);
 	}
 	
-	public void uploadMember(BeanMember member) {
+	@Transactional
+	public void insertMember(BeanMember member) {
 		String depart = member.getMEMBER_DEPART().trim();
 		int dM = memberCount(depart);
 		
@@ -45,20 +73,45 @@ public class AdminService {
 
 		sqlSession.insert("adminSQL.memberInsert", member);
 	}
+	
+	public BeanMember selMember(String mId) {
+		return sqlSession.selectOne("adminSQL.selMember", mId);
+	}
+
+	public void updateMember(BeanMember member) {
+		sqlSession.update("adminSQL.memberUpdate", member);
+	}
+	
+	public int countMem(AdminMem mem) {
+		return sqlSession.selectOne("adminSQL.countMem", mem);
+	}
+
+	public List<BeanMember> getMemList(AdminMem mem) {
+		return sqlSession.selectList("adminSQL.getMemList", mem);
+	}
+	
+	
 
 	/////////////////////////////////////////Setting////////
+	
+	public int auditPeriod() {
+		return sqlSession.selectOne("adminSQL.auditPeriod");
+	}
+
+	public void periodUpdate(int aPeriod) {
+		sqlSession.update("adminSQL.periodUpdate", aPeriod);
+	}	
+	
+	
+	
 	
 	public int cateCount() {
 		return sqlSession.selectOne("adminSQL.cateCount");
 	}
 
-	public void uploadCate(String cateName, int cateCount) {
-		
-		BeanCategory category = new BeanCategory();
-		category.setCATEGORY_ID("C_"+idForm.format(cateCount+1));
-		category.setCATEGORY_NAME(cateName);
-		
-		System.out.println(category.getCATEGORY_ID());
+	@Transactional
+	public void cateInsert(BeanCategory category) {
+		category.setCATEGORY_ID("C_"+idForm.format(cateCount()+1));
 		sqlSession.insert("adminSQL.cateInsert", category);
 	}
 	
@@ -66,21 +119,39 @@ public class AdminService {
 		return sqlSession.selectList("adminSQL.cateList");
 	}
 	
+	public BeanCategory selCate(String cateId) {
+		return sqlSession.selectOne("adminSQL.selCategory", cateId.trim());
+	}
+
+	public void cateUpdate(BeanCategory category) {
+		sqlSession.update("adminSQL.cateUpdate", category);
+	}	
+	
+	
+	
+	
+	
+	public List<BeanProduct> selProdCate(String cateId) {
+		return sqlSession.selectList("adminSQL.selProdCate", cateId);
+	}
+	
 	public int prodCount() {
 		return sqlSession.selectOne("adminSQL.prodCount");
 	}
-	
-	public List<BeanProduct> selCateList(String cateId) {
-		return sqlSession.selectList("adminSQL.selCateList", cateId);
+
+	public BeanProduct selProd(String prodId) {
+		return sqlSession.selectOne("adminSQL.selProduct", prodId.trim());
 	}
 	
-	public void uploadProduct(String cateId, String prodName, int prodCount) {
-		BeanProduct product = new BeanProduct();
-		product.setCATEGORY_ID(cateId);
-		product.setPRODUCT_ID("P_"+idForm.format(prodCount+1));
-		product.setPRODUCT_NAME(prodName);
+	@Transactional
+	public void prodInsert(BeanProduct product) {
+		product.setPRODUCT_ID("P_"+idForm.format(prodCount()+1));
 		sqlSession.insert("adminSQL.prodInsert", product);
 	}
+	
+	public void prodUpdate(BeanProduct product) {
+		sqlSession.update("adminSQL.prodUpdate", product);
+	}	
 	
 	public List<BeanProduct> prodList(){
 		return sqlSession.selectList("adminSQL.prodList");
@@ -88,5 +159,45 @@ public class AdminService {
 	
 	
 	/////////////////////////////////////////
+	
+	/////////////////////////////////////////CHECKLIST////////
+	
+	public List<BeanChecklist> allCKList() {
+		return sqlSession.selectList("adminSQL.allckList");
+	}
+	
+	public BeanChecklist selCkList(String ckId) {
+		return sqlSession.selectOne("adminSQL.selCkL", ckId);
+	}
+	
+	public int cklCount() {
+		return sqlSession.selectOne("adminSQL.ckLCount");
+	}
+	
+	public int ckLSumRe() {
+		return sqlSession.selectOne("adminSQL.ckLSumRe");
+	}
+	
+	public int ckLSumNe() {
+		return sqlSession.selectOne("adminSQL.ckLSumNe");
+	}
+	
+	@Transactional
+	public void insertCkList(BeanChecklist ckList) {
+		ckList.setCHECKLIST_ID("ck"+idForm.format(cklCount()+1));
+		sqlSession.insert("adminSQL.ckListInsert", ckList);
+	}
+
+	public void updateCkList(BeanChecklist ckList) {
+		sqlSession.update("adminSQL.ckListUpdate", ckList);
+	}
+	
+	public int countCkL(AdminCkL ackl) {
+		return sqlSession.selectOne("adminSQL.countCkL", ackl);
+	}
+
+	public List<BeanChecklist> getCkList(AdminCkL ackl) {
+		return sqlSession.selectList("adminSQL.getCkList", ackl);
+	}
 	
 }

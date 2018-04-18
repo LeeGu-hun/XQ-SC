@@ -2,7 +2,7 @@ package bean;
 
 import org.springframework.web.multipart.MultipartFile;
 
-public class ncrIssueCommand {
+public class NcrIssueCommand {
 	private String audit_id,ncr_title,ncr_description,ncr_grade_id;
 	private MultipartFile ncr_file;
 	public String getAudit_id() {
@@ -36,11 +36,11 @@ public class ncrIssueCommand {
 	public void setNcr_file(MultipartFile ncr_file) {
 		this.ncr_file = ncr_file;
 	}
-	public ncrIssueCommand() {
+	public NcrIssueCommand() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public ncrIssueCommand(String audit_id, String ncr_title, String ncr_description, String ncr_grade_id,
+	public NcrIssueCommand(String audit_id, String ncr_title, String ncr_description, String ncr_grade_id,
 			MultipartFile ncr_file) {
 		super();
 		this.audit_id = audit_id;

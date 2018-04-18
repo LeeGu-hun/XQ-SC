@@ -12,8 +12,9 @@
       where a.vendor_id=v.vendor_id and a.audit_kind_Id=ak.audit_kind_id and a.auditor_id=m.member_id
       and v.vendor_name like '%'||#{vendorName}||'%'
       
-    </select>  
+    </select>    
   
+<<<<<<< HEAD
   
 	<insert id="ncrIssue" parameterType="bean.NcrBean">
       insert into ncr_info values((select count(*)from ncr_info)+1,#{audit_id},#{issuer_id},
@@ -22,7 +23,81 @@
 	
 	<insert id="ncrFileUpload" parameterType="HashMap">
     INSERT INTO ncr_attach values((select count(*)from ncr_info),(select count(*)from ncr_attach)+1, #{originalfileName}, #{saveFileName},#{fileSize})
+=======
+	<insert id="ncrIssue" parameterType="bean.NcrBean">
+      insert into ncr_info values((select count(*)from ncr_info)+1,#{audit_id},#{issuer_id},
+      sysdate,null,null,#{ncr_title},#{ncr_description},#{ncr_grade_id})  
+	</insert>
+	
+	<insert id="ncrFileUpload" parameterType="HashMap">
+    	INSERT INTO ncr_attach values((select count(*)from ncr_info),(select count(*)from ncr_attach)+1, #{originalfileName}, #{saveFileName},#{fileSize})
+>>>>>>> refs/remotes/origin/master
     </insert>
 
+<<<<<<< HEAD
+=======
+	<select id="getNcrList"  parameterType = "bean.NcrSearchCommand" resultType="bean.NcrBean">
+   				
+		 select n.ncr_id, n.ncr_title,n.ncr_comp , a.vendor_id, m.member_name as issuer_name ,g.ncr_grade_name, n.audit_id 
+		from ncr_info n , audit_info a, member_info m  ,ncr_grade g
+       
+		<where>
+		    n.audit_id=a.audit_id and n.issuer_id=m.member_id and n.ncr_grade_id=g.ncr_grade_id
+						
+			<if test="ncr_id!=null and ncr_id!='' ">
+				and n.ncr_id = #{ncr_id}
+			</if>
+			
+			<if test="ncr_title!=null and ncr_title!='' ">
+				and n.ncr_title like '%' || #{ncr_title} || '%'
+			</if>
+			<if test="vendor_id != null ||vendor_id !='' ">
+				 or a.vendor_id=#{vendor_id}
+			</if>
+			<if test="issuer_id!=null and issuer_id!='' ">
+				or n.issuer_id=#{issuer_id}
+			</if>		
+										
+		</where>
+		
+    </select>  
+	
+	<select id="getVendorList"  parameterType = "String" resultType="bean.BeanVendor">   
+     select vendor_id,vendor_name from vendor_info where vendor_name like '%'||#{vendor_name}||'%'		      
+    </select>    
+	
+	
+	<select id="getIssuerList"  parameterType = "String" resultType="bean.BeanIssuer">   
+     select distinct n.issuer_id,m.member_name as issuer_name from ncr_info n, member_info m where m.member_id=n.issuer_id and m.member_name like '%'||#{isuer_name}||'%'		      
+    </select>  
+    
+    <select id="getNcrDetailList"  parameterType = "Int" resultType="bean.NcrBean">
+   		select n.ncr_id, n.audit_id,v.vendor_name,a.audit_comp_date,a.audit_kind_id,ak.audit_kind,a.audit_result
+        ,n.ncr_title,m.member_name as issuer_name,n.ncr_description,n.ncr_grade_id 
+        from audit_info a, member_info m, ncr_info n, audit_kind ak, vendor_info v
+        where n.audit_id = a.audit_id and a.audit_kind_id = ak.audit_kind_id and m.member_id=n.issuer_id
+            and a.vendor_id = v.vendor_id and ncr_id=#{ncr_id}
+		
+    </select>  
+    
+     <select id="getFileList"  parameterType = "Int" resultType="bean.BeanNcrAttach">
+   		select * from ncr_attach where ncr_id=#{ncr_id}		
+    </select>  
+    
+    <update id="ncrComplete" parameterType="Int">
+      update ncr_info set ncr_comp='Y' where ncr_id=#{ncr_id}  
+	</update>
+	
+	<insert id="saveVendorReply" parameterType="bean.NcrReplyCommand">
+      insert into ncr_reply values(#{ncr_id},(select count(*)from ncr_reply)+1,sysdate,#{replier_id},
+      #{reply_description},'VENDOR')  
+	</insert>
+	
+	<insert id="replyFileUpload" parameterType="HashMap">
+    	INSERT INTO reply_attach values((select count(*)from ncr_reply),(select count(*)from reply_attach)+1, #{originalfileName}, #{saveFileName},#{fileSize})
+    </insert>
+	
+	
+>>>>>>> refs/remotes/origin/master
 	
 </mapper>
