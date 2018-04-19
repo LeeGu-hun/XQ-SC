@@ -43,7 +43,7 @@ public class AuditService {
 		return sqlSession.selectOne("auditSQL.newVendorCount");
 	}
 
-	// **************audit list***********//
+	// *********************audit list***********//
 
 	// total list
 	public List<AuditBean> auditList() {
