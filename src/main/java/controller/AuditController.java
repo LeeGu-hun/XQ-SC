@@ -1,5 +1,6 @@
 package controller;
 
+import java.sql.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,6 +22,7 @@ import bean.AuditKind;
 import bean.AuditProd;
 import bean.AuditScoreCommand;
 import bean.BeanCategory;
+import bean.BeanIssuer;
 import bean.BeanMember;
 import bean.BeanProduct;
 import bean.CheckListBean;
@@ -39,34 +41,35 @@ public class AuditController {
 
 	// - all list
 	@RequestMapping(value = "/AuditManage", method = RequestMethod.GET)
-	public String auditManageGet(Model model, AuditBean auditBean) {
+	public String auditManageGet(Model model, AuditBean auditBean, HttpServletRequest request) {
 		List<AuditBean> listBean = auditService.auditList();
 		model.addAttribute("listBean", listBean);
-
+		
+		// audit count 
 		int allCount = auditService.allCount();
 		int regularVencorCount = auditService.regularVencorCount();
 		int newVendorCount = auditService.newVendorCount();
-		int completeCount = auditService.completeCount();
 		model.addAttribute("allCount", allCount);
 		model.addAttribute("regularVencorCount", regularVencorCount);
 		model.addAttribute("newVendorCount", newVendorCount);
-		model.addAttribute("completeCount", completeCount);
 
 		return "audit/auditManage";
 	}
 
-	@RequestMapping(value = "/AuditManage", method = RequestMethod.POST)
-	public String auditManagePost(Model model, AuditBean auditBean) {
+	@RequestMapping(value = "/audit/auditManage", method = RequestMethod.POST)
+	public String auditManagePost(Model model, AuditCommand ac, AuditBean auditBean) {
 		List<AuditBean> auditBeans = auditService.auditList();
-		return "audit/auditManage";
-	}
-
-	// complete list
-	@RequestMapping("audit/auditConfirm")
-	public String auditManageComfirm(Model model) {
-		List<AuditBean> listBean = auditService.auditComplist();
-		model.addAttribute("listBean", listBean);
-		return "audit/auditConfirm";
+		AuditBean ab = new AuditBean();
+		System.out.println("而⑦듃濡ㅻ윭 ���굹�뿬???");
+		
+		ab.setAUDIT_KIND_ID(ac.getAUDIT_KIND_ID());
+		ab.setAUDITOR_ID(ac.getAUDITOR_ID());
+		ab.setVENDOR_ID(ac.getVENDOR_ID());
+		ab.setAUDIT_PLAN_DATE(ac.getAUDIT_PLAN_DATE());
+		ab.setAUDIT_COMP_DATE(ac.getAUDIT_COMP_DATE());
+		auditService.idInsert(ab);
+		System.out.println(">>>>>>>>>>" + ab);
+		return "redirect:/AuditManage";
 	}
 
 	// regular vendor list
@@ -86,16 +89,10 @@ public class AuditController {
 
 	}
 
-	// audit Plan insert
-	@RequestMapping(value = "/AuditPlanInsert", method = RequestMethod.GET)
-	public String auditPlanInsert(Model model, AuditCommand ac, AuditBean auditBean) {
-		return "audit/auditPlanInsert";
-	}
-
-	@RequestMapping(value = "/AuditPlanInsert", method = RequestMethod.POST)
-	public String auditPlanInsertPost(AuditCommand ac, AuditBean auditBean) {
+	@RequestMapping(value = "audit/newVendorAudit", method = RequestMethod.POST)
+	public String auditManageNotYetP(AuditCommand ac) {
+		List<AuditBean> listBean = auditService.auditNewVendor();
 		AuditBean ab = new AuditBean();
-		ab.setAUDIT_ID(ac.getAUDIT_ID());
 		ab.setAUDIT_KIND_ID(ac.getAUDIT_KIND_ID());
 		ab.setAUDITOR_ID(ac.getAUDITOR_ID());
 		ab.setVENDOR_ID(ac.getVENDOR_ID());
@@ -103,12 +100,29 @@ public class AuditController {
 		ab.setAUDIT_COMP_DATE(ac.getAUDIT_COMP_DATE());
 		auditService.planInsert(ab);
 
-		System.out.println(ab);
+		return "audit/auditNewVendor";
 
-		return "audit/auditPlanInsert";
 	}
+	
+	//search Auditor Id
+		@RequestMapping(value = "audit/searchAuditorId", method = RequestMethod.POST)
+		public String searchAuditor(Model model, HttpServletRequest request, HttpSession session,
+				@RequestParam(defaultValue = "") String MEMBER_NAME) {
+			
+			List<BeanMember> auditorList =  auditService.getAuditorList(MEMBER_NAME);
+			model.addAttribute("auditorList",auditorList);
+			System.out.println(auditorList.size());
+			System.out.println(">>>>>>>>>>>>>>>"+auditorList);
+			return "audit/auditorList";
+		}
+		
+		@RequestMapping(value = "audit/searchAuditorId", method = RequestMethod.GET)
+		public String sertchAuditorIdGet(Model model) {
+			return "audit/auditManage";
+		}
 
-	// Report page
+
+		// Report page
 	@RequestMapping(value = "/AuditReport", method = RequestMethod.GET)
 	public String auditReportGet(Model model, AuditBean auditBean, AuditProd auditProd, HttpServletRequest request) {
 		List<AuditBean> auditBeans = auditService.auditListReport();
@@ -135,7 +149,7 @@ public class AuditController {
 		return "audit/auditReport";
 	}
 
-	//  insert modal
+	// insert modal
 	@RequestMapping(value = "/audit/auditInsert", method = RequestMethod.GET)
 	public String auditInsert(Model model, AuditBean auditBean, HttpServletRequest request, AuditProd ap) {
 
@@ -155,32 +169,40 @@ public class AuditController {
 		request.setAttribute("product", product);
 		request.setAttribute("auditid", auditid);
 		request.setAttribute("auditType", auditType);
-
-		List<AuditKind> typeList = auditService.typeList();
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("typeList", typeList);
-		model.addAttribute("map", map);
-		System.out.println("ddddddd");
+	
+		if (auditType.equals("NE")) {
+		List<CheckListBean> checkList = auditService.checkListNe();
+			model.addAttribute("checkList", checkList);
+		} else {
+			List<CheckListBean> checkList = auditService.checkListRe();
+			model.addAttribute("checkList", checkList);
+		}
 		return "audit/auditInsert";
 	}
 
 	@RequestMapping(value = "/audit/auditInsert", method = RequestMethod.POST)
-	public String auditInsertPost(AuditScoreCommand ac) {
+	public String auditInsertPost(HttpServletRequest request, AuditScoreCommand ac) {
 
+		System.out.println("~~~~"+ac.getAUDIT_SCORE());
 		AuditBean ab = new AuditBean();
+		
 		ab.setAUDIT_SCORE(ac.getAUDIT_SCORE());
+		ab.setAUDIT_ID(ac.getAUDIT_ID());
+		ab.setAUDIT_RSINPUT_DATE(ac.getAUDIT_RSINPUT_DATE());
 		auditService.updateScore(ab);
-		System.out.println("aaaaaaaaaaaaa");
-		return "audit/auditInsert";
+		
+		System.out.println("�븘�븘�븘�븘�븘�븘�븘�븘"+ab);
+
+		return "redirect:/audit/auditInsert";
 	}
 
-	// Result 
+	// Result
 	@RequestMapping(value = "/AuditResult", method = RequestMethod.GET)
 	public String auditResultGet(Model model, AuditBean auditBean, HttpServletRequest request) {
 		List<AuditBean> auditBeans = auditService.auditResult();
 		model.addAttribute("auditBeans", auditBeans);
 
-		// Cate list GEt 
+		// Cate list GEt
 		List<BeanCategory> cateList = auditService.cateList();
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("cateList", cateList);
@@ -194,7 +216,7 @@ public class AuditController {
 		return "audit/auditResult";
 	}
 
-	// Prod List 
+	// Prod List
 	@RequestMapping("audit/prodList")
 	public String prodList(HttpServletRequest request, Model model) {
 		String selCate = request.getParameter("selCate");
@@ -203,12 +225,9 @@ public class AuditController {
 		return "audit/auditResult2";
 	}
 
-	@RequestMapping(value = "audit/check", method = RequestMethod.GET)
-	public String checkList(HttpServletRequest request, Model model, AuditBean auditbean) {
-		String typeList = request.getParameter("typeList");
-		List<CheckListBean> checkList = auditService.checkList(typeList);
-		model.addAttribute("checkList", checkList);
-		return "audit/checkList";
-	}
+
+
+	
+	
 
 }

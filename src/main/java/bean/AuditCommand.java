@@ -11,6 +11,18 @@ public class AuditCommand {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+	
+
+	public AuditCommand(String aUDIT_ID, String aUDITOR_ID, Date aUDIT_PLAN_DATE, Date aUDIT_COMP_DATE) {
+		super();
+		AUDIT_ID = aUDIT_ID;
+		AUDITOR_ID = aUDITOR_ID;
+		AUDIT_PLAN_DATE = aUDIT_PLAN_DATE;
+		AUDIT_COMP_DATE = aUDIT_COMP_DATE;
+	}
+
+
 
 	public AuditCommand(String aUDIT_ID, String aUDIT_KIND_ID, String aUDITOR_ID, String vENDOR_ID,
 			Date aUDIT_PLAN_DATE, Date aUDIT_COMP_DATE) {

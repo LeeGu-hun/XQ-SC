@@ -57,7 +57,12 @@
 			</td>
 			<td>
 				<div>${c.CHECKLIST_DISCRIPTION}
-					<input type="hidden" value="${c.CHECKLIST_DISCRIPTION}" />
+					<c:if test="${c.AUDIT_KIND_ID == 'NE'}">
+						<input type="hidden" value="${c.CHECKLIST_DISCRIPTION}" />
+					</c:if>
+					<c:if test="${c.AUDIT_KIND_ID == 'RE'}">
+						<input type="text" value="Good">
+					</c:if>
 				</div>
 			</td>
 
@@ -67,12 +72,7 @@
 			<td><div>/${c.CHECKLIST_FULLSCORE}</div></td>
 		</tr>
 	</c:forEach>
-	<tr>
-		<td nowrap>총 합계: <input type='text' name='total' id='total'>
 
-		</td>
-
-	</tr>
 </table>
 
 

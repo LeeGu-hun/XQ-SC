@@ -184,7 +184,6 @@ th, td {
 								&auditType=${auditBeans.AUDIT_KIND_ID}"
 								class="btn-btn-default" type="button" data-toggle="modal"
 								data-target="#myModal">Register</a></td>
-
 						</tr>
 					</c:if>
 				</c:forEach>

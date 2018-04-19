@@ -13,6 +13,7 @@ import bean.AuditProd;
 import bean.AuditSubmitBean;
 import bean.BeanCategory;
 import bean.BeanChecklist;
+import bean.BeanIssuer;
 import bean.BeanMember;
 import bean.BeanProduct;
 import bean.CheckListBean;
@@ -42,11 +43,6 @@ public class AuditService {
 		return sqlSession.selectOne("auditSQL.newVendorCount");
 	}
 
-	// complete
-	public int completeCount() {
-		return sqlSession.selectOne("auditSQL.completeCount");
-	}
-
 	// *********audit list********//
 
 	// total list
@@ -55,11 +51,7 @@ public class AuditService {
 		return listBean;
 	}
 
-	// complete list
-	public List<AuditBean> auditComplist() {
-		List<AuditBean> listBean = sqlSession.selectList("auditSQL.auditCompleatList");
-		return listBean;
-	}
+
 
 	// regular vendor list
 	public List<AuditBean> auditReVendor() {
@@ -73,12 +65,12 @@ public class AuditService {
 		return auditResult;
 	}
 
-	// 카테고리 리스트
+	// 移댄뀒怨좊━ 由ъ뒪�듃
 	public List<BeanCategory> cateList() {
 		return sqlSession.selectList("auditSQL.cateList");
 	}
 
-	// 프로덕트 리스트
+	// �봽濡쒕뜒�듃 由ъ뒪�듃
 	public List<BeanProduct> prodList(String CATEGORY_ID) {
 		List<BeanProduct> list = sqlSession.selectList("auditSQL.prodList", CATEGORY_ID);
 
@@ -86,7 +78,7 @@ public class AuditService {
 
 	}
 	
-	//평가 결과 입력 page 
+	//�룊媛� 寃곌낵 �엯�젰 page 
 	public List<AuditBean> auditListReport() {
 		List<AuditBean> listResult = sqlSession.selectList("auditSQL.auditListReport");
 		return listResult; 
@@ -97,9 +89,14 @@ public class AuditService {
 		return auditResult; 
 	}
 
-	// 체크리스트
-	public List<CheckListBean> checkList(String AUDIT_KIND_ID) {
-		List<CheckListBean> list = sqlSession.selectList("auditSQL.checkList", AUDIT_KIND_ID);
+	// checkList - RE
+	public List<CheckListBean> checkListRe() {
+		List<CheckListBean> list = sqlSession.selectList("auditSQL.checkListRE");
+		return list;
+	}
+	//checkList - Ne
+	public List<CheckListBean> checkListNe() {
+		List<CheckListBean> list = sqlSession.selectList("auditSQL.checkListNE");
 		return list;
 	}
 
@@ -114,18 +111,19 @@ public class AuditService {
 		return sqlSession.selectOne("auditSQL.auditId");
 	}
 	
-	public void updateAuditId(AuditSubmitBean auditId) {
 
-		int ai = auditId();
-		
-		auditId.setAUDIT_ID("A"+idForm.format(ai+1));
-		sqlSession.insert("adminSQL.ckListInsert", auditId);
+
+	public String idInsert(AuditBean ab) {
+		String id = "A"+idForm.format(auditId()+1);
+		ab.setAUDIT_ID(id);
+		sqlSession.insert("auditSQL.newAuditPlan", ab);
+		return id;
 	}
 	
 	//audit score update 
 	public void updateScore(AuditBean ab) {
 		sqlSession.update("auditSQL.updateScore", ab);
-		System.out.println("service까진 오나여?");
+		System.out.println("service源뚯쭊 �삤�굹�뿬?");
 	}
 	
 	//audit plan insert 
@@ -134,8 +132,21 @@ public class AuditService {
 		
 	}
 	
+	//auditor list 
+	public List<BeanMember> getAuditorList(String MEMBER_NAME) {	
+		List<BeanMember> aidotorList = sqlSession.selectList("auditSQL.getAuditorList",MEMBER_NAME);	
+		return aidotorList;
+	}
+ 
+	
+
+	
 	public List<AuditBean> name() {
 		return sqlSession.selectOne("auditSQL.name");
+	}
+	
+	public void plan(AuditBean ab) {
+		sqlSession.insert("auditSQL.newPlan", ab);
 	}
 	
 	
