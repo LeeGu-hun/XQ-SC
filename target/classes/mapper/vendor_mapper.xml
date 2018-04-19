@@ -54,14 +54,23 @@
 		values(#{VENDOR_ID},#{VENDOR_NAME},'VENDOR','
 		',#{VENDOR_S_TEL},#{VENDOR_S_EMAIL},'V')
 	</insert>
-	
-	
+
+
 
 	<!-- vendor Status -->
-	
-	<select id="vendorList" resultType="bean.BeanVendor"> 
-	SELECT * FROM VENDOR_INFO ORDER BY VENDOR_NAME
+
+	<select id="getVendorList" parameterType="String" resultType="bean.BeanVendor">
+		select vendor_id,vendor_name from vendor_info where vendor_name like
+		'%'||#{vendor_name}||'%'
 	</select>
+
+	<select id="productList" resultType="bean.BeanProduct">
+		select p.product_id
+		,p.product_name from product_item p,vendor_info v
+		where
+		p.product_id=v.product_id
+	</select>
+
 
 	<select id="ncrAllList">
 		select count(*) from ncr_info n, audit_info a,
@@ -70,15 +79,50 @@
 		and
 		v.VENDOR_ID=#{VENDOR_ID}
 	</select>
-	
-	<select id="getStatusList" parameterType="bean.ListCommand" resultType="bean.VendorStatus">
-	select rownum rnum,v.vendor_id,
-	v.vendor_name,c.category_name,p.product_name,a.audit_rsinput_date,v.vendor_q_name,v.vendor_q_tel,v.vendor_q_email
-	from AUDIT_INFO a,VENDOR_INFO v,product_item p,category_info c
-	where a.vendor_id = v.vendor_id and p.product_id=v.product_id and
-	c.category_id=p.category_id and a.audit_rsinput_date between #{from} and #{to}
+
+	<select id="ncrCount" resultType="bean.NcrCount">
+		select count (vendor_id)as
+		total,vendor_id,count(ncr_comp)as comp from
+		(select n.ncr_id
+		,a.audit_id,v.vendor_id ,n.NCR_COMP from ncr_info n,
+		audit_info a,
+		vendor_info v where n.audit_id= a.audit_id and
+		a.vendor_id=v.vendor_id) group by vendor_id
 	</select>
 
+
+	<select resultType="bean.VendorStatus" id="getStatusList"
+		parameterType="bean.ListCommand">
+		select rownum rnum,v.vendor_id,
+		a.dates,v.vendor_name,c.CATEGORY_NAME,p.PRODUCT_NAME,v.vendor_q_name,v.VENDOR_Q_EMAIL
+		from vendor_info v, (select nvl(max(audit_rsinput_date),null) as
+		dates, vendor_id from audit_info group by vendor_id) a ,product_item
+		p,category_info c
+	
+		<where>
+			 v.vendor_id=a.vendor_id and v.product_id=p.product_id and
+		p.category_id=c.category_id
+			<if test="VENDOR_ID != ''">
+				and v.vendor_id=#{VENDOR_ID}
+			</if>
+			<if test="VENDOR_ID != '' and PRODUCT_ID != 'All'">
+				and v.vendor_id=#{VENDOR_ID} and p.product_id=#{PRODUCT_ID}
+			</if>
+			<if test="VENDOR_ID == '' and PRODUCT_ID != 'All'">
+				and p.product_id=#{PRODUCT_ID}
+			</if>
+			
+		</where>
+
+
+	</select>
+
+	<select id="getValid" resultType="bean.VendorValid">
+		select
+		vendor_id,TRUNC(AUDIT_NEXT_DATE-sysdate) as validdate, AUDIT_RESULT
+		from audit_info
+
+	</select>
 
 
 
@@ -104,7 +148,7 @@
 		insert into
 		vendor_info
 		values(#{VENDOR_NAME},#{PRODUCT_ID},#{VENDOR_ADDRESS},#{VENDOR_EMP_NO},#{VENDOR_ISO_FILE},
-		#{VENDOR_CERT_FILE},#{VENDOR_REQ_DATE},#{VENDOR_ID},'N',
+		#{VENDOR_CERT_FILE},sysdate,#{VENDOR_ID},'N',
 		#{VENDOR_Q_NAME},#{VENDOR_Q_TEL},#{VENDOR_Q_EMAIL},#{VENDOR_S_NAME},
 		#{VENDOR_S_TEL},#{VENDOR_S_EMAIL})
 	</insert>

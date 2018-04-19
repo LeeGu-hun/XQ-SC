@@ -3,6 +3,7 @@ package controller;
 import java.io.File;
 import java.io.IOException;
 import java.text.DecimalFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,8 +27,10 @@ import bean.BeanMember;
 import bean.BeanProduct;
 import bean.BeanVendor;
 import bean.ListCommand;
+import bean.NcrCount;
 import bean.VendorCommand;
 import bean.VendorStatus;
+import bean.VendorValid;
 import service.VendorService;
 import spring.AuthInfo;
 
@@ -38,37 +41,38 @@ public class VendorController {
 	public void setVendorService(VendorService vendorService) {
 		this.vendorService = vendorService;
 	}
+
 	DecimalFormat idForm = new DecimalFormat("00000");
-	
-	@RequestMapping(value="/vendor/newVendor", method=RequestMethod.GET)
+
+	@RequestMapping(value = "/vendor/newVendor", method = RequestMethod.GET)
 	public String newVendorGet(HttpServletRequest request, BeanCategory beancategory, Model model) {
 		List<BeanCategory> cateList = vendorService.cateList();
 		int cnt = vendorService.vendorCount();
-		
-		 Map<String, Object> map = new HashMap<String, Object>();
-		 map.put("cateList", cateList); 
-	
-		 model.addAttribute("cnt","V"+idForm.format(cnt+1));
-		 model.addAttribute("map", map);
+
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("cateList", cateList);
+
+		model.addAttribute("cnt", "V" + idForm.format(cnt + 1));
+		model.addAttribute("map", map);
 
 		return "vendor/newVendor";
-	}	
+	}
 
 	@RequestMapping("/vendor/prodList")
 	public String prodList(HttpServletRequest request, Model model) {
 		String selCate = request.getParameter("selCate");
 		List<BeanProduct> prodList = vendorService.prodList(selCate);
-		
-//		for(int i=0;i<prodList.size();i++) {
-//			BeanProduct bp = prodList.get(i);
-//			System.out.println(bp.getPRODUCT_NAME());
-//		}
-	
-		 model.addAttribute("prodList", prodList);
-	
+
+		// for(int i=0;i<prodList.size();i++) {
+		// BeanProduct bp = prodList.get(i);
+		// System.out.println(bp.getPRODUCT_NAME());
+		// }
+
+		model.addAttribute("prodList", prodList);
+
 		return "vendor/newVendor2";
 	}
-	
+
 	@RequestMapping(value = "/vendor/newVendor", method = RequestMethod.POST)
 	public String newVendorPost(HttpServletRequest request, VendorCommand vendorcommand, HttpSession session) {
 		MultipartFile isofile = vendorcommand.getVENDOR_ISO_FILE();
@@ -91,7 +95,7 @@ public class VendorController {
 				e.printStackTrace();
 			}
 		}
-		if(certfile != null) {
+		if (certfile != null) {
 			originalFilename2 = certfile.getOriginalFilename();
 			newFilename2 = System.currentTimeMillis() + "_" + originalFilename2;
 
@@ -106,8 +110,7 @@ public class VendorController {
 				e.printStackTrace();
 			}
 		}
-		
-	
+
 		BeanVendor bv = new BeanVendor();
 		bv.setVENDOR_NAME(vendorcommand.getVENDOR_NAME());
 		bv.setPRODUCT_ID(vendorcommand.getPRODUCT_ID());
@@ -123,36 +126,32 @@ public class VendorController {
 		bv.setVENDOR_S_NAME(vendorcommand.getVENDOR_S_NAME());
 		bv.setVENDOR_S_TEL(vendorcommand.getVENDOR_S_TEL());
 		bv.setVENDOR_S_EMAIL(vendorcommand.getVENDOR_S_EMAIL());
-		vendorService.vendorRegister(bv);	
-		
-		
+		vendorService.vendorRegister(bv);
+
 		return "login/login";
 	}
-	
 
-	@RequestMapping(value="/vendor/vendorRegister")
-	public String registList (HttpServletRequest request,Model model,BeanVendor beanvendor) {
-		
-		List<BeanVendor> list = vendorService.registerList();	
+	@RequestMapping(value = "/vendor/vendorRegister")
+	public String registList(HttpServletRequest request, Model model, BeanVendor beanvendor) {
+
+		List<BeanVendor> list = vendorService.registerList();
 		int cnts = vendorService.registerCount();
-		
+
 		model.addAttribute("list", list);
-		model.addAttribute("cnts",cnts);
-	
+		model.addAttribute("cnts", cnts);
+
 		return "/vendor/vendorRegister";
 	}
-	
-	
-	
-	@RequestMapping(value ="/vendor/vendorView/{VENDOR_ID}", method = RequestMethod.GET)
-	public String vendorView(@PathVariable("VENDOR_ID") String VENDOR_ID, Model model,BeanVendor beanvendor) {
-		
+
+	@RequestMapping(value = "/vendor/vendorView/{VENDOR_ID}", method = RequestMethod.GET)
+	public String vendorView(@PathVariable("VENDOR_ID") String VENDOR_ID, Model model, BeanVendor beanvendor) {
+
 		BeanVendor view = vendorService.vendorView(VENDOR_ID);
 		model.addAttribute("view", view);
-	
+
 		return "vendor/vendorView";
 	}
-	
+
 	@RequestMapping("/vendor/vendorUpdate")
 	public String vendorUpdate(HttpServletRequest request, BeanVendor beanvendor) {
 		String VENDOR_ID = request.getParameter("VENDOR_ID");
@@ -166,42 +165,81 @@ public class VendorController {
 		bv.setVENDOR_S_TEL(VENDOR_S_TEL);
 		bv.setVENDOR_S_EMAIL(VENDOR_S_EMAIL);
 		BeanVendor view = vendorService.vendorUpdate(VENDOR_ID);
-		vendorService.vendorMemRegister(bv);	
-		
+		vendorService.vendorMemRegister(bv);
+
 		return "redirect:/vendor/vendorRegister";
 	}
-	
+
 	@RequestMapping("/vendor/vendorDelete/{VENDOR_ID}")
-	public String vendorDelete(@PathVariable("VENDOR_ID") String VENDOR_ID,BeanVendor beanvendor) {
+	public String vendorDelete(@PathVariable("VENDOR_ID") String VENDOR_ID, BeanVendor beanvendor) {
 		BeanVendor view = vendorService.vendorDelete(VENDOR_ID);
 		return "redirect:/vendor/vendorRegister";
+		
+	}
+	@RequestMapping(value = "/vendor/vendorSearch", method = RequestMethod.GET)
+	public String searchVendorget(Model model) {
+		return "vendor/vendorStatus";
 	}
 	
-	@RequestMapping(value="/vendor/vendorStatus", method = RequestMethod.GET)
-	public String vendorStatusGet (HttpServletRequest request, BeanVendor beanvendor,BeanCategory beancategory, Model model) {
-		List<BeanVendor> vendorList = vendorService.vendorList(); 
-		List<BeanCategory> cateList = vendorService.cateList();
-		
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("cateList", cateList);
-		 
+	@RequestMapping("/vendor/vendorSearch")
+	public String vendorList(Model model, HttpServletRequest request, HttpSession session,
+			@RequestParam(defaultValue = "") String vendor_name) {
+		List<BeanVendor> vendorList = null;
+		try {
+			vendorList = vendorService.getVendorList(vendor_name);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		model.addAttribute("vendorList", vendorList);
-		model.addAttribute("map", map);
-	 
-		return "vendor/vendorStatus";
-	}	
-	
-	@RequestMapping(value="/vendor/vendorStatus", method = RequestMethod.POST)
-	public String vendorStatusPost (Model model, 
-	@ModelAttribute("cmd") ListCommand listCommand) {
-		
-		List<VendorStatus> vendors = vendorService. vendorStatusList(listCommand);
-		model.addAttribute("vendors", vendors);
-	
-		return "vendor/vendorStatus";
+
+		return "vendor/vendorList";
 	}
 	
+
+	
+	
+	
+	@RequestMapping(value = "/vendor/vendorStatus", method = RequestMethod.GET)
+	public String vendorStatusGet( Model model, ListCommand listCommand) {
+		List<BeanProduct> prodList = vendorService.productList();
+
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("prodList", prodList);
+
+		model.addAttribute("map", map);
+
+		return "vendor/vendorStatus";
+	}
+
+	@RequestMapping(value = "vendor/vendorStatus", method = RequestMethod.POST)
+	public String vendorStatusPost(Model model, HttpServletRequest request,ListCommand listCommand
+			,@RequestParam(defaultValue = "All") String PRODUCT_ID,
+			@RequestParam(defaultValue = "All") String VALID) {
+		List<BeanProduct> prodList = vendorService.productList();
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("prodList", prodList);
+		model.addAttribute("map", map);
+		
+		String VENDOR_ID = request.getParameter("vendor_id");
+	
+		System.out.println(VALID);
+		listCommand.setVENDOR_ID(VENDOR_ID);
+		listCommand.setPRODUCT_ID(PRODUCT_ID);
+		listCommand.setVALID(VALID);
+		
+		List<VendorStatus> vendors = vendorService.vendorStatusList(listCommand);
+		List<NcrCount> count = vendorService.ncrCount();
+		
+		List<VendorValid> valid = vendorService.getValid();
+
+			model.addAttribute("valid",valid);
+	
+		model.addAttribute("vendors", vendors);
+		model.addAttribute("count",count);
+		
+
+			return "vendor/vendorStatus";
+		
+	}
+
 }
-	
-	
-	

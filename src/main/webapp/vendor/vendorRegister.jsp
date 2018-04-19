@@ -46,7 +46,6 @@
 <script>
 	function updateRegister() {
 		//	document.getElementById('updateform').submit();
-		//updateform.submit();
 		updateform.submit();
 	}
 
@@ -78,9 +77,6 @@
 						<div>품목</div>
 					</td>
 					<td>
-						<div>요청일</div>
-					</td>
-					<td>
 						<div>영업담당자이름</div>
 					</td>
 					<td>
@@ -104,7 +100,6 @@
 						<td>${li.VENDOR_NAME}</td>
 						<input type="hidden" id="VENDOR_NAME" name="VENDOR_NAME" value="${li.VENDOR_NAME}"/ >
 						<td>${li.PRODUCT_NAME}</td>
-						<td><fmt:formatDate value="${li.VENDOR_REQ_DATE}" pattern="yyyy-MM-dd" /></td>
 						<td>${li.VENDOR_S_NAME}</td>
 						<input type="hidden" id="VENDOR_S_NAME" name="VENDOR_S_NAME" value="${li.VENDOR_S_NAME}"/ >
 						<td>${li.VENDOR_S_TEL}</td>

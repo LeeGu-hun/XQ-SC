@@ -7,7 +7,7 @@
 
 
 
-<select name="PRODUCT_ID" id="PRODUCT_ID">
+<select path="PRODUCT_ID" name="PRODUCT_ID" id="PRODUCT_ID">
 	<c:forEach var="c" items="${prodList}">
 		<option value="${c.PRODUCT_ID}">${c.PRODUCT_NAME}</option>
 	</c:forEach>

@@ -122,10 +122,7 @@ function addvendor() {
 					   </span>
 					   </td>
 				</td>
-			<tr>
-				<td>요청일자 :</td>
-				<td><input type="date" name="VENDOR_REQ_DATE" id="saleDate" >
-			</tr>
+			
 			<tr>
 				<td>품질담당자이름 :</td>
 				<td><input type="text" name="VENDOR_Q_NAME"></td>

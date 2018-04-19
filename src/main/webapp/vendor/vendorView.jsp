@@ -96,8 +96,7 @@
 									src="../upload/${view.VENDOR_CERT_FILE}">
 							</div>
 							<div class="modal-footer">
-								<button type="button" class="btn btn-default"
-									data-dismiss="modal">닫기</button>
+								<button type="button" class="btn btn-default"data-dismiss="modal">닫기</button>
 							</div>
 						</div>
 					</div>
