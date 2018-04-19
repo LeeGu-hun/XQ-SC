@@ -51,8 +51,6 @@ public class AuditService {
 		return listBean;
 	}
 
-
-
 	// regular vendor list
 	public List<AuditBean> auditReVendor() {
 		List<AuditBean> listBean = sqlSession.selectList("auditSQL.auditReVendor");
@@ -65,12 +63,12 @@ public class AuditService {
 		return auditResult;
 	}
 
-	// 移댄뀒怨좊━ 由ъ뒪�듃
+	// cate list 
 	public List<BeanCategory> cateList() {
 		return sqlSession.selectList("auditSQL.cateList");
 	}
 
-	// �봽濡쒕뜒�듃 由ъ뒪�듃
+	// prod list
 	public List<BeanProduct> prodList(String CATEGORY_ID) {
 		List<BeanProduct> list = sqlSession.selectList("auditSQL.prodList", CATEGORY_ID);
 
@@ -78,7 +76,7 @@ public class AuditService {
 
 	}
 	
-	//�룊媛� 寃곌낵 �엯�젰 page 
+	// audit status 
 	public List<AuditBean> auditListReport() {
 		List<AuditBean> listResult = sqlSession.selectList("auditSQL.auditListReport");
 		return listResult; 
