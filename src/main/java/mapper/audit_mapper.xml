@@ -22,8 +22,6 @@
 		OR
 		(v.AUDIT_NEXT_DATE <![CDATA[ <= ]]>
 		TO_DATE(SYSDATE+30)and a.audit_plan_date!=null)
-
-
 	</select>
 
 
@@ -143,39 +141,6 @@
 
 	</select>
 
-	<!-- 평가 현황 리스트 -->
-	<select id="auditResult" resultType="bean.AuditBean">
-
-		SELECT
-		ROWNUM RNUM,
-		AU.AUDIT_ID,
-		V.VENDOR_NAME,
-		V.VENDOR_ID,
-		V.VENDOR_ADDRESS,
-		P.PRODUCT_NAME,
-		P.PRODUCT_ID,
-		AU.AUDIT_COMP_DATE,
-		Au.AUDIT_RSINPUT_DATE,
-		AU.AUDIT_PLAN_DATE,
-		Au.AUDIT_KIND_ID,
-		M. MEMBER_NAME,
-		M.MEMBER_ID,
-		AU.AUDIT_RESULT,
-		AU.AUDIT_SCORE
-		FROM
-		VENDOR_INFO V,
-		PRODUCT_ITEM P,
-		AUDIT_INFO AU,
-		MEMBER_INFO M
-		WHERE M.MEMBER_ID = AU.AUDITOR_ID
-		AND
-		V.VENDOR_ID =
-		AU.VENDOR_ID
-		AND P.PRODUCT_ID = V.PRODUCT_ID
-		AND
-		AU.AUDIT_PLAN_DATE IS NOT NULL
-
-	</select>
 
 	<select id="auditId" resultType="int">
 		SELECT COUNT(*) FROM AUDIT_INFO
@@ -241,13 +206,16 @@
 	</select>
 
 
-	<select id="serchList" resultType="bean.AuditResultSearch">
-
+	<select id="resultSearch" resultType="bean.AuditResultSearch">
 		SELECT
 		ROWNUM RNUM,
-
+		AU.AUDIT_ID,
+		P.PRODUCT_ID,
 		V.VENDOR_NAME,
 		V.VENDOR_ID,
+		AU.AUDIT_PLAN_DATE,
+		AU.AUDIT_RSINPUT_DATE,
+		AU.AUDIT_RESULT,
 		AU.AUDIT_NEXT_DATE,
 		AU.AUDIT_COMP_DATE,
 		AU.AUDIT_KIND_ID,
@@ -281,9 +249,114 @@
 			<when test="vendor != null">
 				AND VENDOR_NAME = #{vendor}
 			</when>
+			<otherwise>
+			</otherwise>
 		</choose>
 	</sql>
 
+	<select id="getByPlanDate" parameterType="bean.DateCommand"
+		resultType="bean.AuditResultSearch">
+		SELECT
+		ROWNUM RNUM,
+		AU.AUDIT_ID,
+		P.PRODUCT_ID,
+		V.VENDOR_NAME,
+		V.VENDOR_ID,
+		AU.AUDIT_PLAN_DATE,
+		AU.AUDIT_RSINPUT_DATE,
+		AU.AUDIT_RESULT,
+		AU.AUDIT_NEXT_DATE,
+		AU.AUDIT_COMP_DATE,
+		AU.AUDIT_KIND_ID,
+		M.MEMBER_NAME,
+		M.MEMBER_ID,
+		M.MEMBER_TEL,
+		V.VENDOR_Q_NAME,
+		V.VENDOR_Q_TEL,
+		V.VENDOR_S_NAME,
+		V.VENDOR_S_TEL,
+		V.VENDOR_ADDRESS,
+		AU.AUDIT_SCORE
+		FROM
+		VENDOR_INFO V,
+		PRODUCT_ITEM P,
+		AUDIT_INFO AU,
+		MEMBER_INFO M
+		WHERE
+		M.MEMBER_ID =
+		AU.AUDITOR_ID
+		AND V.VENDOR_ID =
+		AU.VENDOR_ID
+		AND
+		P.PRODUCT_ID =
+		V.PRODUCT_ID
+		<include refid="planDate"></include>
+		order by AUDIT_PLAN_DATE
+	</select>
 
+	<sql id="planDate">
+		<choose>
+			<when test="from != null">
+				AND AUDIT_PLAN_DATE
+				BETWEEN #{from} AND
+				#{to}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</sql>
+
+	<select id="getByScoreDate" parameterType="bean.DateCommand"
+		resultType="bean.AuditResultSearch">
+		SELECT
+		ROWNUM RNUM,
+		AU.AUDIT_ID,
+		P.PRODUCT_ID,
+		V.VENDOR_NAME,
+		V.VENDOR_ID,
+		AU.AUDIT_PLAN_DATE,
+		AU.AUDIT_RSINPUT_DATE,
+		AU.AUDIT_RESULT,
+		AU.AUDIT_NEXT_DATE,
+		AU.AUDIT_COMP_DATE,
+		AU.AUDIT_KIND_ID,
+		M.MEMBER_NAME,
+		M.MEMBER_ID,
+		M.MEMBER_TEL,
+		V.VENDOR_Q_NAME,
+		V.VENDOR_Q_TEL,
+		V.VENDOR_S_NAME,
+		V.VENDOR_S_TEL,
+		V.VENDOR_ADDRESS,
+		AU.AUDIT_SCORE
+		FROM
+		VENDOR_INFO V,
+		PRODUCT_ITEM P,
+		AUDIT_INFO AU,
+		MEMBER_INFO M
+		WHERE
+		M.MEMBER_ID =
+		AU.AUDITOR_ID
+		AND V.VENDOR_ID =
+		AU.VENDOR_ID
+		AND
+		P.PRODUCT_ID =
+		V.PRODUCT_ID
+		<include refid="scoreDate"></include>
+		order by AUDIT_PLAN_DATE
+	</select>
+
+	<sql id="scoreDate">
+		<choose>
+			<when test="from != null">
+				AND AUDIT_RSINPUT_DATE
+				BETWEEN #{from} AND
+				#{to}
+
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</sql>
 </mapper>
 

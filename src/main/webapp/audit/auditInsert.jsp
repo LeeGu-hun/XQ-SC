@@ -31,7 +31,7 @@
 		for (var i = 0; i < scores.length; i++) {
 			if (scores[i].value == "") {
 				total = total + 0;
-			} else if (scores[i].value >= 20) {
+			} else if (scores[i].value > 20) {
 				scores[i].value = 0;
 				scores[i].focus();
 			} else {

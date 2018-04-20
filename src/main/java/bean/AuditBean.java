@@ -31,7 +31,18 @@ public class AuditBean {
 	private String VENDOR_S_NAME;
 	private String VENDOR_S_TEL;
 
+	private String date, vendor;
+	private Date from, to;
+
 	public AuditBean() {
+	}
+
+	public AuditBean(String date, String vendor, Date from, Date to) {
+		super();
+		this.date = date;
+		this.vendor = vendor;
+		this.from = from;
+		this.to = to;
 	}
 
 	public AuditBean(String aUDIT_ID, int aUDIT_SCORE) {
@@ -186,6 +197,38 @@ public class AuditBean {
 		VENDOR_ADDRESS = vENDOR_ADDRESS;
 		VENDOR_S_NAME = vENDOR_S_NAME;
 		VENDOR_S_TEL = vENDOR_S_TEL;
+	}
+
+	public String getDate() {
+		return date;
+	}
+
+	public void setDate(String date) {
+		this.date = date;
+	}
+
+	public String getVendor() {
+		return vendor;
+	}
+
+	public void setVendor(String vendor) {
+		this.vendor = vendor;
+	}
+
+	public Date getFrom() {
+		return from;
+	}
+
+	public void setFrom(Date from) {
+		this.from = from;
+	}
+
+	public Date getTo() {
+		return to;
+	}
+
+	public void setTo(Date to) {
+		this.to = to;
 	}
 
 	public Date getLAST_AUDIT_DATE() {
