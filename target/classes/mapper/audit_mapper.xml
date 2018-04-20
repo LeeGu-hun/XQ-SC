@@ -4,7 +4,7 @@
 
 <mapper namespace="auditSQL">
 
-	<!-- ***************** audit List***************** -->
+	<!-- ***************** audit List******************* -->
 
 
 	<select id="auditAllList" resultType="bean.AuditBean">
