@@ -1,6 +1,10 @@
 package service;
 
 import java.text.DecimalFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -18,6 +22,9 @@ import bean.BeanIssuer;
 import bean.BeanMember;
 import bean.BeanProduct;
 import bean.CheckListBean;
+import bean.DateCommand;
+
+
 
 @Service
 public class AuditService {
@@ -58,11 +65,6 @@ public class AuditService {
 	public List<AuditBean> auditListReport() {
 		List<AuditBean> listResult = sqlSession.selectList("auditSQL.auditListReport");
 		return listResult; 
-	}
-	
-	public List<AuditBean> auditResult() {
-		List<AuditBean> auditResult = sqlSession.selectList("auditSQL.auditResult");
-		return auditResult; 
 	}
 
 	// checkList - RE
@@ -120,12 +122,82 @@ public class AuditService {
 		sqlSession.selectList("auditSQL.checkResult",audit);	
 	}
 	
-	public List<AuditResultSearch> getSearch(AuditResultSearch ars) {
-		return sqlSession.selectList("auditSQL.serchList",ars);
+	public List<AuditResultSearch> getSearch(AuditResultSearch search) {
+		return sqlSession.selectList("auditSQL.resultSearch",search);
 	}
  
 	public List<AuditBean> name() {
 		return sqlSession.selectOne("auditSQL.name");
+	}
+	
+	
+	//Result Page Plan Date Search
+	public List<AuditResultSearch> getByPlanDate(DateCommand dateCommand) {
+		Date from = dateCommand.getFrom();
+		Date to = dateCommand.getTo();
+		SimpleDateFormat dt = 
+				new SimpleDateFormat("yyyy-MM-dd hh:mm:ss"); 
+		Calendar cal = Calendar.getInstance();
+		int year, month, day;
+		String from_s="", to_s="";
+		
+		Date fromWord = (from == null)?new Date():from;
+		cal.setTime(fromWord);
+		year = cal.get(cal.YEAR);
+		month = cal.get(cal.MONTH) + 1 ;
+		day= (from == null)?1:cal.get(cal.DATE);
+		from_s = year+"-"+month+"-"+day+" 00:00:00.0";
+
+		Date toWord = (to == null)?new Date():to;
+		cal.setTime(toWord);
+		year = cal.get (cal.YEAR);
+		month = cal.get (cal.MONTH) + 1 ;
+		day= cal.get(cal.DATE);
+		to_s = year+"-"+month+"-"+day+" 23:59:59.0";
+		
+		try { 
+			from = dt.parse(from_s);
+			to = dt.parse(to_s);
+		} catch (ParseException e) { } 
+		dateCommand.setFrom(from);
+		dateCommand.setTo(to);
+		List<AuditResultSearch> results = sqlSession.selectList(
+				"auditSQL.getByPlanDate", dateCommand);
+		return results;
+	}
+	
+	public List<AuditResultSearch> getByScoreDate(DateCommand dateCommand) {
+		Date from = dateCommand.getFrom();
+		Date to = dateCommand.getTo();
+		SimpleDateFormat dt = 
+				new SimpleDateFormat("yyyy-MM-dd hh:mm:ss"); 
+		Calendar cal = Calendar.getInstance();
+		int year, month, day;
+		String from_s="", to_s="";
+		
+		Date fromWord = (from == null)?new Date():from;
+		cal.setTime(fromWord);
+		year = cal.get(cal.YEAR);
+		month = cal.get(cal.MONTH) + 1 ;
+		day= (from == null)?1:cal.get(cal.DATE);
+		from_s = year+"-"+month+"-"+day+" 00:00:00.0";
+
+		Date toWord = (to == null)?new Date():to;
+		cal.setTime(toWord);
+		year = cal.get (cal.YEAR);
+		month = cal.get (cal.MONTH) + 1 ;
+		day= cal.get(cal.DATE);
+		to_s = year+"-"+month+"-"+day+" 23:59:59.0";
+		
+		try { 
+			from = dt.parse(from_s);
+			to = dt.parse(to_s);
+		} catch (ParseException e) { } 
+		dateCommand.setFrom(from);
+		dateCommand.setTo(to);
+		List<AuditResultSearch> results = sqlSession.selectList(
+				"auditSQL.getByScoreDate", dateCommand);
+		return results;
 	}
 	
 

@@ -18,6 +18,8 @@ import bean.NcrBean;
 import bean.NcrReplyBean;
 import bean.NcrReplyCommand;
 import bean.NcrSearchCommand;
+import bean.NcrStatusBean;
+import bean.NcrStatusCommand;
 
 public class NcrService {
 
@@ -105,6 +107,12 @@ public class NcrService {
 
 	public void saveAuditorReply(NcrReplyCommand nrc) {
 		sqlSession.insert("ncrSQL.saveAuditorReply", nrc);		
+	}
+
+	public List<NcrStatusBean> getNcrStatus(NcrStatusCommand nsc) {
+		List<NcrStatusBean> ncrStatusList = sqlSession.selectList("ncrSQL.getNcrStatus",nsc);
+		return ncrStatusList;
+		
 	}
 	
 }

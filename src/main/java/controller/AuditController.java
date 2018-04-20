@@ -33,6 +33,7 @@ import bean.BeanIssuer;
 import bean.BeanMember;
 import bean.BeanProduct;
 import bean.CheckListBean;
+import bean.DateCommand;
 import oracle.net.aso.a;
 import service.AuditService;
 
@@ -46,18 +47,14 @@ public class AuditController {
 		this.auditService = auditService;
 	}
 
-
 	@RequestMapping(value = "/AuditManage", method = RequestMethod.GET)
 	public String auditManageGet(Model model, AuditBean auditBean, HttpServletRequest request) {
 		List<AuditBean> listBean = auditService.auditList();
 		model.addAttribute("listBean", listBean);
-		
-		// audit count 
+
+		// audit count
 		int allCount = auditService.allCount();
-		
 		model.addAttribute("allCount", allCount);
-
-
 		return "audit/auditManage";
 	}
 
@@ -65,8 +62,7 @@ public class AuditController {
 	public String auditManagePost(Model model, AuditCommand ac, AuditBean auditBean) {
 		List<AuditBean> auditBeans = auditService.auditList();
 		AuditBean ab = new AuditBean();
-		System.out.println("而⑦듃濡ㅻ윭 ???굹?뿬???");
-		
+
 		ab.setAUDIT_KIND_ID(ac.getAUDIT_KIND_ID());
 		ab.setAUDITOR_ID(ac.getAUDITOR_ID());
 		ab.setVENDOR_ID(ac.getVENDOR_ID());
@@ -76,8 +72,6 @@ public class AuditController {
 		System.out.println(">>>>>>>>>>" + ab);
 		return "redirect:/AuditManage";
 	}
-
-
 
 	// search Auditor Id
 	@RequestMapping(value = "audit/searchAuditorId", method = RequestMethod.POST)
@@ -182,33 +176,33 @@ public class AuditController {
 
 	// Result
 	@RequestMapping(value = "/AuditResult", method = RequestMethod.GET)
-	public String auditResultGet(Model model, 
-			AuditBean auditBean, 
+	public String auditResultGet(
+			
+			Model model, AuditBean auditBean, 
 			HttpServletRequest request,
-			@RequestParam(defaultValue="") String date,
-			@RequestParam(defaultValue="") String vendor,
-			@RequestParam(defaultValue="") @DateTimeFormat(pattern="MMddyy") Date from,
-			@RequestParam(defaultValue="") @DateTimeFormat(pattern="MMddyy") Date to) {
+			DateCommand dateCommand) {
+
+		AuditResultSearch ars = new AuditResultSearch();
+
 		
-		
-		AuditResultSearch ars = new AuditResultSearch(date, vendor, from, to);
-		System.out.println(">>>"+from);
-		List<AuditResultSearch> arsList = auditService.getSearch(ars);
-		
-		Map<String, Object> map = new HashMap<String, Object>();
-		
-		List<AuditBean> auditBeans = auditService.auditResult();
-		model.addAttribute("auditBeans", auditBeans);
-		
-		// Cate list GEt
-		List<BeanCategory> cateList = auditService.cateList();
-		map.put("cateList", cateList);
-		model.addAttribute("map", map);
+		List<AuditResultSearch> arsList = auditService.getByPlanDate(dateCommand);
+		model.addAttribute("arsList", arsList);
+
 		return "audit/auditResult";
 	}
 
 	@RequestMapping(value = "/AuditResult", method = RequestMethod.POST)
-	public String auditResultPost(Model model, AuditBean auditBean) {
+	public String auditResultPost(Model model, AuditBean auditBean,DateCommand dateCommand) {
+		
+		if (dateCommand.getPlandate().equals("score")) {
+			List<AuditResultSearch> arsList = auditService.getByScoreDate(dateCommand);
+			model.addAttribute("arsList", arsList);
+		} else {
+			List<AuditResultSearch> arsList = auditService.getByPlanDate(dateCommand);
+			model.addAttribute("arsList", arsList);
+		}
+		
+		System.out.println("......."+dateCommand.getPlandate());
 		return "audit/auditResult";
 	}
 
