@@ -101,6 +101,10 @@ public class VendorService {
 		List<VendorValid> result = sqlSession.selectList("vendorSQL.getValid");
 		return result;
 	}
+	public List<VendorStatus>getYList() {
+		List<VendorStatus> result = sqlSession.selectList("vendorSQL.getYList");
+		return result;
+	}
 	
 	
 	

@@ -131,6 +131,7 @@ function addvendor() {
 				<td>품질담당자연락처 :</td>
 				<td><input type="text" name="VENDOR_Q_TEL"></td>
 			</tr>
+			
 			<tr>
 				<td >영업담당자이름 :</td>
 				<td><input type="text" name="VENDOR_S_NAME"></td>
@@ -139,10 +140,12 @@ function addvendor() {
 				<td >영업담당자연락처 :</td>
 				<td><input type="text" name="VENDOR_S_TEL"></td>
 			</tr>
+			
 			<tr>
 				<td>품질보증서 :</td>
 				<td><input type="file" name="VENDOR_ISO_FILE"></td>
 			</tr>
+			
 			<tr>
 				<td >사업자등록증 :</td>
 				<td><input type="file" name="VENDOR_CERT_FILE"></td>

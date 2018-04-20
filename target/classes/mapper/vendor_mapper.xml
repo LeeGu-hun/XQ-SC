@@ -98,32 +98,38 @@
 		from vendor_info v, (select nvl(max(audit_rsinput_date),null) as
 		dates, vendor_id from audit_info group by vendor_id) a ,product_item
 		p,category_info c
-	
 		<where>
-			 v.vendor_id=a.vendor_id and v.product_id=p.product_id and
-		p.category_id=c.category_id
+			v.vendor_id=a.vendor_id and v.product_id=p.product_id and
+			p.category_id=c.category_id
 			<if test="VENDOR_ID != ''">
 				and v.vendor_id=#{VENDOR_ID}
 			</if>
 			<if test="VENDOR_ID != '' and PRODUCT_ID != 'All'">
-				and v.vendor_id=#{VENDOR_ID} and p.product_id=#{PRODUCT_ID}
+				and v.vendor_id=#{VENDOR_ID} and
+				p.product_id=#{PRODUCT_ID}
 			</if>
 			<if test="VENDOR_ID == '' and PRODUCT_ID != 'All'">
 				and p.product_id=#{PRODUCT_ID}
 			</if>
-			
 		</where>
-
 
 	</select>
 
-	<select id="getValid" resultType="bean.VendorValid">
+	<select id="getValid" resultType="bean.VendorValid"
+		parameterType="bean.ListCommand">
 		select
 		vendor_id,TRUNC(AUDIT_NEXT_DATE-sysdate) as validdate, AUDIT_RESULT
 		from audit_info
-
 	</select>
 
+	<select  id="getYList" resultType="bean.VendorStatus" parameterType="bean.ListCommand">
+		select rownum rnum,v.vendor_id,v.vendor_name,c.category_name,p.product_name,a.audit_rsinput_date,v.vendor_q_name,v.vendor_q_email
+		from vendor_info v,product_item
+		p,category_info c,audit_info a
+		where v.product_id=p.product_id and p.category_id=c.category_id and
+		v.vendor_id=a.vendor_id
+		and TRUNC(v.AUDIT_NEXT_DATE-sysdate) >0 and v.audit_result='Y'
+	</select>
 
 
 	<!-- newVendor등록 -->

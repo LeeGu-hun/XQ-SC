@@ -140,7 +140,7 @@ function rowselect(vendor_name, vendor_id) {
 					<td>유효성</td>
 					<td>NCR</td>
 				</tr>
-
+<c:if test="${ empty valids}">
 				<c:forEach var="v" items="${vendors}">
 					<tr align="center" valign="middle" bordercolor="#333333">
 						<td>${v.RNUM}</td>
@@ -161,7 +161,6 @@ function rowselect(vendor_name, vendor_id) {
 								</c:if>
 								</c:forEach>
 							</c:if></td>
-							
 						<td><c:forEach var="c" items="${count}">
 								<c:if test="${c.VENDOR_ID==v.VENDOR_ID}">
 								${c.comp}/${c.total}
@@ -170,6 +169,33 @@ function rowselect(vendor_name, vendor_id) {
 
 					</tr>
 				</c:forEach>
+				</c:if>
+				
+				<c:if test="${! empty valids}">
+				<c:forEach var="val" items="${valids}">
+					<tr align="center" valign="middle" bordercolor="#333333">
+						<td>${val.RNUM}</td>
+						<td>${val.VENDOR_ID}</td>
+						<td>${val.VENDOR_NAME}</td>
+						<td>${val.CATEGORY_NAME}</td>
+						<td>${val.PRODUCT_NAME}</td>
+						<td><fmt:formatDate value="${val.AUDIT_RSINPUT_DATE}"
+								pattern="yyyy-MM-dd" /></td>
+						<td>${val.VENDOR_Q_NAME}</td>
+						<td>${val.VENDOR_Q_EMAIL}</td>
+
+						<td>Y</td>
+						<td><c:forEach var="c" items="${count}">
+								<c:if test="${c.VENDOR_ID==v.VENDOR_ID}">
+								${c.comp}/${c.total}
+							</c:if>
+							</c:forEach></td>
+
+					</tr>
+				</c:forEach>
+				</c:if>
+			
+	
 			</table>
 		</div>
 	</c:if>

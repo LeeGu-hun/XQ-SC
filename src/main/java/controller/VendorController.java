@@ -225,21 +225,27 @@ public class VendorController {
 		System.out.println(VALID);
 		listCommand.setVENDOR_ID(VENDOR_ID);
 		listCommand.setPRODUCT_ID(PRODUCT_ID);
-		listCommand.setVALID(VALID);
 		
-		List<VendorStatus> vendors = vendorService.vendorStatusList(listCommand);
+		
 		List<NcrCount> count = vendorService.ncrCount();
-		
 		List<VendorValid> valid = vendorService.getValid();
-
-			model.addAttribute("valid",valid);
-	
-		model.addAttribute("vendors", vendors);
+		model.addAttribute("valid",valid);
 		model.addAttribute("count",count);
 		
-
+		 if(VALID.equals("Y")) {
+			 System.out.println("validY");
+			List<VendorStatus> valids = vendorService.getYList();
+			model.addAttribute("valids", valids);
 			return "vendor/vendorStatus";
-		
+			
+		}else {
+			System.out.println("validAll");
+			List<VendorStatus> vendors = vendorService.vendorStatusList(listCommand);
+			model.addAttribute("vendors", vendors);
+			return "vendor/vendorStatus";
+			
+		}
+
 	}
 
 }
