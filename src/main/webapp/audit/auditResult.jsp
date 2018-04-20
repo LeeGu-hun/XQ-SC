@@ -70,8 +70,7 @@ th, td {
 
 
 <script language="javascript">
-	var aId = document.getElementById("AUDIT_ID").value;
-
+	
 	function prodList() {
 		var selCate = document.getElementById("selCate").value;
 
@@ -79,22 +78,17 @@ th, td {
 			type : "GET",
 			url : "audit/prodList",
 			data : "selCate=" + selCate,
-
 			success : result
 		});
-
 	}
-
 	function result(msg) {
 		$("#spProd").html(msg);
-
 	}
 </script>
 
 <body>
-	<div id="">
-		<form>
-			<div id=''>
+	
+			<div>
 				<ul>
 					<li><a href='#'><span>Vendor 등록관리</span></a></li>
 					<li class='active has-sub'><a href='#'><span>평가관리</span></a>
@@ -107,25 +101,23 @@ th, td {
 					<li class='last'><a href='#'><span>시스템 관리</span></a></li>
 				</ul>
 			</div>
-			<table>
-				<tr>
-					<td style="font-family: Tahoma; font-size: 12pt;" height="">&nbsp;
-					
-						<input type="radio" value="Plan Date" name = "date" id = "lab"
-						<c:out value="${map.auditKindId == 'ALL'?'checked':''}"/> /> &nbsp;
-						<label for = "lab">Plan Date</label>&nbsp;
-						<input type="radio" value="Complete Date" name = "date" id = "lab2">&nbsp; 
-						<label for = "lab2">Score Complete Date</label>
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					    <input type="date" name = "from"> ~ <input type="date" name = "to">
-					</td>
-					<td style="font-family: Tahoma; font-size: 12pt;" height="">&nbsp;
-					<input type="text" value="${map.keyword}" name = "vendor">
-					</td>
-					<td style="font-family: Tahoma; font-size: 12pt;" height="">
-					<input type="submit" value="View"></td>
-				</tr>
-			</table>
+	<form action="./AuditResult" method="POST">
+		<p>
+			<input type="radio" id = "plandate" name ="plandate" value="plan">
+			<label for = "plandate" >Audit Plan Date</label>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<input type="radio" id = "plandate" name = "plandate" value="score">
+			<label for = "scoreDate">Audit Score Input Date</label>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<label>from :
+			<input id="from" name="from" type="date"  /></label>
+			
+			~ <label>to :
+			<input  id="to" name="to" type="date"  /></label>
+			
+			<input type="submit" value="조회">
+		</p>
+	</form>
 			<br> <br>
 			<table border="1" id="auditTable">
 				<tr>
@@ -143,7 +135,7 @@ th, td {
 					<th>Score</th>
 					<th>Result Status</th>
 				</tr>
-				<c:forEach var="auditBeans" items="${auditBeans}">
+				<c:forEach var="auditBeans" items="${arsList}">
 					<tr align="center" valign="middle" bordercolor="#333333">
 						<td style="font-family: Tahoma; font-size: 12pt;" height="">
 							<div align="center">${auditBeans.RNUM}</div>
@@ -158,13 +150,23 @@ th, td {
 							<div align="center">${auditBeans.PRODUCT_NAME}(${auditBeans.PRODUCT_ID})</div>
 						</td>
 						<td style="font-family: Tahoma; font-size: 12pt;">
-							<div align="center">${auditBeans.AUDIT_PLAN_DATE}</div>
+							<div align="center">${auditBeans.AUDIT_PLAN_DATE}
+							<c:if test="${auditBeans.AUDIT_PLAN_DATE ==null}">
+							-
+							</c:if></div>
 						</td>
 						<td style="font-family: Tahoma; font-size: 12pt;">
-							<div align="center">${auditBeans.AUDIT_COMP_DATE}</div>
+							<div align="center">${auditBeans.AUDIT_COMP_DATE}
+							<c:if test="${auditBeans.AUDIT_COMP_DATE ==null}">
+							-
+							</c:if>
+							</div>
 						</td>
 						<td style="font-family: Tahoma; font-size: 12pt;">
-							<div align="center">${auditBeans.AUDIT_RSINPUT_DATE}</div>
+							<div align="center">${auditBeans.AUDIT_RSINPUT_DATE}
+							<c:if test="${auditBeans.AUDIT_RSINPUT_DATE ==null}">
+							-
+							</c:if></div>
 						</td>
 						<td style="font-family: Tahoma; font-size: 12pt;">
 							<div align="center">${auditBeans.AUDIT_KIND_ID}</div>
@@ -176,10 +178,17 @@ th, td {
 							<div align="center">${auditBeans.VENDOR_ADDRESS}</div>
 						</td>
 						<td style="font-family: Tahoma; font-size: 12pt;">
-							<div align="center">${auditBeans.AUDIT_RESULT}</div>
+							<div align="center">${auditBeans.AUDIT_RESULT}
+							<c:if test="${auditBeans.AUDIT_RESULT ==null}">
+							-
+							</c:if>
+							</div>
 						</td>
 						<td style="font-family: Tahoma; font-size: 12pt;">
-							<div align="center">${auditBeans.AUDIT_SCORE}</div>
+							<div align="center">${auditBeans.AUDIT_SCORE}
+							<c:if test="${auditBeans.AUDIT_SCORE ==null}">
+							-
+							</c:if></div>
 						</td>
 						<td style="font-family: Tahoma; font-size: 12pt;"><a
 							href="audit/auditVendorResult?vendorname=${auditBeans.VENDOR_NAME}
