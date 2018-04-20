@@ -100,4 +100,10 @@
       insert into ncr_reply values(#{ncr_id},(select count(*)from ncr_reply)+1,sysdate,#{replier_id},
       #{reply_description},'AUDITOR')  
 	</insert>
+	
+    
+    
+	
+	
+	
 </mapper>

@@ -28,6 +28,8 @@ import bean.NcrIssueCommand;
 import bean.NcrReplyBean;
 import bean.NcrReplyCommand;
 import bean.NcrSearchCommand;
+import bean.NcrStatusBean;
+import bean.NcrStatusCommand;
 import service.NcrService;
 import spring.AuthInfo;
 
@@ -297,6 +299,22 @@ public class NcrController {
 		ncrService.saveAuditorReply(nrc);		
 		
 		return "ncr/ncrManagement";
+	}
+	
+	@RequestMapping(value = "ncr/ncrStatus", method = RequestMethod.GET)
+	public String ncrStatusGet(HttpSession session) {
+		return "ncr/ncrStatus";
+	}
+	
+	@RequestMapping(value = "ncr/ncrStatusSearch", method = RequestMethod.POST)
+	public String ncrStatusSearch(NcrStatusCommand nsc, Model model) {
+		
+		List<NcrStatusBean> ncrStatusList = null;
+		try {
+			ncrStatusList = ncrService.getNcrStatus(nsc);
+		} catch (Exception e) {	e.printStackTrace();}
+		model.addAttribute("ncrStatusList", ncrStatusList);
+		return "ncr/ncrStatusList";
 	}
 
 }
