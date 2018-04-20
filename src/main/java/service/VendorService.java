@@ -102,10 +102,14 @@ public class VendorService {
 		return result;
 	}
 	public List<VendorStatus>getYList() {
+
 		List<VendorStatus> result = sqlSession.selectList("vendorSQL.getYList");
 		return result;
 	}
-	
+	public List<VendorStatus>getNList() {
+		List<VendorStatus> result = sqlSession.selectList("vendorSQL.getNList");
+		return result;
+	}
 	
 	
 	public List<VendorStatus> vendorStatusList(ListCommand listCommand) {

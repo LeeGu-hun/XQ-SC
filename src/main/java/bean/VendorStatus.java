@@ -12,7 +12,6 @@ public class VendorStatus {
 	private String CATEGORY_NAME;
 	private String PRODUCT_ID;
 	private String PRODUCT_NAME;
-	private Date AUDIT_RSINPUT_DATE;
 	private String AUDIT_KIND_ID;
 	private String VENDOR_Q_NAME;
 	private String VENDOR_Q_TEL;
@@ -22,12 +21,12 @@ public class VendorStatus {
 	
 
 	public VendorStatus() {
+		
 	}
 
-
 	public VendorStatus(int rNUM, String vENDOR_ID, String vENDOR_NAME, String cATEGORY_ID, String cATEGORY_NAME,
-			String pRODUCT_ID, String pRODUCT_NAME, Date aUDIT_RSINPUT_DATE, String aUDIT_KIND_ID, String vENDOR_Q_NAME,
-			String vENDOR_Q_TEL, String vENDOR_Q_EMAIL, String vALID, String nCR) {
+			String pRODUCT_ID, String pRODUCT_NAME, String aUDIT_KIND_ID, String vENDOR_Q_NAME, String vENDOR_Q_TEL,
+			String vENDOR_Q_EMAIL, String vALID, String nCR) {
 		super();
 		RNUM = rNUM;
 		VENDOR_ID = vENDOR_ID;
@@ -36,15 +35,14 @@ public class VendorStatus {
 		CATEGORY_NAME = cATEGORY_NAME;
 		PRODUCT_ID = pRODUCT_ID;
 		PRODUCT_NAME = pRODUCT_NAME;
-		AUDIT_RSINPUT_DATE = aUDIT_RSINPUT_DATE;
 		AUDIT_KIND_ID = aUDIT_KIND_ID;
 		VENDOR_Q_NAME = vENDOR_Q_NAME;
 		VENDOR_Q_TEL = vENDOR_Q_TEL;
 		VENDOR_Q_EMAIL = vENDOR_Q_EMAIL;
 		VALID = vALID;
 		NCR = nCR;
+		
 	}
-
 
 	public int getRNUM() {
 		return RNUM;
@@ -113,16 +111,6 @@ public class VendorStatus {
 
 	public void setPRODUCT_NAME(String pRODUCT_NAME) {
 		PRODUCT_NAME = pRODUCT_NAME;
-	}
-
-
-	public Date getAUDIT_RSINPUT_DATE() {
-		return AUDIT_RSINPUT_DATE;
-	}
-
-
-	public void setAUDIT_RSINPUT_DATE(Date aUDIT_RSINPUT_DATE) {
-		AUDIT_RSINPUT_DATE = aUDIT_RSINPUT_DATE;
 	}
 
 

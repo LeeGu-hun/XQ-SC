@@ -13,52 +13,66 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/css/style.css?ver=1.2">
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('#nav li').hover(function() {
+			$('ul', this).slideDown(200);
+			$(this).children('a:first').addClass("hov");
+		}, function() {
+			$('ul', this).slideUp(100);
+			$(this).children('a:first').removeClass("hov");
+		});
+	});
+</script>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 </head>
 <body>
-
-	<div class="btn-group">
-		<a class="btn dropdown-toggle" data-toggle="dropdown" href='#'> <span
-			class="creat">Vendor 등록관리</span>
-		</a>
-		<ul class="dropdown-menu">
-			<li class='has-sub'><a href='vendor/vendorRegister'>Vendor
-					Register</a></li>
-			<li class='has-sub'><a href='vendor/vendorStatus'>Vendor
-					Status</a></li>
-		</ul>
-	</div>
-	
-	<div class="btn-group">
-		<a class="btn dropdown-toggle" data-toggle="dropdown" href='#'><span>평가관리</span></a>
-		<ul class="dropdown-menu">
-			<li class='has-sub'><a href='./AuditManage'>평가계획</a></li>
-			<li class='has-sub'><a href='./AuditReport'>평가결과입력</a></li>
-			<li class='has-sub'><a href='./AuditResult'>평가현황</a></li>
-		</ul>
-	</div>
-	
-	<div class="btn-group">
-		<a class="btn dropdown-toggle" data-toggle="dropdown" href='#'><span>부적합관리</span></a>
-		<ul class="dropdown-menu">
-			<li class='has-sub'><a href='ncr/ncrRegister'>NCR Register</a></li>
-			<li class='has-sub'><a href='ncr/ncrManagement'>NCR Management</a></li>
-			<li class='has-sub'><a href='ncr/ncrStatus'>NCR Status</a></li>
-		</ul>
+	<div id="head">
+		<div class="wrap">
+			<h1>
+				<img alt="XQ-SC" />	
+			</h1>
 		</div>
-		
-		<div class="btn-group">
-		<a class="btn dropdown-toggle" data-toggle="dropdown" href='#'><span>시스템 관리</span></a>
-		<ul class="dropdown-menu">
-			<li class='has-sub'><a href='./Setting'>System Configuration</a></li>
-			<li class='has-sub'><a href='./MSet'>Member Management</a></li>
-			<li class='has-sub'><a href='./CLSet'>Checklist Management</a></li>
-		</ul>
-		
-		</div>
-		
+	</div>
 
+	<div class="wrap">
+		<ul id="nav">
+			<li><a href="#"> HOME</a></li>
+
+			<li><a href='#'>Vendor 등록관리</a>
+				<ul>
+					<li><a href='vendor/vendorRegister'>Vendor Register</a></li>
+					<li><a href='vendor/vendorStatus'>Vendor Status</a></li>
+				</ul></li>
+
+
+			<li><a href='#'><span>평가관리</span></a>
+				<ul>
+					<li><a href='./AuditManage'>평가계획</a></li>
+					<li><a href='./AuditReport'>평가결과입력</a></li>
+					<li><a href='./AuditResult'>평가현황</a></li>
+				</ul></li>
+
+
+			<li><a href='#'><span>부적합관리</span></a>
+				<ul>
+					<li><a href='ncr/ncrRegister'>NCR Register</a></li>
+					<li><a href='ncr/ncrManagement'>NCR Management</a></li>
+					<li><a href='ncr/ncrStatus'>NCR Status</a></li>
+				</ul></li>
+
+
+			<li><a href='#'><span>시스템 관리</span></a>
+				<ul>
+					<li><a href='./Setting'>System Configuration</a></li>
+					<li><a href='./MSet'>Member Management</a></li>
+					<li><a href='./CLSet'>Checklist Management</a></li>
+				</ul></li>
+				</ul>
+				</div>
 </body>
 </html>
 

@@ -125,7 +125,7 @@ function rowselect(vendor_name, vendor_id) {
 
 		<!--  모달 끝 -->
 
-	<c:if test="${! empty vendors}">
+	
 		<div class="container">
 			<table class="table table-striped">
 				<tr align="center" valign="middle" bordercolor="#333333">
@@ -134,13 +134,13 @@ function rowselect(vendor_name, vendor_id) {
 					<td>회사명</td>
 					<td>카테고리</td>
 					<td>품목</td>
-					<td>Audit Date</td>
 					<td>담당자</td>
 					<td>담당자 이메일</td>
 					<td>유효성</td>
 					<td>NCR</td>
 				</tr>
-<c:if test="${ empty valids}">
+				
+				<c:if test="${! empty vendors}">
 				<c:forEach var="v" items="${vendors}">
 					<tr align="center" valign="middle" bordercolor="#333333">
 						<td>${v.RNUM}</td>
@@ -148,8 +148,6 @@ function rowselect(vendor_name, vendor_id) {
 						<td>${v.VENDOR_NAME}</td>
 						<td>${v.CATEGORY_NAME}</td>
 						<td>${v.PRODUCT_NAME}</td>
-						<td><fmt:formatDate value="${v.AUDIT_RSINPUT_DATE}"
-								pattern="yyyy-MM-dd" /></td>
 						<td>${v.VENDOR_Q_NAME}</td>
 						<td>${v.VENDOR_Q_EMAIL}</td>
 
@@ -170,34 +168,51 @@ function rowselect(vendor_name, vendor_id) {
 					</tr>
 				</c:forEach>
 				</c:if>
-				
-				<c:if test="${! empty valids}">
-				<c:forEach var="val" items="${valids}">
+	
+				<c:if test="${! empty validY}">
+				<c:forEach var="y" items="${validY}">
 					<tr align="center" valign="middle" bordercolor="#333333">
-						<td>${val.RNUM}</td>
-						<td>${val.VENDOR_ID}</td>
-						<td>${val.VENDOR_NAME}</td>
-						<td>${val.CATEGORY_NAME}</td>
-						<td>${val.PRODUCT_NAME}</td>
-						<td><fmt:formatDate value="${val.AUDIT_RSINPUT_DATE}"
-								pattern="yyyy-MM-dd" /></td>
-						<td>${val.VENDOR_Q_NAME}</td>
-						<td>${val.VENDOR_Q_EMAIL}</td>
-
+						<td>${y.RNUM}</td>
+						<td>${y.VENDOR_ID}</td>
+						<td>${y.VENDOR_NAME}</td>
+						<td>${y.CATEGORY_NAME}</td>
+						<td>${y.PRODUCT_NAME}</td>
+						<td>${y.VENDOR_Q_NAME}</td>
+						<td>${y.VENDOR_Q_EMAIL}</td>
 						<td>Y</td>
 						<td><c:forEach var="c" items="${count}">
-								<c:if test="${c.VENDOR_ID==v.VENDOR_ID}">
+								<c:if test="${c.VENDOR_ID==y.VENDOR_ID}">
 								${c.comp}/${c.total}
 							</c:if>
 							</c:forEach></td>
-
 					</tr>
 				</c:forEach>
 				</c:if>
+				
+				<c:if test="${!empty validN}">
+				<c:forEach var="n" items="${validN}">
+					<tr align="center" valign="middle" bordercolor="#333333">
+						<td>${n.RNUM}</td>
+						<td>${n.VENDOR_ID}</td>
+						<td>${n.VENDOR_NAME}</td>
+						<td>${n.CATEGORY_NAME}</td>
+						<td>${n.PRODUCT_NAME}</td>
+						<td>${n.VENDOR_Q_NAME}</td>
+						<td>${n.VENDOR_Q_EMAIL}</td>
+						<td> </td>
+						<td><c:forEach var="c" items="${count}">
+								<c:if test="${c.VENDOR_ID==n.VENDOR_ID}">
+								${c.comp}/${c.total}
+							</c:if>
+							</c:forEach></td>
+					</tr>
+				</c:forEach>
+				</c:if>
+				
 			
 	
 			</table>
 		</div>
-	</c:if>
+
 </body>
 </html>

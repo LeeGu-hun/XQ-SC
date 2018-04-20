@@ -37,7 +37,7 @@
 
 <body>
 	<div style="width: 100%;">
-		<div style="width: 60%; float: left;">
+		<div style="width: 52%; float: left;">
 			<div style="width: 100%; height: 650px; background-color:#ffdbbf;"></div>
 			<div style="width: 100%; height: 350px;">
 				<div style="width: 100%;">
@@ -60,12 +60,16 @@
 			</div>
 
 		</div>
-		<div style="width: 40%; float: left;">
-			<div style="width: 100%; height: 800px; background-color:#f7cde3">등록절차이미지</div>
+		<div style="width: 48%; float: left;">
+			<div style="width: 100%; height: 800px;">
+			<image src="${pageContext.request.contextPath}/images/register.png"></image>
+			
+			</div>
 			<div style="width: 100%; height: 200px;">
 				<button href="vendor/newVendor" class="btn-btn-default" type="button" data-toggle="modal" data-target="#myModal">신규등록</button>	
 			</div>
 		</div>
+		
 			<!-- 모달 -->
 				<div id="myModal" class="modal fade" role="dialog">
 				<div class="modal-dialog" style="width:60%;">

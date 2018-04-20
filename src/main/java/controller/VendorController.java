@@ -128,7 +128,7 @@ public class VendorController {
 		bv.setVENDOR_S_EMAIL(vendorcommand.getVENDOR_S_EMAIL());
 		vendorService.vendorRegister(bv);
 
-		return "login/login";
+		return "redirect:login/login";
 	}
 
 	@RequestMapping(value = "/vendor/vendorRegister")
@@ -222,7 +222,7 @@ public class VendorController {
 		
 		String VENDOR_ID = request.getParameter("vendor_id");
 	
-		System.out.println(VALID);
+
 		listCommand.setVENDOR_ID(VENDOR_ID);
 		listCommand.setPRODUCT_ID(PRODUCT_ID);
 		
@@ -233,13 +233,16 @@ public class VendorController {
 		model.addAttribute("count",count);
 		
 		 if(VALID.equals("Y")) {
-			 System.out.println("validY");
-			List<VendorStatus> valids = vendorService.getYList();
-			model.addAttribute("valids", valids);
+
+			List<VendorStatus> validY = vendorService.getYList();
+			model.addAttribute("validY", validY);
 			return "vendor/vendorStatus";
+		}else if (VALID.equals("N")) {
 			
+				List<VendorStatus> validN = vendorService.getNList();
+				model.addAttribute("validN", validN);
+				return "vendor/vendorStatus";
 		}else {
-			System.out.println("validAll");
 			List<VendorStatus> vendors = vendorService.vendorStatusList(listCommand);
 			model.addAttribute("vendors", vendors);
 			return "vendor/vendorStatus";
