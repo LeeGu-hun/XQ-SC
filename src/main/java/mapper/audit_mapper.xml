@@ -4,178 +4,61 @@
 
 <mapper namespace="auditSQL">
 
-
-	<!-- audit List Count -->
-	<select id="allCount" resultType="int">
-		select count(*) from
-		AUDIT_INFO
-	</select>
-
-	<select id="regularVencorCount" resultType="int">
-		SELECT COUNT(*) FROM
-		AUDIT_INFO WHERE AUDIT_KIND_ID = 'RE' AND
-		AUDIT_PLAN_DATE IS NULL
-	</select>
-
-	<select id="newVendorCount" resultType="int">
-		SELECT COUNT(*) FROM
-		AUDIT_INFO WHERE AUDIT_KIND_ID = 'NE' AND
-		AUDIT_COMP_DATE IS NULL
-	</select>
-
-	<select id="completeCount" resultType="int">
-		SELECT
-		COUNT(AUDIT_PLAN_DATE) FROM AUDIT_INFO
-	</select>
+	<!-- ***************** audit List***************** -->
 
 
-	<!-- All Audit List -->
 	<select id="auditAllList" resultType="bean.AuditBean">
-		SELECT
-		ROWNUM RNUM,
-		AU.AUDIT_ID,
-		V.VENDOR_NAME,
-		V.VENDOR_ID,
-		AU.AUDIT_PLAN_DATE,
-		AU.AUDIT_COMP_DATE,
-		AU.AUDIT_KIND_ID,
-		M.MEMBER_NAME,
-		M.MEMBER_ID,
-		M.MEMBER_TEL,
-		V.VENDOR_Q_NAME,
-		V.VENDOR_Q_TEL,
-		V.VENDOR_S_NAME,
-		V.VENDOR_S_TEL,
-		V.VENDOR_ADDRESS
-		FROM
-		VENDOR_INFO V,
-		PRODUCT_ITEM P,
-		AUDIT_INFO AU,
-		MEMBER_INFO M
-		WHERE
-		M.MEMBER_ID =
-		AU.AUDITOR_ID
-		AND
-		V.VENDOR_ID = AU.VENDOR_ID
-		AND
-		P.PRODUCT_ID =
-		V.PRODUCT_ID
+		SELECT ROWNUM RNUM,
+		v.VENDOR_NAME, v.VENDOR_ADDRESS,
+		v.VENDOR_ID,
+		v.VENDOR_Q_NAME,v.VENDOR_Q_TEL,
+		v.VENDOR_S_NAME,v.VENDOR_S_TEL,
+		v.AUDIT_NEXT_DATE,a.audit_plan_date
+		FROM VENDOR_INFO v , audit_info a
+		WHERE v.vendor_id= a.vendor_id and v.vendor_valid='Y'and v.VENDOR_ID
+		NOT IN
+		(SELECT VENDOR_ID FROM
+		AUDIT_INFO) AND v.AUDIT_NEXT_DATE IS NULL
+		OR
+		(v.AUDIT_NEXT_DATE <![CDATA[ <= ]]>
+		TO_DATE(SYSDATE+30)and a.audit_plan_date!=null)
+
 
 	</select>
 
-	<!-- Audit Plan Compleat List -->
-	<select id="auditCompleatList" resultType="bean.AuditBean">
-		SELECT
-		ROWNUM RNUM,
-		AU.AUDIT_ID,
-		V.VENDOR_NAME,
-		V.VENDOR_ID,
-		AU.AUDIT_PLAN_DATE,
-		AU.AUDIT_COMP_DATE,
-		AU.AUDIT_KIND_ID,
-		M.MEMBER_NAME,
-		M.MEMBER_ID,
-		M.MEMBER_TEL,
-		V.VENDOR_Q_NAME,
-		V.VENDOR_Q_TEL,
-		V.VENDOR_S_NAME,
-		V.VENDOR_S_TEL,
-		V.VENDOR_ADDRESS
-		FROM
-		VENDOR_INFO V,
-		PRODUCT_ITEM P,
-		AUDIT_INFO AU,
-		MEMBER_INFO M
-		WHERE
-		M.MEMBER_ID =
-		AU.AUDITOR_ID
-		AND
-		V.VENDOR_ID =
-		AU.VENDOR_ID
-		AND
-		P.PRODUCT_ID =
-		V.PRODUCT_ID
-		AND
-		AU.AUDIT_PLAN_DATE IS NOT
-		NULL
+
+	<select id="allCount" resultType="int">
+		SELECT COUNT (*)
+		FROM VENDOR_INFO WHERE VENDOR_ID
+		NOT IN
+		(SELECT
+		VENDOR_ID FROM
+		AUDIT_INFO) AND AUDIT_NEXT_DATE IS NULL OR
+		AUDIT_NEXT_DATE  <![CDATA[ <= ]]>
+		TO_DATE(SYSDATE+30)
+
 	</select>
 
-	<!-- Regular Vendor Audit list(not yet) -->
-	<select id="auditReVendor" resultType="bean.AuditBean">
-		SELECT
-		ROWNUM RNUM,
-
-		V.VENDOR_NAME,
-		V.VENDOR_ID,
-		AU.AUDIT_NEXT_DATE,
-		AU.AUDIT_COMP_DATE,
-		AU.AUDIT_KIND_ID,
-		M.MEMBER_NAME,
-		M.MEMBER_ID,
-		M.MEMBER_TEL,
-		V.VENDOR_Q_NAME,
-		V.VENDOR_Q_TEL,
-		V.VENDOR_S_NAME,
-		V.VENDOR_S_TEL,
-		V.VENDOR_ADDRESS,
-		AU.AUDIT_SCORE
-		FROM
-		VENDOR_INFO V,
-		PRODUCT_ITEM P,
-		AUDIT_INFO AU,
-		MEMBER_INFO M
-		WHERE
-		M.MEMBER_ID =
-		AU.AUDITOR_ID
-		AND
-		V.VENDOR_ID = AU.VENDOR_ID
-		AND
-		P.PRODUCT_ID =
-		V.PRODUCT_ID
-		AND
-		AU.AUDIT_COMP_DATE IS NULL
-		AND
-		AU.AUDIT_KIND_ID = 'RE'
+	<select id="allList" resultType="int">
+		SELECT COUNT(*) FROM AUDIT_INFO
 	</select>
 
-	<!-- New Vendor Audit list(not yet) -->
-	<select id="auditNewVendor" resultType="bean.AuditBean">
-		SELECT
-		ROWNUM RNUM,
 
-		V.VENDOR_NAME,
-		V.VENDOR_ID,
-		AU.AUDIT_PLAN_DATE,
-		AU.AUDIT_COMP_DATE,
-		AU.AUDIT_KIND_ID,
-		M.MEMBER_NAME,
-		M.MEMBER_ID,
-		M.MEMBER_TEL,
-		V.VENDOR_Q_NAME,
-		V.VENDOR_Q_TEL,
-		V.VENDOR_S_NAME,
-		V.VENDOR_S_TEL,
-		V.VENDOR_ADDRESS
-		FROM
-		VENDOR_INFO V,
-		PRODUCT_ITEM P,
-		AUDIT_INFO AU,
-		MEMBER_INFO M
-		WHERE
-		M.MEMBER_ID =
-		AU.AUDITOR_ID
-		AND
-		V.VENDOR_ID =
-		AU.VENDOR_ID
-		AND
-		P.PRODUCT_ID =
-		V.PRODUCT_ID
-		AND
-		AU.AUDIT_COMP_DATE IS NULL
-		AND
-		AU.AUDIT_KIND_ID = 'NE'
-	</select>
 
+	<!-- ************** audit plan Insert************* -->
+	<insert id="newAuditPlan" parameterType="bean.AuditBean">
+		INSERT INTO
+		AUDIT_INFO
+		(AUDIT_ID, AUDIT_KIND_ID, AUDITOR_ID, VENDOR_ID,AUDIT_PLAN_DATE,
+		AUDIT_COMP_DATE)
+		VALUES(
+		#{AUDIT_ID},
+		#{AUDIT_KIND_ID},
+		#{AUDITOR_ID},
+		#{VENDOR_ID},
+		#{AUDIT_PLAN_DATE},
+		#{AUDIT_COMP_DATE})
+	</insert>
 
 	<!-- 카테고리 리스트 -->
 	<select id="cateList" resultType="bean.BeanCategory">
@@ -191,19 +74,36 @@
 		#{CATEGORY_ID}
 	</select>
 
-
-	<!-- 체크 리스트 -->
-	<select id="checkList" resultType="bean.CheckListBean"
+	<!-- check list RE -->
+	<select id="checkListRE" resultType="bean.CheckListBean"
 		parameterType="String">
 		SELECT
 		ROWNUM RNUM,
 		CHECKLIST_DISCRIPTION,
-		CHECKLIST_FULLSCORE
+		CHECKLIST_FULLSCORE,
+		CHECKLIST_ID
 		FROM
-		CHECKLIST
-		WHERE
-		AUDIT_KIND_ID = #{AUDIT_KIND_ID}
+		CHECKLIST where audit_kind_id =
+		'RE'
+		AND
+		CHECKLIST_VALID = 'Y'
 	</select>
+
+	<!-- check list NE -->
+	<select id="checkListNE" resultType="bean.CheckListBean"
+		parameterType="String">
+		SELECT
+		ROWNUM RNUM,
+		CHECKLIST_DISCRIPTION,
+		CHECKLIST_FULLSCORE,
+		CHECKLIST_ID
+		FROM
+		CHECKLIST where audit_kind_id =
+		'NE'
+		AND
+		CHECKLIST_VALID = 'Y'
+	</select>
+
 
 	<!-- audit Type 리스트 -->
 	<select id="auditType" resultType="bean.AuditKind">
@@ -245,18 +145,22 @@
 
 	<!-- 평가 현황 리스트 -->
 	<select id="auditResult" resultType="bean.AuditBean">
+
 		SELECT
 		ROWNUM RNUM,
 		AU.AUDIT_ID,
 		V.VENDOR_NAME,
 		V.VENDOR_ID,
+		V.VENDOR_ADDRESS,
 		P.PRODUCT_NAME,
 		P.PRODUCT_ID,
-		Au.AUDIT_PLAN_DATE,
+		AU.AUDIT_COMP_DATE,
+		Au.AUDIT_RSINPUT_DATE,
+		AU.AUDIT_PLAN_DATE,
 		Au.AUDIT_KIND_ID,
 		M. MEMBER_NAME,
 		M.MEMBER_ID,
-		M.MEMBER_TEL,
+		AU.AUDIT_RESULT,
 		AU.AUDIT_SCORE
 		FROM
 		VENDOR_INFO V,
@@ -265,7 +169,8 @@
 		MEMBER_INFO M
 		WHERE M.MEMBER_ID = AU.AUDITOR_ID
 		AND
-		V.VENDOR_ID = AU.VENDOR_ID
+		V.VENDOR_ID =
+		AU.VENDOR_ID
 		AND P.PRODUCT_ID = V.PRODUCT_ID
 		AND
 		AU.AUDIT_PLAN_DATE IS NOT NULL
@@ -289,36 +194,95 @@
 		)
 	</insert>
 
-	<!-- 점수 입력하기 -->
+	<!-- audit Result Id -->
+	<select id="resultCount" resultType="int">
+		SELECT COUNT(*) FROM
+		AUDIT_RESULT
+	</select>
 
+	<!-- check list *result* insert -->
+	<insert id="checkResult" parameterType="bean.AuditSubmitBean">
+		INSERT INTO AUDIT_RESULT
+		VALUES(
+		#{AUDIT_RESULT_ID},
+		#{AUDIT_ID},
+		#{CHECKLIST_ID},
+		#{AUDIT_SCORE})
+	</insert>
+
+	<!-- 점수 입력하기 -->
 	<update id="updateScore" parameterType="bean.AuditBean">
-		UPDATE AUDIT_INFO SET
-		AUDIT_SCORE = #{AUDIT_SCORE}
-		WHERE AUDIT_SCORE = 21
+		UPDATE AUDIT_INFO
+		SET
+		AUDIT_SCORE = #{AUDIT_SCORE},
+		AUDIT_RSINPUT_DATE =
+		#{AUDIT_RSINPUT_DATE},
+		AUDIT_NEXT_DATE = TO_DATE(SYSDATE+30),
+		AUDIT_RESULT = 'Y'
+		WHERE AUDIT_ID = #{AUDIT_ID}
 	</update>
 
 
-	<!-- AUDIT PLAN INSERT -->
-	<insert id="newAuditPlan" parameterType="bean.AuditBean">
-		INSERT INTO
-		AUDIT_INFO
-		(AUDIT_ID, AUDIT_KIND_ID, AUDITOR_ID, VENDOR_ID,AUDIT_PLAN_DATE,
-		AUDIT_COMP_DATE)
-		VALUES(
-		#{AUDIT_ID},
-		#{AUDIT_KIND_ID},
-		#{AUDITOR_ID},
-		#{VENDOR_ID},
-		#{AUDIT_PLAN_DATE},
-		#{AUDIT_COMP_DATE})
-	</insert>
-
-	<select id = "name">
-		SELECT VENDOR_NAME FROM VENDOR_INFO WHERE VENDOR_ID
-		NOT IN
-		(SELECT
-		VENDOR_ID FROM AUDIT_INFO)
+	<!-- Auditor Select -->
+	<select id="getAuditorList" parameterType="String" resultType="bean.BeanMember">
+		SELECT * FROM MEMBER_INFO WHERE MEMBER_DEPART = 'QUALITY'
 	</select>
+
+	<select id="getCheakResult" parameterType="String" resultType="bean.CheckListBean">
+		SELECT
+		ROWNUM RNUM,
+		C.CHECKLIST_DISCRIPTION,
+		RE.AUDIT_SCORE FROM
+		AUDIT_RESULT RE,
+		CHECKLIST C
+		WHERE AUDIT_ID = #{AUDIT_ID}
+		AND
+		RE.CHECKLIST_ID = C.CHECKLIST_ID
+	</select>
+
+
+	<select id="serchList" resultType="bean.AuditResultSearch">
+
+		SELECT
+		ROWNUM RNUM,
+
+		V.VENDOR_NAME,
+		V.VENDOR_ID,
+		AU.AUDIT_NEXT_DATE,
+		AU.AUDIT_COMP_DATE,
+		AU.AUDIT_KIND_ID,
+		M.MEMBER_NAME,
+		M.MEMBER_ID,
+		M.MEMBER_TEL,
+		V.VENDOR_Q_NAME,
+		V.VENDOR_Q_TEL,
+		V.VENDOR_S_NAME,
+		V.VENDOR_S_TEL,
+		V.VENDOR_ADDRESS,
+		AU.AUDIT_SCORE
+		FROM
+		VENDOR_INFO V,
+		PRODUCT_ITEM P,
+		AUDIT_INFO AU,
+		MEMBER_INFO M
+		WHERE
+		M.MEMBER_ID =
+		AU.AUDITOR_ID
+		AND V.VENDOR_ID =
+		AU.VENDOR_ID
+		AND
+		P.PRODUCT_ID =
+		V.PRODUCT_ID
+		<include refid="searchDate"></include>
+	</select>
+
+	<sql id="searchDate">
+		<choose>
+			<when test="vendor != null">
+				AND VENDOR_NAME = #{vendor}
+			</when>
+		</choose>
+	</sql>
 
 
 </mapper>
