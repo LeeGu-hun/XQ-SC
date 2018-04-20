@@ -7,6 +7,8 @@ public class CheckListBean {
 	private String AUDIT_KIND_ID;
 	private int CHECKLIST_FULLSCORE;
 	private String CHECKLIST_VALID;
+	private int AUDIT_SCORE;
+	private String AUDIT_ID;
 	
 	public CheckListBean() {
 		super();
@@ -30,6 +32,24 @@ public class CheckListBean {
 		RNUM = rNUM;
 		CHECKLIST_DISCRIPTION = cHECKLIST_DISCRIPTION;
 		CHECKLIST_FULLSCORE = cHECKLIST_FULLSCORE;
+	}
+	
+	
+
+	public String getAUDIT_ID() {
+		return AUDIT_ID;
+	}
+
+	public void setAUDIT_ID(String aUDIT_ID) {
+		AUDIT_ID = aUDIT_ID;
+	}
+
+	public int getAUDIT_SCORE() {
+		return AUDIT_SCORE;
+	}
+
+	public void setAUDIT_SCORE(int aUDIT_SCORE) {
+		AUDIT_SCORE = aUDIT_SCORE;
 	}
 
 	public int getRNUM() {

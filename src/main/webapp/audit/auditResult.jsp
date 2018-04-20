@@ -1,24 +1,42 @@
-<%@page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="ko">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<%@ page import="java.util.*"%>
-<%@ page import="java.text.SimpleDateFormat"%>
-<%@ page import="bean.*"%>
-<title>Audit Result</title>
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	
-
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<title>Audit Report</title>
+</head>
 <style>
+.modal-dialog {
+	display: inline-block;
+	text-align: left;
+	vertical-align: middle;
+	height: 600px;
+}
+
+.modal {
+	text-align: center;
+}
+
+@media screen and (min-width: 768px) {
+	.modal:before {
+		display: inline-block;
+		vertical-align: middle;
+		content: " ";
+		height: 100%;
+	}
+}
+
 table {
 	width: 100%;
 	border-top: 1px solid #444444;
@@ -31,7 +49,28 @@ th, td {
 }
 </style>
 
+<link rel="stylesheet" type="text/css" href="/css/style.css?ver=2">
+
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"
+	integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
+	crossorigin="anonymous"></script>
+<link rel="stylesheet"
+	href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+<link rel="stylesheet"
+	href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css"
+	type="text/css" media="all" />
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+<script
+	src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"
+	type="text/javascript"></script>
+<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"
+	type="text/javascript"></script>
+
+
+
 <script language="javascript">
+	var aId = document.getElementById("AUDIT_ID").value;
 
 	function prodList() {
 		var selCate = document.getElementById("selCate").value;
@@ -40,7 +79,7 @@ th, td {
 			type : "GET",
 			url : "audit/prodList",
 			data : "selCate=" + selCate,
-			//"&selProd="+selProdVal,
+
 			success : result
 		});
 
@@ -53,7 +92,6 @@ th, td {
 </script>
 
 <body>
-
 	<div id="">
 		<form>
 			<div id=''>
@@ -71,25 +109,21 @@ th, td {
 			</div>
 			<table>
 				<tr>
-					<td colspan="2">&nbsp; Date : <span><input type="date"></span>
-						~<span><input type="date"></span> <input type="hidden"
-						id="seq" value="0"> <input type="hidden" id="frh"
-						value="300">
+					<td style="font-family: Tahoma; font-size: 12pt;" height="">&nbsp;
+					
+						<input type="radio" value="Plan Date" name = "date" id = "lab"
+						<c:out value="${map.auditKindId == 'ALL'?'checked':''}"/> /> &nbsp;
+						<label for = "lab">Plan Date</label>&nbsp;
+						<input type="radio" value="Complete Date" name = "date" id = "lab2">&nbsp; 
+						<label for = "lab2">Score Complete Date</label>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					    <input type="date" name = "from"> ~ <input type="date" name = "to">
 					</td>
-
-					<td nowrap>카테고리 :</td>
-					<td><select name="selCate" id="selCate" onchange="prodList();">
-							<option value="cate">카테고리</option>
-							<c:forEach var="c" items="${map.cateList}">
-								<option value="${c.CATEGORY_ID}">${c.CATEGORY_NAME}</option>
-							</c:forEach>
-					</select>
-					<td nowrap>품목:</td>
-					<td><span id="spProd"> <select>
-								<option value="" selected>상품을 선택하세요</option>
-						</select>
-					</span></td>
-					<td colspan="2"><input type="button" value="View"></td>
+					<td style="font-family: Tahoma; font-size: 12pt;" height="">&nbsp;
+					<input type="text" value="${map.keyword}" name = "vendor">
+					</td>
+					<td style="font-family: Tahoma; font-size: 12pt;" height="">
+					<input type="submit" value="View"></td>
 				</tr>
 			</table>
 			<br> <br>
@@ -99,52 +133,76 @@ th, td {
 					<th>Audit ID</th>
 					<th>Vendor (ID)</th>
 					<th>Product (ID)</th>
-					<th>Date</th>
+					<th>Audit Plan Date</th>
+					<th>Audit Compleate Date</th>
+					<th>Audit Score Input Date</th>
 					<th>Audit Type</th>
-					<th>Manager(ID)</th>
-					<th>Manager H.P</th>
+					<th>Auditor(ID)</th>
+					<th>Vendor Address</th>
+					<th>Audit Result</th>
 					<th>Score</th>
-					<th>Submit Result</th>
+					<th>Result Status</th>
 				</tr>
 				<c:forEach var="auditBeans" items="${auditBeans}">
-					<c:if test="${auditBeans.AUDIT_PLAN_DATE!=null}">
-						<tr align="center" valign="middle" bordercolor="#333333">
-							<td style="font-family: Tahoma; font-size: 12pt;" height="">
-								<div align="center">${auditBeans.RNUM}</div>
-							</td>
-							<td style="font-family: Tahoma; font-size: 12pt;">
-								<div align="center">${auditBeans.AUDIT_ID}</div>
-							</td>
-							<td style="font-family: Tahoma; font-size: 12pt;">
-								<div align="center">${auditBeans.VENDOR_NAME}(${auditBeans.VENDOR_ID})</div>
-							</td>
-							<td style="font-family: Tahoma; font-size: 12pt;">
-								<div align="center">${auditBeans.PRODUCT_NAME}(${auditBeans.PRODUCT_ID})</div>
-							</td>
-							<td style="font-family: Tahoma; font-size: 12pt;">
-								<div align="center">${auditBeans.AUDIT_PLAN_DATE}</div>
-							</td>
-
-							<td style="font-family: Tahoma; font-size: 12pt;">
-								<div align="center">${auditBeans.AUDIT_KIND_ID}</div>
-							</td>
-							<td style="font-family: Tahoma; font-size: 12pt;">
-								<div align="center">${auditBeans.MEMBER_NAME}(${auditBeans.MEMBER_ID})</div>
-							</td>
-							<td style="font-family: Tahoma; font-size: 12pt;">
-								<div align="center">${auditBeans.MEMBER_TEL}</div>
-							</td>
-							<td style="font-family: Tahoma; font-size: 12pt;">
-								<div align="center">${auditBeans.AUDIT_SCORE}</div>
-							</td>
-							<td style="font-family: Tahoma; font-size: 12pt;"><a
-								href='#'><span>Submit</span></a></td>
-						</tr>
-					</c:if>
+					<tr align="center" valign="middle" bordercolor="#333333">
+						<td style="font-family: Tahoma; font-size: 12pt;" height="">
+							<div align="center">${auditBeans.RNUM}</div>
+						</td>
+						<td style="font-family: Tahoma; font-size: 12pt;">
+							<div align="center">${auditBeans.AUDIT_ID}</div>
+						</td>
+						<td style="font-family: Tahoma; font-size: 12pt;">
+							<div align="center">${auditBeans.VENDOR_NAME}(${auditBeans.VENDOR_ID})</div>
+						</td>
+						<td style="font-family: Tahoma; font-size: 12pt;">
+							<div align="center">${auditBeans.PRODUCT_NAME}(${auditBeans.PRODUCT_ID})</div>
+						</td>
+						<td style="font-family: Tahoma; font-size: 12pt;">
+							<div align="center">${auditBeans.AUDIT_PLAN_DATE}</div>
+						</td>
+						<td style="font-family: Tahoma; font-size: 12pt;">
+							<div align="center">${auditBeans.AUDIT_COMP_DATE}</div>
+						</td>
+						<td style="font-family: Tahoma; font-size: 12pt;">
+							<div align="center">${auditBeans.AUDIT_RSINPUT_DATE}</div>
+						</td>
+						<td style="font-family: Tahoma; font-size: 12pt;">
+							<div align="center">${auditBeans.AUDIT_KIND_ID}</div>
+						</td>
+						<td style="font-family: Tahoma; font-size: 12pt;">
+							<div align="center">${auditBeans.MEMBER_NAME}(${auditBeans.MEMBER_ID})</div>
+						</td>
+						<td style="font-family: Tahoma; font-size: 12pt;">
+							<div align="center">${auditBeans.VENDOR_ADDRESS}</div>
+						</td>
+						<td style="font-family: Tahoma; font-size: 12pt;">
+							<div align="center">${auditBeans.AUDIT_RESULT}</div>
+						</td>
+						<td style="font-family: Tahoma; font-size: 12pt;">
+							<div align="center">${auditBeans.AUDIT_SCORE}</div>
+						</td>
+						<td style="font-family: Tahoma; font-size: 12pt;"><a
+							href="audit/auditVendorResult?vendorname=${auditBeans.VENDOR_NAME}
+								&vendorid=${auditBeans.VENDOR_ID}
+								&date1=${auditBeans.AUDIT_RSINPUT_DATE}
+								&date2=${auditBeans.AUDIT_COMP_DATE}
+								&manager=${auditBeans.MEMBER_NAME}
+								&product=${auditBeans.PRODUCT_NAME}
+								&auditid=${auditBeans.AUDIT_ID}
+								&auditType=${auditBeans.AUDIT_KIND_ID}
+								&score=${auditBeans.AUDIT_SCORE}"
+							class="btn-btn-default" type="button" data-toggle="modal"
+							data-target="#myModal">View</a></td>
+					</tr>
 				</c:forEach>
-
 			</table>
 		</form>
+		<!-- 모달 -->
+		<div id="myModal" class="modal fade" role="dialog">
+			<div class="modal-dialog" style="width: 70%">
+				<div class="modal-content"></div>
+			</div>
+		</div>
 	</div>
 </body>
 </html>

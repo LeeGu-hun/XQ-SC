@@ -69,17 +69,6 @@ th, td {
 
 
 <script language="javascript">
-	function prodList() {
-		var selCate = document.getElementById("selCate").value;
-
-		$.ajax({
-			type : "GET",
-			url : "audit/prodList",
-			data : "selCate=" + selCate,
-			success : result
-		});
-
-	}
 
 	function result(msg) {
 		("#spProd").html(msg);
@@ -133,7 +122,7 @@ th, td {
 				<tr>
 					<th>No</th>
 					<th>Audit ID</th>
-					<th>Date</th>
+					<th>Plan Date</th>
 					<th>Vendor(ID)</th>
 					<th>Category</th>
 					<th>Product(ID)</th>

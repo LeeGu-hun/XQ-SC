@@ -22,6 +22,8 @@
 <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script> 
 
 
+
+
 <script>
 	function auditConfirm() {
 		$.ajax({
@@ -29,7 +31,6 @@
 			url : "audit/auditConfirm",
 			success : result
 		});
-
 	}
 
 	function newVendorAudit() {
@@ -38,7 +39,6 @@
 			url : "audit/newVendorAudit",
 			success : result
 		});
-
 	}
 
 	function regularVendorAudit() {
@@ -47,40 +47,46 @@
 			url : "audit/regularVendorAudit",
 			success : result
 		});
-
 	}
-
-	function result(msg) {
-		$("#result").html(msg);
-
-	}
-
+	
 	function add() {
 		form.submit();
 	}
-
-	function rowselect1(AUDITOR_ID, auditor_name) {
-		$("#AUDITOR_ID").val(AUDITOR_ID);
-		$("#auditor_name").val(auditor_name);
-		$('#issuerSearchModal').modal('hide');
-
+	
+	function auditorSearch(index){		
+		$('#auditorSearchModal').modal('show');
+		$('#index').val(index);		
 	}
 	
-	function searchIssuerId(){	
-		var auditor_name = document.getElementById("auditor_name").value;
+	function result(msg) {
+		$("#result").html(msg);
+	}
+	
+	function rowselect1(auditor_name, auditor_id, index) {	
+		var audiIds = document.querySelectorAll("#AUDITOR_ID");
+		for(var i=0;i<audiIds.length;i++){
+			var audiId = audiIds[i];
+			if (i == index)  audiId.value = auditor_id ;				
+ 		}		
+		$('#auditorSearchModal').modal('hide');
+	}
+	
+	function searchAuditorId(index){			
+		var auditor_name = document.getElementById("auditor_name").value;		
 		$.ajax({
 			type : "POST",
-			url : "./searchAuditorId",
-			data : "auditor_name="+ auditor_name,
+			url : "audit/searchAuditorId",
+			data : "auditor_name="+ auditor_name+"&index="+index,
 			success : result1,
-		});
-		
+		});		
 	}
 
 	function result1(msg1){
-		$("#issuerList").html(msg1);
+		$("#auditorList").html(msg1);		
 	}
 
+	
+	
 </script>
 
 <style>
@@ -160,7 +166,7 @@ th, td {
 				<th>Submit</th>
 			</tr>
 			</span>
-			<c:forEach var="audit" items="${listBean}">
+			<c:forEach var="audit" items="${listBean}"  varStatus="status" >
 				<form action="./audit/auditManage" method="POST" name="form">
 					<tr align="center" valign="middle" bordercolor="#333333">
 						<td nowrap style="font-family: Tahoma; font-size: 12pt;" height="">
@@ -178,11 +184,11 @@ th, td {
 						</td>
 						<td nowrap style="font-family: Tahoma; font-size: 12pt;">
 							<div align="center">
-								<c:if test="${audit.LAST_AUDIT_DATE ==null }">
+								<c:if test="${audit.AUDIT_NEXT_DATE ==null }">
 									<input type="text" value="NE" readonly="readonly"
 										name="AUDIT_KIND_ID" id="AUDIT_KIND_ID">
 								</c:if>
-								<c:if test="${audit.LAST_AUDIT_DATE !=null }">
+								<c:if test="${audit.AUDIT_NEXT_DATE !=null }">
 									<input type="text" value="RE" readonly="readonly"
 										name="AUDIT_KIND_ID">
 								</c:if>
@@ -198,11 +204,14 @@ th, td {
 							<div align="center">${audit.VENDOR_ADDRESS}</div>
 						</td>
 						<td nowrap style="font-family: Tahoma; font-size: 12pt;">
+						<script>
+						
+						</script>
 							<div align="center">
-								<input type="text" name="AUDITOR_ID">
+								<input type="text" name="AUDITOR_ID" id="AUDITOR_ID" />
 									<image src="${pageContext.request.contextPath}/images/icon_search.gif" 
-									data-target="#issuerSearchModal" 
-									data-toggle="modal" ></image>
+									
+									data-toggle="modal" onclick="auditorSearch(${status.index })"></image>
 							</div>
 						</td>
 						<td nowrap style="font-family: Tahoma; font-size: 12pt;">
@@ -222,8 +231,10 @@ th, td {
 			</c:forEach>
 		</table> 
 
+	
+		
 		<!--  모달 시작 -->
-		<div class="modal fade" id="#issuerSearchModal">
+		<div class="modal fade" id="auditorSearchModal">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<!-- header -->
@@ -236,56 +247,23 @@ th, td {
 					<!-- body -->
 					<div class="modal-body">
 						<div>
-							<form id="formSearchIssuer" name="formSearchIssuer" method="post">
+							<form id="formSearchauditor" name="formSearchAuditor" method="post">
 								<table class="table">
 									<tr>
 										<td>Auditor Name: <input type="text" name="auditor_name"
 											id="auditor_name" /></td>
-										<td><input class="button" type="button" value="dddddd"
-											id="btnsearch" onclick="searchIssuerId()"></td>
-									</tr>
-
-								</table>
-							</form>
-						</div>
-						<div id="issuerList"></div>
-					</div>
-					<!-- Footer -->
-					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">close</button>
-					</div>
-				</div>
-			</div>
-		</div> <!--  모달 끝 --> 
-		
-		
-		<!--  모달 시작 -->
-		<div class="modal fade" id="issuerSearchModal">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<!-- header -->
-					<div class="modal-header">
-						<!-- 닫기(x) 버튼 -->
-						<button type="button" class="close" data-dismiss="modal">×</button>
-						<!-- header title -->
-						<h4 class="modal-title">Auditor Search</h4>
-					</div>
-					<!-- body -->
-					<div class="modal-body">
-						<div>
-							<form id="formSearchIssuer" name="formSearchIssuer" method="post">
-								<table class="table">
-									<tr>
-										<td>Auditor Name: <input type="text" name="auditor_name"
-											id="auditor_name" /></td>
+										<input type="hidden" name="index" id="index" value=""/>
+											
 										<td><input class="button" type="button" value="Search"
-											id="btnsearch" onclick="searchIssuerId()"></td>
+											id="btnsearch" onclick="searchAuditorId(index.value)"></td>
 									</tr>
 
 								</table>
 							</form>
 						</div>
-						<div id="issuerList"></div>
+						
+						<div id="auditorList"></div>
+						
 					</div>
 					<!-- Footer -->
 					<div class="modal-footer">
@@ -296,3 +274,6 @@ th, td {
 		</div> <!--  모달 끝 -->
 </body>
 </html>
+
+
+

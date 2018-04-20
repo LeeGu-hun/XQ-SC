@@ -19,6 +19,8 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 <script>
+	var total = document.querySelectorAll('#total');
+
 	function updateScore() {
 		auditForm.submit();
 	}
@@ -29,7 +31,7 @@
 		for (var i = 0; i < scores.length; i++) {
 			if (scores[i].value == "") {
 				total = total + 0;
-			} else if (scores[i].value > 20) {
+			} else if (scores[i].value >= 20) {
 				scores[i].value = 0;
 				scores[i].focus();
 			} else {
@@ -37,9 +39,7 @@
 			}
 		}
 		document.getElementById('total').value = total;
-
 	}
-
 	function onlyNum() {
 		var keycode = window.event.keyCode;
 		if (keycode == 8 || (keycode >= 35 && keycode <= 40)
@@ -56,7 +56,6 @@
 
 	}
 </script>
-
 </head>
 <body>
 	<form method="POST" action="./audit/auditInsert" name="auditForm">
@@ -66,33 +65,31 @@
 		<div class="modal-body"">
 			<table>
 				<label>${manager}님 환영합니다</label>
-				<c:forEach var="selectID" items="${vendorid}">
-					<tr>
-						<td nowrap>Audit ID :</td>
-						<td><input type="text" value="${auditid}" name="AUDIT_ID"></td>
-						<td><input type="text" value="${auditType}"
-							name="AUDIT_KIND_ID"></td>
 
+				<tr>
+					<td nowrap>Audit ID :</td>
+					<td><input type="text" value="${auditid}" name="AUDIT_ID"></td>
+					<td><input type="text" value="${auditType}"
+						name="AUDIT_KIND_ID"></td>
 
-						</span>
-					</tr>
-					<tr>
-						<td nowrap>Vendor ID :</td>
-						<td><input type="text" value="${vendorid}" readonly></td>
-						<td nowrap>Vendor Name :</td>
-						<td><input type="text" value="${vendorname}"></td>
-						<td nowrap>Audit Date :</td>
-						<td><input type="text" value="${date}"></td>
-					</tr>
-					<tr>
-						<td nowrap>Category :</td>
-						<td><input type="text" value="${category}" readonly></td>
-						<td nowrap>Product :</td>
-						<td><input type="text" value="${product}"></td>
-						<td nowrap>Insert Date :</td>
-						<td><input type="date" name="AUDIT_RSINPUT_DATE"></td>
-					</tr>
-				</c:forEach>
+				</tr>
+				<tr>
+					<td nowrap>Vendor ID :</td>
+					<td><input type="text" value="${vendorid}" readonly></td>
+					<td nowrap>Vendor Name :</td>
+					<td><input type="text" value="${vendorname}"></td>
+					<td nowrap>Audit Date :</td>
+					<td><input type="text" value="${date}"></td>
+				</tr>
+				<tr>
+					<td nowrap>Category :</td>
+					<td><input type="text" value="${category}" readonly></td>
+					<td nowrap>Product :</td>
+					<td><input type="text" value="${product}"></td>
+					<td nowrap>Insert Date :</td>
+					<td><input type="date" name="AUDIT_RSINPUT_DATE"></td>
+				</tr>
+
 			</table>
 			<br> <span id="result">
 				<table>
@@ -103,30 +100,31 @@
 						<th nowrap>Score</th>
 					</tr>
 					</td>
-
 					<c:forEach var="c" items="${checkList}">
 						<tr>
 							<td>
-								<div>${c.RNUM}</div>
+								<div>${c.RNUM}
+								<input type="hidden" value="${c.CHECKLIST_ID}" name = "cId"></div>
 							</td>
+							
 							<td>
 								<div>${c.CHECKLIST_DISCRIPTION}
-									<input type="hidden" value="${c.CHECKLIST_DISCRIPTION}" />
+									<input type="hidden" value="${c.CHECKLIST_DISCRIPTION}"
+										name="" />
 								</div>
 							</td>
-
-							<td><input type="text" class="score" maxlength="2"
-								name='score' id='score' onKeyUp="onlyNum();"
-								onKeyPress="onlyNum();" onKeyDown="onlyNum();"></td>
-							<td><div>/${c.CHECKLIST_FULLSCORE}</div></td>
+							<td>
+								<input type="text" class="score" maxlength="2"
+								name="score" id="score" onKeyUp="onlyNum();"
+								onKeyPress="onlyNum();" onKeyDown="onlyNum();">
+							</td>
+							<td><div>${c.CHECKLIST_FULLSCORE}</div></td>
 						</tr>
 					</c:forEach>
 					<td nowrap>총 합계: <input type="text" name="total" id="total"
 						name="AUDIT_SCORE">
 					</td>
 				</table>
-
-
 			</span>
 		</div>
 		<div class="modal-footer">

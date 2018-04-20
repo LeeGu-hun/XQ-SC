@@ -11,10 +11,28 @@ public class AuditSubmitBean {
 	private Date AUDIT_NEXT_DATE;
 	private int AUDIT_SCORE;
 
+	private String AUDIT_RESULT_ID;
+	private String CHECKLIST_ID;
+
 	public AuditSubmitBean() {
 	}
 
-	
+	public String getAUDIT_RESULT_ID() {
+		return AUDIT_RESULT_ID;
+	}
+
+	public void setAUDIT_RESULT_ID(String aUDIT_RESULT_ID) {
+		AUDIT_RESULT_ID = aUDIT_RESULT_ID;
+	}
+
+	public String getCHECKLIST_ID() {
+		return CHECKLIST_ID;
+	}
+
+	public void setCHECKLIST_ID(String cHECKLIST_ID) {
+		CHECKLIST_ID = cHECKLIST_ID;
+	}
+
 	public String getAUDIT_ID() {
 		return AUDIT_ID;
 	}

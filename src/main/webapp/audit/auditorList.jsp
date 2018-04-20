@@ -3,6 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 
+
+
 <table class="table" border="1" >
 		<thead>
 			<tr>
@@ -12,15 +14,13 @@
 		</thead>
 		<tbody >
 					<c:forEach var="a" items="${auditorList}">
-						<tr onclick="rowselect1('${a.MEMBER_NAME}'
-							,'${a.MEMBER_ID}')">									
+						<tr onclick="rowselect1('${a.auditor_name}'
+							,'${a.auditor_id}','${index}')">									
 							
-							<td>${a.MEMBER_NAME}</td>
-							<td>${a.MEMBER_ID}</td>
+							<td>${a.auditor_name}</td>
+							<td>${a.auditor_id}</td>
 						</tr>
 					</c:forEach>
-				
+			
 		</tbody>		
 </table>
-		
-		
