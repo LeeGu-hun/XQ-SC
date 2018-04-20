@@ -13,7 +13,9 @@ import bean.BeanCategory;
 import bean.BeanProduct;
 import bean.BeanVendor;
 import bean.ListCommand;
+import bean.NcrCount;
 import bean.VendorStatus;
+import bean.VendorValid;
 
 
 
@@ -78,18 +80,38 @@ public class VendorService {
 	
 	
 	/*   vendor현황   */
-	public List<BeanVendor> vendorList() {
-		List<BeanVendor> list = sqlSession.selectList("vendorSQL.vendorList");
+
+	public List<BeanVendor> getVendorList(String vendor_name) {
+		
+		List<BeanVendor> vendorlist = sqlSession.selectList("ncrSQL.getVendorList",vendor_name);	
+		return vendorlist;
+	}
+	public List<BeanProduct> productList() {
+		List<BeanProduct> list = sqlSession.selectList("vendorSQL.productList");
 		return list;
 	}
+
+
+	
+	public List<NcrCount> ncrCount() {
+		List<NcrCount> lists = sqlSession.selectList("vendorSQL.ncrCount");
+		return lists;
+	}
+	public List<VendorValid> getValid() {
+		List<VendorValid> result = sqlSession.selectList("vendorSQL.getValid");
+		return result;
+	}
+	public List<VendorStatus>getYList() {
+		List<VendorStatus> result = sqlSession.selectList("vendorSQL.getYList");
+		return result;
+	}
+	
+	
 	
 	public List<VendorStatus> vendorStatusList(ListCommand listCommand) {
-		
-	
-		
-		List<VendorStatus> results = sqlSession.selectList("vendorSQL.getStatusList");
-	
+		List<VendorStatus> results = sqlSession.selectList("vendorSQL.getStatusList", listCommand);
 		return results;
+	}
 	}
 	
 	
@@ -102,4 +124,4 @@ public class VendorService {
 	
 	
 
-}
+
