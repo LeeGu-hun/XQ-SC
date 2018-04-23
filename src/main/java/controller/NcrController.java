@@ -116,7 +116,7 @@ public class NcrController {
 
 	@RequestMapping(value = "ncr/ncrSearch", method = RequestMethod.POST)
 	public String ncrSearch(NcrSearchCommand nsc, Model model) {
-		System.out.println(nsc.getNcr_id()+"//"+nsc.getVendor_id()+"//"+nsc.getIssuer_id());
+		
 		List<NcrBean> ncrList = null;
 		try {
 			ncrList = ncrService.getNcrList(nsc);
@@ -190,6 +190,33 @@ public class NcrController {
 		return "ncr/ncrManagement";
 	}
 	
+	@RequestMapping(value = "ncr/ncrDetail_vendor", method = RequestMethod.POST)
+	public String ncrDetail_vendor(Model model, HttpServletRequest request, HttpSession session,
+			@RequestParam String ncr_id) {
+		List<NcrBean> ncrBean = null;
+		List<NcrReplyBean> ncrReplyBean = null;
+		try {
+			ncrBean = ncrService.getNcrDetail(Integer.parseInt(ncr_id));
+		} catch (Exception e) {e.printStackTrace();	}
+		List<BeanNcrAttach> uploadFileList = ncrService.getFileList(Integer.parseInt(ncr_id));
+		
+		try {
+			ncrReplyBean = ncrService.getReplyDetail(Integer.parseInt(ncr_id));
+		} catch (Exception e) {e.printStackTrace();	}
+		
+		List<BeanReplyAttach> uploadReplyFileList = ncrService.getReplyFileList(Integer.parseInt(ncr_id));
+		model.addAttribute("ncrBean", ncrBean);
+		model.addAttribute("uploadFileList", uploadFileList);
+		model.addAttribute("ncrReplyBean", ncrReplyBean);
+		model.addAttribute("uploadReplyFileList", uploadReplyFileList);
+		return "ncr/ncrDetail_vendor";
+	}
+
+	@RequestMapping(value = "ncr/ncrDetail_vendor", method = RequestMethod.GET)
+	public String ncrDetail_vendorGet() {
+		return "ncr/ncrManagement_vendor";
+	}
+	
 	@RequestMapping(value = "ncr/ncrComplete", method = RequestMethod.POST)
 	public String ncrComplete(@RequestParam(defaultValue = "") String ncr_id) {		
 		ncrService.ncrComplete(Integer.parseInt(ncr_id));
@@ -197,7 +224,7 @@ public class NcrController {
 	}
 	@RequestMapping(value = "ncr/ncrComplete", method = RequestMethod.GET)
 	public String ncrCompleteGet() {
-		return "ncr/ncrManagement";
+		return "redirect:./ncrManagement";
 	}	
 
 	@RequestMapping(value = "ncr/ncrVendorReply", method = RequestMethod.POST)
@@ -260,7 +287,40 @@ public class NcrController {
 		return "ncr/ncrManagement";
 	}
 	
-	
+	@RequestMapping(value = "ncr/ncrVendorReplySave_vendor", method = RequestMethod.POST)
+	public String issue_vendor(NcrReplyCommand nrc, HttpSession session, HttpServletRequest request,			
+			MultipartHttpServletRequest mhsq) throws IllegalStateException, IOException {			
+		AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
+		
+		
+		nrc.setReplier_id(authInfo.getId());
+		ncrService.saveVendorReply(nrc);		
+
+
+		List<MultipartFile> mf = mhsq.getFiles("reply_file");
+		if (mf.size() == 1 && mf.get(0).getOriginalFilename().equals("")) {
+
+		} else {
+			for (int i = 0; i < mf.size(); i++) {
+				// 파일 중복명 처리
+				String genId = UUID.randomUUID().toString();
+				// 본래 파일명
+				String originalfileName = mf.get(i).getOriginalFilename();
+
+				String saveFileName = genId + "." + originalfileName;
+				// 저장되는 파일 이름
+				String root_path = request.getSession().getServletContext().getRealPath("/");
+				String attach_path = "upload2/";
+				String savePath = root_path + attach_path + saveFileName;
+				
+				long fileSize = mf.get(i).getSize(); // 파일 사이즈
+				mf.get(i).transferTo(new File(savePath)); // 파일 저장
+				ncrService.replyFileUpload(originalfileName, saveFileName, fileSize,Integer.parseInt(nrc.getNcr_id()));
+				
+			}
+		}
+		return "ncr/ncrManagement_vendor";
+	}
 	
 	
 	
@@ -316,5 +376,21 @@ public class NcrController {
 		model.addAttribute("ncrStatusList", ncrStatusList);
 		return "ncr/ncrStatusList";
 	}
-
+	
+	@RequestMapping(value = "ncr/ncrManagement_vendor", method = RequestMethod.GET)
+	public String searchIssuer(Model model, HttpSession session) {
+		AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
+		String vendor_id = authInfo.getId();
+		
+		model.addAttribute("vendor_id",vendor_id);
+		
+		return "ncr/ncrManagement_vendor";
+	}
+	
+	@RequestMapping("/mainV")
+	public String homeA() {
+		
+	    return "ncr/mainV";
+	}
+	
 }
