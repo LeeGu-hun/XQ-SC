@@ -78,7 +78,7 @@ public class AdminController {
 			}else if(authInfo.getDepart().equals("PURCHASE")) {
 				return "redirect:/main";
 			}else if(authInfo.getDepart().equals("VENDOR")) {
-				return "redirect:/main";
+				return "redirect:/mainV";
 			}else{
 				return "login/login";
 			}
