@@ -6,7 +6,21 @@
 <mapper namespace="vendorSQL">
 
 
-	<!-- vendor등록 -->
+
+	
+	<!-- vendor를 auditId등록 -->
+	<select id="auditCount" resultType="int">
+		SELECT COUNT(*) FROM AUDIT_INFO
+	</select>
+	
+	<insert id="auditIdRegister" parameterType="bean.BeanVendor">
+		insert into
+		audit_info
+		values(#{AUDIT_ID},'NE','','','','',#{VENDOR_ID},'','','')
+	</insert>
+	
+	
+		<!-- vendor등록 -->
 	<select id="registerList" resultType="bean.BeanVendor">
 		select
 		v.vendor_id,v.vendor_name,p.PRODUCT_NAME AS
@@ -51,10 +65,8 @@
 	<insert id="vendorMemRegister" parameterType="bean.BeanVendor">
 		insert into
 		member_info
-		values(#{VENDOR_ID},#{VENDOR_NAME},'VENDOR','
-		',#{VENDOR_S_TEL},#{VENDOR_S_EMAIL},'V')
+		values(#{VENDOR_ID},#{VENDOR_NAME},'VENDOR','',#{VENDOR_S_TEL},#{VENDOR_S_EMAIL},'V')
 	</insert>
-
 
 
 	<!-- vendor Status -->

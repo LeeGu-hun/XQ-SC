@@ -27,7 +27,18 @@ public class VendorService {
 	private SqlSession sqlSession;
 	
 	
+	/*   vendor를 member등록   */
 	
+	public int auditCount() {
+		return sqlSession.selectOne("vendorSQL.auditCount");
+	}
+
+	
+	public void auditIdRegister(BeanVendor beanvendor) {
+		 sqlSession.insert("vendorSQL.auditIdRegister", beanvendor);
+	}
+	
+
 	/*   vendor등록   */
 	public List<BeanVendor> registerList() {
 		List<BeanVendor> list = sqlSession.selectList("vendorSQL.registerList");
@@ -78,7 +89,6 @@ public class VendorService {
 		 sqlSession.insert("vendorSQL.newVendorRegister", beanvendor);
 	}
 	
-	
 	/*   vendor현황   */
 
 	public List<BeanVendor> getVendorList(String vendor_name) {
@@ -90,8 +100,6 @@ public class VendorService {
 		List<BeanProduct> list = sqlSession.selectList("vendorSQL.productList");
 		return list;
 	}
-
-
 	
 	public List<NcrCount> ncrCount() {
 		List<NcrCount> lists = sqlSession.selectList("vendorSQL.ncrCount");

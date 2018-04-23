@@ -3,6 +3,7 @@ package bean;
 import java.sql.Date;
 
 public class BeanVendor {
+	private String AUDIT_ID;
 	private String VENDOR_NAME;
 	private String PRODUCT_ID;
 	private String PRODUCT_NAME;
@@ -23,11 +24,12 @@ public class BeanVendor {
 	
 	public BeanVendor(){}
 
-	public BeanVendor(String vENDOR_NAME, String pRODUCT_ID, String pRODUCT_NAME, String cATEGORY_NAME,
+	public BeanVendor(String aUDIT_ID, String vENDOR_NAME, String pRODUCT_ID, String pRODUCT_NAME, String cATEGORY_NAME,
 			String vENDOR_ADDRESS, int vENDOR_EMP_NO, String vENDOR_ISO_FILE, String vENDOR_CERT_FILE,
 			Date vENDOR_REQ_DATE, String vENDOR_ID, String vENDOR_VALID, String vENDOR_Q_NAME, String vENDOR_Q_TEL,
 			String vENDOR_Q_EMAIL, String vENDOR_S_NAME, String vENDOR_S_TEL, String vENDOR_S_EMAIL) {
 		super();
+		AUDIT_ID = aUDIT_ID;
 		VENDOR_NAME = vENDOR_NAME;
 		PRODUCT_ID = pRODUCT_ID;
 		PRODUCT_NAME = pRODUCT_NAME;
@@ -45,6 +47,14 @@ public class BeanVendor {
 		VENDOR_S_NAME = vENDOR_S_NAME;
 		VENDOR_S_TEL = vENDOR_S_TEL;
 		VENDOR_S_EMAIL = vENDOR_S_EMAIL;
+	}
+
+	public String getAUDIT_ID() {
+		return AUDIT_ID;
+	}
+
+	public void setAUDIT_ID(String aUDIT_ID) {
+		AUDIT_ID = aUDIT_ID;
 	}
 
 	public String getVENDOR_NAME() {
@@ -183,5 +193,5 @@ public class BeanVendor {
 		VENDOR_S_EMAIL = vENDOR_S_EMAIL;
 	}
 
-	
+
 }

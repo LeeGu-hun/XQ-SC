@@ -130,6 +130,7 @@ public class VendorController {
 
 		return "redirect:/login/login";
 		}
+	
 		@RequestMapping(value = "login/login", method = RequestMethod.GET)
 		public String login() {
 			return "login/login";
@@ -163,15 +164,22 @@ public class VendorController {
 		String VENDOR_NAME = request.getParameter("VENDOR_NAME");
 		String VENDOR_S_TEL = request.getParameter("VENDOR_S_TEL");
 		String VENDOR_S_EMAIL = request.getParameter("VENDOR_S_EMAIL");
-
+		
+		int cnt = vendorService.auditCount();
+		System.out.println(cnt);
+		String AUDIT_ID = "S" + idForm.format(cnt + 1);
+		
 		BeanVendor bv = new BeanVendor();
+		bv.setAUDIT_ID(AUDIT_ID);
 		bv.setVENDOR_ID(VENDOR_ID);
 		bv.setVENDOR_NAME(VENDOR_NAME);
 		bv.setVENDOR_S_TEL(VENDOR_S_TEL);
 		bv.setVENDOR_S_EMAIL(VENDOR_S_EMAIL);
 		BeanVendor view = vendorService.vendorUpdate(VENDOR_ID);
+		
 		vendorService.vendorMemRegister(bv);
-
+		vendorService.auditIdRegister(bv);
+		
 		return "redirect:/vendor/vendorRegister";
 	}
 
