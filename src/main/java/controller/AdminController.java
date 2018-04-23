@@ -9,9 +9,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.TypeMismatchException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -31,6 +34,7 @@ import spring.AuthInfo;
 import spring.ChangePwdCommand;
 import spring.ChangePwdCommandValidator;
 import spring.IdPasswordNotMatchingException;
+import spring.MemberNotFoundException;
 @Controller
 public class AdminController {
 	
@@ -84,6 +88,22 @@ public class AdminController {
 			return "login/login";
 		}
 	}
+	
+
+	@ExceptionHandler(MemberNotFoundException.class)
+	public String handleMemberNotFoundException() {
+		return "admin/noMember";
+	}
+	
+	@ExceptionHandler(TypeMismatchException.class)
+	public String handleTypeMismatchException() {
+		return "admin/invalidId";
+	}
+	@ExceptionHandler(EmptyResultDataAccessException.class)
+	public String handleEmptyResultDataAccessException() {
+		return "admin/noMember";
+	}
+	
 	
 	@RequestMapping("/mainA")
 	public String homeA() {
