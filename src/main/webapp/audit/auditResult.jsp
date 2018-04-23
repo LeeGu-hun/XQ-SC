@@ -69,149 +69,139 @@ th, td {
 
 
 
-<script language="javascript">
-	
-	function prodList() {
-		var selCate = document.getElementById("selCate").value;
-
-		$.ajax({
-			type : "GET",
-			url : "audit/prodList",
-			data : "selCate=" + selCate,
-			success : result
-		});
-	}
-	function result(msg) {
-		$("#spProd").html(msg);
-	}
-</script>
-
+</head>
 <body>
-	
-			<div>
+
+	<div>
+		<ul>
+			<li><a href='#'><span>Vendor 등록관리</span></a></li>
+			<li class='active has-sub'><a href='#'><span>평가관리</span></a>
 				<ul>
-					<li><a href='#'><span>Vendor 등록관리</span></a></li>
-					<li class='active has-sub'><a href='#'><span>평가관리</span></a>
-						<ul>
-							<li class='has-sub'><a href='./AuditManage'><span>평가계획</span></a></li>
-							<li class='has-sub'><a href='./AuditReport'><span>평가결과입력</span></a></li>
-							<li class='has-sub'><a href='./AuditResult'><span>평가현황</span></a></li>
-						</ul></li>
-					<li><a href='#'><span>부적합관리</span></a></li>
-					<li class='last'><a href='#'><span>시스템 관리</span></a></li>
-				</ul>
-			</div>
+					<li class='has-sub'><a href='./AuditManage'><span>평가계획</span></a></li>
+					<li class='has-sub'><a href='./AuditReport'><span>평가결과입력</span></a></li>
+					<li class='has-sub'><a href='./AuditResult'><span>평가현황</span></a></li>
+				</ul></li>
+			<li><a href='#'><span>부적합관리</span></a></li>
+			<li class='last'><a href='#'><span>시스템 관리</span></a></li>
+		</ul>
+	</div>
 	<form action="./AuditResult" method="POST">
 		<p>
-			<input type="radio" id = "plandate" name ="plandate" value="plan">
-			<label for = "plandate" >Audit Plan Date</label>
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			<input type="radio" id = "plandate" name = "plandate" value="score">
-			<label for = "scoreDate">Audit Score Input Date</label>
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			<label>from :
-			<input id="from" name="from" type="date"  /></label>
-			
-			~ <label>to :
-			<input  id="to" name="to" type="date"  /></label>
-			
-			<input type="submit" value="조회">
+			<input type="radio" id="plandate" name="plandate" value="plan"
+				checked="checked"> <label for="plandate">Audit Plan
+				Date</label> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input
+				type="radio" id="plandate" name="plandate" value="score"> <label
+				for="scoreDate">Audit Score Input Date</label>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <label>from
+				: <input id="from" name="from" type="date" />
+			</label> ~ <label>to : <input id="to" name="to" type="date" /></label> <br>
+			<br> <label>Vendor Search</label> <input type="text"
+				id="vSearch" name="vSearch">
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="submit"
+				value="조회">
 		</p>
 	</form>
-			<br> <br>
-			<table border="1" id="auditTable">
-				<tr>
-					<th>No</th>
-					<th>Audit ID</th>
-					<th>Vendor (ID)</th>
-					<th>Product (ID)</th>
-					<th>Audit Plan Date</th>
-					<th>Audit Compleate Date</th>
-					<th>Audit Score Input Date</th>
-					<th>Audit Type</th>
-					<th>Auditor(ID)</th>
-					<th>Vendor Address</th>
-					<th>Audit Result</th>
-					<th>Score</th>
-					<th>Result Status</th>
-				</tr>
-				<c:forEach var="auditBeans" items="${arsList}">
-					<tr align="center" valign="middle" bordercolor="#333333">
-						<td style="font-family: Tahoma; font-size: 12pt;" height="">
-							<div align="center">${auditBeans.RNUM}</div>
-						</td>
-						<td style="font-family: Tahoma; font-size: 12pt;">
-							<div align="center">${auditBeans.AUDIT_ID}</div>
-						</td>
-						<td style="font-family: Tahoma; font-size: 12pt;">
-							<div align="center">${auditBeans.VENDOR_NAME}(${auditBeans.VENDOR_ID})</div>
-						</td>
-						<td style="font-family: Tahoma; font-size: 12pt;">
-							<div align="center">${auditBeans.PRODUCT_NAME}(${auditBeans.PRODUCT_ID})</div>
-						</td>
-						<td style="font-family: Tahoma; font-size: 12pt;">
-							<div align="center">${auditBeans.AUDIT_PLAN_DATE}
-							<c:if test="${auditBeans.AUDIT_PLAN_DATE ==null}">
-							-
-							</c:if></div>
-						</td>
-						<td style="font-family: Tahoma; font-size: 12pt;">
-							<div align="center">${auditBeans.AUDIT_COMP_DATE}
-							<c:if test="${auditBeans.AUDIT_COMP_DATE ==null}">
+	<br>
+	<br>
+	<table border="1" id="auditTable">
+		<tr>
+			<th>No</th>
+			<th>Audit ID</th>
+			<th>Vendor (ID)</th>
+			<th>Product (ID)</th>
+			<th>Audit Plan Date</th>
+			<th>Audit Compleate Date</th>
+			<th>Audit Score Input Date</th>
+			<th>Audit Type</th>
+			<th>Auditor(ID)</th>
+			<th>Vendor Address</th>
+			<th>Audit Result</th>
+			<th>Score</th>
+			<th>Result Status</th>
+		</tr>
+		<c:forEach var="a" items="${arsList}">
+			<tr align="center" valign="middle" bordercolor="#333333">
+				<td style="font-family: Tahoma; font-size: 12pt;" height="">
+					<div align="center">${a.RNUM}</div>
+				</td>
+				<td style="font-family: Tahoma; font-size: 12pt;">
+					<div align="center">${a.AUDIT_ID}</div>
+				</td>
+				<td style="font-family: Tahoma; font-size: 12pt;">
+					<div align="center">${a.VENDOR_NAME}(${a.VENDOR_ID})</div>
+				</td>
+				<td style="font-family: Tahoma; font-size: 12pt;">
+					<div align="center">${a.PRODUCT_NAME}(${a.PRODUCT_ID})</div>
+				</td>
+				<td style="font-family: Tahoma; font-size: 12pt;">
+					<div align="center">${a.AUDIT_PLAN_DATE}
+						<c:if test="${a.AUDIT_PLAN_DATE ==null}">
 							-
 							</c:if>
-							</div>
-						</td>
-						<td style="font-family: Tahoma; font-size: 12pt;">
-							<div align="center">${auditBeans.AUDIT_RSINPUT_DATE}
-							<c:if test="${auditBeans.AUDIT_RSINPUT_DATE ==null}">
-							-
-							</c:if></div>
-						</td>
-						<td style="font-family: Tahoma; font-size: 12pt;">
-							<div align="center">${auditBeans.AUDIT_KIND_ID}</div>
-						</td>
-						<td style="font-family: Tahoma; font-size: 12pt;">
-							<div align="center">${auditBeans.MEMBER_NAME}(${auditBeans.MEMBER_ID})</div>
-						</td>
-						<td style="font-family: Tahoma; font-size: 12pt;">
-							<div align="center">${auditBeans.VENDOR_ADDRESS}</div>
-						</td>
-						<td style="font-family: Tahoma; font-size: 12pt;">
-							<div align="center">${auditBeans.AUDIT_RESULT}
-							<c:if test="${auditBeans.AUDIT_RESULT ==null}">
+					</div>
+				</td>
+				<td style="font-family: Tahoma; font-size: 12pt;">
+					<div align="center">${a.AUDIT_COMP_DATE}
+						<c:if test="${a.AUDIT_COMP_DATE ==null}">
 							-
 							</c:if>
-							</div>
-						</td>
-						<td style="font-family: Tahoma; font-size: 12pt;">
-							<div align="center">${auditBeans.AUDIT_SCORE}
-							<c:if test="${auditBeans.AUDIT_SCORE ==null}">
+					</div>
+				</td>
+				<td style="font-family: Tahoma; font-size: 12pt;">
+					<div align="center">${a.AUDIT_RSINPUT_DATE}
+						<c:if test="${a.AUDIT_RSINPUT_DATE ==null}">
 							-
-							</c:if></div>
-						</td>
-						<td style="font-family: Tahoma; font-size: 12pt;"><a
-							href="audit/auditVendorResult?vendorname=${auditBeans.VENDOR_NAME}
-								&vendorid=${auditBeans.VENDOR_ID}
-								&date1=${auditBeans.AUDIT_RSINPUT_DATE}
-								&date2=${auditBeans.AUDIT_COMP_DATE}
-								&manager=${auditBeans.MEMBER_NAME}
-								&product=${auditBeans.PRODUCT_NAME}
-								&auditid=${auditBeans.AUDIT_ID}
-								&auditType=${auditBeans.AUDIT_KIND_ID}
-								&score=${auditBeans.AUDIT_SCORE}"
-							class="btn-btn-default" type="button" data-toggle="modal"
-							data-target="#myModal">View</a></td>
-					</tr>
-				</c:forEach>
-			</table>
-		</form>
-		<!-- 모달 -->
-		<div id="myModal" class="modal fade" role="dialog">
-			<div class="modal-dialog" style="width: 70%">
-				<div class="modal-content"></div>
-			</div>
+							</c:if>
+					</div>
+				</td>
+				<td style="font-family: Tahoma; font-size: 12pt;">
+					<div align="center">${a.AUDIT_KIND_ID}</div>
+				</td>
+				<td style="font-family: Tahoma; font-size: 12pt;">
+					<div align="center">${a.MEMBER_NAME}(${a.MEMBER_ID})</div>
+				</td>
+				<td style="font-family: Tahoma; font-size: 12pt;">
+					<div align="center">${a.VENDOR_ADDRESS}</div>
+				</td>
+				<td style="font-family: Tahoma; font-size: 12pt;">
+					<div align="center">${a.AUDIT_RESULT}
+						<c:if test="${a.AUDIT_RESULT ==null}">
+							-
+							</c:if>
+					</div>
+				</td>
+				<td style="font-family: Tahoma; font-size: 12pt;">
+					<div align="center">${a.AUDIT_SCORE}
+						<c:if test="${a.AUDIT_SCORE ==null}">
+							-
+							</c:if>
+					</div>
+				</td>
+
+					
+					<td><a
+								href="audit/auditVendorResult?vendorname=${a.VENDOR_NAME}
+								&id=${a.AUDIT_ID}
+								&type=${a.AUDIT_KIND_ID}
+								&score=${a.AUDIT_SCORE}
+								&prod=${a.PRODUCT_NAME}
+								&vendorid=${a.VENDOR_ID}
+								&auditor=${a.MEMBER_NAME}
+								&auditorId=${a.MEMBER_ID}
+								&result=${a.AUDIT_RESULT}"
+								class="btn-btn-default" type="button" data-toggle="modal"
+								data-target="#myModal">보기</a></td>
+					
+			</tr>
+		</c:forEach>
+	</table>
+	</form>
+	<!-- 모달 -->
+	<div id="myModal" class="modal fade" role="dialog">
+		<div class="modal-dialog" style="width: 70%">
+			<div class="modal-content"></div>
 		</div>
+	</div>
 	</div>
 </body>
 </html>

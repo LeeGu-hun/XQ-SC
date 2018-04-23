@@ -20,7 +20,8 @@
 
 <script>
 	var total = document.querySelectorAll('#total');
-
+	var vendorId = document.querySelectorAll('#vendorId');
+	
 	function updateScore() {
 		auditForm.submit();
 	}
@@ -75,11 +76,11 @@
 				</tr>
 				<tr>
 					<td nowrap>Vendor ID :</td>
-					<td><input type="text" value="${vendorid}" readonly></td>
+					<td><input type="text" value="${vendorid}" name = "VENDOR_ID"></td>
 					<td nowrap>Vendor Name :</td>
 					<td><input type="text" value="${vendorname}"></td>
 					<td nowrap>Audit Date :</td>
-					<td><input type="text" value="${date}"></td>
+					<td><input type="date" name = "AUDIT_COMP_DATE"></td>
 				</tr>
 				<tr>
 					<td nowrap>Category :</td>

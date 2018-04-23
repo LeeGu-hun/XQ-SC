@@ -8,8 +8,18 @@ public class DateCommand {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date from, to;
 	private String selDate;
-
 	private String plandate;
+	private String vSearch;
+	
+	
+
+	public String getvSearch() {
+		return vSearch;
+	}
+
+	public void setvSearch(String vSearch) {
+		this.vSearch = vSearch;
+	}
 
 	public Date getFrom() {
 		return from;

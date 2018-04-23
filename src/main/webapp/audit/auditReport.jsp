@@ -68,55 +68,23 @@ th, td {
 	type="text/javascript"></script>
 
 
-<script language="javascript">
-
-	function result(msg) {
-		("#spProd").html(msg);
-	}
-
-	function selectId() {
-		var auditId = document.getElementById("auditId").value;
-
-		$.ajax({
-			type : "GET",
-			url : "audit/auditInsert",
-			data : "selId=" + selId,
-			success : result
-		});
-
-	}
-
-	function result(msg) {
-		$("#spProd").html(msg);
-
-	}
-</script>
 
 </head>
 <body>
 	<div>
-
-		<form>
-			<div id=''>
-				<ul>
-					<li><a href='#'><span>Vendor 등록관리</span></a></li>
-					<li class='active has-sub'><a href='#'><span>평가관리</span></a>
-						<ul>
-							<li class='has-sub'><a href='./AuditManage'><span>평가계획</span></a></li>
-							<li class='has-sub'><a href='./AuditReport'><span>평가결과입력</span></a></li>
-							<li class='has-sub'><a href='./AuditResult'><span>평가현황</span></a></li>
-						</ul></li>
-					<li><a href='#'><span>부적합관리</span></a></li>
-					<li class='last'><a href='#'><span>시스템 관리</span></a></li>
-				</ul>
-			</div>
-			<table>
-				<tr>
-					<td colspan="2" align="right"><input type="Text"
-						value="Audit ID" name="search" onfocus="this.value=''"> <input
-						type="button" value="Search"></td>
-				</tr>
-			</table>
+	
+		<form action="./AuditReport" method="POST">
+		<p>
+			<label for="scoreDate">Date Search</label>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+			<label>from : <input id="from" name="from" type="date" /> </label> ~ 
+			<label>to : <input id="to" name="to" type="date" /></label> <br>
+			<br> <label>Vendor Search    </label> <input type="text"
+				id="vSearch" name="vSearch">
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+			<input type="submit" value="조회">
+		</p>
+	</form>
 			<br> <br>
 			<table border="1" id="auditTable">
 				<tr>
@@ -131,53 +99,53 @@ th, td {
 					<th>Vendor Address</th>
 					<th>Submit Result</th>
 				</tr>
-				<c:forEach var="auditBeans" items="${auditBeans}">
-					<c:if test="${auditBeans.AUDIT_PLAN_DATE!=null}">
+				<c:forEach var="a" items="${auditBeans}">
+					<c:if test="${a.AUDIT_PLAN_DATE!=null}">
 						<tr align="center" valign="middle" bordercolor="#333333">
 							<td style="font-family: Tahoma; font-size: 12pt;" height="">
-								<div align="center">${auditBeans.RNUM}</div>
+								<div align="center">${a.RNUM}</div>
 							</td>
 							<td style="font-family: Tahoma; font-size: 12pt;" height="">
-								<div align="center">${auditBeans.AUDIT_ID}</div>
+								<div align="center">${a.AUDIT_ID}</div>
 							</td>
 							<td style="font-family: Tahoma; font-size: 12pt;">
-								<div align="center">${auditBeans.AUDIT_PLAN_DATE}</div>
+								<div align="center">${a.AUDIT_PLAN_DATE}</div>
 							</td>
 							<td style="font-family: Tahoma; font-size: 12pt;">
-								<div align="center">${auditBeans.VENDOR_NAME}(${auditBeans.VENDOR_ID})</div>
+								<div align="center">${a.VENDOR_NAME}(${a.VENDOR_ID})</div>
 							</td>
 							<td style="font-family: Tahoma; font-size: 12pt;">
-								<div align="center">${auditBeans.CATEGORY_NAME}</div>
+								<div align="center">${a.CATEGORY_NAME}</div>
 							</td>
 							<td style="font-family: Tahoma; font-size: 12pt;">
-								<div align="center">${auditBeans.PRODUCT_NAME}(${auditBeans.PRODUCT_ID})</div>
+								<div align="center">${a.PRODUCT_NAME}(${a.PRODUCT_ID})</div>
 							</td>
 							<td style="font-family: Tahoma; font-size: 12pt;">
-								<div align="center">${auditBeans.AUDIT_KIND_ID}</div>
+								<div align="center">${a.AUDIT_KIND_ID}</div>
 							</td>
 							<td style="font-family: Tahoma; font-size: 12pt;">
-								<div align="center">${auditBeans.MEMBER_NAME}(${auditBeans.MEMBER_ID})</div>
+								<div align="center">${a.MEMBER_NAME}(${a.MEMBER_ID})</div>
 							</td>
 
 							<td style="font-family: Tahoma; font-size: 12pt;">
-								<div align="center">${auditBeans.VENDOR_ADDRESS}</div>
+								<div align="center">${a.VENDOR_ADDRESS}</div>
 							</td>
 							<td><a
-								href="audit/auditInsert?vendorname=${auditBeans.VENDOR_NAME}
-								&vendorid=${auditBeans.VENDOR_ID}
-								&date=${auditBeans.AUDIT_PLAN_DATE}
-								&manager=${auditBeans.MEMBER_NAME}
-								&category=${auditBeans.CATEGORY_NAME}
-								&product=${auditBeans.PRODUCT_NAME}
-								&auditid=${auditBeans.AUDIT_ID}
-								&auditType=${auditBeans.AUDIT_KIND_ID}"
+								href="audit/auditInsert?vendorname=${a.VENDOR_NAME}
+								&vendorid=${a.VENDOR_ID}
+								&date=${a.AUDIT_PLAN_DATE}
+								&manager=${a.MEMBER_NAME}
+								&category=${a.CATEGORY_NAME}
+								&product=${a.PRODUCT_NAME}
+								&auditid=${a.AUDIT_ID}
+								&auditType=${a.AUDIT_KIND_ID}"
 								class="btn-btn-default" type="button" data-toggle="modal"
 								data-target="#myModal">Register</a></td>
 						</tr>
 					</c:if>
 				</c:forEach>
 			</table>
-		</form>
+	
 		<!-- 모달 -->
 		<div id="myModal" class="modal fade" role="dialog">
 			<div class="modal-dialog" style="width: 70%">

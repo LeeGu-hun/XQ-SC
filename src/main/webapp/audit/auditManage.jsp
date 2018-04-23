@@ -142,15 +142,7 @@ th, td {
 	<p>
 		Total : <a href='./AuditManage'><span>${allCount}</span></a>
 	</p>
-	<p>
-		Regular Vendor Audit : <a href='#'
-			onclick="javascript:regularVendorAudit()">${regularVencorCount}</a>
-	</p>
-	<p>
-		New Vendor Audit : <a href='#' onclick="javascript:newVendorAudit()">${newVendorCount}</a>
-	</p>
-
-	<span id="result">
+<span id="result">
 		<table border="1" id="auditTable">
 			<tr>
 				<th>No</th>
@@ -162,7 +154,7 @@ th, td {
 				<th>Vendor Address</th>
 				<th>Auditor(ID)</th>
 				<th>Audit Plan Date</th>
-				<th>Audit Outcall Date</th>
+				
 				<th>Submit</th>
 			</tr>
 			</span>
@@ -219,11 +211,7 @@ th, td {
 								<input type="date" name="AUDIT_PLAN_DATE">
 							</div>
 						</td>
-						<td nowrap style="font-family: Tahoma; font-size: 12pt;">
-							<div align="center">
-								<input type="date" name="AUDIT_COMP_DATE">
-							</div>
-						</td>
+		
 						<td nowrap style="font-family: Tahoma; font-size: 12pt;"><input
 							type="submit" value="Submit" /></td>
 					</tr>

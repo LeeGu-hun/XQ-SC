@@ -8,32 +8,33 @@
 
 
 	<select id="auditAllList" resultType="bean.AuditBean">
-		SELECT ROWNUM RNUM,
+        SELECT ROWNUM RNUM,
 		v.VENDOR_NAME, v.VENDOR_ADDRESS,
 		v.VENDOR_ID,
 		v.VENDOR_Q_NAME,v.VENDOR_Q_TEL,
 		v.VENDOR_S_NAME,v.VENDOR_S_TEL,
 		v.AUDIT_NEXT_DATE,a.audit_plan_date
 		FROM VENDOR_INFO v , audit_info a
-		WHERE v.vendor_id= a.vendor_id and v.vendor_valid='Y'and v.VENDOR_ID
-		NOT IN
-		(SELECT VENDOR_ID FROM
-		AUDIT_INFO) AND v.AUDIT_NEXT_DATE IS NULL
-		OR
-		(v.AUDIT_NEXT_DATE <![CDATA[ <= ]]>
-		TO_DATE(SYSDATE+30)and a.audit_plan_date!=null)
+		WHERE v.vendor_id= a.vendor_id and v.vendor_valid='Y'
+        and a.audit_next_date <![CDATA[ <= ]]> (sysdate+30) 
+        or 
+        a.audit_next_date
+        != null
+               and v.vendor_id not in 
+        (select vendor_id from audit_info)
 	</select>
 
 
 	<select id="allCount" resultType="int">
-		SELECT COUNT (*)
-		FROM VENDOR_INFO WHERE VENDOR_ID
-		NOT IN
-		(SELECT
-		VENDOR_ID FROM
-		AUDIT_INFO) AND AUDIT_NEXT_DATE IS NULL OR
-		AUDIT_NEXT_DATE  <![CDATA[ <= ]]>
-		TO_DATE(SYSDATE+30)
+	     SELECT count (*) 
+		FROM VENDOR_INFO v , audit_info a
+		WHERE v.vendor_id= a.vendor_id and v.vendor_valid='Y'
+        and a.audit_next_date <![CDATA[ <= ]]> (sysdate+30) 
+        or 
+        a.audit_next_date
+        != null
+               and v.vendor_id not in 
+        (select vendor_id from audit_info)
 
 	</select>
 
@@ -47,16 +48,15 @@
 	<insert id="newAuditPlan" parameterType="bean.AuditBean">
 		INSERT INTO
 		AUDIT_INFO
-		(AUDIT_ID, AUDIT_KIND_ID, AUDITOR_ID, VENDOR_ID,AUDIT_PLAN_DATE,
-		AUDIT_COMP_DATE)
+		(AUDIT_ID, AUDIT_KIND_ID, AUDITOR_ID, VENDOR_ID,AUDIT_PLAN_DATE)
 		VALUES(
 		#{AUDIT_ID},
 		#{AUDIT_KIND_ID},
 		#{AUDITOR_ID},
 		#{VENDOR_ID},
-		#{AUDIT_PLAN_DATE},
-		#{AUDIT_COMP_DATE})
+		#{AUDIT_PLAN_DATE})
 	</insert>
+	
 
 	<!-- 카테고리 리스트 -->
 	<select id="cateList" resultType="bean.BeanCategory">
@@ -108,7 +108,7 @@
 		SELECT * FROM AUDIT_KIND
 	</select>
 
-	<select id="auditListReport" resultType="bean.AuditBean">
+	<select id="auditListReport" resultType="bean.AuditBean" parameterType="bean.DateCommand">
 		SELECT
 		ROWNUM RNUM,
 		AU.AUDIT_ID,
@@ -122,7 +122,6 @@
 		Au.AUDIT_KIND_ID,
 		M. MEMBER_NAME,
 		M.MEMBER_ID
-
 		FROM
 		VENDOR_INFO V,
 		PRODUCT_ITEM P,
@@ -132,13 +131,16 @@
 
 		WHERE
 		M.MEMBER_ID = AU.AUDITOR_ID
-		AND V.VENDOR_ID = AU.VENDOR_ID
+		AND V.VENDOR_ID =
+		AU.VENDOR_ID
 		AND
 		P.PRODUCT_ID = V.PRODUCT_ID
-		AND P.CATEGORY_ID = C.CATEGORY_ID
+		AND P.CATEGORY_ID =
+		C.CATEGORY_ID
 		AND
 		AU.AUDIT_PLAN_DATE IS NOT NULL
-
+		and au.audit_id not in (select audit_id from audit_result)
+		<include refid="planDate"></include>
 	</select>
 
 
@@ -158,6 +160,22 @@
 		#{CHECKLIST_VALID}
 		)
 	</insert>
+	
+	<!-- audit  pass -->
+	<update id="nextDate" parameterType="bean.AuditBean">
+	UPDATE VENDOR_INFO SET AUDIT_NEXT_DATE = 
+	SYSDATE+
+	(SELECT AUDIT_KIND_PERIOD *365  FROM AUDIT_KIND WHERE AUDIT_KIND_ID = 'RE'), 
+	AUDIT_RESULT = 'Y'
+	WHERE VENDOR_ID =  #{VENDOR_ID}
+	</update>
+	
+		<!-- audit not pass -->
+	<update id="nextDateFalse" parameterType="bean.AuditBean">
+	UPDATE VENDOR_INFO SET 
+	AUDIT_RESULT = 'N'
+	WHERE VENDOR_ID =  #{VENDOR_ID}
+	</update>
 
 	<!-- audit Result Id -->
 	<select id="resultCount" resultType="int">
@@ -180,18 +198,26 @@
 		UPDATE AUDIT_INFO
 		SET
 		AUDIT_SCORE = #{AUDIT_SCORE},
-		AUDIT_RSINPUT_DATE =
-		#{AUDIT_RSINPUT_DATE},
-		AUDIT_NEXT_DATE = TO_DATE(SYSDATE+30),
+		AUDIT_RSINPUT_DATE = #{AUDIT_RSINPUT_DATE},
+		AUDIT_COMP_DATE = #{AUDIT_COMP_DATE},
+		AUDIT_NEXT_DATE = 
+		SYSDATE+(SELECT AUDIT_KIND_PERIOD *365  FROM AUDIT_KIND WHERE AUDIT_KIND_ID = 'RE'),
 		AUDIT_RESULT = 'Y'
-		WHERE AUDIT_ID = #{AUDIT_ID}
+		WHERE AUDIT_ID
+		= #{AUDIT_ID}
 	</update>
 
 
 	<!-- Auditor Select -->
+
+
 	<select id="getAuditorList" parameterType="String" resultType="bean.BeanMember">
-		SELECT * FROM MEMBER_INFO WHERE MEMBER_DEPART = 'QUALITY'
+		select distinct a.auditor_id,m.member_name as auditor_name from
+		audit_info a, member_info m where m.member_id=a.auditor_id and
+		m.member_name like '%'||#{auditor_name}||'%'
+
 	</select>
+
 
 	<select id="getCheakResult" parameterType="String" resultType="bean.CheckListBean">
 		SELECT
@@ -200,15 +226,16 @@
 		RE.AUDIT_SCORE FROM
 		AUDIT_RESULT RE,
 		CHECKLIST C
-		WHERE AUDIT_ID = #{AUDIT_ID}
+		WHERE AUDIT_ID = #{id}
 		AND
-		RE.CHECKLIST_ID = C.CHECKLIST_ID
+		RE.CHECKLIST_ID =
+		C.CHECKLIST_ID
 	</select>
 
 
 	<select id="resultSearch" resultType="bean.AuditResultSearch">
 		SELECT
-		ROWNUM RNUM,
+
 		AU.AUDIT_ID,
 		P.PRODUCT_ID,
 		V.VENDOR_NAME,
@@ -218,6 +245,7 @@
 		AU.AUDIT_RESULT,
 		AU.AUDIT_NEXT_DATE,
 		AU.AUDIT_COMP_DATE,
+		ROWNUM RNUM,
 		AU.AUDIT_KIND_ID,
 		M.MEMBER_NAME,
 		M.MEMBER_ID,
@@ -257,9 +285,9 @@
 	<select id="getByPlanDate" parameterType="bean.DateCommand"
 		resultType="bean.AuditResultSearch">
 		SELECT
-		ROWNUM RNUM,
 		AU.AUDIT_ID,
 		P.PRODUCT_ID,
+		P.PRODUCT_NAME,
 		V.VENDOR_NAME,
 		V.VENDOR_ID,
 		AU.AUDIT_PLAN_DATE,
@@ -267,6 +295,7 @@
 		AU.AUDIT_RESULT,
 		AU.AUDIT_NEXT_DATE,
 		AU.AUDIT_COMP_DATE,
+		ROWNUM RNUM,
 		AU.AUDIT_KIND_ID,
 		M.MEMBER_NAME,
 		M.MEMBER_ID,
@@ -300,6 +329,9 @@
 				AND AUDIT_PLAN_DATE
 				BETWEEN #{from} AND
 				#{to}
+				<if test="vSearch !=null">
+					and vendor_name like '%'||#{vSearch}||'%'
+				</if>
 			</when>
 			<otherwise>
 			</otherwise>
@@ -309,7 +341,6 @@
 	<select id="getByScoreDate" parameterType="bean.DateCommand"
 		resultType="bean.AuditResultSearch">
 		SELECT
-		ROWNUM RNUM,
 		AU.AUDIT_ID,
 		P.PRODUCT_ID,
 		V.VENDOR_NAME,
@@ -319,6 +350,7 @@
 		AU.AUDIT_RESULT,
 		AU.AUDIT_NEXT_DATE,
 		AU.AUDIT_COMP_DATE,
+		ROWNUM RNUM,
 		AU.AUDIT_KIND_ID,
 		M.MEMBER_NAME,
 		M.MEMBER_ID,
@@ -352,7 +384,9 @@
 				AND AUDIT_RSINPUT_DATE
 				BETWEEN #{from} AND
 				#{to}
-
+				<if test="vSearch !=null">
+					and vendor_name like '%'||#{vSearch}||'%'
+				</if>
 			</when>
 			<otherwise>
 			</otherwise>
