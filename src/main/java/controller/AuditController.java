@@ -47,6 +47,7 @@ public class AuditController {
 		this.auditService = auditService;
 	}
 
+	// plan date, auditor insert page
 	@RequestMapping(value = "/AuditManage", method = RequestMethod.GET)
 	public String auditManageGet(Model model, AuditBean auditBean, HttpServletRequest request) {
 		List<AuditBean> listBean = auditService.auditList();
@@ -58,14 +59,15 @@ public class AuditController {
 		return "audit/auditManage";
 	}
 
+	// plan date, auditor insert page
 	@RequestMapping(value = "/audit/auditManage", method = RequestMethod.POST)
 	public String auditManagePost(Model model, AuditCommand ac, AuditBean auditBean) {
 		List<AuditBean> auditBeans = auditService.auditList();
 		AuditBean ab = new AuditBean();
 
-		ab.setAUDIT_KIND_ID(ac.getAUDIT_KIND_ID());
 		ab.setAUDITOR_ID(ac.getAUDITOR_ID());
-		ab.setVENDOR_ID(ac.getVENDOR_ID());
+
+		ab.setAUDIT_ID(ac.getAUDIT_ID());
 		ab.setAUDIT_PLAN_DATE(ac.getAUDIT_PLAN_DATE());
 
 		auditService.idInsert(ab);
@@ -104,6 +106,7 @@ public class AuditController {
 		return "audit/auditReport";
 	}
 
+	// Report page
 	@RequestMapping(value = "/AuditReport", method = RequestMethod.POST)
 	public String auditReportPost(Model model, AuditBean auditBean, HttpServletRequest request, DateCommand dc) {
 		List<AuditBean> auditBeans = auditService.auditListReport(dc);
@@ -112,7 +115,7 @@ public class AuditController {
 		return "audit/auditReport";
 	}
 
-	// insert modal
+	// report page : insert modal
 	@RequestMapping(value = "/audit/auditInsert", method = RequestMethod.GET)
 	public String auditInsert(Model model, AuditBean auditBean, HttpServletRequest request) {
 
@@ -134,23 +137,22 @@ public class AuditController {
 		request.setAttribute("auditid", auditid);
 		request.setAttribute("auditType", auditType);
 
-		if (auditType.equals("NE")) {
-			List<CheckListBean> checkList = auditService.checkListNe();
-			model.addAttribute("checkList", checkList);
-		} else {
-			List<CheckListBean> checkList = auditService.checkListRe();
-			model.addAttribute("checkList", checkList);
-		}
+		List<CheckListBean> checkListNE = auditService.checkListNe();
+		model.addAttribute("checkListNE", checkListNE);
+		List<CheckListBean> checkListRE = auditService.checkListRe();
+		model.addAttribute("checkListRE", checkListRE);
 
 		return "audit/auditInsert";
 	}
 
+	// report page : insert modal
 	@RequestMapping(value = "/audit/auditInsert", method = RequestMethod.POST)
 	public String auditInsertPost(HttpServletRequest request, AuditScoreCommand ac) {
 		AuditBean ab = new AuditBean();
 
 		String total = (String) request.getParameter("total");
 		request.setAttribute("total", total);
+		request.setAttribute("auditType", request.getParameter("AUDIT_KIND_ID"));
 
 		ab.setAUDIT_SCORE(Integer.parseInt(total));
 		ab.setAUDIT_ID(ac.getAUDIT_ID());
@@ -173,16 +175,17 @@ public class AuditController {
 		if (Integer.parseInt(total) >= 80) {
 			AuditBean bean = new AuditBean();
 			bean.setVENDOR_ID(ac.getVENDOR_ID());
+			System.out.println(">>>" + ac.getVENDOR_ID());
 			auditService.nextPlanUpdate(bean);
 		} else {
 			AuditBean bean = new AuditBean();
 			bean.setVENDOR_ID(ac.getVENDOR_ID());
 			auditService.auditFalse(bean);
 		}
-		return "redirect:/audit/auditInsert";
+		return "redirect:/AuditReport";
 	}
 
-	// Result
+	// Result Page
 	@RequestMapping(value = "/AuditResult", method = RequestMethod.GET)
 	public String auditResultGet(Model model, HttpServletRequest request, DateCommand dateCommand) {
 		AuditResultSearch ars = new AuditResultSearch();
@@ -201,11 +204,10 @@ public class AuditController {
 			List<AuditResultSearch> arsList = auditService.getByPlanDate(dateCommand);
 			model.addAttribute("arsList", arsList);
 		}
-
 		return "audit/auditResult";
 	}
 
-	// result modal
+	// result : modal
 	@RequestMapping(value = "/audit/auditVendorResult", method = RequestMethod.GET)
 	public String auditResultView(Model model, HttpServletRequest request) {
 

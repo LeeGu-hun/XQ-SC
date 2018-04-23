@@ -72,19 +72,6 @@ th, td {
 </head>
 <body>
 
-	<div>
-		<ul>
-			<li><a href='#'><span>Vendor 등록관리</span></a></li>
-			<li class='active has-sub'><a href='#'><span>평가관리</span></a>
-				<ul>
-					<li class='has-sub'><a href='./AuditManage'><span>평가계획</span></a></li>
-					<li class='has-sub'><a href='./AuditReport'><span>평가결과입력</span></a></li>
-					<li class='has-sub'><a href='./AuditResult'><span>평가현황</span></a></li>
-				</ul></li>
-			<li><a href='#'><span>부적합관리</span></a></li>
-			<li class='last'><a href='#'><span>시스템 관리</span></a></li>
-		</ul>
-	</div>
 	<form action="./AuditResult" method="POST">
 		<p>
 			<input type="radio" id="plandate" name="plandate" value="plan"

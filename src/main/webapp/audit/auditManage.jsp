@@ -15,11 +15,15 @@
 	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link rel="stylesheet"
+	href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css"
+	type="text/css" />
 <link href="<c:url value="/css/bootstrap.css" />" rel="stylesheet">
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> 
-<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script> 
+<script
+	src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
 
 
 
@@ -124,41 +128,27 @@ th, td {
 
 </head>
 <body>
-
-	<div id='cssmenu'>
-		<ul>
-			<li><a href='#'><span>Vendor 등록관리</span></a></li>
-			<li class='active has-sub'><a href='#'><span>평가관리</span></a>
-				<ul>
-					<li class='has-sub'><a href='./AuditManage'><span>평가계획조회</span></a></li>
-					<li class='has-sub'><a href='./AuditReport'><span>평가결과입력</span></a></li>
-					<li class='has-sub'><a href='./AuditResult'><span>평가현황</span></a></li>
-				</ul></li>
-			<li><a href='#'><span>부적합관리</span></a></li>
-			<li class='last'><a href='#'><span>시스템 관리</span></a></li>
-		</ul>
-	</div>
-
 	<p>
 		Total : <a href='./AuditManage'><span>${allCount}</span></a>
 	</p>
-<span id="result">
+	<span id="result">
 		<table border="1" id="auditTable">
 			<tr>
 				<th>No</th>
 				<th>Vendor Name</th>
 				<th>Vendor ID</th>
+				<th>Audit ID</th>
 				<th>Audit Type</th>
 				<th>Vendor Quality Manager(Tel)</th>
 				<th>Vendor Sales Manager (Tel)</th>
 				<th>Vendor Address</th>
 				<th>Auditor(ID)</th>
 				<th>Audit Plan Date</th>
-				
+
 				<th>Submit</th>
 			</tr>
 			</span>
-			<c:forEach var="audit" items="${listBean}"  varStatus="status" >
+			<c:forEach var="audit" items="${listBean}" varStatus="status">
 				<form action="./audit/auditManage" method="POST" name="form">
 					<tr align="center" valign="middle" bordercolor="#333333">
 						<td nowrap style="font-family: Tahoma; font-size: 12pt;" height="">
@@ -167,6 +157,12 @@ th, td {
 
 						<td nowrap style="font-family: Tahoma; font-size: 12pt;">
 							<div align="center">${audit.VENDOR_NAME}</div>
+						</td>
+						<td nowrap style="font-family: Tahoma; font-size: 12pt;">
+							<div align="center">
+									<input type="text" value="${audit.AUDIT_ID}"
+									readonly="readonly" name="AUDIT_ID">
+							</div>
 						</td>
 						<td nowrap style="font-family: Tahoma; font-size: 12pt;">
 							<div align="center">
@@ -195,33 +191,27 @@ th, td {
 						<td nowrap style="font-family: Tahoma; font-size: 12pt;">
 							<div align="center">${audit.VENDOR_ADDRESS}</div>
 						</td>
-						<td nowrap style="font-family: Tahoma; font-size: 12pt;">
-						<script>
+						<td nowrap style="font-family: Tahoma; font-size: 12pt;"><script>
 						
 						</script>
 							<div align="center">
 								<input type="text" name="AUDITOR_ID" id="AUDITOR_ID" />
-									<image src="${pageContext.request.contextPath}/images/icon_search.gif" 
-									
+								<image
+									src="${pageContext.request.contextPath}/images/icon_search.gif"
 									data-toggle="modal" onclick="auditorSearch(${status.index })"></image>
-							</div>
-						</td>
+							</div></td>
 						<td nowrap style="font-family: Tahoma; font-size: 12pt;">
 							<div align="center">
 								<input type="date" name="AUDIT_PLAN_DATE">
 							</div>
 						</td>
-		
+
 						<td nowrap style="font-family: Tahoma; font-size: 12pt;"><input
 							type="submit" value="Submit" /></td>
 					</tr>
 				</form>
 			</c:forEach>
-		</table> 
-
-	
-		
-		<!--  모달 시작 -->
+		</table> <!--  모달 시작 -->
 		<div class="modal fade" id="auditorSearchModal">
 			<div class="modal-dialog">
 				<div class="modal-content">
@@ -235,13 +225,14 @@ th, td {
 					<!-- body -->
 					<div class="modal-body">
 						<div>
-							<form id="formSearchauditor" name="formSearchAuditor" method="post">
+							<form id="formSearchauditor" name="formSearchAuditor"
+								method="post">
 								<table class="table">
 									<tr>
 										<td>Auditor Name: <input type="text" name="auditor_name"
 											id="auditor_name" /></td>
-										<input type="hidden" name="index" id="index" value=""/>
-											
+										<input type="hidden" name="index" id="index" value="" />
+
 										<td><input class="button" type="button" value="Search"
 											id="btnsearch" onclick="searchAuditorId(index.value)"></td>
 									</tr>
@@ -249,9 +240,9 @@ th, td {
 								</table>
 							</form>
 						</div>
-						
+
 						<div id="auditorList"></div>
-						
+
 					</div>
 					<!-- Footer -->
 					<div class="modal-footer">

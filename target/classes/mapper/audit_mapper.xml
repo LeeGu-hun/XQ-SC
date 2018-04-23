@@ -4,72 +4,32 @@
 
 <mapper namespace="auditSQL">
 
-	<!-- ***************** audit List************/********** -->
+	<!-- ***************** audit Manage Page********************* -->
 
-
+	<!-- audit not plan list -->
 	<select id="auditAllList" resultType="bean.AuditBean">
-        SELECT ROWNUM RNUM,
-		v.VENDOR_NAME, v.VENDOR_ADDRESS,
-		v.VENDOR_ID,
-		v.VENDOR_Q_NAME,v.VENDOR_Q_TEL,
-		v.VENDOR_S_NAME,v.VENDOR_S_TEL,
-		v.AUDIT_NEXT_DATE,a.audit_plan_date
-		FROM VENDOR_INFO v , audit_info a
-		WHERE v.vendor_id= a.vendor_id and v.vendor_valid='Y'
-        and a.audit_next_date <![CDATA[ <= ]]> (sysdate+30) 
-        or 
-        a.audit_next_date
-        != null
-               and v.vendor_id not in 
-        (select vendor_id from audit_info)
+		SELECT ROWNUM RNUM,
+		V.VENDOR_NAME, V.VENDOR_ADDRESS,
+		V.VENDOR_ID,
+		V.VENDOR_Q_NAME,V.VENDOR_Q_TEL,
+		V.VENDOR_S_NAME,V.VENDOR_S_TEL,
+		V.AUDIT_NEXT_DATE,A.AUDIT_PLAN_DATE,
+		A.AUDIT_ID
+		FROM VENDOR_INFO V ,
+		(SELECT * FROM AUDIT_INFO WHERE AUDIT_PLAN_DATE IS NULL OR AUDITOR_ID
+		IS NULL) A WHERE V.VENDOR_ID =
+		A.VENDOR_ID
 	</select>
 
-
+	<!-- audit not plan count -->
 	<select id="allCount" resultType="int">
-	     SELECT count (*) 
-		FROM VENDOR_INFO v , audit_info a
-		WHERE v.vendor_id= a.vendor_id and v.vendor_valid='Y'
-        and a.audit_next_date <![CDATA[ <= ]]> (sysdate+30) 
-        or 
-        a.audit_next_date
-        != null
-               and v.vendor_id not in 
-        (select vendor_id from audit_info)
-
-	</select>
-
-	<select id="allList" resultType="int">
-		SELECT COUNT(*) FROM AUDIT_INFO
-	</select>
-
-
-
-	<!-- ************** audit plan Insert************* -->
-	<insert id="newAuditPlan" parameterType="bean.AuditBean">
-		INSERT INTO
-		AUDIT_INFO
-		(AUDIT_ID, AUDIT_KIND_ID, AUDITOR_ID, VENDOR_ID,AUDIT_PLAN_DATE)
-		VALUES(
-		#{AUDIT_ID},
-		#{AUDIT_KIND_ID},
-		#{AUDITOR_ID},
-		#{VENDOR_ID},
-		#{AUDIT_PLAN_DATE})
-	</insert>
-	
-
-	<!-- 카테고리 리스트 -->
-	<select id="cateList" resultType="bean.BeanCategory">
-		SELECT * FROM CATEGORY_INFO
-		ORDER BY CATEGORY_NAME
-	</select>
-
-	<!-- 물품 리스트 -->
-	<select id="prodList" resultType="bean.BeanProduct"
-		parameterType="String">
-		select * from product_item
-		where CATEGORY_ID =
-		#{CATEGORY_ID}
+		SELECT count (*)
+		FROM
+		VENDOR_INFO V ,
+		(SELECT * FROM AUDIT_INFO WHERE AUDIT_PLAN_DATE IS
+		NULL
+		OR AUDITOR_ID IS NULL) A WHERE V.VENDOR_ID =
+		A.VENDOR_ID
 	</select>
 
 	<!-- check list RE -->
@@ -102,13 +62,22 @@
 		CHECKLIST_VALID = 'Y'
 	</select>
 
+	<!-- audit plan update -->
+	<update id="newAuditPlan" parameterType="bean.AuditBean">
+		UPDATE
+		AUDIT_INFO
+		SET
+		AUDITOR_ID = #{AUDITOR_ID},
+		AUDIT_PLAN_DATE = #{AUDIT_PLAN_DATE}
+		WHERE
+		AUDIT_ID = #{AUDIT_ID}
+	</update>
 
-	<!-- audit Type 리스트 -->
-	<select id="auditType" resultType="bean.AuditKind">
-		SELECT * FROM AUDIT_KIND
-	</select>
+	<!-- *********** audit Report page *********** -->
 
-	<select id="auditListReport" resultType="bean.AuditBean" parameterType="bean.DateCommand">
+	<!-- audit Report List -->
+	<select id="auditListReport" resultType="bean.AuditBean"
+		parameterType="bean.DateCommand">
 		SELECT
 		ROWNUM RNUM,
 		AU.AUDIT_ID,
@@ -139,45 +108,37 @@
 		C.CATEGORY_ID
 		AND
 		AU.AUDIT_PLAN_DATE IS NOT NULL
-		and au.audit_id not in (select audit_id from audit_result)
+		and au.audit_id not in
+		(select audit_id from audit_result)
 		<include refid="planDate"></include>
 	</select>
 
-
+	<!-- audit id get -->
 	<select id="auditId" resultType="int">
 		SELECT COUNT(*) FROM AUDIT_INFO
 	</select>
 
 
-	<!-- ************* INSERT ************* -->
-	<insert id="auditSumit" parameterType="bean.AuditSubmitBean">
-		INSERT INTO audit_info
-		VALUES(
-		#{CHECKLIST_ID},
-		#{CHECKLIST_DISCRIPTION},
-		#{AUDIT_KIND_ID},
-		#{CHECKLIST_FULLSCORE},
-		#{CHECKLIST_VALID}
-		)
-	</insert>
-	
-	<!-- audit  pass -->
+	<!-- if audit pass : update vendor_info table -->
 	<update id="nextDate" parameterType="bean.AuditBean">
-	UPDATE VENDOR_INFO SET AUDIT_NEXT_DATE = 
-	SYSDATE+
-	(SELECT AUDIT_KIND_PERIOD *365  FROM AUDIT_KIND WHERE AUDIT_KIND_ID = 'RE'), 
-	AUDIT_RESULT = 'Y'
-	WHERE VENDOR_ID =  #{VENDOR_ID}
-	</update>
-	
-		<!-- audit not pass -->
-	<update id="nextDateFalse" parameterType="bean.AuditBean">
-	UPDATE VENDOR_INFO SET 
-	AUDIT_RESULT = 'N'
-	WHERE VENDOR_ID =  #{VENDOR_ID}
+		UPDATE VENDOR_INFO SET
+		AUDIT_NEXT_DATE =
+		SYSDATE+
+		(SELECT AUDIT_KIND_PERIOD *365 FROM
+		AUDIT_KIND WHERE AUDIT_KIND_ID = 'RE'),
+		AUDIT_RESULT = 'Y'
+		WHERE
+		VENDOR_ID = #{VENDOR_ID}
 	</update>
 
-	<!-- audit Result Id -->
+	<!-- if audit not pass : update vendor_info table -->
+	<update id="nextDateFalse" parameterType="bean.AuditBean">
+		UPDATE VENDOR_INFO SET
+		AUDIT_RESULT = 'N'
+		WHERE VENDOR_ID = #{VENDOR_ID}
+	</update>
+
+	<!-- audit Result Id get -->
 	<select id="resultCount" resultType="int">
 		SELECT COUNT(*) FROM
 		AUDIT_RESULT
@@ -193,17 +154,20 @@
 		#{AUDIT_SCORE})
 	</insert>
 
-	<!-- 점수 입력하기 -->
+	<!-- update Score -->
 	<update id="updateScore" parameterType="bean.AuditBean">
 		UPDATE AUDIT_INFO
 		SET
 		AUDIT_SCORE = #{AUDIT_SCORE},
-		AUDIT_RSINPUT_DATE = #{AUDIT_RSINPUT_DATE},
+		AUDIT_RSINPUT_DATE =
+		#{AUDIT_RSINPUT_DATE},
 		AUDIT_COMP_DATE = #{AUDIT_COMP_DATE},
-		AUDIT_NEXT_DATE = 
-		SYSDATE+(SELECT AUDIT_KIND_PERIOD *365  FROM AUDIT_KIND WHERE AUDIT_KIND_ID = 'RE'),
+		AUDIT_NEXT_DATE =
+		SYSDATE+(SELECT AUDIT_KIND_PERIOD *365 FROM
+		AUDIT_KIND WHERE AUDIT_KIND_ID = 'RE'),
 		AUDIT_RESULT = 'Y'
-		WHERE AUDIT_ID
+		WHERE
+		AUDIT_ID
 		= #{AUDIT_ID}
 	</update>
 
@@ -232,7 +196,8 @@
 		C.CHECKLIST_ID
 	</select>
 
-
+	<!-- **************audit Report page***************** -->
+	<!-- audit report list -->
 	<select id="resultSearch" resultType="bean.AuditResultSearch">
 		SELECT
 

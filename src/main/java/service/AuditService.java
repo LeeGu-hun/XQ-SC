@@ -77,22 +77,14 @@ public class AuditService {
 		return list;
 	}
 
-	// audit Type List
-	public List<AuditKind> typeList() {
-		return sqlSession.selectList("auditSQL.auditType");
-	}
-
 	// audit Id Get
 	public int auditId() {
 		return sqlSession.selectOne("auditSQL.auditId");
 	}
 
 	// audit plan insert + id insert
-	public String idInsert(AuditBean ab) {
-		String id = "A" + idForm.format(auditId() + 1);
-		ab.setAUDIT_ID(id);
-		sqlSession.insert("auditSQL.newAuditPlan", ab);
-		return id;
+	public void idInsert(AuditBean ab) {
+		sqlSession.update("auditSQL.newAuditPlan", ab);
 	}
 
 	// next Plan Update (period = 2 years)

@@ -101,7 +101,8 @@
 						<th nowrap>Score</th>
 					</tr>
 					</td>
-					<c:forEach var="c" items="${checkList}">
+					<c:if test="${auditType == 'NE'}"> 
+					<c:forEach var="c" items="${checkListNE}">
 						<tr>
 							<td>
 								<div>${c.RNUM}
@@ -121,7 +122,31 @@
 							</td>
 							<td><div>${c.CHECKLIST_FULLSCORE}</div></td>
 						</tr>
-					</c:forEach>
+						</c:forEach>
+				</c:if>
+				<c:if test="${auditType == 'RE'}"> 
+					<c:forEach var="c" items="${checkListRE}">
+						<tr>
+							<td>
+								<div>${c.RNUM}
+								<input type="hidden" value="${c.CHECKLIST_ID}" name = "cId"></div>
+							</td>
+							
+							<td>
+								<div>${c.CHECKLIST_DISCRIPTION}
+									<input type="hidden" value="${c.CHECKLIST_DISCRIPTION}"
+										name="" />
+								</div>
+							</td>
+							<td>
+								<input type="text" class="score" maxlength="2"
+								name="score" id="score" onKeyUp="onlyNum();"
+								onKeyPress="onlyNum();" onKeyDown="onlyNum();">
+							</td>
+							<td><div>${c.CHECKLIST_FULLSCORE}</div></td>
+						</tr>
+						</c:forEach>
+				</c:if>
 					<td nowrap>총 합계: <input type="text" name="total" id="total"
 						name="AUDIT_SCORE">
 					</td>
