@@ -7,72 +7,86 @@
 
 <!DOCTYPE html>
 <html lang="ko">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/css/style.css?ver=1.2">
-<script type="text/javascript">
-	$(document).ready(function() {
-		$('#nav li').hover(function() {
-			$('ul', this).slideDown(200);
-			$(this).children('a:first').addClass("hov");
-		}, function() {
-			$('ul', this).slideUp(100);
-			$(this).children('a:first').removeClass("hov");
-		});
-	});
-</script>
+
 <head>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style.css?ver=1.3">
+        <!-- Font Awesome -->
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 </head>
+
 <body>
-	<div id="head">
-		<div class="wrap">
-			<h1>
-				<img alt="XQ-SC" />	
-			</h1>
-		</div>
-	</div>
+	
+        <!-- Header -->
+        <div class="header-wrap d-none d-md-block">
+            <div class="container">
+                <div class="row">
+                    
+                    <!-- Left header box -->
+                    <header class="col-6 text-left">
+                        <h1>XQ-SC</h1>
+                    </header>
+                    
+                </div>
+            </div>
+        </div>
+        
+        <!-- Main navigation -->
+        <nav class="navbar navbar-expand-md navbar-dark bg-primary">
+            <div class="container">
+                
+                           <!-- Main navigation items -->
+                <div class="collapse navbar-collapse" id="mainNavbar">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+                                <a class="nav-link" href="index.html">Home</a>
+                        </li>
 
-	<div class="wrap">
-		<ul id="nav">
-			<li><a href="#"> HOME</a></li>
-
-			<li><a href='#'>Vendor 등록관리</a>
-				<ul>
-					<li><a href='vendor/vendorRegister'>Vendor Register</a></li>
-					<li><a href='vendor/vendorStatus'>Vendor Status</a></li>
-				</ul></li>
+                        <li class="nav-item dropdown active">
+                                    <a class="nav-link dropdown-toggle" data-toggle="dropdown"   href="#" role="button" aria-haspopup="true" aria-expanded="false">Vendor 등록관리</a>
+                                    <div class="dropdown-menu navbar-dark bg-primary">
+                                          <a class="dropdown-item" href='vendor/vendorRegister'>Vendor Register</a>
+                                          <a class="dropdown-item" href='vendor/vendorStatus'>Vendor Status</a>
+                                    </div>
+                        </li>
 
 
-			<li><a href='#'><span>평가관리</span></a>
-				<ul>
-					<li><a href='./AuditManage'>평가계획</a></li>
-					<li><a href='./AuditReport'>평가결과입력</a></li>
-					<li><a href='./AuditResult'>평가현황</a></li>
-				</ul></li>
+                          <li class="nav-item dropdown active">
+                                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">평가관리</a>
+                                    <div class="dropdown-menu navbar-dark bg-primary">
+                                          <a class="dropdown-item" href='./AuditManage'>평가계획</a>
+                                          <a class="dropdown-item" href='./AuditReport'>평가결과입력</a>
+                                           <a class="dropdown-item" href='./AuditResult'>평가현황</a>
+                                    </div>
+                        </li>
+
+                          <li class="nav-item dropdown active">
+                                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">부적합관리</a>
+                                    <div class="dropdown-menu navbar-dark bg-primary">
+                                          <a class="dropdown-item" href='ncr/ncrRegister'>NCR Register</a>
+                                          <a class="dropdown-item" href='ncr/ncrManagement'>NCR Management</a>
+                                           <a class="dropdown-item" href='ncr/ncrStatus'>NCR Status</a>
+                                    </div>
+                        </li>
+
+                        
+                          <li class="nav-item dropdown active">
+                                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">시스템관리</a>
+                                    <div class="dropdown-menu navbar-dark bg-primary">
+                                          <a class="dropdown-item " href='./Setting'>System Configuration</a>
+                                          <a class="dropdown-item" href='./MSet'>Member Management</a>
+                                           <a class="dropdown-item" href='./CLSet'>Checklist Management</a>
+                                    </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
 
 
-			<li><a href='#'><span>부적합관리</span></a>
-				<ul>
-					<li><a href='ncr/ncrRegister'>NCR Register</a></li>
-					<li><a href='ncr/ncrManagement'>NCR Management</a></li>
-					<li><a href='ncr/ncrStatus'>NCR Status</a></li>
-				</ul></li>
-
-
-			<li><a href='#'><span>시스템 관리</span></a>
-				<ul>
-					<li><a href='./Setting'>System Configuration</a></li>
-					<li><a href='./MSet'>Member Management</a></li>
-					<li><a href='./CLSet'>Checklist Management</a></li>
-				</ul></li>
-				</ul>
-				</div>
 </body>
 </html>
 
