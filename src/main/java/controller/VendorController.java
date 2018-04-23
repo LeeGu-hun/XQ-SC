@@ -128,8 +128,13 @@ public class VendorController {
 		bv.setVENDOR_S_EMAIL(vendorcommand.getVENDOR_S_EMAIL());
 		vendorService.vendorRegister(bv);
 
-		return "redirect:login/login";
-	}
+		return "redirect:/login/login";
+		}
+		@RequestMapping(value = "login/login", method = RequestMethod.GET)
+		public String login() {
+			return "login/login";
+		}
+		
 
 	@RequestMapping(value = "/vendor/vendorRegister")
 	public String registList(HttpServletRequest request, Model model, BeanVendor beanvendor) {
