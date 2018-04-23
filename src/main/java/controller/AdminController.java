@@ -72,7 +72,7 @@ public class AdminController {
 			response.addCookie(rememberCookie);
 			
 			if(authInfo.getDepart().equals("ADMIN")) {
-				return "redirect:/mainA";
+				return "redirect:/main";
 			}else if(authInfo.getDepart().equals("QUALITY")) {
 				return "redirect:/main";
 			}else if(authInfo.getDepart().equals("PURCHASE")) {
@@ -104,12 +104,12 @@ public class AdminController {
 		return "admin/noMember";
 	}
 	
-	
-	@RequestMapping("/mainA")
-	public String homeA() {
-		
-	    return "admin/mainA";
-	}
+//	
+//	@RequestMapping("/mainA")
+//	public String homeA() {
+//		
+//	    return "admin/mainA";
+//	}
 	
 	@RequestMapping(value="ChangedPwd", method=RequestMethod.GET)
 	public String changedPwdGet(@ModelAttribute("changePwdCommand") ChangePwdCommand pwdCmd) {
