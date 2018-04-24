@@ -50,7 +50,9 @@ $(function(){
 
 <body>
 <header class="site-header-wrap">
+<a href="./logout">로그아웃</a>	
 	<div class="site-logo"> 
+	
 	<a class="site-logo">XQ-SC</a>
 	</div>
 </header>
@@ -62,8 +64,8 @@ $(function(){
 
 				<li><a href="#">Vendor 등록관리</a>
 					<ul>
-						<li><a href='vendor/vendorRegister'>Vendor Register</a></li>
-						<li><a href='vendor/vendorStatus'>Vendor Status</a></li>
+						<li><a href='./vendorRegister'>Vendor Register</a></li>
+						<li><a href='./vendorStatus'>Vendor Status</a></li>
 					</ul>
 				</li>
 
@@ -77,9 +79,9 @@ $(function(){
 
 				<li><a href="#">부적합관리</a>
 					<ul>
-						<li><a href='ncr/ncrRegister'>NCR Register</a></li> 
-						<li><a href='ncr/ncrManagement'>NCR Management</a></li>
-						<li><a href='ncr/ncrStatus'>NCR Status</a></li>
+						<li><a href='./ncrRegister'>NCR Register</a></li> 
+						<li><a href='./ncrManagement'>NCR Management</a></li>
+						<li><a href='./ncrStatus'>NCR Status</a></li>
 					</ul>
 				</li>
 
