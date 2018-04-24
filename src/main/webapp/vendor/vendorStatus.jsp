@@ -50,6 +50,8 @@ function rowselect(vendor_name, vendor_id) {
 	
 </script>
 <body>
+
+<%@ include file="/include/header.jsp"%><br>
 	<div class="container">
 		<legend style="font-family: Tahoma; font-size: 20pt;">Vendor
 			Status</legend>

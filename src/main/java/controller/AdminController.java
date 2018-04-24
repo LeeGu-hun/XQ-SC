@@ -43,7 +43,7 @@ public class AdminController {
 	public void setAdminService(AdminService adminService) {
 		this.adminService = adminService;
 	}
-///************************************************************************//
+///************************************************************************////
 	
 	@RequestMapping(value="/loginDiv", method=RequestMethod.GET)
 	public String form() {
