@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
@@ -43,8 +43,15 @@
 		var pass = document.getElementById('MEMBER_PASS').value;
 		var tel = document.getElementById('MEMBER_TEL').value;
 		
+		var pattern = /^[a-z0-9_+.-]+@([a-z0-9-]+\.)+[a-z0-9]{2,4}$/;
+
 		if(name == "" || email == "" ||pass == "" ||tel == "" ){
 			document.getElementById('mInUp').textContent= '내용을 입력해주세요';
+			return;
+		}
+		if(!pattern.test(email)){
+			document.getElementById('mInUp').textContent= '잘못된 이메일 양식입니다.';
+			document.getElementById('MEMBER_EMAIL').focus();
 			return;
 		}
 		document.getElementById('MemberCommand').submit();
@@ -56,13 +63,19 @@
 		var email = document.getElementById('MEMBER_EMAIL').value;
 		var pass = document.getElementById('MEMBER_PASS').value;
 		var tel = document.getElementById('MEMBER_TEL').value;
+
+		var pattern = /^[a-z0-9_+.-]+@([a-z0-9-]+\.)+[a-z0-9]{2,4}$/;
 		
 		if(name == "" || email == "" ||pass == "" ||tel == "" ){
 			document.getElementById('mInUp').textContent= '내용을 입력해주세요';
 			return;
 		}
+		if(!pattern.test(email)){
+			document.getElementById('mInUp').textContent= '잘못된 이메일 양식입니다.';
+			document.getElementById('MEMBER_EMAIL').focus();
+			return;
+		}
 		document.getElementById('MemberCommand').submit();
-	//	document.getElementById('mInUp').textContent= name.value;
 	}
 	
 	

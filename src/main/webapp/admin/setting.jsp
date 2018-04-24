@@ -11,21 +11,21 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Setting</title>
 
-		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-
-		<script src="http://code.jquery.com/jquery-latest.min.js"></script>
-		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-		<script src="http://googledrive.com/host/0B-QKv6rUoIcGREtrRTljTlQ3OTg"></script>
-		<script src="http://googledrive.com/host/0B-QKv6rUoIcGeHd6VV9JczlHUjg"></script>
 		
-      <link rel="stylesheet" href="./css/table.css" type="text/css">
+<link rel="stylesheet"
+	href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css"
+	type="text/css" />
+<link href="<c:url value="/css/bootstrap.css" />" rel="stylesheet">
+<script
+	src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
       
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<style>
-		#period { height:100px;}
+		#auditSet { height:100px;}
 		#product{overflow:hidden;}
 		#cate{float:left; width:50%; }
 		#prod{float:right; width:50%; }
@@ -157,6 +157,26 @@
 		}
 	}
 	
+	function aPeriodUpdate(){
+		var period = document.getElementById('aPeriod');
+		if(period.value == "" ){
+			document.getElementById('aPeriodCk').textContent= '내용을 입력해주세요';
+			period.focus();
+			return;
+		}
+		document.getElementById('periodForm').submit();
+	}
+	
+	function scoreUpdate(){
+		var score = document.getElementById('score');
+		if(score.value == "" ){
+			document.getElementById('scoreck').textContent= '내용을 입력해주세요';
+			score.focus();
+			return;
+		}
+		document.getElementById('scoreForm').submit();
+	}
+	
 </script>
 </head>
 
@@ -164,9 +184,12 @@
 
 	<%@ include file="/include/header.jsp"%><br>
 	
-	<div id = "period">
+	<div id = "auditSet">
 		Audit period : 
-		<a href="#" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">${map.auditPeriod} YEARS</a>
+		<a href="#" data-target="#aPeriodModal" data-toggle="modal">${map.auditPeriod} YEARS</a>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		Audit Cut-off Score : 
+		<a href="#" data-target="#scoreModal" data-toggle="modal">${map.score} POINTSdfsdf</a>
 	</div>
 	<div id = "product">
 		<div id ="cate">
@@ -238,33 +261,66 @@
 </body>
 
 
-
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
-  <div class="modal-dialog">
-    <div class="modal-content">
-   		<form action="Setting/SetPeriod" method="POST">
-		      <div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
-					<span class="sr-only">Close</span>
-				</button>
-				<h4 class="modal-title" id="myModalLabel">AUDIT PERIOD</h4>
-		      </div>
-		      <div class="modal-body">
-					<input type="text" name = "aPeriod" onKeyUp="onlyNum();" onKeyPress="onlyNum();" onKeyDown="onlyNum();" />
-		      </div>
-		      <div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				<button type="submit" class="btn btn-primary">Save changes</button>
-		      </div>
-   		</form>
-    </div>
-  </div>
+<div class="modal fade" id="aPeriodModal">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<!-- header -->
+			<div class="modal-header">
+				<!-- 닫기(x) 버튼 -->
+				<button type="button" class="close" data-dismiss="modal">×</button>
+				<!-- header title -->
+				<h4 class="modal-title">AUDIT PERIOD</h4>
+			</div>
+			<!-- body -->
+			<div class="modal-body">
+				<div>
+					<form id="periodForm" action="Setting/SetPeriod" method="POST">
+						<input type="text" id="aPeriod" name = "aPeriod" placeholder="${map.auditPeriod}"
+						onKeyUp="onlyNum();" onKeyPress="onlyNum();" onKeyDown="onlyNum();" />
+						YEARS
+					</form>
+				</div>
+				<span id="aPeriodCk" style="font-size:9pt;color:red;"></span>
+			</div>
+			<!-- Footer -->
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">CLOSE</button>
+				<button type="button" class="btn btn-default" onclick="aPeriodUpdate()">UPDATE</button>
+			</div>
+		</div>
+	</div>
 </div>
 
 
-
-
-
+<div class="modal fade" id="scoreModal">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<!-- header -->
+			<div class="modal-header">
+				<!-- 닫기(x) 버튼 -->
+				<button type="button" class="close" data-dismiss="modal">×</button>
+				<!-- header title -->
+				<h4 class="modal-title">AUDIT CUT-OFF SCORE</h4>
+			</div>
+			<!-- body -->
+			<div class="modal-body">
+				<div>
+					<form id="scoreForm" action="Setting/SetCutoffScore" method="POST">
+						<input type="text" id ="score"  name = "score" placeholder="${map.score}"
+						onKeyUp="onlyNum();" onKeyPress="onlyNum();" onKeyDown="onlyNum();" />
+						POINTS
+					</form>
+				</div>
+				<span id="scoreck" style="font-size:9pt;color:red;"></span>
+			</div>
+			<!-- Footer -->
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">CLOSE</button>
+				<button type="button" class="btn btn-default" onclick="scoreUpdate()">UPDATE</button>
+			</div>
+		</div>
+	</div>
+</div>
 
 
 </html>

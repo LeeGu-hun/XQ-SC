@@ -98,6 +98,17 @@
 		WHERE AUDIT_KIND_ID = 'RE'
 	</update>
 	
+	<select id="auditCutoffScore" resultType="int">
+		SELECT AUDIT_SCORE FROM AUDIT_CRITERION WHERE AUDIT_CRITERION_KIND = 'AUDIT_CUTOFF_SCORE'
+	</select>
+	
+	<update id="cutoffScoreUpdate" parameterType="int">
+		UPDATE AUDIT_CRITERION SET AUDIT_SCORE = #{score}
+		WHERE AUDIT_CRITERION_KIND = 'AUDIT_CUTOFF_SCORE'
+	</update>
+	
+	
+	
 	
 	
 	

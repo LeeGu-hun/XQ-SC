@@ -151,12 +151,14 @@ public class AdminController {
 		int cateCount = adminService.cateCount();
 		int prodCount = adminService.prodCount();
 		int auditPeriod = adminService.auditPeriod();
+		int score = adminService.auditCutoffScore();
 				
 		Map<String, Object> map = new HashMap<String, Object>();
 	    
 	    map.put("prodCount", prodCount);
 	    map.put("cateCount", cateCount);
 	    map.put("auditPeriod", auditPeriod);
+	    map.put("score", score);
 	    model.addAttribute("cateList", cateList);
 	    model.addAttribute("prodList", prodList);
 	    model.addAttribute("map", map);
@@ -183,11 +185,21 @@ public class AdminController {
 		return "redirect:/Setting";
 	}
 	
+
 	@RequestMapping(value="Setting/SetPeriod", method=RequestMethod.POST)
 	public String periodPost(
 			@RequestParam(value="aPeriod", defaultValue="") int aPeriod) {
 		
 			adminService.periodUpdate(aPeriod);
+		
+		return "redirect:/Setting";
+	}
+	
+	@RequestMapping(value="Setting/SetCutoffScore", method=RequestMethod.POST)
+	public String SetCutoffScore(
+			@RequestParam(value="score", defaultValue="") int score) {
+		
+		adminService.cutoffScoreUpdate(score);
 		
 		return "redirect:/Setting";
 	}

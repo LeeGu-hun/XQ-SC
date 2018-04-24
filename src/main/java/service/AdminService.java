@@ -113,6 +113,15 @@ public class AdminService {
 	}	
 	
 	
+	public int auditCutoffScore() {
+		return sqlSession.selectOne("adminSQL.auditCutoffScore");
+	}
+
+	public void cutoffScoreUpdate(int score) {
+		sqlSession.update("adminSQL.cutoffScoreUpdate", score);
+	}	
+	
+	
 	
 	
 	public int cateCount() {
