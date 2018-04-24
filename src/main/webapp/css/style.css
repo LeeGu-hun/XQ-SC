@@ -26,7 +26,6 @@ html {
 
 body {
 	font-family: Helvetica, 'Trebuchet MS', Tahoma, sans-serif;
-	font-size: 62.5%;
 	line-height: 1;
 	color: #414141;
 	background: #fafafa;
@@ -84,6 +83,7 @@ img {
 	height: auto;
 	width: 100%;
 }
+
 
 /** page structure **/
 header {

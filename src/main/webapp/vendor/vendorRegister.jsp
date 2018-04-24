@@ -12,7 +12,7 @@
 <%@ page import="bean.*"%>
 
 <head>
-
+//
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />
 <link href="<c:url value="/css/bootstrap.css" />" rel="stylesheet">
 <script

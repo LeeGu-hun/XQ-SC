@@ -41,7 +41,7 @@ public class VendorController {
 	public void setVendorService(VendorService vendorService) {
 		this.vendorService = vendorService;
 	}
-
+//
 	DecimalFormat idForm = new DecimalFormat("00000");
 
 	@RequestMapping(value = "/vendor/newVendor", method = RequestMethod.GET)

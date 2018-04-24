@@ -18,7 +18,7 @@
 <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
 
 <script language="javascript">
-
+//
 function searchVendorId() {
 	var vendor_name = document.getElementById("vendor_name").value;
 

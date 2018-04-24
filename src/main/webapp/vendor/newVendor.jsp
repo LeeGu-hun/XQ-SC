@@ -15,6 +15,7 @@
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
 <script language="javascript">
 
@@ -28,12 +29,10 @@
 			data : "selCate=" + selCate,
 			success : result
 		});
-
 	}
 
 	function result(msg){
 		$("#spProd").html(msg);
-	
 	}
 	
 /*	$("#")$(function() {
@@ -76,14 +75,14 @@
 
 	}
 */
+
 function addvendor() {
 	vendorform.submit();
 }
 
-
 </script>
 
-
+//
 </head>
 <body><div class="modal-header">
 	<h2>신규등록</h2>
