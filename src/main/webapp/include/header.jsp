@@ -59,7 +59,7 @@ $(function(){
 	<nav>
 		<div class="wrapper">
 
-			<ul id="menu" class="clearfix">
+			<ul id="menu" class="clearfix" style="font-size: 62.5%;">
 				<li><a href="index.html">Home</a></li>
 
 				<li><a href="#">Vendor 등록관리</a>

@@ -52,13 +52,13 @@ function rowselect(vendor_name, vendor_id) {
 <%@ include file="/include/header.jsp"%>
 <br>
 
-	<div class="container" style="font-family: Tahoma; font-size: 10pt;">
+	<div class="container" style="font-family: Tahoma;">
 		<legend style="font-family: Tahoma; font-size: 20pt;">Vendor
 			Status</legend><br>
 		<form action="./vendorStatus" method="post" name="statusform"
 			id="statusform" >
 
-			<table class="table" style="font-family: Tahoma; font-size: 10pt;">
+			<table class="table"">
 				<tr>
 					<td>회사명:</td>
 					<td><input type="text" id="vendor_id" name="vendor_id"

@@ -59,7 +59,7 @@
 
 <%@ include file="/include/header.jsp"%>
 <br>
-	<div class="container" style="font-family: Tahoma; font-size: 10pt;">
+	<div class="container" style="font-family: Tahoma;">
 		<legend style="font-family: Tahoma; font-size: 20pt;">Vendor Register</legend><br>
 		<p>
 			<font style="font-family: Tahoma; font-size: 10pt;">신규등록 요청 : ${cnts} 건</font>
