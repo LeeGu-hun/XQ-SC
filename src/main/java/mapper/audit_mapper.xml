@@ -8,7 +8,7 @@
 
 	<!-- audit not plan list -->
 	<select id="auditAllList" resultType="bean.AuditBean">
-		SELECT ROWNUM RNUM,
+SELECT ROWNUM RNUM,
 		V.VENDOR_NAME, V.VENDOR_ADDRESS,
 		V.VENDOR_ID,
 		V.VENDOR_Q_NAME,V.VENDOR_Q_TEL,
@@ -16,9 +16,10 @@
 		V.AUDIT_NEXT_DATE,A.AUDIT_PLAN_DATE,
 		A.AUDIT_ID
 		FROM VENDOR_INFO V ,
-		(SELECT * FROM AUDIT_INFO WHERE AUDIT_PLAN_DATE IS NULL OR AUDITOR_ID
-		IS NULL) A WHERE V.VENDOR_ID =
-		A.VENDOR_ID
+		(SELECT * FROM AUDIT_INFO WHERE 
+        AUDIT_PLAN_DATE IS NULL 
+        OR AUDITOR_ID IS NULL) A 
+        WHERE V.VENDOR_ID = A.VENDOR_ID 
 	</select>
 
 	<!-- audit not plan count -->
@@ -180,6 +181,11 @@
 		audit_info a, member_info m where m.member_id=a.auditor_id and
 		m.member_name like '%'||#{auditor_name}||'%'
 
+	</select>
+
+	<select id="getDate" parameterType="String">
+		select AUDIT_PLAN_DATE,AUDIT_RSINPUT_DATE,AUDIT_COMP_DATE from audit_info
+		where audit_id = #{id}
 	</select>
 
 

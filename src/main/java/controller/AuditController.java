@@ -235,6 +235,9 @@ public class AuditController {
 
 		List<CheckListBean> checkResult = auditService.getEachCheckScore(id);
 		model.addAttribute("checkResult", checkResult);
+		List<AuditBean> date = auditService.getDate(id);
+		System.out.println(id);
+		model.addAttribute("date",date);
 
 		return "audit/auditVendorResult";
 	}
