@@ -12,11 +12,14 @@
 <%@ page import="bean.*"%>
 
 <head>
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style.css?ver=1.1">
-        <!-- Font Awesome -->
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
+<link rel="stylesheet"
+	href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css"
+	type="text/css" />
+<link href="<c:url value="/css/bootstrap.css" />" rel="stylesheet">
+<script
+	src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
 </head>
 <style>
 .modal-dialog {
