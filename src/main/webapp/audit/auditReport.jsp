@@ -71,6 +71,7 @@ th, td {
 
 </head>
 <body>
+<%@ include file="/include/header.jsp"%><br>
 	<div>
 	
 		<form action="./AuditReport" method="POST">

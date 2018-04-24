@@ -21,7 +21,7 @@
 <script>
 	var total = document.querySelectorAll('#total');
 	var vendorId = document.querySelectorAll('#vendorId');
-	
+
 	function updateScore() {
 		auditForm.submit();
 	}
@@ -68,25 +68,26 @@
 				<label>${manager}님 환영합니다</label>
 
 				<tr>
-					<td nowrap>Audit ID :</td>
-					<td><input type="text" value="${auditid}" name="AUDIT_ID"></td>
-					<td><input type="text" value="${auditType}"
+					<td nowrap>Audit ID : ${auditid}</td>
+					<td><input type="hidden" value="${auditid}" name="AUDIT_ID"></td>
+					<td nowrap>Audit Type : ${auditType}</td>
+					<td><input type="hidden" value="${auditType}"
 						name="AUDIT_KIND_ID"></td>
 
 				</tr>
 				<tr>
-					<td nowrap>Vendor ID :</td>
-					<td><input type="text" value="${vendorid}" name = "VENDOR_ID"></td>
-					<td nowrap>Vendor Name :</td>
-					<td><input type="text" value="${vendorname}"></td>
+					<td nowrap>Vendor ID : ${vendorid}</td>
+					<td><input type="hidden" value="${vendorid}" name="VENDOR_ID"></td>
+					<td nowrap>Vendor Name : ${vendorname}</td>
+					<td><input type="hidden" value="${vendorname}"></td>
 					<td nowrap>Audit Date :</td>
-					<td><input type="date" name = "AUDIT_COMP_DATE"></td>
+					<td><input type="date" name="AUDIT_COMP_DATE"></td>
 				</tr>
 				<tr>
-					<td nowrap>Category :</td>
-					<td><input type="text" value="${category}" readonly></td>
-					<td nowrap>Product :</td>
-					<td><input type="text" value="${product}"></td>
+					<td nowrap>Category : ${category}</td>
+					<td><input type="hidden" value="${category}" readonly></td>
+					<td nowrap>Product : ${product}</td>
+					<td><input type="hidden" value="${product}"></td>
 					<td nowrap>Insert Date :</td>
 					<td><input type="date" name="AUDIT_RSINPUT_DATE"></td>
 				</tr>
@@ -101,52 +102,50 @@
 						<th nowrap>Score</th>
 					</tr>
 					</td>
-					<c:if test="${auditType == 'NE'}"> 
-					<c:forEach var="c" items="${checkListNE}">
-						<tr>
-							<td>
-								<div>${c.RNUM}
-								<input type="hidden" value="${c.CHECKLIST_ID}" name = "cId"></div>
-							</td>
-							
-							<td>
-								<div>${c.CHECKLIST_DISCRIPTION}
-									<input type="hidden" value="${c.CHECKLIST_DISCRIPTION}"
-										name="" />
-								</div>
-							</td>
-							<td>
-								<input type="text" class="score" maxlength="2"
-								name="score" id="score" onKeyUp="onlyNum();"
-								onKeyPress="onlyNum();" onKeyDown="onlyNum();">
-							</td>
-							<td><div>${c.CHECKLIST_FULLSCORE}</div></td>
-						</tr>
+					<c:if test="${auditType == 'NE'}">
+						<c:forEach var="c" items="${checkListNE}">
+							<tr>
+								<td>
+									<div>${c.RNUM}
+										<input type="hidden" value="${c.CHECKLIST_ID}" name="cId">
+									</div>
+								</td>
+
+								<td>
+									<div>${c.CHECKLIST_DISCRIPTION}
+										<input type="hidden" value="${c.CHECKLIST_DISCRIPTION}"
+											name="" />
+									</div>
+								</td>
+								<td><input type="text" class="score" maxlength="2"
+									name="score" id="score" onKeyUp="onlyNum();"
+									onKeyPress="onlyNum();" onKeyDown="onlyNum();"></td>
+								<td><div>${c.CHECKLIST_FULLSCORE}</div></td>
+							</tr>
 						</c:forEach>
-				</c:if>
-				<c:if test="${auditType == 'RE'}"> 
-					<c:forEach var="c" items="${checkListRE}">
-						<tr>
-							<td>
-								<div>${c.RNUM}
-								<input type="hidden" value="${c.CHECKLIST_ID}" name = "cId"></div>
-							</td>
-							
-							<td>
-								<div>${c.CHECKLIST_DISCRIPTION}
-									<input type="hidden" value="${c.CHECKLIST_DISCRIPTION}"
-										name="" />
-								</div>
-							</td>
-							<td>
-								<input type="text" class="score" maxlength="2"
-								name="score" id="score" onKeyUp="onlyNum();"
-								onKeyPress="onlyNum();" onKeyDown="onlyNum();">
-							</td>
-							<td><div>${c.CHECKLIST_FULLSCORE}</div></td>
-						</tr>
+					</c:if>
+					<c:if test="${auditType == 'RE'}">
+						<c:forEach var="c" items="${checkListRE}">
+							<tr>
+								<td>
+									<div>${c.RNUM}
+										<input type="hidden" value="${c.CHECKLIST_ID}" name="cId">
+									</div>
+								</td>
+
+								<td>
+									<div>${c.CHECKLIST_DISCRIPTION}
+										<input type="hidden" value="${c.CHECKLIST_DISCRIPTION}"
+											name="" />
+									</div>
+								</td>
+								<td><input type="text" class="score" maxlength="2"
+									name="score" id="score" onKeyUp="onlyNum();"
+									onKeyPress="onlyNum();" onKeyDown="onlyNum();"></td>
+								<td><div>${c.CHECKLIST_FULLSCORE}</div></td>
+							</tr>
 						</c:forEach>
-				</c:if>
+					</c:if>
 					<td nowrap>총 합계: <input type="text" name="total" id="total"
 						name="AUDIT_SCORE">
 					</td>
@@ -154,8 +153,8 @@
 			</span>
 		</div>
 		<div class="modal-footer">
-			<input type="submit" value="서브밋" />
-			<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+			<input type="submit" value="Submit" />
+			<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 		</div>
 	</form>
 

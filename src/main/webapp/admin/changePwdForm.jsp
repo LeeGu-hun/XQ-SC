@@ -9,7 +9,9 @@
 <title><spring:message code="change.pwd.title" /></title>
       <link rel="stylesheet" href="css/table.css">
 </head>
-<body>${sessionScope.authInfo.name }님
+<body>
+	<%@ include file="/include/header.jsp"%><br>
+	${sessionScope.authInfo.name }님
 	<form:form commandName="changePwdCommand" action="ChangedPwd">
 		<p>
 			<label><spring:message code="currentPassword" /><br> 

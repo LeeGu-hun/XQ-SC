@@ -161,13 +161,8 @@
 </head>
 
 <body>
-    <blockquote> <br>
-		<a href="<c:url value='/main'/>"> [ dddddd ]</a>
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<a href="./admin/setting.jsp">다른 회원의 게시판보기</a>
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<a href="../logout">로그아웃</a>
-	</blockquote>
+
+	<%@ include file="/include/header.jsp"%><br>
 	
 	<div id = "period">
 		Audit period : 

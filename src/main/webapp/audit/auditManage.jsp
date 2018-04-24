@@ -128,6 +128,7 @@ th, td {
 
 </head>
 <body>
+	
 	<p>
 		Total : <a href='./AuditManage'><span>${allCount}</span></a>
 	</p>

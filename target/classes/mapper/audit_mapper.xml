@@ -16,9 +16,11 @@
 		V.AUDIT_NEXT_DATE,A.AUDIT_PLAN_DATE,
 		A.AUDIT_ID
 		FROM VENDOR_INFO V ,
-		(SELECT * FROM AUDIT_INFO WHERE AUDIT_PLAN_DATE IS NULL OR AUDITOR_ID
-		IS NULL) A WHERE V.VENDOR_ID =
-		A.VENDOR_ID
+		(SELECT * FROM AUDIT_INFO WHERE
+		AUDIT_PLAN_DATE IS NULL
+		OR AUDITOR_ID IS
+		NULL) A
+		WHERE V.VENDOR_ID = A.VENDOR_ID
 	</select>
 
 	<!-- audit not plan count -->
@@ -175,65 +177,42 @@
 	<!-- Auditor Select -->
 
 
-	<select id="getAuditorList" parameterType="String" resultType="bean.BeanMember">
-		select distinct a.auditor_id,m.member_name as auditor_name from
+	<select id="getAuditorList" parameterType="String" resultType="bean.AuditBean">
+		select distinct a.auditor_id,m.member_name from
 		audit_info a, member_info m where m.member_id=a.auditor_id and
 		m.member_name like '%'||#{auditor_name}||'%'
 
 	</select>
 
 
-	<select id="getCheakResult" parameterType="String" resultType="bean.CheckListBean">
-		SELECT
-		ROWNUM RNUM,
-		C.CHECKLIST_DISCRIPTION,
-		RE.AUDIT_SCORE FROM
-		AUDIT_RESULT RE,
-		CHECKLIST C
-		WHERE AUDIT_ID = #{id}
-		AND
-		RE.CHECKLIST_ID =
-		C.CHECKLIST_ID
-	</select>
 
 	<!-- **************audit Report page***************** -->
 	<!-- audit report list -->
 	<select id="resultSearch" resultType="bean.AuditResultSearch">
 		SELECT
-
-		AU.AUDIT_ID,
-		P.PRODUCT_ID,
-		V.VENDOR_NAME,
-		V.VENDOR_ID,
-		AU.AUDIT_PLAN_DATE,
-		AU.AUDIT_RSINPUT_DATE,
+		AU.AUDIT_ID, P.PRODUCT_ID,
+		V.VENDOR_NAME, V.VENDOR_ID,
+		AU.AUDIT_PLAN_DATE, AU.AUDIT_RSINPUT_DATE,
 		AU.AUDIT_RESULT,
 		AU.AUDIT_NEXT_DATE,
-		AU.AUDIT_COMP_DATE,
-		ROWNUM RNUM,
+		AU.AUDIT_COMP_DATE, ROWNUM RNUM,
 		AU.AUDIT_KIND_ID,
 		M.MEMBER_NAME,
-		M.MEMBER_ID,
-		M.MEMBER_TEL,
+		M.MEMBER_ID, M.MEMBER_TEL,
 		V.VENDOR_Q_NAME,
 		V.VENDOR_Q_TEL,
-		V.VENDOR_S_NAME,
-		V.VENDOR_S_TEL,
+		V.VENDOR_S_NAME, V.VENDOR_S_TEL,
 		V.VENDOR_ADDRESS,
 		AU.AUDIT_SCORE
 		FROM
-		VENDOR_INFO V,
-		PRODUCT_ITEM P,
+		VENDOR_INFO V, PRODUCT_ITEM P,
 		AUDIT_INFO AU,
 		MEMBER_INFO M
 		WHERE
-		M.MEMBER_ID =
-		AU.AUDITOR_ID
+		M.MEMBER_ID = AU.AUDITOR_ID
 		AND V.VENDOR_ID =
 		AU.VENDOR_ID
-		AND
-		P.PRODUCT_ID =
-		V.PRODUCT_ID
+		AND P.PRODUCT_ID = V.PRODUCT_ID
 		<include refid="searchDate"></include>
 	</select>
 
@@ -247,43 +226,32 @@
 		</choose>
 	</sql>
 
+	<!-- audit report list : plan Date search -->
 	<select id="getByPlanDate" parameterType="bean.DateCommand"
 		resultType="bean.AuditResultSearch">
 		SELECT
-		AU.AUDIT_ID,
-		P.PRODUCT_ID,
-		P.PRODUCT_NAME,
-		V.VENDOR_NAME,
-		V.VENDOR_ID,
-		AU.AUDIT_PLAN_DATE,
+		AU.AUDIT_ID, P.PRODUCT_ID,
+		P.PRODUCT_NAME, V.VENDOR_NAME,
+		V.VENDOR_ID, AU.AUDIT_PLAN_DATE,
 		AU.AUDIT_RSINPUT_DATE,
 		AU.AUDIT_RESULT,
-		AU.AUDIT_NEXT_DATE,
-		AU.AUDIT_COMP_DATE,
+		AU.AUDIT_NEXT_DATE, AU.AUDIT_COMP_DATE,
 		ROWNUM RNUM,
 		AU.AUDIT_KIND_ID,
-		M.MEMBER_NAME,
-		M.MEMBER_ID,
+		M.MEMBER_NAME, M.MEMBER_ID,
 		M.MEMBER_TEL,
 		V.VENDOR_Q_NAME,
-		V.VENDOR_Q_TEL,
-		V.VENDOR_S_NAME,
+		V.VENDOR_Q_TEL, V.VENDOR_S_NAME,
 		V.VENDOR_S_TEL,
-		V.VENDOR_ADDRESS,
-		AU.AUDIT_SCORE
+		V.VENDOR_ADDRESS, AU.AUDIT_SCORE
 		FROM
-		VENDOR_INFO V,
-		PRODUCT_ITEM P,
-		AUDIT_INFO AU,
-		MEMBER_INFO M
+		VENDOR_INFO V, PRODUCT_ITEM P,
+		AUDIT_INFO AU, MEMBER_INFO M
 		WHERE
-		M.MEMBER_ID =
-		AU.AUDITOR_ID
-		AND V.VENDOR_ID =
-		AU.VENDOR_ID
+		M.MEMBER_ID = AU.AUDITOR_ID
 		AND
-		P.PRODUCT_ID =
-		V.PRODUCT_ID
+		V.VENDOR_ID = AU.VENDOR_ID
+		AND P.PRODUCT_ID = V.PRODUCT_ID
 		<include refid="planDate"></include>
 		order by AUDIT_PLAN_DATE
 	</select>
@@ -303,42 +271,31 @@
 		</choose>
 	</sql>
 
+	<!-- audit report list : score Date search -->
 	<select id="getByScoreDate" parameterType="bean.DateCommand"
 		resultType="bean.AuditResultSearch">
 		SELECT
-		AU.AUDIT_ID,
-		P.PRODUCT_ID,
-		V.VENDOR_NAME,
-		V.VENDOR_ID,
-		AU.AUDIT_PLAN_DATE,
-		AU.AUDIT_RSINPUT_DATE,
+		AU.AUDIT_ID, P.PRODUCT_ID,
+		V.VENDOR_NAME, V.VENDOR_ID,
+		AU.AUDIT_PLAN_DATE, AU.AUDIT_RSINPUT_DATE,
 		AU.AUDIT_RESULT,
 		AU.AUDIT_NEXT_DATE,
-		AU.AUDIT_COMP_DATE,
-		ROWNUM RNUM,
+		AU.AUDIT_COMP_DATE, ROWNUM RNUM,
 		AU.AUDIT_KIND_ID,
 		M.MEMBER_NAME,
-		M.MEMBER_ID,
-		M.MEMBER_TEL,
-		V.VENDOR_Q_NAME,
-		V.VENDOR_Q_TEL,
-		V.VENDOR_S_NAME,
-		V.VENDOR_S_TEL,
-		V.VENDOR_ADDRESS,
+		M.MEMBER_ID, M.MEMBER_TEL, V.VENDOR_Q_NAME,
+		V.VENDOR_Q_TEL, V.VENDOR_S_NAME,
+		V.VENDOR_S_TEL, V.VENDOR_ADDRESS,
 		AU.AUDIT_SCORE
 		FROM
-		VENDOR_INFO V,
-		PRODUCT_ITEM P,
+		VENDOR_INFO V, PRODUCT_ITEM P,
 		AUDIT_INFO AU,
 		MEMBER_INFO M
 		WHERE
-		M.MEMBER_ID =
-		AU.AUDITOR_ID
+		M.MEMBER_ID = AU.AUDITOR_ID
 		AND V.VENDOR_ID =
 		AU.VENDOR_ID
-		AND
-		P.PRODUCT_ID =
-		V.PRODUCT_ID
+		AND P.PRODUCT_ID = V.PRODUCT_ID
 		<include refid="scoreDate"></include>
 		order by AUDIT_PLAN_DATE
 	</select>
@@ -357,5 +314,27 @@
 			</otherwise>
 		</choose>
 	</sql>
+
+	<!-- Report page get Date -->
+	<select id="getDate" parameterType="String" resultType="bean.AuditBean">
+		SELECT
+		AUDIT_PLAN_DATE,AUDIT_RSINPUT_DATE,AUDIT_COMP_DATE FROM AUDIT_INFO
+		WHERE AUDIT_ID = #{AUDIT_ID}
+	</select>
+
+	<!-- Report page get check list Result -->
+	<select id="getCheakResult" parameterType="String" resultType="bean.CheckListBean">
+		SELECT
+		ROWNUM RNUM,
+		C.CHECKLIST_DISCRIPTION,
+		C.CHECKLIST_FULLSCORE,
+		RE.AUDIT_SCORE FROM
+		AUDIT_RESULT RE,
+		CHECKLIST C
+		WHERE AUDIT_ID = #{id}
+		AND
+		RE.CHECKLIST_ID =
+		C.CHECKLIST_ID
+	</select>
 </mapper>
 

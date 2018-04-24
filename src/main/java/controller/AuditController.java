@@ -46,6 +46,8 @@ public class AuditController {
 	public void setAuditService(AuditService auditService) {
 		this.auditService = auditService;
 	}
+	
+	//*********** audit Manage Page **************
 
 	// plan date, auditor insert page
 	@RequestMapping(value = "/AuditManage", method = RequestMethod.GET)
@@ -79,10 +81,11 @@ public class AuditController {
 	public String searchIssuer(Model model, HttpServletRequest request, HttpSession session,
 			@RequestParam(defaultValue = "") String auditor_name, @RequestParam String index) {
 
-		List<BeanMember> auditorList = null;
+		List<AuditBean> auditorList = null;
 
 		try {
 			auditorList = auditService.getAuditorList(auditor_name);
+			System.out.println(auditorList);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -175,7 +178,6 @@ public class AuditController {
 		if (Integer.parseInt(total) >= 80) {
 			AuditBean bean = new AuditBean();
 			bean.setVENDOR_ID(ac.getVENDOR_ID());
-			System.out.println(">>>" + ac.getVENDOR_ID());
 			auditService.nextPlanUpdate(bean);
 		} else {
 			AuditBean bean = new AuditBean();
@@ -185,7 +187,7 @@ public class AuditController {
 		return "redirect:/AuditReport";
 	}
 
-	// Result Page
+	// Result Page : get
 	@RequestMapping(value = "/AuditResult", method = RequestMethod.GET)
 	public String auditResultGet(Model model, HttpServletRequest request, DateCommand dateCommand) {
 		AuditResultSearch ars = new AuditResultSearch();
@@ -195,6 +197,7 @@ public class AuditController {
 		return "audit/auditResult";
 	}
 
+	//result page :post
 	@RequestMapping(value = "/AuditResult", method = RequestMethod.POST)
 	public String auditResultPost(Model model, DateCommand dateCommand) {
 		if (dateCommand.getPlandate().equals("score")) {
@@ -207,15 +210,16 @@ public class AuditController {
 		return "audit/auditResult";
 	}
 
-	// result : modal
+	// result page : modal
 	@RequestMapping(value = "/audit/auditVendorResult", method = RequestMethod.GET)
-	public String auditResultView(Model model, HttpServletRequest request) {
+	public String auditResultView(Model model, HttpServletRequest request, AuditScoreCommand ac) {
+		
 
 		String vendorname = (String) request.getParameter("vendorname");
 		String id = (String) request.getParameter("id");
 		String vendorid = (String) request.getParameter("vendorid");
 		String prod = (String) request.getParameter("prod");
-		String date1 = (String) request.getParameter("date1");
+		
 		String type = (String) request.getParameter("type");
 		String auditor = (String) request.getParameter("auditor");
 		String auditorId = (String) request.getParameter("auditorId");
@@ -227,20 +231,22 @@ public class AuditController {
 		request.setAttribute("type", type);
 		request.setAttribute("vendorid", vendorid);
 		request.setAttribute("prod", prod);
-		request.setAttribute("date1", date1);
+	
 		request.setAttribute("auditor", auditor);
 		request.setAttribute("auditorId", auditorId);
 		request.setAttribute("result", result);
 		request.setAttribute("score", score);
 
+		List<AuditBean> date = auditService.getDate(id);
 		List<CheckListBean> checkResult = auditService.getEachCheckScore(id);
+		model.addAttribute("date",date);
 		model.addAttribute("checkResult", checkResult);
-
+		
 		return "audit/auditVendorResult";
 	}
 
 	@RequestMapping(value = "audit/auditVendorResult", method = RequestMethod.POST)
-	public String auditResultViewPost(Model model, HttpServletRequest request, AuditCommand ac) {
+	public String auditResultViewPost() {
 		return "audit/auditVendorResult";
 	}
 
