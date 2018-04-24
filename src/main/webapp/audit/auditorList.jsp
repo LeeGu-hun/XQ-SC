@@ -14,11 +14,11 @@
 		</thead>
 		<tbody >
 					<c:forEach var="a" items="${auditorList}">
-						<tr onclick="rowselect1('${a.auditor_name}'
-							,'${a.auditor_id}','${index}')">									
+						<tr onclick="rowselect1('${a.MEMBER_NAME}'
+							,'${a.AUDITOR_ID}','${index}')">									
 							
-							<td>${a.auditor_name}</td>
-							<td>${a.auditor_id}</td>
+							<td>${a.MEMBER_NAME}</td>
+							<td>${a.AUDITOR_ID}</td>
 						</tr>
 					</c:forEach>
 			

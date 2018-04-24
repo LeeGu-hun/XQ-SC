@@ -37,6 +37,7 @@ public class AuditBean {
 	public AuditBean() {
 	}
 
+
 	public AuditBean(String date, String vendor, Date from, Date to) {
 		super();
 		this.date = date;

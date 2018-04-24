@@ -71,7 +71,7 @@ th, td {
 
 </head>
 <body>
-
+<%@ include file="/include/header.jsp"%><br>
 	<form action="./AuditResult" method="POST">
 		<p>
 			<input type="radio" id="plandate" name="plandate" value="plan"

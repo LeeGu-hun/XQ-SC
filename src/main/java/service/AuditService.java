@@ -26,40 +26,26 @@ import bean.DateCommand;
 
 @Service
 public class AuditService {
-
 	@Autowired
 	private SqlSession sqlSession;
-
 	DecimalFormat idForm = new DecimalFormat("00000");
 
-	// ***audit count***//
+	// *********************audit Manage Page***********//
 
-	// all count
+	// audit all count
 	public int allCount() {
 		return sqlSession.selectOne("auditSQL.allCount");
 	}
 
-	// *********************audit list***********//
-
-	// total list
+	// audit list
 	public List<AuditBean> auditList() {
 		List<AuditBean> listBean = sqlSession.selectList("auditSQL.auditAllList");
 		return listBean;
 	}
 
-	// cate list
-	public List<BeanCategory> cateList() {
-		return sqlSession.selectList("auditSQL.cateList");
-	}
+	// *********** audit report page ***********//
 
-	// prod list***********
-	public List<BeanProduct> prodList(String CATEGORY_ID) {
-		List<BeanProduct> list = sqlSession.selectList("auditSQL.prodList", CATEGORY_ID);
-		return list;
-
-	}
-
-	// audit status
+	// report page : audit status
 	public List<AuditBean> auditListReport(DateCommand dc) {
 		List<AuditBean> listResult = sqlSession.selectList("auditSQL.auditListReport", dc);
 		return listResult;
@@ -77,50 +63,58 @@ public class AuditService {
 		return list;
 	}
 
-	// audit Id Get
-	public int auditId() {
-		return sqlSession.selectOne("auditSQL.auditId");
-	}
-
-	// audit plan insert + id insert
+	// manage page : audit plan insert + id insert
 	public void idInsert(AuditBean ab) {
 		sqlSession.update("auditSQL.newAuditPlan", ab);
 	}
 
-	// next Plan Update (period = 2 years)
+	// report page : next Plan Update (period = 2 years)
 	public void nextPlanUpdate(AuditBean bean) {
 		sqlSession.update("auditSQL.nextDate", bean);
 	}
-	
+
+	// report page : if audit fail vendor sql
 	public void auditFalse(AuditBean bean) {
 		sqlSession.update("auditSQL.nextDateFalse", bean);
 	}
 
-	// audit score update
+	// report : audit score update
 	public void updateScore(AuditBean ab) {
 		sqlSession.update("auditSQL.updateScore", ab);
 	}
 
 	// auditor list
-	public List<BeanMember> getAuditorList(String auditor_name) {
-		List<BeanMember> auditorList = sqlSession.selectList("auditSQL.getAuditorList", auditor_name);
+	public List<AuditBean> getAuditorList(String auditor_name) {
+		List<AuditBean> auditorList = sqlSession.selectList("auditSQL.getAuditorList", auditor_name);
 		return auditorList;
 	}
 
-	public List<CheckListBean> getEachCheckScore(String id) {
-		List<CheckListBean> checkResult = sqlSession.selectList("auditSQL.getCheakResult", id);
-		return checkResult;
-	}
-
+	// report page get * audit result* Id
 	public int resultId() {
 		return sqlSession.selectOne("auditSQL.resultCount");
 	}
 
+	// report page : check list *result* insert
 	public void getCheckResult(AuditSubmitBean audit) {
 		String id = "R" + idForm.format(resultId() + 1);
 		audit.setAUDIT_RESULT_ID(id);
 		sqlSession.selectList("auditSQL.checkResult", audit);
 	}
+
+	// ************* result page ************//
+
+	// result each score
+	public List<CheckListBean> getEachCheckScore(String id) {
+		List<CheckListBean> checkResult = sqlSession.selectList("auditSQL.getCheakResult", id);
+		return checkResult;
+	}
+
+	// result page get Date
+	public List<AuditBean> getDate(String id) {
+		List<AuditBean> date = sqlSession.selectList("auditSQL.getDate", id);
+		return date;
+	}
+
 
 	public List<AuditResultSearch> getSearch(AuditResultSearch search) {
 		return sqlSession.selectList("auditSQL.resultSearch", search);
@@ -138,7 +132,6 @@ public class AuditService {
 	}
 
 	public List<AuditResultSearch> getByScoreDate(DateCommand dateCommand) {
-
 		List<AuditResultSearch> results = sqlSession.selectList("auditSQL.getByScoreDate", dateCommand);
 		return results;
 	}
