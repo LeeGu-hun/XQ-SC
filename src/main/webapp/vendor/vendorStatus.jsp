@@ -11,9 +11,7 @@
 <%@ page import="java.text.SimpleDateFormat"%>
 <%@ page import="bean.*"%>
 
-<link rel="stylesheet"
-	href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css"
-	type="text/css" />
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />
 <link href="<c:url value="/css/bootstrap.css" />" rel="stylesheet">
 <script
 	src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
@@ -26,7 +24,7 @@ function searchVendorId() {
 
 	$.ajax({
 		type : "POST",
-		url : "./vendorSearch",
+		url : "./vendor/vendorSearch",
 		data : "vendor_name=" + vendor_name,
 		success : result,
 	});
@@ -51,20 +49,20 @@ function rowselect(vendor_name, vendor_id) {
 </script>
 <body>
 
-<%@ include file="/include/header.jsp"%><br>
-	<div class="container">
+<%@ include file="/include/header.jsp"%>
+<br>
+
+	<div class="container" style="font-family: Tahoma; font-size: 10pt;">
 		<legend style="font-family: Tahoma; font-size: 20pt;">Vendor
-			Status</legend>
+			Status</legend><br>
 		<form action="./vendorStatus" method="post" name="statusform"
 			id="statusform" >
 
-			<table>
+			<table class="table" style="font-family: Tahoma; font-size: 10pt;">
 				<tr>
 					<td>회사명:</td>
-					<td><input type="text" id="vendor_id" name="vendor_id">
-						<image
-							src="${pageContext.request.contextPath}/images/icon_search.gif"
-							data-target="#vendorSearchModal" data-toggle="modal"></image></td>
+					<td><input type="text" id="vendor_id" name="vendor_id"
+							data-target="#vendorSearchModal" data-toggle="modal"></td>
 
 					<td>품명</td>
 					<td><select id="PRODUCT_ID" name="PRODUCT_ID" >

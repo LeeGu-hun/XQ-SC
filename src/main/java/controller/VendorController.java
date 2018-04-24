@@ -137,7 +137,7 @@ public class VendorController {
 		}
 		
 
-	@RequestMapping(value = "/vendor/vendorRegister")
+	@RequestMapping(value = "/vendorRegister")
 	public String registList(HttpServletRequest request, Model model, BeanVendor beanvendor) {
 
 		List<BeanVendor> list = vendorService.registerList();
@@ -166,7 +166,6 @@ public class VendorController {
 		String VENDOR_S_EMAIL = request.getParameter("VENDOR_S_EMAIL");
 		
 		int cnt = vendorService.auditCount();
-		System.out.println(cnt);
 		String AUDIT_ID = "S" + idForm.format(cnt + 1);
 		
 		BeanVendor bv = new BeanVendor();
@@ -180,7 +179,7 @@ public class VendorController {
 		vendorService.vendorMemRegister(bv);
 		vendorService.auditIdRegister(bv);
 		
-		return "redirect:/vendor/vendorRegister";
+		return "redirect:/vendorRegister";
 	}
 
 	@RequestMapping("/vendor/vendorDelete/{VENDOR_ID}")
@@ -212,7 +211,7 @@ public class VendorController {
 	
 	
 	
-	@RequestMapping(value = "/vendor/vendorStatus", method = RequestMethod.GET)
+	@RequestMapping(value = "/vendorStatus", method = RequestMethod.GET)
 	public String vendorStatusGet( Model model, ListCommand listCommand) {
 		List<BeanProduct> prodList = vendorService.productList();
 
@@ -224,7 +223,7 @@ public class VendorController {
 		return "vendor/vendorStatus";
 	}
 
-	@RequestMapping(value = "vendor/vendorStatus", method = RequestMethod.POST)
+	@RequestMapping(value = "/vendorStatus", method = RequestMethod.POST)
 	public String vendorStatusPost(Model model, HttpServletRequest request,ListCommand listCommand
 			,@RequestParam(defaultValue = "All") String PRODUCT_ID,
 			@RequestParam(defaultValue = "All") String VALID) {

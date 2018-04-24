@@ -13,9 +13,7 @@
 
 <head>
 
-<link rel="stylesheet"
-	href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css"
-	type="text/css" />
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />
 <link href="<c:url value="/css/bootstrap.css" />" rel="stylesheet">
 <script
 	src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
@@ -57,14 +55,16 @@
 </script>
 
 <body>
-<%@ include file="/include/header.jsp"%><br>
-	<div class="container">
-		<legend style="font-family: Tahoma; font-size: 20pt;">Vendor
-			Register</legend>
+
+
+<%@ include file="/include/header.jsp"%>
+<br>
+	<div class="container" style="font-family: Tahoma; font-size: 10pt;">
+		<legend style="font-family: Tahoma; font-size: 20pt;">Vendor Register</legend><br>
 		<p>
-			<font size=2>신규등록 요청 : ${cnts} 건</font>
-		</p>
-		<form action="./vendorUpdate" method="POST"
+			<font style="font-family: Tahoma; font-size: 10pt;">신규등록 요청 : ${cnts} 건</font>
+		</p><br>
+		<form action="./vendor/vendorUpdate" method="POST"
 			enctype="multipart/form-data" name="updateform" commandName="cmd">
 			<table class="table">
 				<tr align="center" valign="middle">
@@ -127,6 +127,7 @@
 
 			</table>
 		</form>
+
 	</div>
 </body>
 </html>
