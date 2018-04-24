@@ -46,11 +46,6 @@ public class AuditService {
 		List<AuditBean> listBean = sqlSession.selectList("auditSQL.auditAllList");
 		return listBean;
 	}
-	
-	public List<AuditBean> getDate(String id) {
-		List<AuditBean> date = sqlSession.selectList("auditSQL.getDate",id);
-		return date;
-	}
 
 	// cate list
 	public List<BeanCategory> cateList() {
