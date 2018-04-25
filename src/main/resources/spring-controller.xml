@@ -26,6 +26,8 @@
 	
 	<bean class="controller.NcrController">
 		<property name="ncrService" ref="ncrService" />
+		<property name="auditService" ref="auditService" />
+		<property name="vendorService" ref="vendorService" />
 		
 	</bean>
 	

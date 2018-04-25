@@ -1,15 +1,27 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 <!DOCTYPE html>
 <link rel="stylesheet"
 	href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css"
 	type="text/css" />
 <link href="<c:url value="/css/bootstrap.css" />" rel="stylesheet">
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/css/style.css?ver=1.3">
 <script
 	src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/css/style.css?ver=1.3">
+
+<script type="text/javascript"
+	href="${pageContext.request.contextPath}/jquery-1.11.1.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
 <script>
 	
@@ -142,7 +154,8 @@
 <title>NCR Management</title>
 </head>
 <body>
-<a href="/xqsc/main"> [ main ]</a>
+
+<%@ include file="/include/header.jsp"%><br>
 	<div id=mainBox class="container">
 		<div>
 			[검색조건]
@@ -150,28 +163,25 @@
 				id="formNcrSearch">
 				<table class="table">
 
-					<tr>
-						<td>NCR No.</td>
-						<td><input type="text" id="ncr_id" name="ncr_id" /></td>
-						<td>Title</td>
-						<td><input type="text" id="ncr_title" name="ncr_title"></td>
-						<td>Vendor ID</td>
-						<td><input type="text" id="vendor_id" name="vendor_id">
-							<image
-								src="${pageContext.request.contextPath}/images/icon_search.gif"
-								data-target="#vendorSearchModal" data-toggle="modal"></image></td>
-
+					<tr>						
+						<td >NCR No. :<input type="text" id="ncr_id" name="ncr_id" style="width:50px"/> </td>					
+						<td >Title :<input type="text" id="ncr_title" name="ncr_title"></td>				
+						<td >Vendor ID :<input type="text" id="vendor_id" name="vendor_id" data-target="#vendorSearchModal" data-toggle="modal"/>
 						
-						<td>Issuer</td>
-						<td><input type="text" id="issuer_id" name="issuer_id">
-							<image
-								src="${pageContext.request.contextPath}/images/icon_search.gif"
-								data-target="#issuerSearchModal" data-toggle="modal"></image></td>
-					</tr>
-					<tr>
-						<td colspan="8"><input type="button" value="search"
+													
+						<td >Issuer :<input type="text" id="issuer_id" name="issuer_id" data-target="#issuerSearchModal" data-toggle="modal"/>
+													
+						<td >Complete :						
+						<select id="ncr_comp" name="ncr_comp" style="width: 50px; height:19px;">
+							<option value="All">All</option>
+							<option value="Y">Y</option>
+							<option value="N">N</option>
+						</select>
+						</td>
+						<td ><input type="button" value="search"
 							onclick="searchNcr()" /></td>
 					</tr>
+					
 				</table>
 			</form>
 		</div>

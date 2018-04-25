@@ -174,7 +174,7 @@
 			<artifactId>mybatis-spring</artifactId>
 			<version>1.2.2</version>
 		</dependency>
-
+				
 		<!-- DB Connection -->
 		<dependency>
 			<groupId>org.springframework</groupId>

@@ -15,7 +15,7 @@
 <title></title>
 </head>
 <body>
-<%@ include file="/include/header.jsp"%><br>
+<%@ include file="/include/header.jsp"%><br>s
 <a href="./logout">로그아웃</a>	
 <a href="./ChangedPwd">비번변경</a>
 <li><a href="./AuditManage">평가관리</a></li>

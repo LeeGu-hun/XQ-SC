@@ -2,14 +2,19 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-<link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />
 <link href="<c:url value="/css/bootstrap.css" />" rel="stylesheet">
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>  
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/css/style.css?ver=1.3">
+<script
+	src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
-
-<html lang="ko">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script type="text/javascript"
+	href="${pageContext.request.contextPath}/jquery-1.11.1.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+	
 <script>
 
 function searchAudit(){
@@ -43,20 +48,29 @@ function ncrIssue(){
 }
 
 
-
 </script>
+
+<html lang="ko">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>NCR Register</title>
 </head>
 <body>
-<a href="/xqsc/main"> [ main ]</a>
+
+<%@ include file="/include/header.jsp"%>
 <div id=mainBox class="container">
 	<div>
-		<form  action="./ncrIssue" method="post" name="formNcrIssue" enctype="multipart/form-data">
+		<form  action="./ncrIssue" method="post" name="formNcrIssue" enctype="multipart/form-data" >
 		<table class="table"> 
 			<tr>
 				<td>Audit No.</td>
-				<td><input type="text" id="audit_id" name="audit_id"/>
-					<image src="${pageContext.request.contextPath}/images/icon_search.gif" data-target="#layerpop" data-toggle="modal" ></image></td>
+				<td><input type="text" id="audit_id" name="audit_id" data-target="#layerpop" data-toggle="modal">
+					
+					<form:form commandName="ncrIssueCommand" >	
+					<span style="font-size:9pt;color:red;"><form:errors path="audit_id" /></span>						
+					</form:form>
+				</td>
 				<td>Vendor Name</td>
 				<td><input type="text" id="vendor_name"  name="vendor_name" readonly></td>
 				<td>Audit date</td>
@@ -75,7 +89,10 @@ function ncrIssue(){
 
 				<tr>
 					<td>Subject</td>
-					<td ><input type="text" name="ncr_title"></td>
+					<td ><input type="text" name="ncr_title">
+					<form:form commandName="ncrIssueCommand" >	
+					<span style="font-size:9pt;color:red;"><form:errors path="ncr_title" /></span>						
+					</form:form></td>
 					<td>Issuer</td>
 					<td><input type="text" value="${issuer_name }" ></td>
 					<td>Grade</td>
@@ -85,7 +102,9 @@ function ncrIssue(){
 						</select></td>
 				</tr>
 				<tr>
-					<td>Description</td>
+					<td>Description <form:form commandName="ncrIssueCommand" >	
+					<span style="font-size:9pt;color:red;"><form:errors path="ncr_description" /></span>						
+					</form:form></td>
 					<td colspan = "7">
 					<textarea style="width :100%; height:500px;" id="ncr_description" name="ncr_description"></textarea>
 					</td>
