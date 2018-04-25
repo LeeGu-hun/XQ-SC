@@ -116,7 +116,7 @@
     
 	<%@ include file="/include/header.jsp"%><br>
 <div class="container" >
-	
+	<br><br>
 	<table class="table table-striped table-bordered table-hover"
 	style="border-collapse:collapse; width:100%">
 		<thead style="float:left; width:98.77%;">

@@ -23,30 +23,29 @@
 								checked="checked" />
 						</c:when>
 						<c:otherwise>
-							<form:radiobutton path="MEMBER_VALID" value="Y" label="VALID"
-								checked="checked" />&nbsp;&nbsp;
+							<form:radiobutton path="MEMBER_VALID" value="Y" label="VALID" checked="checked" />&nbsp;&nbsp;
 							<form:radiobutton path="MEMBER_VALID" value="N" label="INVALID" />
 						</c:otherwise>
 					</c:choose>
 				</td>
 				<td>
 					<label><b>NAME</b></label><br>
-					<form:input path="MEMBER_NAME" value="${selMember.MEMBER_NAME}" class="form-control"/>
+					<form:input path="MEMBER_NAME" value="${selMember.MEMBER_NAME}" style=" width:90pt;" class="form-control"/>
 				</td>
 				<td>
 					<label><b>EMAIL</b></label><br>
-					<form:input path="MEMBER_EMAIL" value="${selMember.MEMBER_EMAIL}" class="form-control"/>
+					<form:input path="MEMBER_EMAIL" value="${selMember.MEMBER_EMAIL}" style=" width:180pt;" class="form-control"/>
 				</td>
 				<td>
 					<label><b>PASSWORD</b></label><br>
-					<form:password path="MEMBER_PASS" value="${selMember.MEMBER_PASS}" class="form-control"/>
+					<form:password path="MEMBER_PASS" value="${selMember.MEMBER_PASS}" style=" width:120pt;" class="form-control"/>
 				</td>
 				<td>
 					<label><b>TEL</b></label><br>
-					<form:input path="MEMBER_TEL" value="${selMember.MEMBER_TEL}" class="form-control"/>
+					<form:input path="MEMBER_TEL" value="${selMember.MEMBER_TEL}" style=" width:120pt;" class="form-control"/>
 				</td>
-				<td>
-					<input type="button" class="btn btn-default" value="수정" onclick="mUpdate()"
+				<td align="center" style=" width:125pt;">
+					<input type="button" class="btn btn-default" style=" width:60pt;" value="수정" onclick="mUpdate()"
 					style=" width:70pt;">
 					<a href="javascript:inMemForm()">취소</a>
 					<br>
