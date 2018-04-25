@@ -9,8 +9,11 @@
 <html lang="ko">
 
 <head>
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/css/style.css?ver=1.3">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet"
+	href="https://www.w3schools.com/lib/w3-theme-black.css">
 
 <script type="text/javascript"
 	href="${pageContext.request.contextPath}/jquery-1.11.1.min.js"></script>
@@ -18,83 +21,51 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-<script type="text/javascript">
-$(function(){
-  $('a[href="#"]').on('click', function(e){
-    e.preventDefault();
-  });
-  
-  $('#menu > li').on('mouseover', function(e){
-    $(this).find("ul:first").show();
-    $(this).find('> a').addClass('active');
-  }).on('mouseout', function(e){
-    $(this).find("ul:first").hide();
-    $(this).find('> a').removeClass('active');
-  });
-  
-  $('#menu li li').on('mouseover',function(e){
-    if($(this).has('ul').length) {
-      $(this).parent().addClass('expanded');
-    }
-    $('ul:first',this).parent().find('> a').addClass('active');
-    $('ul:first',this).show();
-  }).on('mouseout',function(e){
-    $(this).parent().removeClass('expanded');
-    $('ul:first',this).parent().find('> a').removeClass('active');
-    $('ul:first', this).hide();
-  });
-});
-</script>
+
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 </head>
 
 <body>
-<header class="site-header-wrap">
-<a href="./logout">로그아웃</a>	
-	<div class="site-logo"> 
-	
-	<a class="site-logo">XQ-SC</a>
-	</div>
-</header>
-	<nav>
-		<div class="wrapper">
 
-			<ul id="menu" class="clearfix" style="font-size: 62.5%;">
-				<li><a href="index.html">Home</a></li>
+		<div class="w3-bar w3-black w3-right">
+			<a href="./main" class="w3-bar-item w3-button w3-padding-large">Home</a>
+			<div class="w3-dropdown-hover">
+				<button class="w3-button w3-padding-large">Vendor</button>
+				<div class="w3-dropdown-content w3-bar-block w3-card-4">
+					<a href="./vendorRegister" class="w3-bar-item w3-button ">Vendor
+						Register</a> <a href="./vendorStatus" class="w3-bar-item w3-button">Vendor
+						Status</a>
 
-				<li><a href="#">Vendor 등록관리</a>
-					<ul>
-						<li><a href='./vendorRegister'>Vendor Register</a></li>
-						<li><a href='./vendorStatus'>Vendor Status</a></li>
-					</ul>
-				</li>
-
-				<li><a href="#">평가관리</a>
-					<ul>
-						<li><a class="dropdown-item" href='./AuditManage'>평가계획</a></li> 
-						<li><a href='./AuditReport'>평가결과입력</a></li> 
-						<li><a href='./AuditResult'>평가현황</a></li>
-					</ul>
-				</li>
-
-				<li><a href="#">부적합관리</a>
-					<ul>
-						<li><a href='./ncrRegister'>NCR Register</a></li> 
-						<li><a href='./ncrManagement'>NCR Management</a></li>
-						<li><a href='./ncrStatus'>NCR Status</a></li>
-					</ul>
-				</li>
-
-				<li><a href="#">시스템관리</a>
-					<ul>
-						<li><a href='./Setting'>System Configuration</a></li> 
-						<li><a href='./MSet'>Member Management</a></li> 
-						<li><a href='./CLSet'>Checklist Management</a></li>
-					</ul>
-				</li>
-			</ul>
+				</div>
+			</div>
+			<div class="w3-dropdown-hover">
+				<button class="w3-button w3-padding-large">Audit</button>
+				<div class="w3-dropdown-content w3-bar-block w3-card-4">
+					<a href="./AuditManage" class="w3-bar-item w3-button ">Audit
+						Plan</a> <a href="./AuditReport" class="w3-bar-item w3-button">Audit
+						ResultInput</a> <a href="./AuditResult" class="w3-bar-item w3-button">Audit
+						Status</a>
+				</div>
+			</div>
+			<div class="w3-dropdown-hover">
+				<button class="w3-button w3-padding-large">NCR</button>
+				<div class="w3-dropdown-content w3-bar-block w3-card-4">
+					<a href="./ncrRegister" class="w3-bar-item w3-button">NCR
+						Register</a> <a href="./ncrManagement" class="w3-bar-item w3-button">NCR
+						Management</a> <a href="./ncrStatus" class="w3-bar-item w3-button">NCR
+						Status</a>
+				</div>
+			</div>
+			<div class="w3-dropdown-hover">
+				<button class="w3-button w3-padding-large">System</button>
+				<div class="w3-dropdown-content w3-bar-block w3-card-4">
+					<a href="./Setting" class="w3-bar-item w3-button">System
+						Configuration</a> <a href="./MSet" class="w3-bar-item w3-button">Member
+						Management</a> <a href="./CLSet" class="w3-bar-item w3-button">Checklist
+						Management</a>
+				</div>
+			</div>
 		</div>
-	</nav>
 
 </body>
 </html>

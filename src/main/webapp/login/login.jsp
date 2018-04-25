@@ -6,24 +6,28 @@
 
 <!DOCTYPE html>
 <html lang="ko">
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<head>
-
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet"
+	href="https://www.w3schools.com/lib/w3-theme-black.css">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title></title>
 </head>
-
 <style>
-
 .modal-dialog {
 	display: inline-block;
 	text-align: left;
 	vertical-align: middle;
-	height: 600px;
 }
 
 .modal {
@@ -35,79 +39,86 @@
 		display: inline-block;
 		vertical-align: middle;
 		content: " ";
-		height: 100%;
 	}
 }
-
-.reg {
-	padding-left: 150px;
-	padding-top:50px;
-}
-
-.login {
-	padding-left: 130px;
-	padding-top:50px;
-}
-
-.headerimg {
-	margin-left: 70px;
-	margin-right: 70px;
-}
-
-.footerimg {
-	margin-left: 70px;
-	margin-right: 70px;
-}
 </style>
-
 <body>
-	<div style="width: 100%; height: auto;">
-		<div>
-			<div class="headerimg"
-				style="width: 93%; height: 450px; background-color: #ffdbbf;">
-
-			</div>
+	<!-- Navbar (sit on top) -->
+	<div class="w3-top">
+		<div class="w3-bar w3-white w3-wide w3-padding w3-card">
+			<a href="#home" class="w3-bar-item w3-button"><b>MJ</b>
+				Company</a>
 		</div>
+	</div>
 
-		<div class="footerimg" style="width: 93%; height: 550x; background-color: #eaeaed; ">
-			<div class="login" style="width: 45%; float: left;">
-				<form:form class="form-signin" commandName="loginCommand"
-					action="loginDiv">
-					<h2>Login</h2>
-					<input type="text" name="id" id="id" placeholder="Id"
-						value="A00001" style="height: 20px; width: 200px; margin: 30px 0;">
-					<input type="password" name="password" id="password"
-						placeholder="PASSWORD" value="1"
-						style="height: 20px; width: 200px; margin-bottom: 10px;" />
+	<!-- Header -->
+	<header class="w3-display-container w3-content w3-wide"
+		style="max-width: 1600px;" "id="home">
+		<img class="w3-image" src="./images/architect.jpg" alt="Architecture"
+			style="width: 1600px; height: 600px;">
+	</header>
 
-					<input type="submit" value="login">
-					<input type="checkbox" name="hold" id="hold" value="${check}" />
-					<label for="hold">로그인유지</label>
-				</form:form>
+	<!-- Footer -->
+	<div class="w3-display-container w3-content w3-wide"
+		style="max-width: 1600px;">
+		<div class="w3-row w3-border">
+			<div class="w3-half w3-container">
+				<div class="w3-container " style="margin-left:70px; margin-top:30px;">
+					<form:form commandName="loginCommand" style="height:100%;"
+						action="loginDiv">
+						<br>
+						<p>
+							<input type="text" name="id" id="id" placeholder="Id"
+								value="A00001" class="w3-input w3-border " style="width: 450px;" />
+						</p>
+
+						<p>
+							<input type="password" name="password" id="password"
+								placeholder="PASSWORD" value="1" class="w3-input w3-border"
+								style="width: 450px;" />
+						</p>
+						<p>
+							<input class="w3-bar-item w3-button w3-dark-grey"
+								type="submit" style="width: 450px;"  value="login">
+						</p>
+						<p>
+							<input type="checkbox" name="hold" id="hold" value="${check}"
+								class="w3-check" /> <label for="hold">로그인유지</label>&nbsp;&nbsp;
+								<label><a
+								href="./ChangedPwd">비번변경</label>
+
+						</p>
+
+					</form:form>
+				</div>
 
 			</div>
-			<div class="reg" style="width: 55%; float: left;">
-				<div style="width: 100%;">
+			<div class="w3-half w3-container w3-border">
+				<div>
 					<div style="width: 100%;">
-						<img src="${pageContext.request.contextPath}/images/register.png"></img>
-						<button href="vendor/newVendor" 
-							type="button" data-toggle="modal" data-target="#myModal">신규등록</button>
+						<div>
+							<img src="${pageContext.request.contextPath}/images/register.png"></img>
+							<button class="w3-bar-item w3-button w3-dark-grey"
+								href="vendor/newVendor" data-toggle="modal"
+								data-target="#myModal">Register</button>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-		
-
-
-		<!-- 모달 -->
-		<div id="myModal" class="modal fade" role="dialog">
-			<div class="modal-dialog" style="width: 60%;">
-				<div class="modal-content"></div>
+			<!-- 모달 -->
+			<div id="myModal" class="modal fade" role="dialog">
+				<div class="modal-dialog" style="width: 100%;">
+					<div class="modal-content"></div>
+				</div>
 			</div>
 		</div>
-
-
 	</div>
+
+
+
+
+
+
 
 </body>
 </html>
