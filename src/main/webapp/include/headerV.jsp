@@ -7,51 +7,75 @@
 
 <!DOCTYPE html>
 <html lang="ko">
+
+<head>
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/css/style.css?ver=1.3">
+
+<script type="text/javascript"
+	href="${pageContext.request.contextPath}/jquery-1.11.1.min.js"></script>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/css/style.css?ver=1.2">
 <script type="text/javascript">
-	$(document).ready(function() {
-		$('#nav li').hover(function() {
-			$('ul', this).slideDown(200);
-			$(this).children('a:first').addClass("hov");
-		}, function() {
-			$('ul', this).slideUp(100);
-			$(this).children('a:first').removeClass("hov");
-		});
-	});
+$(function(){
+  $('a[href="#"]').on('click', function(e){
+    e.preventDefault();
+  });
+  
+  $('#menu > li').on('mouseover', function(e){
+    $(this).find("ul:first").show();
+    $(this).find('> a').addClass('active');
+  }).on('mouseout', function(e){
+    $(this).find("ul:first").hide();
+    $(this).find('> a').removeClass('active');
+  });
+  
+  $('#menu li li').on('mouseover',function(e){
+    if($(this).has('ul').length) {
+      $(this).parent().addClass('expanded');
+    }
+    $('ul:first',this).parent().find('> a').addClass('active');
+    $('ul:first',this).show();
+  }).on('mouseout',function(e){
+    $(this).parent().removeClass('expanded');
+    $('ul:first',this).parent().find('> a').removeClass('active');
+    $('ul:first', this).hide();
+  });
+});
 </script>
-<head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 </head>
-<body>
-	<div id="head">
-		<div class="wrap">
-			<h1>
-				<img alt="XQ-SC" />	
-			</h1>
-		</div>
-	</div>
 
-	<div class="wrap">
-		<ul id="nav">
-			<li><a href="#"> HOME</a></li>
+<body>
+<header class="site-header-wrap">
+<a href="./logout">로그아웃</a>	
+	<div class="site-logo"> 
+	
+	<a class="site-logo">XQ-SC</a>
+	</div>
+</header>
+	<nav>
+		<div class="wrapper">
+
+			<ul id="menu" class="clearfix">
+				<li><a href="index.html">Home</a></li>
+
+				
+				<li><a href="#">부적합관리</a>
+					<ul>
+						
+						<li><a href='./ncrManagement_vendor'>NCR Management</a></li>
+						
+					</ul>
+				</li>
 
 			
-			<li><a href='#'><span>부적합관리</span></a>
-				<ul>
-					
-					<li><a href='ncr/ncrManagement_vendor'>NCR Management</a></li>
-					
-				</ul></li>
+			</ul>
+		</div>
+	</nav>
 
-				</ul>
-				</div>
 </body>
 </html>
 

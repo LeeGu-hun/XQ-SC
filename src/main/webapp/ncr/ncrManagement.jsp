@@ -164,22 +164,23 @@
 				<table class="table">
 
 					<tr>						
-						<td >NCR No. :<input type="text" id="ncr_id" name="ncr_id" style="width:50px"/> </td>					
-						<td >Title :<input type="text" id="ncr_title" name="ncr_title"></td>				
-						<td >Vendor ID :<input type="text" id="vendor_id" name="vendor_id" data-target="#vendorSearchModal" data-toggle="modal"/>
+						<td >NCR No. :<input type="text" id="ncr_id" name="ncr_id"  class="form-control"/> </td>					
+						<td >Title :<input type="text" id="ncr_title" name="ncr_title" class="form-control"></td>				
+						<td >Vendor ID :<input type="text" id="vendor_id" name="vendor_id"   data-target="#vendorSearchModal" data-toggle="modal" class="form-control"/>
 						
 													
-						<td >Issuer :<input type="text" id="issuer_id" name="issuer_id" data-target="#issuerSearchModal" data-toggle="modal"/>
+						<td >Issuer :<input type="text" id="issuer_id" name="issuer_id" data-target="#issuerSearchModal" data-toggle="modal" class="form-control"/>
 													
 						<td >Complete :						
-						<select id="ncr_comp" name="ncr_comp" style="width: 50px; height:19px;">
+						<select id="ncr_comp" name="ncr_comp" class="form-control">
 							<option value="All">All</option>
 							<option value="Y">Y</option>
-							<option value="N">N</option>
+							<option value="N" selected>N</option>
 						</select>
 						</td>
-						<td ><input type="button" value="search"
-							onclick="searchNcr()" /></td>
+						<td style="vertical-align: bottom"><button type="button" class="btn btn-default"
+							onclick="searchNcr()" >search</button></td>					
+						
 					</tr>
 					
 				</table>
@@ -207,9 +208,9 @@
 								<table class="table">
 									<tr>
 										<td>Vendor Name: <input type="text" name="vendor_name"
-											id="vendor_name" /></td>
-										<td><input class="button" type="button" value="Search"
-											id="btnsearch" onclick="searchVendorId(vendor_name)"></td>
+											id="vendor_name" class="form-control"/></td>
+										<td style="vertical-align: bottom"><button type="button" class="btn btn-default"  
+									  	id="btnsearch"	onclick="searchVendorId(vendor_name)">Search</button></td>
 									</tr>
 
 								</table>
@@ -244,10 +245,10 @@
 							<form id="formSearchIssuer" name="formSearchIssuer" method="post">
 								<table class="table">
 									<tr>
-										<td>Issuer Name: <input type="text" name="issuer_name"
-											id="issuer_name" /></td>
-										<td><input class="button" type="button" value="Search"
-											id="btnsearch" onclick="searchIssuerId()"></td>
+										<td>Issuer Name: <input class = form-control type="text" name="issuer_name"
+											id="issuer_name" onkeydown="searchIssuerId()"/></td>
+										<td style="vertical-align: bottom"><button type="button" class="btn btn-default"  id="btnsearch" onclick="searchIssuerId()">Search</button>
+										</td>
 									</tr>
 
 								</table>

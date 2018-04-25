@@ -65,38 +65,38 @@ function ncrIssue(){
 		<table class="table"> 
 			<tr>
 				<td>Audit No.</td>
-				<td><input type="text" id="audit_id" name="audit_id" data-target="#layerpop" data-toggle="modal">
+				<td><input type="text" id="audit_id" name="audit_id" data-target="#layerpop" data-toggle="modal" class="form-control">
 					
 					<form:form commandName="ncrIssueCommand" >	
 					<span style="font-size:9pt;color:red;"><form:errors path="audit_id" /></span>						
 					</form:form>
 				</td>
 				<td>Vendor Name</td>
-				<td><input type="text" id="vendor_name"  name="vendor_name" readonly></td>
+				<td><input type="text" id="vendor_name"  name="vendor_name" class="form-control" readonly ></td>
 				<td>Audit date</td>
-				<td><input type="text" id="audit_date"  name="audit_date" readonly></td>
+				<td><input type="text" id="audit_date"  name="audit_date" class="form-control"  readonly></td>
 			<tr>
 			<tr>
 				<td>Kind of Audit</td>
-				<td><input type="text" id="audit_kind" readonly></td>
+				<td><input type="text" class="form-control" id="audit_kind" readonly></td>
 				<td>Audit Result</td>
-				<td><input type="text"  id="audit_result" readonly></td>
+				<td><input type="text"   class="form-control"id="audit_result" readonly></td>
 				<td>Auditor</td>
-				<td><input type="text"  id="auditor_name" readonly></td>
+				<td><input type="text"   class="form-control"id="auditor_name" readonly></td>
 			<tr>		
 	
 	
 
 				<tr>
 					<td>Subject</td>
-					<td ><input type="text" name="ncr_title">
+					<td ><input type="text"  class="form-control"name="ncr_title">
 					<form:form commandName="ncrIssueCommand" >	
 					<span style="font-size:9pt;color:red;"><form:errors path="ncr_title" /></span>						
 					</form:form></td>
 					<td>Issuer</td>
-					<td><input type="text" value="${issuer_name }" ></td>
+					<td><input type="text" class="form-control" value="${issuer_name }" ></td>
 					<td>Grade</td>
-					<td><select id="ncr_grade_id" name="ncr_grade_id">
+					<td><select id="ncr_grade_id" name="ncr_grade_id" class="form-control">
 							<option value="N">N</option>
 							<option value="M">M</option>
 						</select></td>
@@ -106,23 +106,25 @@ function ncrIssue(){
 					<span style="font-size:9pt;color:red;"><form:errors path="ncr_description" /></span>						
 					</form:form></td>
 					<td colspan = "7">
-					<textarea style="width :100%; height:500px;" id="ncr_description" name="ncr_description"></textarea>
+					<textarea class="form-control" style="width :100%; height:500px;" id="ncr_description" name="ncr_description"></textarea>
 					</td>
 				</tr>
 				<tr>
 					<td>file_upload</td>
 					<td colspan = "5">
 						<input type="file" multiple id="ncr_file" name="ncr_file"></input></td>
-					<td><input type="button" value="Issue" onclick="ncrIssue()"></td>
+					<td><button type="button" class="btn btn-default"  
+									  onclick="ncrIssue()">Issue</button></td>
+					
 					</table>
 		</form>
 	</div>
 	
 <!--  모달 시작 --> 
 
-<div class="modal fade" id="layerpop" >
-  <div class="modal-dialog">
-    <div class="modal-content">
+<div class="modal fade" id="layerpop"  >
+  <div class="modal-dialog" >
+    <div class="modal-content" style="width: 800px" >
       <!-- header -->
       <div class="modal-header">
         <!-- 닫기(x) 버튼 -->
@@ -136,8 +138,10 @@ function ncrIssue(){
 	<form id="formSearchAudit" name="formSearchAudit" method="post" >
 	<table class="table"> 
 			<tr>
-				<td>Vendor Name: <input type="text" name="vendorName" id="vendorName"/></td>
-				<td> <input class="button" type="button" value= "Search" id="btnsearch" onclick="searchAudit()"></td>
+				<td style="width:650px"><label>Vendor Name:</label><input type="text" class="form-control" name="vendorName" id="vendorName"/ ></td>
+				<td style="vertical-align: bottom"> <button type="button" class="btn btn-default"  
+									  	id="btnsearch"	onclick="searchAudit()" >Search</button></td>
+				
 			</tr>	
 			
 	</table>

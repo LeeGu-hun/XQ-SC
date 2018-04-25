@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-
+import bean.BeanVendor;
 import bean.LoginCommand;
 import bean.NcrBean;
 import service.AuditService;
@@ -57,7 +58,6 @@ public class MainController {
 	public String home(Model model) {		
 	
 		int vendorcnts = vendorService.registerCount();		
-		System.out.println(vendorcnts);
 		int auditPlanCnts = ncrService.auditPlanCnts();
 		int auditRinputCnts = ncrService.auditRinputCnts();
 		int ncrCnts = ncrService.ncrCnts();
@@ -77,5 +77,15 @@ public class MainController {
 			 
 	}
 	
+	@RequestMapping("/mainVendorList")
+		public String registList(HttpServletRequest request, Model model, BeanVendor beanvendor) {
+
+			List<BeanVendor> list = vendorService.registerList();
+			int cnts = vendorService.registerCount();
+			model.addAttribute("list", list);			
+
+			return "ncr/mainVendorList";
+		}
+	}
 	
 }

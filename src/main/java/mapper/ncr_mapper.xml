@@ -16,7 +16,7 @@
   
 	<insert id="ncrIssue" parameterType="bean.NcrBean">
       insert into ncr_info values((select count(*)from ncr_info)+1,#{audit_id},#{issuer_id},
-      sysdate,null,null,#{ncr_title},#{ncr_description},#{ncr_grade_id})  
+      sysdate,null,'N',#{ncr_title},#{ncr_description},#{ncr_grade_id})  
 	</insert>
 	
 	<insert id="ncrFileUpload" parameterType="HashMap">
@@ -41,7 +41,15 @@
 			</if>
 			<if test="issuer_id!=null and issuer_id!='' ">
 				and n.issuer_id=#{issuer_id}
-			</if>		
+			</if>
+			
+			<if test="ncr_comp!='All'">
+				and n.ncr_comp= #{ncr_comp}
+			</if>
+		
+			
+		
+			
 				
     </select>  
 	
@@ -68,7 +76,7 @@
     </select>  
     
     <update id="ncrComplete" parameterType="Int">
-      update ncr_info set ncr_comp='Y' where ncr_id=#{ncr_id}  
+      update ncr_info set ncr_comp='Y' ,ncr_comp_date= sysdate where ncr_id=#{ncr_id}  
 	</update>
 	
 	<insert id="saveVendorReply" parameterType="bean.NcrReplyCommand">
@@ -97,9 +105,64 @@
       #{reply_description},'AUDITOR')  
 	</insert>
 	
+    <select id="auditPlanCnts" resultType="int">
+		select count(*) from(SELECT ROWNUM RNUM,
+		V.VENDOR_NAME, V.VENDOR_ADDRESS,
+		V.VENDOR_ID,
+		V.VENDOR_Q_NAME,V.VENDOR_Q_TEL,
+		V.VENDOR_S_NAME,V.VENDOR_S_TEL,
+		V.AUDIT_NEXT_DATE,A.AUDIT_PLAN_DATE,
+		A.AUDIT_ID
+		FROM VENDOR_INFO V ,
+		(SELECT * FROM AUDIT_INFO WHERE AUDIT_PLAN_DATE IS NULL OR AUDITOR_ID
+		IS NULL) A WHERE V.VENDOR_ID =
+		A.VENDOR_ID)
+	</select>
     
-    
+	<select id="auditRinputCnts" resultType="int">
+		select count(*)from (SELECT
+		ROWNUM RNUM,
+		AU.AUDIT_ID,
+		V.VENDOR_NAME,
+		V.VENDOR_ID,
+		C.CATEGORY_NAME,
+		V.VENDOR_ADDRESS,
+		P.PRODUCT_NAME,
+		P.PRODUCT_ID,
+		Au.AUDIT_PLAN_DATE,
+		Au.AUDIT_KIND_ID,
+		M. MEMBER_NAME,
+		M.MEMBER_ID
+		FROM
+		VENDOR_INFO V,
+		PRODUCT_ITEM P,
+		AUDIT_INFO AU,
+		MEMBER_INFO M,
+		CATEGORY_INFO C
+
+		WHERE
+		M.MEMBER_ID = AU.AUDITOR_ID
+		AND V.VENDOR_ID =
+		AU.VENDOR_ID
+		AND
+		P.PRODUCT_ID = V.PRODUCT_ID
+		AND P.CATEGORY_ID =
+		C.CATEGORY_ID
+		AND
+		AU.AUDIT_PLAN_DATE IS NOT NULL
+		and au.audit_id not in
+		(select audit_id from audit_result))
+		
+	</select>
 	
+	<select id="ncrCnts" resultType="int">
+		select count(*) from ncr_info where ncr_comp = 'N' 
+	</select>
 	
+	<select id="ncrImcompList"  resultType="bean.NcrBean">   
+     select n.ncr_id, n.audit_id ,a.vendor_id ,v.vendor_name ,n.ncr_title,n.ncr_description,m.member_name as issuer_name
+	from ncr_info n, audit_info a,vendor_info v,member_info m 
+	where n.audit_id = a.audit_id and a.vendor_id=v.vendor_id and n.issuer_id=m.member_id and n.ncr_comp='N' 	      
+    </select>  
 	
 </mapper>

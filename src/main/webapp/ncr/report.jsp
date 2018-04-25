@@ -1,19 +1,9 @@
-<%@page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
-<html lang="ko">
-<style>
-</style>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<%@ page import="java.util.*"%>
-<%@ page import="java.text.SimpleDateFormat"%>
-<%@ page import="bean.*"%>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.css">
+
 <link href="<c:url value="/css/bootstrap.css" />" rel="stylesheet">
 <link href="<c:url value="/css/bootstrap.min.css" />" rel="stylesheet">
 <link href="<c:url value="/css/sb-admin-2.css" />" rel="stylesheet">
@@ -29,36 +19,26 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
+
+
 <script>
 function ncrIncompList() {
 	$('#ncrList').modal('show');
 }
 
-function mainVendorList(){
-	
-	$.ajax({
-		type : "POST",
-		url : "/mainVendorList",
-		
-		success : resultMainVendorList,
-	});
-}
 
-function resultMainVendorList(mvlist) {
-	$("#MainVendorListBox").html(mvlist);
-}
-}
 </script>
 
-<title>Main</title>
+<html lang="ko">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
 </head>
-
 <body>
-<%@ include file="/include/header.jsp"%><br>
-<a href="./logout">로그아웃</a>	
-<a href="./ChangedPwd">비번변경</a>
-<li><a href="./AuditManage">평가관리</a></li>
-<div class="container">
+<%@ include file="/include/header.jsp"%>
+
+	<div class="container">
 		<div class="row">&nbsp;</div>
 		<div class="row">
 			<div class="col-lg-4 col-md-6">
@@ -74,9 +54,9 @@ function resultMainVendorList(mvlist) {
 							</div>
 						</div>
 					</div>
-					<a href="">
+					<a href="vendor/vendorRegister">
 						<div class="panel-footer">
-							<span class="pull-left" onclick="mainVendorList()">View Details</span> <span
+							<span class="pull-left">View Details</span> <span
 								class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
 							<div class="clearfix"></div>
 						</div>
@@ -181,7 +161,5 @@ function resultMainVendorList(mvlist) {
 		</div>
 
 		<!--  모달 끝 -->
-		
-<div id="MainVendorListBox"></div>
 </body>
 </html>

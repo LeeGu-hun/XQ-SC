@@ -3,7 +3,13 @@ package bean;
 
 
 public class NcrSearchCommand {
-	private String ncr_id,ncr_title,vendor_id,issuer_id,date1,date2;
+	private String ncr_id,ncr_title,vendor_id,issuer_id,date1,date2,ncr_comp;
+	public String getNcr_comp() {
+		return ncr_comp;
+	}
+	public void setNcr_comp(String ncr_comp) {
+		this.ncr_comp = ncr_comp;
+	}
 	private boolean isIncluded;
 	public String getNcr_id() {
 		return ncr_id;
@@ -48,12 +54,8 @@ public class NcrSearchCommand {
 	public void setIssuer_id(String issuer_id) {
 		this.issuer_id = issuer_id;
 	}
-	public NcrSearchCommand() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
 	public NcrSearchCommand(String ncr_id, String ncr_title, String vendor_id, String issuer_id, String date1,
-			String date2, boolean isIncluded) {
+			String date2, String ncr_comp, boolean isIncluded) {
 		super();
 		this.ncr_id = ncr_id;
 		this.ncr_title = ncr_title;
@@ -61,7 +63,12 @@ public class NcrSearchCommand {
 		this.issuer_id = issuer_id;
 		this.date1 = date1;
 		this.date2 = date2;
+		this.ncr_comp = ncr_comp;
 		this.isIncluded = isIncluded;
+	}
+	public NcrSearchCommand() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 	
 	

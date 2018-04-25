@@ -5748,6 +5748,7 @@ button.close {
   outline: 0;
   -webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, .5);
           box-shadow: 0 3px 9px rgba(0, 0, 0, .5);
+  widht:auto; 
 }
 .modal-backdrop {
   position: absolute;
@@ -5802,9 +5803,9 @@ button.close {
   height: 50px;
   overflow: scroll;
 }
-@media (min-width: 768px) {
+@media (min-width: 768px; auto;) {
   .modal-dialog {
-    width: 600px;
+    width: auto;
     margin: 30px auto;
   }
   .modal-content {
