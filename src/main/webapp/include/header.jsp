@@ -27,45 +27,43 @@
 
 <body>
 
-		<div class="w3-bar w3-black w3-right">
-			<a href="./main" class="w3-bar-item w3-button w3-padding-large">Home</a>
-			<div class="w3-dropdown-hover">
-				<button class="w3-button w3-padding-large">Vendor</button>
-				<div class="w3-dropdown-content w3-bar-block w3-card-4">
-					<a href="./vendorRegister" class="w3-bar-item w3-button ">Vendor
-						Register</a> <a href="./vendorStatus" class="w3-bar-item w3-button">Vendor
-						Status</a>
+	<div class="w3-bar w3-black w3-right">
+		<a href="./main" class="w3-bar-item w3-button w3-padding-large">Home</a>
+		<div class="w3-dropdown-hover">
+			<button class="w3-button w3-padding-large">Vendor</button>
+			<div class="w3-dropdown-content w3-bar-block w3-card-4">
+				<a href="./vendorRegister" class="w3-bar-item w3-button ">Vendor
+					Register</a> <a href="./vendorStatus" class="w3-bar-item w3-button">Vendor
+					Status</a>
 
-				</div>
-			</div>
-			<div class="w3-dropdown-hover">
-				<button class="w3-button w3-padding-large">Audit</button>
-				<div class="w3-dropdown-content w3-bar-block w3-card-4">
-					<a href="./AuditManage" class="w3-bar-item w3-button ">Audit
-						Plan</a> <a href="./AuditReport" class="w3-bar-item w3-button">Audit
-						ResultInput</a> <a href="./AuditResult" class="w3-bar-item w3-button">Audit
-						Status</a>
-				</div>
-			</div>
-			<div class="w3-dropdown-hover">
-				<button class="w3-button w3-padding-large">NCR</button>
-				<div class="w3-dropdown-content w3-bar-block w3-card-4">
-					<a href="./ncrRegister" class="w3-bar-item w3-button">NCR
-						Register</a> <a href="./ncrManagement" class="w3-bar-item w3-button">NCR
-						Management</a> <a href="./ncrStatus" class="w3-bar-item w3-button">NCR
-						Status</a>
-				</div>
-			</div>
-			<div class="w3-dropdown-hover">
-				<button class="w3-button w3-padding-large">System</button>
-				<div class="w3-dropdown-content w3-bar-block w3-card-4">
-					<a href="./Setting" class="w3-bar-item w3-button">System
-						Configuration</a> <a href="./MSet" class="w3-bar-item w3-button">Member
-						Management</a> <a href="./CLSet" class="w3-bar-item w3-button">Checklist
-						Management</a>
-				</div>
 			</div>
 		</div>
+		<div class="w3-dropdown-hover">
+			<button class="w3-button w3-padding-large">Audit</button>
+			<div class="w3-dropdown-content w3-bar-block w3-card-4">
+				<a href="./AuditManage" class="w3-bar-item w3-button ">Audit
+					Plan</a> <a href="./AuditReport" class="w3-bar-item w3-button">Audit
+					ResultInput</a> <a href="./AuditResult" class="w3-bar-item w3-button">Audit
+					Status</a>
+			</div>
+		</div>
+		<div class="w3-dropdown-hover">
+			<button class="w3-button w3-padding-large">NCR</button>
+			<div class="w3-dropdown-content w3-bar-block w3-card-4">
+				<a href="./ncrRegister" class="w3-bar-item w3-button">NCR
+					Register</a> <a href="./ncrManagement" class="w3-bar-item w3-button">NCR
+					Management</a> 			</div>
+		</div>
+		<div class="w3-dropdown-hover">
+			<button class="w3-button w3-padding-large">System</button>
+			<div class="w3-dropdown-content w3-bar-block w3-card-4">
+				<a href="./Setting" class="w3-bar-item w3-button">System
+					Configuration</a> <a href="./MSet" class="w3-bar-item w3-button">Member
+					Management</a> <a href="./CLSet" class="w3-bar-item w3-button">Checklist
+					Management</a>
+			</div>
+		</div>
+	</div>
 
 </body>
 </html>
