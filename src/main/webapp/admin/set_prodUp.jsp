@@ -5,27 +5,49 @@
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 <form:form commandName="prodCommand" method="post" action="Setting?state=3" id="upf">
-	<input type="hidden" id="cateid" value="${selProd.CATEGORY_ID}">
-	<form:select path="CATEGORY_ID" onchange="prodTable();" id="prodCate">
-		<form:option value="cate">카테고리</form:option>
-		<c:forEach var = "c" items="${cateList}">
-			<form:option value="${c.CATEGORY_ID}">${c.CATEGORY_NAME}</form:option>
-		</c:forEach>
-	</form:select>
-	<c:choose>
-		<c:when test="${selProd.PRODUCT_VALID eq 'Y'}">
-			<form:radiobutton path="PRODUCT_VALID" value="Y" label="VALID" checked="checked"/>
-			<form:radiobutton path="PRODUCT_VALID" value="N" label="INVALID"/>
-		</c:when>
-		<c:otherwise>
-			<form:radiobutton path="PRODUCT_VALID" value="Y" label="VALID"/>
-			<form:radiobutton path="PRODUCT_VALID" value="N" label="INVALID" checked="checked"/>
-		</c:otherwise>
-	</c:choose>
-	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	<form:input path="PRODUCT_NAME" value="${selProd.PRODUCT_NAME}" id="upProdName"/>
-	<form:hidden path="PRODUCT_ID" value="${selProd.PRODUCT_ID}" />
-	<input type="button" value="수정" onclick="prodUpdate()">
-	<a href="javascript:prodInsertForm()">취소</a>	
+	<table class="table" style="width:95%"><tbody>
+		<tr>
+			<td colspan="2">
+				<input type="hidden" id="cateid" value="${selProd.CATEGORY_ID}">
+				<form:select path="CATEGORY_ID" class="form-control" onchange="prodTable();" id="prodCate">
+					<form:option value="cate">카테고리</form:option>
+					<c:forEach var = "c" items="${cateList}">
+						<form:option value="${c.CATEGORY_ID}">${c.CATEGORY_NAME}</form:option>
+					</c:forEach>
+				</form:select>
+			</td>
+			<td colspan="2" align="right">
+				<span id="ckProd" style="font-size:9pt;color:red;"></span>
+			</td>
+		</tr><tr>
+			<c:choose>
+				<c:when test="${selProd.PRODUCT_VALID eq 'Y'}">
+					<td style=" width:80pt;">
+						<form:radiobutton path="PRODUCT_VALID" value="Y" label="VALID" checked="checked"/>
+					</td>
+					<td style=" width:80pt;">
+						<form:radiobutton path="PRODUCT_VALID" value="N" label="INVALID"/>
+					</td>
+				</c:when>
+				<c:otherwise>
+					<td style=" width:80pt;">
+						<form:radiobutton path="PRODUCT_VALID" value="Y" label="VALID"/>
+					</td>
+					<td style=" width:80pt;">
+						<form:radiobutton path="PRODUCT_VALID" value="N" label="INVALID" checked="checked"/>
+					</td>
+				</c:otherwise>
+			</c:choose>
+			<td>
+				<form:input path="PRODUCT_NAME" class="form-control" value="${selProd.PRODUCT_NAME}" id="upProdName"/>
+				<form:hidden path="PRODUCT_ID" value="${selProd.PRODUCT_ID}" />
+			</td>
+			<td>
+				<input type="button" class="btn btn-default" value="수정" onclick="prodUpdate()">
+				<a href="javascript:prodInsertForm()">취소</a>	
+			</td>
+		</tr>
+		<tr><td colspan="4"></td></tr>
+	</tbody></table>
 </form:form>
 			

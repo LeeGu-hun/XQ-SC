@@ -9,8 +9,19 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Setting</title>
-      <link rel="stylesheet" href="./css/table.css" type="text/css">
-      
+
+
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />
+<link href="<c:url value="/css/bootstrap.css" />" rel="stylesheet">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
+<script src="${pageContext.request.contextPath}/css/sb-admin-2.css"></script>
+<script src="${pageContext.request.contextPath}/css/sb-admin-2.min.css"></script>
+<script src="${pageContext.request.contextPath}/js/sb-admin-2.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/sb-admin-2"></script>
+
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -104,59 +115,61 @@
 <body>
     
 	<%@ include file="/include/header.jsp"%><br>
+<div class="container" >
 	
-	<table width=80% border="0" cellpadding="0" cellspacing="0">
-		<thead>
-			<tr align="center" valign="middle">
-				<th>
+	<table class="table table-striped table-bordered table-hover"
+	style="border-collapse:collapse; width:100%">
+		<thead style="float:left; width:98.77%;">
+			<tr align="center" valign="middle" style="display:table; width:100%;">
+				<th style="width:15%;">
 					<div align="center">DEPART</div>
 				</th>
-				<th>
+				<th style="width:10%;">
 					<div align="center">NAME</div>
 				</th>
-				<th>
+				<th style="width:27%;">
 					<div align="center">EMAIL</div>
 				</th>
-				<th>
+				<th style="width:25%;">
 					<div align="center">TEL</div>
 				</th>
-				<th>
+				<th style="width:8%;">
 					<div align="center">VALID</div>
 				</th>
-				<th>
+				<th style="width:15%;">
 					<div align="center">ID</div>
 				</th>
 			</tr>
 		</thead>
-		<tbody>
+		<tbody style="overflow-y:auto; overflow-x:hidden; float:left; width:100%; height:90px">	
 			<c:forEach var="m" items="${map.ingMemberList}">
-				<tr>
-					<td>
+				<tr style="display:table; width:100%;">
+					<td style="width:15%;">
 						<div align="center">
 							${m.MEMBER_DEPART}
 						</div>
 					</td>
-					<td>
+					<td style="width:10%;">
 						<div align="center">
 							${m.MEMBER_NAME}
 						</div>
 					</td>
-					<td>
+					<td style="width:27%;">
 						<div align="center">
 							${m.MEMBER_EMAIL}
 						</div>
 					</td>
-					<td>
+					<td style="width:25%;">
 						<div align="center">
 							${m.MEMBER_TEL}
 						</div>
 					</td>
-					<td>
+					<td style="width:8%;">
 						<div align="center">
 							${m.MEMBER_VALID}
 						</div>
 					</td>
-					<td>
+					<td style="width:15%;">
 						<div align="center">
 							<a href="javascript:upMemForm('${m.MEMBER_ID}')">${m.MEMBER_ID}</a>
 						</div>
@@ -165,19 +178,14 @@
 			</c:forEach>
 		</tbody>
 	</table>
-	<br>
-	<br>
-	<a href="./MSet">전체보기</a>
-	<br>
-	<br>
 	<div id="mInUpForm"><%@include file="/admin/m_In.jsp" %></div>
-	<br>
-	<span id="mInUp" style="font-size:9pt;color:red;"></span>
-	<br>
-	<div id="mInUpForm"><%@include file="/admin/m_S.jsp" %></div>
-	<br>
-	<br>
-	<table width=80% border="0" cellpadding="0" cellspacing="0">
+	<div align="center" style="background-color: gray">
+		<br>
+		<%@include file="/admin/m_S.jsp" %><a href="./MSet">전체보기</a>
+		<br>
+		<br>
+	</div>
+	<table class="table table-striped table-bordered table-hover">
 		<thead>
 			<tr align="center" valign="middle">
 				<th>
@@ -258,5 +266,6 @@
 			</tr>
 		</tbody>
 	</table>
+</div>
 </body>
 </html>

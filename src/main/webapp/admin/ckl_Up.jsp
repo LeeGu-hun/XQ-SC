@@ -41,7 +41,7 @@
 		<br>
 		<label>DISCRIPTION</label>
 		<form:textarea path="CHECKLIST_DISCRIPTION" id="upDiscription" cols="100" rows="3"
-		placeholder="${selCkList.CHECKLIST_DISCRIPTION}"/>
+		width="100px" placeholder="${selCkList.CHECKLIST_DISCRIPTION}"/>
 		<br>		
 		<span id="ckDs" style="font-size:9pt;color:red;"></span>
 	</div>
