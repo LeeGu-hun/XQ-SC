@@ -10,8 +10,26 @@ public class DateCommand {
 	private String selDate;
 	private String plandate;
 	private String vSearch;
+	private String incomplete;
+	private String complete;
 	
 	
+
+	public String getComplete() {
+		return complete;
+	}
+
+	public void setComplete(String complete) {
+		this.complete = complete;
+	}
+
+	public String getIncomplete() {
+		return incomplete;
+	}
+
+	public void setIncomplete(String incomplete) {
+		this.incomplete = incomplete;
+	}
 
 	public String getvSearch() {
 		return vSearch;
