@@ -62,7 +62,7 @@
 			</tr>
 			<tr>
 				<td>Comment</td>
-				<td><textarea class="form-control col-sm-5" rows="5">${r.reply_description }</textarea>
+				<td colspan="7"><textarea class="form-control col-sm-5" rows="5">${r.reply_description }</textarea>
 				</td>
 			<tr>
 				<td>File</td>

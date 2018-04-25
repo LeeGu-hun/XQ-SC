@@ -3,13 +3,26 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
+
 <link rel="stylesheet"
 	href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css"
 	type="text/css" />
 <link href="<c:url value="/css/bootstrap.css" />" rel="stylesheet">
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/css/style.css?ver=1.3">
 <script
 	src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/css/style.css?ver=1.3">
+
+<script type="text/javascript"
+	href="${pageContext.request.contextPath}/jquery-1.11.1.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<link href="<c:url value="/css/sb-admin-2.css" />" rel="stylesheet">
 
 <script>
 	
@@ -138,23 +151,38 @@
 <title>NCR Management</title>
 </head>
 <body>
-<a href="/xqsc/main"> [ main ]</a>
+<%@ include file="/include/headerV.jsp"%><br>
+
 	<div id=mainBox class="container">
 		<div>
 			[검색조건]
 			<form action="./ncrSearch" method="post" name="formNcrSearch"
 				id="formNcrSearch">
-				<table class="table">
+				<table class="table ">
 
 					<tr>
 						<td>NCR No.</td>
-						<td><input type="text" id="ncr_id" name="ncr_id" /></td>
+						<td>
+						<div class="form-group input-group">
+                                            <input type="text" class="form-control">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default" type="button"><i class="fa fa-search"></i>
+                                                </button>
+                                            </span>
+                                        </div>
+						<input type="text" id="ncr_id" name="ncr_id" class="form-control " /></td>
 						<td>Title</td>
 						<td><input type="text" id="ncr_title" name="ncr_title"></td>
 						<td>Vendor ID</td>
 						<td><input type="text" id="vendor_id" name="vendor_id" value=${vendor_id } readonly>							
-							
-						<td colspan="8"><input type="button" value="search"
+						<td >Complete :						
+						<select id="ncr_comp" name="ncr_comp" style="width: 50px; height:19px;">
+							<option value="All">All</option>
+							<option value="Y">Y</option>
+							<option value="N">N</option>
+						</select>
+						</td>	
+						<td colspan="8"><button type="button" value="search"  class="btn btn-default"
 							onclick="searchNcr()" /></td>
 					</tr>
 				</table>
@@ -183,8 +211,9 @@
 									<tr>
 										<td>Vendor Name: <input type="text" name="vendor_name"
 											id="vendor_name" /></td>
-										<td><input class="button" type="button" value="Search"
-											id="btnsearch" onclick="searchVendorId(vendor_name)"></td>
+										<td><button type="button" class="btn btn-default"  
+									  	id="btnsearch"	onclick="searchVendorId(vendor_name)">Search</button></td>
+											
 									</tr>
 
 								</table>
@@ -221,8 +250,8 @@
 									<tr>
 										<td>Issuer Name: <input type="text" name="issuer_name"
 											id="issuer_name" /></td>
-										<td><input class="button" type="button" value="Search"
-											id="btnsearch" onclick="searchIssuerId()"></td>
+										<td><button type="button" class="btn btn-default"  id="btnsearch" onclick="searchIssuerId()">Search</button>
+										</td>
 									</tr>
 
 								</table>

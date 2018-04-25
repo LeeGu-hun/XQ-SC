@@ -8,6 +8,9 @@
 		http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
 	<bean class="controller.MainController">
+		<property name="ncrService" ref="ncrService" />
+		<property name="auditService" ref="auditService" />
+		<property name="vendorService" ref="vendorService" />
 	</bean>
 	
 	<bean class="controller.AuditController">
@@ -26,6 +29,8 @@
 	
 	<bean class="controller.NcrController">
 		<property name="ncrService" ref="ncrService" />
+		<property name="auditService" ref="auditService" />
+		<property name="vendorService" ref="vendorService" />
 		
 	</bean>
 	

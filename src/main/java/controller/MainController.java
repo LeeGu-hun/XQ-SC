@@ -15,11 +15,31 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 
 import bean.LoginCommand;
-
+import bean.NcrBean;
+import service.AuditService;
+import service.NcrService;
+import service.VendorService;
 import spring.AuthInfo;
 
 @Controller
 public class MainController {
+	
+	private AuditService auditService;
+
+	public void setAuditService(AuditService auditService) {
+		this.auditService = auditService;
+	}
+
+	private VendorService vendorService;
+
+	public void setVendorService(VendorService vendorService) {
+		this.vendorService = vendorService;
+	}
+
+	
+	private NcrService ncrService;
+
+	public void setNcrService(NcrService ncrService) {this.ncrService = ncrService;	}
 	
 	
 	@RequestMapping("/")
@@ -34,8 +54,28 @@ public class MainController {
 	}
 	
 	@RequestMapping("/main")
-	public String home() {
+	public String home(Model model) {		
+	
+		int vendorcnts = vendorService.registerCount();		
+		System.out.println(vendorcnts);
+		int auditPlanCnts = ncrService.auditPlanCnts();
+		int auditRinputCnts = ncrService.auditRinputCnts();
+		int ncrCnts = ncrService.ncrCnts();
+		List<NcrBean> ncrImcompList = null;
+		try {
+			ncrImcompList = ncrService.ncrImcompList();
+		} catch (Exception e) {	e.printStackTrace();}
 		
-	    return "main";
+		model.addAttribute("ncrImcompList", ncrImcompList);		
+		model.addAttribute("vendorcnts", vendorcnts);
+		model.addAttribute("auditPlanCnts", auditPlanCnts);
+		model.addAttribute("auditRinputCnts", auditRinputCnts);
+		model.addAttribute("ncrCnts", ncrCnts);
+		
+				
+		return "main";
+			 
 	}
+	
+	
 }

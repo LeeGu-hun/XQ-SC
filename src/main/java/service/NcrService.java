@@ -114,5 +114,24 @@ public class NcrService {
 		return ncrStatusList;
 		
 	}
+
+	
+	public int auditPlanCnts() {
+		return sqlSession.selectOne("ncrSQL.auditPlanCnts");
+	}
+
+	public int auditRinputCnts() {
+		return sqlSession.selectOne("ncrSQL.auditRinputCnts");
+		
+	}
+
+	public int ncrCnts() {
+		return sqlSession.selectOne("ncrSQL.ncrCnts");
+	}
+	
+	public List<NcrBean> ncrImcompList() {
+		List<NcrBean>ncrImcompList = sqlSession.selectList("ncrSQL.ncrImcompList");
+		return ncrImcompList;
+	}
 	
 }

@@ -10,6 +10,15 @@
 <script
 	src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/css/style.css?ver=1.3">
+
+<script type="text/javascript"
+	href="${pageContext.request.contextPath}/jquery-1.11.1.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <script>
 
 function searchNcrStatus() {
@@ -85,14 +94,15 @@ function rowselectDetail(ncr_id) {
 }
 
 </script>
+
 <html lang="ko">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>NCR Management</title>
+<title>NCR Status</title>
 </head>
 
 <body>
-<a href="/xqsc/main"> [ main ]</a>
+<%@ include file="/include/header.jsp"%>
 	<div id=mainBox class="container">
 		<div>
 			[검색조건]
@@ -103,17 +113,25 @@ function rowselectDetail(ncr_id) {
 					<tr>
 					
 						<td>Vendor ID</td>
-						<td><input type="text" id="vendor_id" name="vendor_id">
+						<td>
+						<div class="form-group input-group">
+                                            <input type="text" class="form-control">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default" type="button"><i class="fa fa-search"></i>
+                                                </button>
+                                            </span>
+                                        </div>
+						<input type="text" id="vendor_id" name="vendor_id">
 							<image
 								src="${pageContext.request.contextPath}/images/icon_search.gif"
-								data-target="#vendorSearchModal" data-toggle="modal"></image></td>
-
+								data-target="#vendorSearchModal" data-toggle="modal" style="height:auto; width:auto;"></image></td>
+		
 						
 						<td>Issuer</td>
 						<td><input type="text" id="issuer_id" name="issuer_id">
 							<image
 								src="${pageContext.request.contextPath}/images/icon_search.gif"
-								data-target="#issuerSearchModal" data-toggle="modal"></image></td>
+								data-target="#issuerSearchModal" data-toggle="modal" style="height:auto; width:auto;"></image></td>
 								
 						<td>Complete</td>
 						<td>						

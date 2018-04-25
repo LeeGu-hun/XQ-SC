@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -22,6 +23,7 @@ import bean.BeanIssuer;
 import bean.BeanNcrAttach;
 import bean.BeanReplyAttach;
 import bean.BeanVendor;
+import bean.LoginCommandValidator;
 import bean.NcrAuditListCommand;
 import bean.NcrBean;
 import bean.NcrIssueCommand;
@@ -30,25 +32,41 @@ import bean.NcrReplyCommand;
 import bean.NcrSearchCommand;
 import bean.NcrStatusBean;
 import bean.NcrStatusCommand;
+import service.AuditService;
 import service.NcrService;
+import service.VendorService;
 import spring.AuthInfo;
+import spring.NcrIssueCommandValidator;
 
 @Controller
 public class NcrController {
+	private AuditService auditService;
+
+	public void setAuditService(AuditService auditService) {
+		this.auditService = auditService;
+	}
+
+	private VendorService vendorService;
+
+	public void setVendorService(VendorService vendorService) {
+		this.vendorService = vendorService;
+	}
+
+	
 	private NcrService ncrService;
 
 	public void setNcrService(NcrService ncrService) {this.ncrService = ncrService;	}
 
-	@RequestMapping("ncr/searchAuditPopup")
+	@RequestMapping("/searchAuditPopup")
 	public String searchAuditPopup() {
 		return "ncr/searchAudit";}
 
-	@RequestMapping(value = "ncr/searchAudit", method = RequestMethod.GET)
+	@RequestMapping(value = "/searchAudit", method = RequestMethod.GET)
 	public String searchAuditget(Model model) {
 		return "ncr/searchAudit";
 	}
 
-	@RequestMapping(value = "ncr/searchAudit", method = RequestMethod.POST)
+	@RequestMapping(value = "/searchAudit", method = RequestMethod.POST)
 	public String searchAudit(Model model, HttpServletRequest request, HttpSession session,
 			@RequestParam(defaultValue = "") String vendorName, @RequestParam(defaultValue = "") String dateFrom,
 			@RequestParam(defaultValue = "") String dateTo) {
@@ -61,9 +79,15 @@ public class NcrController {
 		return "ncr/ncrAuditList";
 	}
 
-	@RequestMapping(value = "ncr/ncrIssue", method = RequestMethod.POST)
-	public String issue(NcrIssueCommand nic, HttpSession session, HttpServletRequest request,
-			MultipartHttpServletRequest mhsq) throws IllegalStateException, IOException {		
+	@RequestMapping(value = "/ncrIssue", method = RequestMethod.POST)
+	public String issue(NcrIssueCommand nic ,Errors errors, HttpSession session, HttpServletRequest request,
+			MultipartHttpServletRequest mhsq) throws IllegalStateException, IOException {
+		
+		new NcrIssueCommandValidator().validate(nic, errors);
+		if(errors.hasErrors())
+			return "ncr/ncrRegister";
+		
+		
 		AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
 		NcrBean nb = new NcrBean();
 		nb.setAudit_id(nic.getAudit_id());
@@ -99,7 +123,7 @@ public class NcrController {
 		return "redirect:./ncrRegister";
 	}
 
-	@RequestMapping(value = "ncr/ncrRegister", method = RequestMethod.GET)
+	@RequestMapping(value = "/ncrRegister", method = RequestMethod.GET)
 	public String ncrRegister(HttpSession session, Model model) {
 		AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
 		String loginId = authInfo.getId();
@@ -109,14 +133,14 @@ public class NcrController {
 		return "ncr/ncrRegister";
 	}
 
-	@RequestMapping(value = "ncr/ncrManagement", method = RequestMethod.GET)
+	@RequestMapping(value = "/ncrManagement", method = RequestMethod.GET)
 	public String ncrManagementGet(HttpSession session) {
 		return "ncr/ncrManagement";
 	}
 
-	@RequestMapping(value = "ncr/ncrSearch", method = RequestMethod.POST)
+	@RequestMapping(value = "/ncrSearch", method = RequestMethod.POST)
 	public String ncrSearch(NcrSearchCommand nsc, Model model) {
-		
+	
 		List<NcrBean> ncrList = null;
 		try {
 			ncrList = ncrService.getNcrList(nsc);
@@ -125,7 +149,7 @@ public class NcrController {
 		return "ncr/ncrList";
 	}
 
-	@RequestMapping(value = "ncr/searchVendorId", method = RequestMethod.POST)
+	@RequestMapping(value = "/searchVendorId", method = RequestMethod.POST)
 	public String searchVendor(Model model, HttpServletRequest request, HttpSession session,
 			@RequestParam(defaultValue = "") String vendor_name) {
 		List<BeanVendor> vendorList = null;
@@ -138,12 +162,12 @@ public class NcrController {
 		return "ncr/ncrVendorList";
 	}
 	
-	@RequestMapping(value = "ncr/searchVendorId", method = RequestMethod.GET)
+	@RequestMapping(value = "/searchVendorId", method = RequestMethod.GET)
 	public String searchVendorget(Model model) {
 		return "ncr/ncrManagement";
 	}
 
-	@RequestMapping(value = "ncr/searchIssuerId", method = RequestMethod.POST)
+	@RequestMapping(value = "/searchIssuerId", method = RequestMethod.POST)
 	public String searchIssuer(Model model, HttpServletRequest request, HttpSession session,
 			@RequestParam(defaultValue = "") String issuer_name) {
 		List<BeanIssuer> issuerList = null;
@@ -158,12 +182,12 @@ public class NcrController {
 		return "ncr/ncrIssuerList";
 	}
 
-	@RequestMapping(value = "ncr/searchIssuerId", method = RequestMethod.GET)
+	@RequestMapping(value = "/searchIssuerId", method = RequestMethod.GET)
 	public String searchIssuerget(Model model) {
 		return "ncr/ncrManagement";
 	}
 
-	@RequestMapping(value = "ncr/ncrDetail", method = RequestMethod.POST)
+	@RequestMapping(value = "/ncrDetail", method = RequestMethod.POST)
 	public String ncrDetailPost(Model model, HttpServletRequest request, HttpSession session,
 			@RequestParam String ncr_id) {
 		List<NcrBean> ncrBean = null;
@@ -185,12 +209,12 @@ public class NcrController {
 		return "ncr/ncrDetail";
 	}
 
-	@RequestMapping(value = "ncr/ncrDetail", method = RequestMethod.GET)
+	@RequestMapping(value = "/ncrDetail", method = RequestMethod.GET)
 	public String ncrDetailget() {
 		return "ncr/ncrManagement";
 	}
 	
-	@RequestMapping(value = "ncr/ncrDetail_vendor", method = RequestMethod.POST)
+	@RequestMapping(value = "/ncrDetail_vendor", method = RequestMethod.POST)
 	public String ncrDetail_vendor(Model model, HttpServletRequest request, HttpSession session,
 			@RequestParam String ncr_id) {
 		List<NcrBean> ncrBean = null;
@@ -212,22 +236,22 @@ public class NcrController {
 		return "ncr/ncrDetail_vendor";
 	}
 
-	@RequestMapping(value = "ncr/ncrDetail_vendor", method = RequestMethod.GET)
+	@RequestMapping(value = "/ncrDetail_vendor", method = RequestMethod.GET)
 	public String ncrDetail_vendorGet() {
 		return "ncr/ncrManagement_vendor";
 	}
 	
-	@RequestMapping(value = "ncr/ncrComplete", method = RequestMethod.POST)
+	@RequestMapping(value = "/ncrComplete", method = RequestMethod.POST)
 	public String ncrComplete(@RequestParam(defaultValue = "") String ncr_id) {		
 		ncrService.ncrComplete(Integer.parseInt(ncr_id));
 		return "ncr/ncrManagement";
 	}
-	@RequestMapping(value = "ncr/ncrComplete", method = RequestMethod.GET)
+	@RequestMapping(value = "/ncrComplete", method = RequestMethod.GET)
 	public String ncrCompleteGet() {
 		return "redirect:./ncrManagement";
 	}	
 
-	@RequestMapping(value = "ncr/ncrVendorReply", method = RequestMethod.POST)
+	@RequestMapping(value = "/ncrVendorReply", method = RequestMethod.POST)
 	public String ncrVendorReplyPost(HttpSession session, Model model,@RequestParam(defaultValue = "") String ncr_id) {		
 		
 		AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
@@ -239,7 +263,7 @@ public class NcrController {
 		return "ncr/ncrVedorReplyForm";
 	}
 	
-	@RequestMapping(value = "ncr/ncrVendorReply", method = RequestMethod.GET)
+	@RequestMapping(value = "/ncrVendorReply", method = RequestMethod.GET)
 	public String ncrVendorReplyGet(HttpSession session , Model model,@RequestParam(defaultValue = "") String ncr_id) {
 		
 		AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
@@ -252,7 +276,7 @@ public class NcrController {
 	}
 	
 	
-	@RequestMapping(value = "ncr/ncrVendorReplySave", method = RequestMethod.POST)
+	@RequestMapping(value = "/ncrVendorReplySave", method = RequestMethod.POST)
 	public String issue(NcrReplyCommand nrc, HttpSession session, HttpServletRequest request,			
 			MultipartHttpServletRequest mhsq) throws IllegalStateException, IOException {			
 		AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
@@ -287,7 +311,7 @@ public class NcrController {
 		return "ncr/ncrManagement";
 	}
 	
-	@RequestMapping(value = "ncr/ncrVendorReplySave_vendor", method = RequestMethod.POST)
+	@RequestMapping(value = "/ncrVendorReplySave_vendor", method = RequestMethod.POST)
 	public String issue_vendor(NcrReplyCommand nrc, HttpSession session, HttpServletRequest request,			
 			MultipartHttpServletRequest mhsq) throws IllegalStateException, IOException {			
 		AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
@@ -325,7 +349,7 @@ public class NcrController {
 	
 	
 	
-	@RequestMapping(value = "ncr/ncrAuditorReply", method = RequestMethod.POST)
+	@RequestMapping(value = "/ncrAuditorReply", method = RequestMethod.POST)
 	public String ncrAuditorReplyPost(HttpSession session, Model model,@RequestParam(defaultValue = "") String ncr_id) {		
 		
 		AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
@@ -337,7 +361,7 @@ public class NcrController {
 		return "ncr/ncrAuditorReplyForm";
 	}
 	
-	@RequestMapping(value = "ncr/ncrAuditorReply", method = RequestMethod.GET)
+	@RequestMapping(value = "/ncrAuditorReply", method = RequestMethod.GET)
 	public String ncrAuditorReplyGet(HttpSession session , Model model,@RequestParam(defaultValue = "") String ncr_id) {
 		
 		AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
@@ -350,7 +374,7 @@ public class NcrController {
 	}
 	
 	
-	@RequestMapping(value = "ncr/ncrAuditorReplySave", method = RequestMethod.POST)
+	@RequestMapping(value = "/ncrAuditorReplySave", method = RequestMethod.POST)
 	public String auditreply(NcrReplyCommand nrc, HttpSession session, HttpServletRequest request,			
 			MultipartHttpServletRequest mhsq) throws IllegalStateException, IOException {			
 			AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");		
@@ -361,12 +385,12 @@ public class NcrController {
 		return "ncr/ncrManagement";
 	}
 	
-	@RequestMapping(value = "ncr/ncrStatus", method = RequestMethod.GET)
+	@RequestMapping(value = "/ncrStatus", method = RequestMethod.GET)
 	public String ncrStatusGet(HttpSession session) {
 		return "ncr/ncrStatus";
 	}
 	
-	@RequestMapping(value = "ncr/ncrStatusSearch", method = RequestMethod.POST)
+	@RequestMapping(value = "/ncrStatusSearch", method = RequestMethod.POST)
 	public String ncrStatusSearch(NcrStatusCommand nsc, Model model) {
 		
 		List<NcrStatusBean> ncrStatusList = null;
@@ -377,7 +401,7 @@ public class NcrController {
 		return "ncr/ncrStatusList";
 	}
 	
-	@RequestMapping(value = "ncr/ncrManagement_vendor", method = RequestMethod.GET)
+	@RequestMapping(value = "/ncrManagement_vendor", method = RequestMethod.GET)
 	public String searchIssuer(Model model, HttpSession session) {
 		AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
 		String vendor_id = authInfo.getId();
@@ -393,4 +417,26 @@ public class NcrController {
 	    return "ncr/mainV";
 	}
 	
+	@RequestMapping(value = "/report", method = RequestMethod.GET)
+		public String report(Model model) {		
+	
+		int vendorcnts = vendorService.registerCount();				
+		int auditPlanCnts = ncrService.auditPlanCnts();
+		int auditRinputCnts = ncrService.auditRinputCnts();
+		int ncrCnts = ncrService.ncrCnts();
+		List<NcrBean> ncrImcompList = null;
+		try {
+			ncrImcompList = ncrService.ncrImcompList();
+		} catch (Exception e) {	e.printStackTrace();}
+		
+		model.addAttribute("ncrImcompList", ncrImcompList);
+		
+		model.addAttribute("vendorcnts", vendorcnts);
+		model.addAttribute("auditPlanCnts", auditPlanCnts);
+		model.addAttribute("auditRinputCnts", auditRinputCnts);
+		model.addAttribute("ncrCnts", ncrCnts);
+		
+				
+			    return "ncr/report";
+			}
 }
