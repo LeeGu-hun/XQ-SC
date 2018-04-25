@@ -189,7 +189,7 @@
 		<a href="#" data-target="#aPeriodModal" data-toggle="modal">${map.auditPeriod} YEARS</a>
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		Audit Cut-off Score : 
-		<a href="#" data-target="#scoreModal" data-toggle="modal">${map.score} POINTSdfsdf</a>
+		<a href="#" data-target="#scoreModal" data-toggle="modal">${map.score} POINTS</a>
 	</div>
 	<div id = "product">
 		<div id ="cate">
