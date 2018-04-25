@@ -39,6 +39,7 @@
 		display: inline-block;
 		vertical-align: middle;
 		content: " ";
+		
 	}
 }
 </style>
@@ -84,8 +85,7 @@
 						<p>
 							<input type="checkbox" name="hold" id="hold" value="${check}"
 								class="w3-check" /> <label for="hold">로그인유지</label>&nbsp;&nbsp;
-								<label><a
-								href="./ChangedPwd">비번변경</label>
+
 
 						</p>
 
@@ -107,7 +107,7 @@
 			</div>
 			<!-- 모달 -->
 			<div id="myModal" class="modal fade" role="dialog">
-				<div class="modal-dialog" style="width: 100%;">
+				<div class="modal-dialog" style="width: 1400px;">
 					<div class="modal-content"></div>
 				</div>
 			</div>

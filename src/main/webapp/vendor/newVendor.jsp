@@ -82,7 +82,6 @@ function addvendor() {
 
 </script>
 
-//
 </head>
 <body><div class="modal-header">
 	<h2>신규등록</h2>
