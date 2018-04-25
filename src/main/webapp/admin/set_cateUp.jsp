@@ -5,20 +5,38 @@
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 <form:form commandName="cateCommand" method="post" action="Setting?state=1" id="ucf">
-	<c:choose>
-		<c:when test="${selCate.CATEGORY_VALID eq 'Y'}">
-			<form:radiobutton path="CATEGORY_VALID" value="Y" label="VALID" checked="checked"/>
-			<form:radiobutton path="CATEGORY_VALID" value="N" label="INVALID"/>
-		</c:when>
-		<c:otherwise>
-			<form:radiobutton path="CATEGORY_VALID" value="Y" label="VALID"/>
-			<form:radiobutton path="CATEGORY_VALID" value="N" label="INVALID" checked="checked"/>
-		</c:otherwise>
-	</c:choose>
-	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	<form:input path="CATEGORY_NAME" value="${selCate.CATEGORY_NAME}" id="upCateName"/>
-	<form:hidden path="CATEGORY_ID" value="${selCate.CATEGORY_ID}" />
-	<input type="button" value="수정" onclick="cateUpdate()">
-	<a href="javascript:cateInsertForm()">취소</a>	
+	<table class="table" style="width:95%"><tbody>
+		<tr>
+			<c:choose>
+				<c:when test="${selCate.CATEGORY_VALID eq 'Y'}">
+					<td>
+						<form:radiobutton path="CATEGORY_VALID" value="Y" label="VALID" checked="checked"/>
+					</td>
+					<td>
+						<form:radiobutton path="CATEGORY_VALID" value="N" label="INVALID"/>
+					</td>
+				</c:when>
+				<c:otherwise>
+					<td>
+						<form:radiobutton path="CATEGORY_VALID" value="Y" label="VALID"/>
+					</td>
+					<td>
+						<form:radiobutton path="CATEGORY_VALID" value="N" label="INVALID" checked="checked"/>
+					</td>
+				</c:otherwise>
+			</c:choose>
+			<td>
+				<form:input path="CATEGORY_NAME" value="${selCate.CATEGORY_NAME}" id="upCateName" class="form-control"/>
+				<form:hidden path="CATEGORY_ID" value="${selCate.CATEGORY_ID}" />
+			</td>
+			<td>
+				<input type="button" class="btn btn-default" value="수정" onclick="cateUpdate()">
+				<a href="javascript:cateInsertForm()">취소</a>	
+			</td>
+		</tr>
+		<tr><td colspan="4" align="right">
+			<span id="ckCate" style="font-size:9pt;color:red;"></span>
+		</td></tr>
+	</tbody></table>
 </form:form>
 			

@@ -5,58 +5,57 @@
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
 <form:form commandName="MemberCommand" method="post" action="MSet?state=1">
-	<table width=80% border="0" cellpadding="0" cellspacing="0">
+	<table class="table">
 		<tbody>
 			<tr>
-				<td colspan="7" align="center">${selMember.MEMBER_DEPART} >
-					${selMember.MEMBER_ID} <form:hidden path="MEMBER_ID"
-						value="${selMember.MEMBER_ID}" />
+				<td colspan="7" align="center">
+					<b>${selMember.MEMBER_DEPART} &nbsp;&nbsp;>&nbsp;&nbsp;	${selMember.MEMBER_ID}</b> 
+					<form:hidden path="MEMBER_ID" value="${selMember.MEMBER_ID}" />
 				</td>
 			</tr>
 			<tr>
 				<td>
-					<div align="center">
-						<label>VALID</label><br>
-						<c:choose>
-							<c:when test="${selMember.MEMBER_VALID eq 'N'}">
-								<form:radiobutton path="MEMBER_VALID" value="Y" label="VALID" />
-								<form:radiobutton path="MEMBER_VALID" value="N" label="INVALID"
-									checked="checked" />
-							</c:when>
-							<c:otherwise>
-								<form:radiobutton path="MEMBER_VALID" value="Y" label="VALID"
-									checked="checked" />
-								<form:radiobutton path="MEMBER_VALID" value="N" label="INVALID" />
-							</c:otherwise>
-						</c:choose>
-					</div>
+					<label><b>VALID</b></label><br>
+					<c:choose>
+						<c:when test="${selMember.MEMBER_VALID eq 'N'}">
+							<form:radiobutton path="MEMBER_VALID" value="Y" label="VALID" />&nbsp;&nbsp;
+							<form:radiobutton path="MEMBER_VALID" value="N" label="INVALID"
+								checked="checked" />
+						</c:when>
+						<c:otherwise>
+							<form:radiobutton path="MEMBER_VALID" value="Y" label="VALID"
+								checked="checked" />&nbsp;&nbsp;
+							<form:radiobutton path="MEMBER_VALID" value="N" label="INVALID" />
+						</c:otherwise>
+					</c:choose>
 				</td>
 				<td>
-					<div align="center">
-						<label>NAME</label><br>
-						<form:input path="MEMBER_NAME" value="${selMember.MEMBER_NAME}" />
-					</div>
+					<label><b>NAME</b></label><br>
+					<form:input path="MEMBER_NAME" value="${selMember.MEMBER_NAME}" class="form-control"/>
 				</td>
 				<td>
-					<div align="center">
-						<label>EMAIL</label><br>
-						<form:input path="MEMBER_EMAIL" value="${selMember.MEMBER_EMAIL}" />
-					</div>
+					<label><b>EMAIL</b></label><br>
+					<form:input path="MEMBER_EMAIL" value="${selMember.MEMBER_EMAIL}" class="form-control"/>
 				</td>
 				<td>
-					<div align="center">
-						<label>PASSWORD</label><br>
-						<form:password path="MEMBER_PASS" value="${selMember.MEMBER_PASS}" />
-					</div>
+					<label><b>PASSWORD</b></label><br>
+					<form:password path="MEMBER_PASS" value="${selMember.MEMBER_PASS}" class="form-control"/>
 				</td>
 				<td>
-					<div align="center">
-						<label>TEL</label><br>
-						<form:input path="MEMBER_TEL" value="${selMember.MEMBER_TEL}" />
-					</div>
+					<label><b>TEL</b></label><br>
+					<form:input path="MEMBER_TEL" value="${selMember.MEMBER_TEL}" class="form-control"/>
 				</td>
-				<td><input type="button" value="수정" onclick="mUpdate()">
-					<a href="javascript:inMemForm()">취소</a></td>
+				<td>
+					<input type="button" class="btn btn-default" value="수정" onclick="mUpdate()"
+					style=" width:70pt;">
+					<a href="javascript:inMemForm()">취소</a>
+					<br>
+					<span id="mInUp" style="font-size:9pt;color:red;"></span>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="7" align="right">
+				</td>
 			</tr>
 		</tbody>
 	</table>

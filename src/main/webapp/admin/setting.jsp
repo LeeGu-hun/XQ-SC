@@ -11,14 +11,14 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Setting</title>
 
-		
-<link rel="stylesheet"
-	href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css"
-	type="text/css" />
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />
 <link href="<c:url value="/css/bootstrap.css" />" rel="stylesheet">
-<script
-	src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
+<script src="${pageContext.request.contextPath}/css/sb-admin-2.css"></script>
+<script src="${pageContext.request.contextPath}/css/sb-admin-2.min.css"></script>
+<script src="${pageContext.request.contextPath}/js/sb-admin-2.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/sb-admin-2"></script>
       
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
@@ -26,6 +26,9 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<style>
 		#auditSet { height:100px;}
+		#aform{overflow:hidden;}
+		#cform{float:left; width:50%; }
+		#pform{float:right; width:50%; }
 		#product{overflow:hidden;}
 		#cate{float:left; width:50%; }
 		#prod{float:right; width:50%; }
@@ -176,151 +179,155 @@
 		}
 		document.getElementById('scoreForm').submit();
 	}
-	
 </script>
 </head>
 
 <body>
 
 	<%@ include file="/include/header.jsp"%><br>
-	
-	<div id = "auditSet">
-		Audit period : 
+<div class="container" >
+	<div id = "auditSet" align="center">
+		Audit Period : 
 		<a href="#" data-target="#aPeriodModal" data-toggle="modal">${map.auditPeriod} YEARS</a>
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		Audit Cut-off Score : 
 		<a href="#" data-target="#scoreModal" data-toggle="modal">${map.score} POINTS</a>
 	</div>
-	<div id = "product">
+	<div id = "aform" align="center">
+		<div id ="cform" align="center">
+			<div>
+				<span id ="cateInUp">
+					<%@include file="/admin/set_cateIn.jsp" %>
+				</span>
+			</div>
+		</div>
+		<div id ="pform" align="center">
+			<span id ="prodInUp">
+				<%@include file="/admin/set_prodIn.jsp" %>
+			</span>
+		</div>
+	</div>
+	<div id = "product" align="center">
 		<div id ="cate">
 			<p>
 				${map.cateCount} 개
-			<br>
-			<div>
-			<span id ="cateInUp">
-				<%@include file="/admin/set_cateIn.jsp" %>
-			</span>
-			</div>
-			<br>
-			<span id="ckCate" style="font-size:9pt;color:red;"></span>
-			<table>
-				<thead>
-					<tr align="center" valign="middle">
-						<th>
+			</p>
+			<table class="table table-striped table-bordered table-hover"
+			style="border-collapse:collapse; width:95%">
+				<thead style="float:left; width:98.77%;">
+					<tr align="center" valign="middle" style="display:table; width:100%;">
+						<th style="width:20%;">
 							<div align="center">VALID</div>
 						</th>
-						<th>
+						<th style="width:80%;">
 							<div align="center">CATEGORY</div>
 						</th>
 					</tr>
 				</thead>
-				<c:forEach var="cate" items="${cateList}">
-					<tr align="center" valign="middle">
-						<td>
-							<div align="center">${cate.CATEGORY_VALID}</div>
-						</td>
-						<td>
-							<div align="center">
-								<a href="javascript:cateUpdateForm('${cate.CATEGORY_ID}')">
-								${cate.CATEGORY_NAME}
-								</a>
-							</div>
-						</td>
-					</tr>
-				</c:forEach>
+				<tbody style="overflow-y:auto; overflow-x:hidden; float:left; width:100%; height:300px">
+					<c:forEach var="cate" items="${cateList}">
+						<tr align="center" valign="middle" style="display:table; width:100%;">
+							<td style="width:20%;">
+								<div align="center">${cate.CATEGORY_VALID}</div>
+							</td>
+							<td style="width:80%;">
+								<div align="center">
+									<a href="javascript:cateUpdateForm('${cate.CATEGORY_ID}')">
+									${cate.CATEGORY_NAME}
+									</a>
+								</div>
+							</td>
+						</tr>
+					</c:forEach>
+				</tbody>
 			</table>
 		</div>
 		<div id ="prod">
 			<p>
 				${map.prodCount} 개
 			</p>
-			<br>
-			
-			<span id ="prodInUp">
-				<%@include file="/admin/set_prodIn.jsp" %>
-			</span>
-			<br>
-			<span id="ckProd" style="font-size:9pt;color:red;"></span>
-			<table width=50% border="0" cellpadding="0" cellspacing="0">
-				<thead>
-					<tr align="center" valign="middle">
-						<th>
+			<table class="table table-striped table-bordered table-hover"
+			style="border-collapse:collapse; width:95%">
+				<thead style="float:left; width:98.77%;">
+					<tr align="center" valign="middle" style="display:table; width:100%;">
+						<th style="width:20%;">
 							<div align="center">VALID</div>
 						</th>
-						<th>
+						<th style="width:80%;">
 							<div align="center">PRODUCT</div>
 						</th>
 					</tr>
 				</thead>
-				<tbody id = "prodList">
+				<tbody id = "prodList" style="overflow-y:auto; overflow-x:hidden; float:left; width:100%; height:300px">
 					<%@include file="/admin/set_prodList.jsp" %>
 				</tbody>
 			</table>
 		</div>
 	</div>
+</div>
+	
+	<div class="modal fade" id="aPeriodModal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<!-- header -->
+				<div class="modal-header">
+					<!-- 닫기(x) 버튼 -->
+					<button type="button" class="close" data-dismiss="modal">×</button>
+					<!-- header title -->
+					<h4 class="modal-title">AUDIT PERIOD</h4>
+				</div>
+				<!-- body -->
+				<div class="modal-body">
+					<div>
+						<form id="periodForm" action="Setting/SetPeriod" method="POST">
+							<input type="text" id="aPeriod" name = "aPeriod" placeholder="${map.auditPeriod}"
+							onKeyUp="onlyNum();" onKeyPress="onlyNum();" onKeyDown="onlyNum();" />
+							YEARS
+						</form>
+					</div>
+					<span id="aPeriodCk" style="font-size:9pt;color:red;"></span>
+				</div>
+				<!-- Footer -->
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">CLOSE</button>
+					<button type="button" class="btn btn-default" onclick="aPeriodUpdate()">UPDATE</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="modal fade" id="scoreModal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<!-- header -->
+				<div class="modal-header">
+					<!-- 닫기(x) 버튼 -->
+					<button type="button" class="close" data-dismiss="modal">×</button>
+					<!-- header title -->
+					<h4 class="modal-title">AUDIT CUT-OFF SCORE</h4>
+				</div>
+				<!-- body -->
+				<div class="modal-body">
+					<div>
+						<form id="scoreForm" action="Setting/SetCutoffScore" method="POST">
+							<input type="text" id ="score"  name = "score" placeholder="${map.score}"
+							onKeyUp="onlyNum();" onKeyPress="onlyNum();" onKeyDown="onlyNum();" />
+							POINTS
+						</form>
+					</div>
+					<span id="scoreck" style="font-size:9pt;color:red;"></span>
+				</div>
+				<!-- Footer -->
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">CLOSE</button>
+					<button type="button" class="btn btn-default" onclick="scoreUpdate()">UPDATE</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
 </body>
 
-
-<div class="modal fade" id="aPeriodModal">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<!-- header -->
-			<div class="modal-header">
-				<!-- 닫기(x) 버튼 -->
-				<button type="button" class="close" data-dismiss="modal">×</button>
-				<!-- header title -->
-				<h4 class="modal-title">AUDIT PERIOD</h4>
-			</div>
-			<!-- body -->
-			<div class="modal-body">
-				<div>
-					<form id="periodForm" action="Setting/SetPeriod" method="POST">
-						<input type="text" id="aPeriod" name = "aPeriod" placeholder="${map.auditPeriod}"
-						onKeyUp="onlyNum();" onKeyPress="onlyNum();" onKeyDown="onlyNum();" />
-						YEARS
-					</form>
-				</div>
-				<span id="aPeriodCk" style="font-size:9pt;color:red;"></span>
-			</div>
-			<!-- Footer -->
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">CLOSE</button>
-				<button type="button" class="btn btn-default" onclick="aPeriodUpdate()">UPDATE</button>
-			</div>
-		</div>
-	</div>
-</div>
-
-
-<div class="modal fade" id="scoreModal">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<!-- header -->
-			<div class="modal-header">
-				<!-- 닫기(x) 버튼 -->
-				<button type="button" class="close" data-dismiss="modal">×</button>
-				<!-- header title -->
-				<h4 class="modal-title">AUDIT CUT-OFF SCORE</h4>
-			</div>
-			<!-- body -->
-			<div class="modal-body">
-				<div>
-					<form id="scoreForm" action="Setting/SetCutoffScore" method="POST">
-						<input type="text" id ="score"  name = "score" placeholder="${map.score}"
-						onKeyUp="onlyNum();" onKeyPress="onlyNum();" onKeyDown="onlyNum();" />
-						POINTS
-					</form>
-				</div>
-				<span id="scoreck" style="font-size:9pt;color:red;"></span>
-			</div>
-			<!-- Footer -->
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">CLOSE</button>
-				<button type="button" class="btn btn-default" onclick="scoreUpdate()">UPDATE</button>
-			</div>
-		</div>
-	</div>
-</div>
 
 
 </html>
