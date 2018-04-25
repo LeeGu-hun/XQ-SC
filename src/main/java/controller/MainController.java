@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import bean.AuditBean;
 import bean.BeanVendor;
+import bean.DateCommand;
 import bean.LoginCommand;
 import bean.NcrBean;
 import service.AuditService;
@@ -78,14 +80,37 @@ public class MainController {
 	}
 	
 	@RequestMapping("/mainVendorList")
-		public String registList(HttpServletRequest request, Model model, BeanVendor beanvendor) {
+		public String registList( Model model ) {
 
 			List<BeanVendor> list = vendorService.registerList();
-			int cnts = vendorService.registerCount();
+			
 			model.addAttribute("list", list);			
-
-			return "ncr/mainVendorList";
+			return "./ncr/mainVendorList";
 		}
+	
+	@RequestMapping("/mainNcrList")
+	public String mainNcrList(Model model) {
+
+		List<NcrBean> ncrImcompList = null;
+		try {
+			ncrImcompList = ncrService.ncrImcompList();
+		} catch (Exception e) {	e.printStackTrace();}
+		
+		model.addAttribute("ncrImcompList", ncrImcompList);
+				
+		return "./ncr/mainNcrList";
 	}
 	
+	
+	
+	@RequestMapping("/mainAuditList")
+	public String mainAuditList(Model model,DateCommand dc) {
+
+		List<AuditBean> listBean = auditService.auditList();
+		List<AuditBean> auditBeans = auditService.auditListReport(dc);
+		model.addAttribute("listBean", listBean);
+		model.addAttribute("auditBeans", auditBeans);
+
+		return "./ncr/mainAuditList";
+	}
 }

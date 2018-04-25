@@ -29,36 +29,62 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+	
 <script>
-function ncrIncompList() {
-	$('#ncrList').modal('show');
-}
+
 
 function mainVendorList(){
 	
 	$.ajax({
 		type : "POST",
-		url : "/mainVendorList",
+		url : "./mainVendorList",
 		
 		success : resultMainVendorList,
 	});
 }
 
 function resultMainVendorList(mvlist) {
-	$("#MainVendorListBox").html(mvlist);
+	$("#ListBox").html(mvlist);
 }
+
+function mainAuditList(){
+	
+	$.ajax({
+		type : "POST",
+		url : "./mainAuditList",
+		
+		success : resultMainAuditList,
+	});
 }
+
+function resultMainAuditList(alist) {
+	$("#ListBox").html(alist);
+}
+
+function ncrIncompList(){
+	
+	$.ajax({
+		type : "POST",
+		url : "./mainNcrList",
+		
+		success : resultMainNcrList,
+	});
+}
+
+function resultMainNcrList(nlist) {
+	$("#ListBox").html(nlist);
+}
+
 </script>
 
 <title>Main</title>
 </head>
 
-<body>
+<body style="background-color:white">
 <%@ include file="/include/header.jsp"%><br>
-<a href="./logout">로그아웃</a>	
-<a href="./ChangedPwd">비번변경</a>
-<li><a href="./AuditManage">평가관리</a></li>
-<div class="container">
+
+
+<div class="container" >
 		<div class="row">&nbsp;</div>
 		<div class="row">
 			<div class="col-lg-4 col-md-6">
@@ -74,9 +100,9 @@ function resultMainVendorList(mvlist) {
 							</div>
 						</div>
 					</div>
-					<a href="">
+					<a href="javascript:mainVendorList()">
 						<div class="panel-footer">
-							<span class="pull-left" onclick="mainVendorList()">View Details</span> <span
+							<span class="pull-left">View Details</span> <span
 								class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
 							<div class="clearfix"></div>
 						</div>
@@ -96,7 +122,7 @@ function resultMainVendorList(mvlist) {
 							</div>
 						</div>
 					</div>
-					<a href="./AuditManage">
+					<a href="javascript:mainAuditList()">
 						<div class="panel-footer">
 							<span class="pull-left">View Details</span> <span
 								class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -130,58 +156,7 @@ function resultMainVendorList(mvlist) {
 		</div>
 		
 	
-	<!--  detail 모달 시작 -->
-		<div class="modal fade" id="ncrList">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<!-- header -->
-					<div class="modal-header">
-						<!-- 닫기(x) 버튼 -->
-						<button type="button" class="close" data-dismiss="modal">×</button>
-						<!-- header title -->
-						<h4 class="modal-title">NCR Detail</h4>
-					</div>
-					<!-- body -->
-					<div class="modal-body">
-						<div id="ncrListBox">
-						<table class="table table-hover" border="1" >
-							<thead>
-								<tr>
-									<th>NCR No.</th>
-									<th>Audit ID</th>
-									<th>Vendor Name</th>
-									<th>Subject</th>
-									<th>Description</th>
-									<th>Issuer Name</th>
-									
-								</tr>
-							</thead>
-							<tbody >
-										<c:forEach var="i" items="${ncrImcompList}">
-											<tr >									
-												<td>${i.ncr_id}</td>
-												<td>${i.audit_id}</td>
-												<td>${i.vendor_name}</td>
-												<td>${i.ncr_title}</td>
-												<td>${i.ncr_description}</td>
-												<td>${i.issuer_name}</td>
-											</tr>
-										</c:forEach>
-									
-							</tbody>		
-					</table>									
-						
-						</div>
-
-					</div>
-					<!-- Footer -->
-
-				</div>
-			</div>
-		</div>
-
-		<!--  모달 끝 -->
-		
-<div id="MainVendorListBox"></div>
+	
+<div id="ListBox" style="height:600px"></div>
 </body>
 </html>

@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 
-<table class="table" border="1" >
+<table class="table table-hover"  >
 		<thead>
 			<tr>
 				<th>Issuer Name</th>

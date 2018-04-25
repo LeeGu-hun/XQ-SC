@@ -4,7 +4,7 @@
 
 
 
-<table class="table" border="1" >
+<table class="table table-hover"  >
 		<thead>
 			<tr>
 				<th>Vendor Name</th>

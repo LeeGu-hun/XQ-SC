@@ -3,8 +3,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 
+<div class="table-responsive">
 
-<table class="table">
+
+<table class="table table-hover"  >
 			<thead>
 				<tr>
 					<th>Vendor</th>
@@ -29,3 +31,4 @@
 			
 			</tbody>
 		</table>
+</div>

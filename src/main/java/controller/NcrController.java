@@ -116,7 +116,7 @@ public class NcrController {
 				
 				long fileSize = mf.get(i).getSize(); // 파일 사이즈
 				mf.get(i).transferTo(new File(savePath)); // 파일 저장
-				System.out.println(savePath);
+				
 				ncrService.ncrFileUpload(originalfileName, saveFileName, fileSize);
 			}
 		}
