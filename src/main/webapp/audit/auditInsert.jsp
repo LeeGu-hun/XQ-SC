@@ -59,14 +59,16 @@
 </script>
 </head>
 <body>
+<div class="container" style="font-family: Tahoma;">
 	<form method="POST" action="./audit/auditInsert" name="auditForm">
 		<div class="modal-header">
-			<h2>Audit Result Report</h2>
+			<h1>Audit Result Report</h1>
 		</div>
-		<div class="modal-body"">
-			<table>
+		<div class="modal-body">
+			<table class="table">
+			<br>
 				<label>${manager}님 환영합니다</label>
-
+				<br>
 				<tr>
 					<td nowrap>Audit ID : ${auditid}</td>
 					<td><input type="hidden" value="${auditid}" name="AUDIT_ID"></td>
@@ -81,7 +83,8 @@
 					<td nowrap>Vendor Name : ${vendorname}</td>
 					<td><input type="hidden" value="${vendorname}"></td>
 					<td nowrap>Audit Date :</td>
-					<td><input type="date" name="AUDIT_COMP_DATE"></td>
+					<td><input type="date" name="AUDIT_COMP_DATE"
+					id="AUDIT_COMP_DATE" style="height: 30px"></td>
 				</tr>
 				<tr>
 					<td nowrap>Category : ${category}</td>
@@ -89,12 +92,13 @@
 					<td nowrap>Product : ${product}</td>
 					<td><input type="hidden" value="${product}"></td>
 					<td nowrap>Insert Date :</td>
-					<td><input type="date" name="AUDIT_RSINPUT_DATE"></td>
+					<td><input type="date" name="AUDIT_RSINPUT_DATE"
+					id="AUDIT_RSINPUT_DATE" style="height: 30px"></td>
 				</tr>
 
 			</table>
 			<br> <span id="result">
-				<table>
+				<table class="table">
 					<tr>
 						<th nowrap>No</th>
 						<th nowrap>Audit Description</th>
@@ -153,10 +157,18 @@
 			</span>
 		</div>
 		<div class="modal-footer">
-			<input type="submit" value="Submit" />
+			<input type="submit" value="Submit" class="btn btn-default"/>
 			<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 		</div>
 	</form>
+</div>
+<script>
 
+let today = new Date().toISOString().substr(0, 10);
+document.querySelector("#AUDIT_COMP_DATE").value = today;
+
+document.querySelector("#AUDIT_RSINPUT_DATE").valueAsDate = new Date();
+
+</script>
 </body>
 </html>

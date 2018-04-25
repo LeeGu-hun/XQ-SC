@@ -21,10 +21,11 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import com.mysql.fabric.xmlrpc.base.Array;
 
 import bean.AdminCkL;
+import bean.AdminMem;
 import bean.AuditBean;
 import bean.AuditCommand;
 import bean.AuditKind;
-import bean.AuditProd;
+
 import bean.AuditResultSearch;
 import bean.AuditScoreCommand;
 import bean.AuditSubmitBean;
@@ -32,8 +33,10 @@ import bean.BeanCategory;
 import bean.BeanIssuer;
 import bean.BeanMember;
 import bean.BeanProduct;
+import bean.BeanVendor;
 import bean.CheckListBean;
 import bean.DateCommand;
+import bean.Paging;
 import oracle.net.aso.a;
 import service.AuditService;
 
@@ -46,8 +49,8 @@ public class AuditController {
 	public void setAuditService(AuditService auditService) {
 		this.auditService = auditService;
 	}
-	
-	//*********** audit Manage Page **************
+
+	// *********** audit Manage Page **************
 
 	// plan date, auditor insert page
 	@RequestMapping(value = "/AuditManage", method = RequestMethod.GET)
@@ -59,6 +62,7 @@ public class AuditController {
 		int allCount = auditService.allCount();
 		model.addAttribute("allCount", allCount);
 		return "audit/auditManage";
+		
 	}
 
 	// plan date, auditor insert page
@@ -85,7 +89,6 @@ public class AuditController {
 
 		try {
 			auditorList = auditService.getAuditorList(auditor_name);
-			System.out.println(auditorList);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -100,6 +103,8 @@ public class AuditController {
 		return "audit/auditorList";
 	}
 
+	// ****************** Report Page ******************//
+	
 	// Report page
 	@RequestMapping(value = "/AuditReport", method = RequestMethod.GET)
 	public String auditReportGet(Model model, AuditBean auditBean, HttpServletRequest request, DateCommand dc) {
@@ -150,7 +155,8 @@ public class AuditController {
 
 	// report page : insert modal
 	@RequestMapping(value = "/audit/auditInsert", method = RequestMethod.POST)
-	public String auditInsertPost(HttpServletRequest request, AuditScoreCommand ac) {
+	public String auditInsertPost(HttpServletRequest request, 
+			AuditScoreCommand ac, AuditSubmitBean sub) {
 		AuditBean ab = new AuditBean();
 
 		String total = (String) request.getParameter("total");
@@ -174,52 +180,73 @@ public class AuditController {
 			auditService.getCheckResult(audit);
 		}
 		auditService.updateScore(ab);
+		int cutline = auditService.cutLineScore();
 
-		if (Integer.parseInt(total) >= 80) {
+		if (Integer.parseInt(total) >= cutline) {
 			AuditBean bean = new AuditBean();
 			bean.setVENDOR_ID(ac.getVENDOR_ID());
 			auditService.nextPlanUpdate(bean);
+			BeanVendor beanVendor = new BeanVendor();
+			beanVendor.setAUDIT_ID(ac.getAUDIT_ID());
+			beanVendor.setVENDOR_ID(ac.getVENDOR_ID());
+			auditService.regulerVendorRegister(beanVendor);
 		} else {
 			AuditBean bean = new AuditBean();
 			bean.setVENDOR_ID(ac.getVENDOR_ID());
 			auditService.auditFalse(bean);
+			AuditResultSearch rs = new AuditResultSearch();
+			rs.setAUDIT_ID(sub.getAUDIT_ID());
+			auditService.resultFalse(rs);
 		}
 		return "redirect:/AuditReport";
 	}
 
 	// Result Page : get
 	@RequestMapping(value = "/AuditResult", method = RequestMethod.GET)
-	public String auditResultGet(Model model, HttpServletRequest request, DateCommand dateCommand) {
+	public String auditResultGet(Model model, 
+			HttpServletRequest request, 
+			DateCommand dateCommand) {
 		AuditResultSearch ars = new AuditResultSearch();
-		List<AuditResultSearch> arsList = auditService.getByPlanDate(dateCommand);
+		List<AuditBean> arsList = auditService.getByPlanDate(dateCommand);
 		model.addAttribute("arsList", arsList);
-
+		
 		return "audit/auditResult";
 	}
 
-	//result page :post
+	// result page :post
 	@RequestMapping(value = "/AuditResult", method = RequestMethod.POST)
 	public String auditResultPost(Model model, DateCommand dateCommand) {
+		
 		if (dateCommand.getPlandate().equals("score")) {
 			List<AuditResultSearch> arsList = auditService.getByScoreDate(dateCommand);
 			model.addAttribute("arsList", arsList);
-		} else {
-			List<AuditResultSearch> arsList = auditService.getByPlanDate(dateCommand);
+		} else if (dateCommand.getPlandate().equals("plan")) {
+			List<AuditBean> arsList = auditService.getByPlanDate(dateCommand);
 			model.addAttribute("arsList", arsList);
-		}
+		} else if (dateCommand.getPlandate().equals("incomplete")) {
+			System.out.println(dateCommand.getPlandate());
+			List<AuditBean> arsList = auditService.incomplete(dateCommand);
+			model.addAttribute("arsList", arsList);
+		} else if (dateCommand.getPlandate().equals("compelete")) {
+			List<AuditBean> arsList = auditService.getByPlanDate(dateCommand);
+			model.addAttribute("arsList", arsList);
+		} 
+		
 		return "audit/auditResult";
 	}
 
 	// result page : modal
 	@RequestMapping(value = "/audit/auditVendorResult", method = RequestMethod.GET)
-	public String auditResultView(Model model, HttpServletRequest request, AuditScoreCommand ac) {
-		
+	public String auditResultView(
+			Model model, 
+			HttpServletRequest request, 
+			AuditScoreCommand ac,
+			@RequestParam(defaultValue="1") int curPage) {
 
 		String vendorname = (String) request.getParameter("vendorname");
 		String id = (String) request.getParameter("id");
 		String vendorid = (String) request.getParameter("vendorid");
 		String prod = (String) request.getParameter("prod");
-		
 		String type = (String) request.getParameter("type");
 		String auditor = (String) request.getParameter("auditor");
 		String auditorId = (String) request.getParameter("auditorId");
@@ -231,7 +258,6 @@ public class AuditController {
 		request.setAttribute("type", type);
 		request.setAttribute("vendorid", vendorid);
 		request.setAttribute("prod", prod);
-	
 		request.setAttribute("auditor", auditor);
 		request.setAttribute("auditorId", auditorId);
 		request.setAttribute("result", result);
@@ -239,9 +265,9 @@ public class AuditController {
 
 		List<AuditBean> date = auditService.getDate(id);
 		List<CheckListBean> checkResult = auditService.getEachCheckScore(id);
-		model.addAttribute("date",date);
+		model.addAttribute("date", date);
 		model.addAttribute("checkResult", checkResult);
-		
+
 		return "audit/auditVendorResult";
 	}
 

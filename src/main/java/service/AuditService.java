@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 
 import bean.AuditBean;
 import bean.AuditKind;
-import bean.AuditProd;
+
 import bean.AuditResultSearch;
 import bean.AuditSubmitBean;
 import bean.BeanCategory;
@@ -21,6 +21,7 @@ import bean.BeanChecklist;
 import bean.BeanIssuer;
 import bean.BeanMember;
 import bean.BeanProduct;
+import bean.BeanVendor;
 import bean.CheckListBean;
 import bean.DateCommand;
 
@@ -35,6 +36,10 @@ public class AuditService {
 	// audit all count
 	public int allCount() {
 		return sqlSession.selectOne("auditSQL.allCount");
+	}
+	
+	public int cutLineScore() {
+		return sqlSession.selectOne("auditSQL.cutline");
 	}
 
 	// audit list
@@ -77,6 +82,11 @@ public class AuditService {
 	public void auditFalse(AuditBean bean) {
 		sqlSession.update("auditSQL.nextDateFalse", bean);
 	}
+	
+	public void resultFalse(AuditResultSearch bean) {
+		sqlSession.update("auditSQL.resultFalse", bean);
+	}
+
 
 	// report : audit score update
 	public void updateScore(AuditBean ab) {
@@ -99,6 +109,17 @@ public class AuditService {
 		String id = "R" + idForm.format(resultId() + 1);
 		audit.setAUDIT_RESULT_ID(id);
 		sqlSession.selectList("auditSQL.checkResult", audit);
+	}
+	
+	public int auditId() {
+		return sqlSession.selectOne("auditSQL.auditId");
+	}
+	
+	//if pass audit vendor 
+	public void regulerVendorRegister(BeanVendor beanvendor) {
+		String id = "S" + idForm.format(auditId()+1);
+		beanvendor.setAUDIT_ID(id);
+		sqlSession.selectList("auditSQL.vendorRegisterRe", beanvendor);
 	}
 
 	// ************* result page ************//
@@ -125,9 +146,8 @@ public class AuditService {
 	}
 
 	// Result Page Plan Date Search
-	public List<AuditResultSearch> getByPlanDate(DateCommand dateCommand) {
-
-		List<AuditResultSearch> results = sqlSession.selectList("auditSQL.getByPlanDate", dateCommand);
+	public List<AuditBean> getByPlanDate(DateCommand dateCommand) {
+		List<AuditBean> results = sqlSession.selectList("auditSQL.getByPlanDate", dateCommand);
 		return results;
 	}
 
@@ -136,4 +156,9 @@ public class AuditService {
 		return results;
 	}
 
+	
+	public List<AuditBean> incomplete(DateCommand dateCommand) {
+		List<AuditBean> results = sqlSession.selectList("auditSQL.incomplete", dateCommand);
+		return results;
+	}
 }

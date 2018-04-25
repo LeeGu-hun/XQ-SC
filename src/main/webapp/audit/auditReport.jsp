@@ -14,6 +14,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+	<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.css">
 <title>Audit Report</title>
 </head>
 <style>
@@ -37,16 +39,6 @@
 	}
 }
 
-table {
-	width: 100%;
-	border-top: 1px solid #444444;
-	border-collapse: collapse;
-}
-
-th, td {
-	border-bottom: 1px solid #444444;
-	padding: 10px;
-}
 </style>
 
 <link rel="stylesheet" type="text/css" href="/css/style.css?ver=2">
@@ -70,37 +62,45 @@ th, td {
 
 
 </head>
+
 <body>
+
 <%@ include file="/include/header.jsp"%><br>
-	<div>
-	
+	<div class="container" style="font-family: Tahoma;">
+	<legend style="font-family: Tahoma; font-size: 20pt;">Audit Report</legend><br>
 		<form action="./AuditReport" method="POST">
 		<p>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 			<label for="scoreDate">Date Search</label>
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-			<label>from : <input id="from" name="from" type="date" /> </label> ~ 
-			<label>to : <input id="to" name="to" type="date" /></label> <br>
-			<br> <label>Vendor Search    </label> <input type="text"
-				id="vSearch" name="vSearch">
+			<label>from : <input id="from" name="from" type="date" style="height: 30px"/> </label> ~ 
+			<label>to : <input id="to" name="to" type="date" style="height: 30px"/></label> 
+			
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-			<input type="submit" value="조회">
+			<label for = "vSearch">Vendor Search    </label> 
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+			<input type="text" id="vSearch" name="vSearch" placeholder="Vendor Search..." 
+			style="height: 30px">
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+			<input type="submit" value="Search" class="btn btn-default"	style="height: 30px">
 		</p>
+
 	</form>
-			<br> <br>
-			<table border="1" id="auditTable">
-				<tr>
-					<th>No</th>
-					<th>Audit ID</th>
-					<th>Plan Date</th>
-					<th>Vendor(ID)</th>
-					<th>Category</th>
-					<th>Product(ID)</th>
-					<th>Audit Type</th>
-					<th>Manager(ID)</th>
-					<th>Vendor Address</th>
-					<th>Submit Result</th>
+			<br> 
+			<table class="table table-hover">
+				<tr align="center" bordercolor="#333333">
+					<th style="text-align: center;">No</th>
+					<th style="text-align: center;">ID</th>
+					<th style="text-align: center;">Plan Date</th>
+					<th style="text-align: center;">Vendor</th>
+					<th style="text-align: center;">Category</th>
+					<th style="text-align: center;">Product</th>
+					<th style="text-align: center;">Audit Type</th>
+					<th style="text-align: center;">Manager</th>
+					<th style="text-align: center;">Vendor Address</th>
+					<th style="text-align: center;">Submit Result</th>
 				</tr>
-				<c:forEach var="a" items="${auditBeans}">
+					<c:forEach var="a" items="${auditBeans}">
 					<c:if test="${a.AUDIT_PLAN_DATE!=null}">
 						<tr align="center" valign="middle" bordercolor="#333333">
 							<td style="font-family: Tahoma; font-size: 12pt;" height="">
@@ -140,8 +140,10 @@ th, td {
 								&product=${a.PRODUCT_NAME}
 								&auditid=${a.AUDIT_ID}
 								&auditType=${a.AUDIT_KIND_ID}"
-								class="btn-btn-default" type="button" data-toggle="modal"
-								data-target="#myModal">Register</a></td>
+								data-toggle="modal"
+								data-target="#myModal"  
+								style="text-decoration: underline;"
+								>Register</a></td>
 						</tr>
 					</c:if>
 				</c:forEach>
@@ -154,6 +156,13 @@ th, td {
 			</div>
 		</div>
 	</div>
+<script>
 
+let today = new Date().toISOString().substr(0, 10);
+document.querySelector("#from").value = today;
+
+document.querySelector("#to").valueAsDate = new Date();
+
+</script>
 </body>
 </html>
