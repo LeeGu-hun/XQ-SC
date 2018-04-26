@@ -8,8 +8,7 @@
 <html lang="ko">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Setting</title>
-
+<title>Checklist Management</title>
 
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />
 <link href="<c:url value="/css/bootstrap.css" />" rel="stylesheet">
@@ -51,7 +50,7 @@
 		var inds = document.getElementById('inDiscription'); 
 		
 		if(inds.value == ""){
-			document.getElementById('ckDs').textContent= '내용을 입력해주세요';
+			document.getElementById('ckDs').textContent= 'ENTER CONTENTS';
 			inds.focus();
 			return;
 		}
@@ -62,7 +61,7 @@
 		var upds = document.getElementById('upDiscription');
 		
 		if(upds.value == ""){
-			document.getElementById('ckDs').textContent= '내용을 입력해주세요';
+			document.getElementById('ckDs').textContent= 'ENTER CONTENTS';
 			upds.focus();
 			return;
 		}
@@ -100,25 +99,27 @@
 	<%@ include file="/include/header.jsp"%><br>
 <div class="container">  
 	<br><br>
+	<table class="table"><tbody><tr><td></td></tr></tbody></table>
 	<div align="center">
 		<span id="ckLInUp">
 			<%@include file="/admin/ckl_In.jsp" %>
 		</span>	
 	</div>
 	<br>
-	<div align="right">
+	<br>
+	<div>
 		<%@include file="/admin/ckl_S.jsp" %>
 	</div>
 	<div align="right">
-		Regular : <a href="./CLSet?auditKindId=RE&cklValid=Y">총 ${map.ckLSumRe} 점</a>
+		REGULAR : <a href="./CLSet?auditKindId=RE&cklValid=Y">${map.ckLSumRe} POINTS</a>
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		New : <a href="./CLSet?auditKindId=NE&cklValid=Y">총 ${map.ckLSumNe} 점 </a>
+		NEW : <a href="./CLSet?auditKindId=NE&cklValid=Y">${map.ckLSumNe} POINTS</a>
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<a href="./CLSet">전체보기</a>
+		<a href="./CLSet">VIEW ALL</a>
 	</div>
 	<table class="table table-striped table-bordered table-hover">
 		<thead>
-			<tr align="center" valign="middle">
+			<tr>
 				<th>
 					<div align="center">KIND</div>
 				</th>
@@ -131,8 +132,10 @@
 				<th>
 					<div align="center">VALID</div>
 				</th>
-				<th style="font-size:9pt;" align="left">
-					<div>${map.listCnt}개</div>
+				<th style="font-size:9pt;">
+					<div align="center">
+					A total of ${map.listCnt}
+					</div>
 				</th>
 			</tr>
 		</thead>
@@ -161,7 +164,7 @@
 					</td>
 					<td>
 						<div align="center">
-							<a href="javascript:updateForm('${c.CHECKLIST_ID}')">수정</a>
+							<a href="javascript:updateForm('${c.CHECKLIST_ID}')">${c.CHECKLIST_ID}</a>
 	    				</div>
 					</td>
 				</tr>

@@ -9,7 +9,7 @@
 		<tr>
 			<td colspan="2">
 				<form:select path="CATEGORY_ID" class="form-control" onchange="prodTable();" id="prodCate">
-					<form:option value="cate">카테고리</form:option>
+					<form:option value="cate">CATEGORY</form:option>
 					<c:forEach var = "c" items="${cateList}">
 						<form:option value="${c.CATEGORY_ID}">${c.CATEGORY_NAME}</form:option>
 					</c:forEach>
@@ -31,7 +31,7 @@
 			</td>
 			<td>
 				<input type="button" class="btn btn-default" style="width:70pt;" 
-				value="등록" onclick="prodInsert()">
+				value="REGISTER" onclick="prodInsert()">
 			</td>
 		</tr>
 		<tr><td colspan="4"></td></tr>

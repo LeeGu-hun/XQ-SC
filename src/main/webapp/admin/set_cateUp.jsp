@@ -30,13 +30,17 @@
 				<form:hidden path="CATEGORY_ID" value="${selCate.CATEGORY_ID}" />
 			</td>
 			<td>
-				<input type="button" class="btn btn-default" value="수정" onclick="cateUpdate()">
-				<a href="javascript:cateInsertForm()">취소</a>	
+				<input type="button" style="width:70pt;" class="btn btn-default" value="MODIFY" onclick="cateUpdate()">
 			</td>
 		</tr>
-		<tr><td colspan="4" align="right">
+		<tr>
+			<td colspan="3" align="right">
 			<span id="ckCate" style="font-size:9pt;color:red;"></span>
-		</td></tr>
+			</td>
+			<td align="right">
+				<a href="javascript:cateInsertForm()">CANCEL</a>&nbsp;&nbsp;&nbsp;&nbsp;
+			</td>
+		</tr>
 	</tbody></table>
 </form:form>
 			

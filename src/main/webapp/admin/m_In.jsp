@@ -52,7 +52,7 @@
 				</td>
 				<td align="center" style=" width:125pt;">
 					<br>
-					<input type="button" class="btn btn-default" value="등록" onclick="mInsert()" 
+					<input type="button" class="btn btn-default" value="REGISTER" onclick="mInsert()" 
 					style=" width:90pt; height: 30pt"><br>
 					<span id="mInUp" style="font-size:9pt;color:red;"></span>
 				</td>

@@ -17,7 +17,7 @@
 				<form:input path="CATEGORY_NAME" id="inCateName" class="form-control"/>
 			</td>
 			<td>
-				<input type="button" class="btn btn-default" value="등록" onclick="cateInsert()"
+				<input type="button" class="btn btn-default" value="REGISTER" onclick="cateInsert()"
 				style="width:70pt;">
 			</td>
 		</tr>

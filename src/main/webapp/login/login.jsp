@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -69,14 +70,15 @@
 						action="loginDiv">
 						<br>
 						<p>
-							<input type="text" name="id" id="id" placeholder="Id"
+							<form:input type="text" path="id" placeholder="Id"
 								value="A00001" class="w3-input w3-border " style="width: 450px;" />
+			<span style="font-size:9pt;color:red;"> <form:errors path="id" /></span>
 						</p>
-
 						<p>
-							<input type="password" name="password" id="password"
+							<form:password path="password"
 								placeholder="PASSWORD" value="1" class="w3-input w3-border"
 								style="width: 450px;" />
+								<span style="font-size:9pt;color:red;"> <form:errors path="password" /></span>
 						</p>
 						<p>
 							<input class="w3-bar-item w3-button w3-dark-grey"

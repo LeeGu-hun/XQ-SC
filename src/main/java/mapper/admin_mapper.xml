@@ -23,6 +23,10 @@
 		SELECT COUNT(*) FROM MEMBER_INFO WHERE MEMBER_DEPART = #{depart}
 	</select>
 	
+	<select id="ingmemberCount" resultType="int">
+		SELECT COUNT(*) FROM MEMBER_INFO WHERE MEMBER_VALID = 'V'
+	</select>
+	
 	
 	
 	

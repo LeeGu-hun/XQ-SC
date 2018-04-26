@@ -9,7 +9,7 @@
 <html lang="ko">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Setting</title>
+<title>System Configuration</title>
 
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />
 <link href="<c:url value="/css/bootstrap.css" />" rel="stylesheet">
@@ -59,7 +59,7 @@
 	function cateInsert() {
 		var name = document.getElementById('inCateName'); 
 		if(name.value == "" ){
-			document.getElementById('ckCate').textContent= '내용을 입력해주세요';
+			document.getElementById('ckCate').textContent= 'ENTER CONTENTS';
 			name.focus();
 			return;
 		}
@@ -69,7 +69,7 @@
 	function cateUpdate() {
 		var name = document.getElementById('upCateName'); 
 		if(name.value == "" ){
-			document.getElementById('ckCate').textContent= '내용을 입력해주세요';
+			document.getElementById('ckCate').textContent= 'ENTER CONTENTS';
 			name.focus();
 			return;
 		}
@@ -109,7 +109,7 @@
 		var cate = document.getElementById('prodCate').value;
 		
 		if(name.value == ""||cate == "cate"){
-			document.getElementById('ckProd').textContent= '카테고리를 선택하거나 내용을 입력해주세요';
+			document.getElementById('ckProd').textContent= 'SELECT A CATEGORY OR ENTER CONTENT';
 			name.focus();
 			return;
 		}
@@ -120,7 +120,7 @@
 		var name = document.getElementById('upProdName'); 
 		var cate = document.getElementById('prodCate').value;
 		if(name.value == ""||cate == "cate"){
-			document.getElementById('ckProd').textContent= '카테고리를 선택하거나 내용을 입력해주세요';
+			document.getElementById('ckProd').textContent= 'SELECT A CATEGORY OR ENTER CONTENT';
 			name.focus();
 			return;
 		}
@@ -163,7 +163,7 @@
 	function aPeriodUpdate(){
 		var period = document.getElementById('aPeriod');
 		if(period.value == "" ){
-			document.getElementById('aPeriodCk').textContent= '내용을 입력해주세요';
+			document.getElementById('aPeriodCk').textContent= 'ENTER CONTENTS';
 			period.focus();
 			return;
 		}
@@ -173,7 +173,7 @@
 	function scoreUpdate(){
 		var score = document.getElementById('score');
 		if(score.value == "" ){
-			document.getElementById('scoreck').textContent= '내용을 입력해주세요';
+			document.getElementById('scoreck').textContent= 'ENTER CONTENTS';
 			score.focus();
 			return;
 		}
@@ -209,8 +209,8 @@
 	</div>
 	<div id = "product" align="center">
 		<div id ="cate">
-			<p>
-				${map.cateCount} 개
+			<p align="right">
+				A total of ${map.cateCount}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			</p>
 			<table class="table table-striped table-bordered table-hover"
 			style="border-collapse:collapse; width:95%">
@@ -243,8 +243,8 @@
 			</table>
 		</div>
 		<div id ="prod">
-			<p>
-				${map.prodCount} 개
+			<p align="right">
+				A total of ${map.prodCount}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			</p>
 			<table class="table table-striped table-bordered table-hover"
 			style="border-collapse:collapse; width:95%">
@@ -267,8 +267,8 @@
 </div>
 	
 	<div class="modal fade" id="aPeriodModal">
-		<div class="modal-dialog">
-			<div class="modal-content">
+		<div class="modal-dialog" align="center">
+			<div class="modal-content" style="width:350pt;">
 				<!-- header -->
 				<div class="modal-header">
 					<!-- 닫기(x) 버튼 -->
@@ -277,7 +277,7 @@
 					<h4 class="modal-title">AUDIT PERIOD</h4>
 				</div>
 				<!-- body -->
-				<div class="modal-body">
+				<div class="modal-body" align="center">
 					<div>
 						<form id="periodForm" action="Setting/SetPeriod" method="POST">
 							<input type="text" id="aPeriod" name = "aPeriod" placeholder="${map.auditPeriod}"
@@ -297,8 +297,8 @@
 	</div>
 	
 	<div class="modal fade" id="scoreModal">
-		<div class="modal-dialog">
-			<div class="modal-content">
+		<div class="modal-dialog" align="center">
+			<div class="modal-content" style="width:350pt;">
 				<!-- header -->
 				<div class="modal-header">
 					<!-- 닫기(x) 버튼 -->
@@ -307,7 +307,7 @@
 					<h4 class="modal-title">AUDIT CUT-OFF SCORE</h4>
 				</div>
 				<!-- body -->
-				<div class="modal-body">
+				<div class="modal-body" align="center">
 					<div>
 						<form id="scoreForm" action="Setting/SetCutoffScore" method="POST">
 							<input type="text" id ="score"  name = "score" placeholder="${map.score}"
