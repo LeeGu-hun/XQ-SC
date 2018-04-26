@@ -10,37 +10,40 @@
 			<!-- /.panel-heading -->
 			<div class="panel-body">
 				<div class="table-responsive" style="max-height: 300px">
-					<table class="table table-hover">
-						<tr>
-							<th>No</th>
-							<th>Vendor Name</th>
-							<th>Vendor ID</th>
-							<th>Audit ID</th>
-							<th>Audit Type</th>
-							<th>Vendor Quality Manager(Tel)</th>
-							<th>Vendor Sales Manager (Tel)</th>
-							<th>Vendor Address</th>
-
-
-						</tr>
-
-						<c:forEach var="audit" items="${listBean}" varStatus="status">
-
+					<table class="table table-hover ">
+						<thead>
 							<tr>
-								<td>${audit.RNUM}</td>
-								<td>${audit.VENDOR_NAME}</td>
-								<td>${audit.AUDIT_ID}</td>
-								<td>${audit.VENDOR_ID}</td>
-								<td><c:if test="">
-															New
-														</c:if> <c:if test="${audit.AUDIT_NEXT_DATE !=null }">
-															Regular
-														</c:if></td>
-								<td>${audit.VENDOR_Q_NAME}(${audit.VENDOR_Q_TEL})</td>
-								<td>${audit.VENDOR_S_NAME}(${audit.VENDOR_S_TEL})</td>
-								<td>${audit.VENDOR_ADDRESS}</td>
+								<th>No</th>
+								<th>Vendor Name</th>
+								<th>Vendor ID</th>
+								<th>Audit ID</th>
+								<th>Audit Type</th>
+								<th>Vendor Quality Manager(Tel)</th>
+								<th>Vendor Sales Manager (Tel)</th>
+								<th>Vendor Address</th>
+
+
 							</tr>
-						</c:forEach>
+						</thead>
+						<tbody>
+							<c:forEach var="audit" items="${listBean}" varStatus="status">
+
+								<tr>
+									<td>${audit.RNUM}</td>
+									<td>${audit.VENDOR_NAME}</td>
+									<td>${audit.AUDIT_ID}</td>
+									<td>${audit.VENDOR_ID}</td>
+									<td><c:if test="${audit.AUDIT_NEXT_DATE == null }">
+									New
+									</c:if> <c:if test="${audit.AUDIT_NEXT_DATE !=null }">
+									Regular
+									</c:if></td>
+									<td>${audit.VENDOR_Q_NAME}(${audit.VENDOR_Q_TEL})</td>
+									<td>${audit.VENDOR_S_NAME}(${audit.VENDOR_S_TEL})</td>
+									<td>${audit.VENDOR_ADDRESS}</td>
+								</tr>
+							</c:forEach>
+						</tbody>
 					</table>
 				</div>
 			</div>
@@ -57,34 +60,38 @@
 				<div class="table-responsive" style="max-height: 300px">
 
 					<table class="table table-hover">
-						<tr>
-							<th>No</th>
-							<th>Audit ID</th>
-							<th>Plan Date</th>
-							<th>Vendor(ID)</th>
-							<th>Category</th>
-							<th>Product(ID)</th>
-							<th>Audit Type</th>
-							<th>Auditor(ID)</th>
-							<th>Vendor Address</th>
-
-						</tr>
-						<c:forEach var="a" items="${auditBeans}">
-
+						<thead>
 							<tr>
-								<td>${a.RNUM}</td>
-								<td>${a.AUDIT_ID}</td>
-								<td>${a.AUDIT_PLAN_DATE}</td>
-								<td>${a.VENDOR_NAME}(${a.VENDOR_ID})</td>
-								<td>${a.CATEGORY_NAME}</td>
-								<td>${a.PRODUCT_NAME}(${a.PRODUCT_ID})</td>
-								<td>${a.AUDIT_KIND_ID}</td>
-								<td>${a.MEMBER_NAME}(${a.MEMBER_ID})</td>
-								<td>${a.VENDOR_ADDRESS}</td>
+								<th>No</th>
+								<th>Audit ID</th>
+								<th>Plan Date</th>
+								<th>Vendor(ID)</th>
+								<th>Category</th>
+								<th>Product(ID)</th>
+								<th>Audit Type</th>
+								<th>Auditor(ID)</th>
+								<th>Vendor Address</th>
 
 							</tr>
+						</thead>
+						<tbody>
+							<c:forEach var="a" items="${auditBeans}">
 
-						</c:forEach>
+								<tr>
+									<td>${a.RNUM}</td>
+									<td>${a.AUDIT_ID}</td>
+									<td>${a.AUDIT_PLAN_DATE}</td>
+									<td>${a.VENDOR_NAME}(${a.VENDOR_ID})</td>
+									<td>${a.CATEGORY_NAME}</td>
+									<td>${a.PRODUCT_NAME}(${a.PRODUCT_ID})</td>
+									<td>${a.AUDIT_KIND_ID}</td>
+									<td>${a.MEMBER_NAME}(${a.MEMBER_ID})</td>
+									<td>${a.VENDOR_ADDRESS}</td>
+
+								</tr>
+
+							</c:forEach>
+						</tbody>
 					</table>
 				</div>
 			</div>

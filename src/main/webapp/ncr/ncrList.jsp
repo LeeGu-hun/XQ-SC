@@ -11,6 +11,7 @@
 					<th>NCR title</th>
 					<th>Audit ID</th>
 					<th>Vendor ID</th>
+					<th>Vendor Name</th>
 					<th>NCR grade</th>
 					<th>Issuer ID</th>			
 					<th>NCR Status</th>	
@@ -24,6 +25,7 @@
 							<td>${n.ncr_title}</td>
 							<td>${n.audit_id}</td>
 							<td>${n.vendor_id}</td>
+							<td>${n.vendor_name}</td>
 							<td>${n.ncr_grade_name}</td>
 							<td>${n.issuer_name }</td>
 							<td>${n.ncr_comp}</td>

@@ -46,6 +46,19 @@
 		formNcrIssue.submit();
 	}
 </script>
+<style>
+.modal-dialog {
+	display: inline-block;
+	text-align: left;
+	vertical-align: middle;
+	height: 600px;
+}
+
+.modal {
+	text-align: center;
+}
+
+</style>
 
 <html lang="ko">
 
@@ -61,7 +74,7 @@
 		<div class="row">
 			<div class="col-lg-12">
 				<div class="panel panel-default">
-					<div class="panel-heading">NCR Management</div>
+					<div class="panel-heading">NCR Register</div>
 					<!-- /.panel-heading -->
 					<div class="panel-body">
 						<div>
@@ -136,7 +149,7 @@
 
 						<div class="modal fade" id="layerpop">
 							<div class="modal-dialog">
-								<div class="modal-content" style="width: 800px">
+								<div class="modal-content" style="min-width: 800px">
 									<!-- header -->
 									<div class="modal-header">
 										<!-- 닫기(x) 버튼 -->
@@ -145,7 +158,7 @@
 										<h4 class="modal-title">Audit Search</h4>
 									</div>
 									<!-- body -->
-									<div class="modal-body">
+									<div class="modal-body" style="max-height:600px ; overflow:auto ;">
 										<div>
 											<form id="formSearchAudit" name="formSearchAudit"
 												method="post">

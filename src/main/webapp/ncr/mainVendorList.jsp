@@ -12,7 +12,7 @@
 				<div class="table-responsive" style="max-height: 600px">
 					<table class="table table-hover">
 						<thead>
-							<tr align="center" valign="middle">
+							<tr >
 								<th>회사ID</th>
 								<th>회사회사명</th>
 								<th>품목ID</th>
@@ -22,7 +22,7 @@
 						</thead>
 						<tbody>
 							<c:forEach var="li" items="${list}">
-								<tr align="center" valign="middle" bordercolor="#333333">
+								<tr >
 									<td>${li.VENDOR_ID}</td>
 									<input type="hidden" id="VENDOR_ID" name="VENDOR_ID"
 										value="${li.VENDOR_ID}"/ >

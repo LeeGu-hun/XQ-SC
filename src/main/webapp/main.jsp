@@ -91,11 +91,9 @@ function resultMainNcrList(nlist) {
 				<div class="panel panel-primary">
 					<div class="panel-heading">
 						<div class="row">
-							<div class="col-xs-3">
-								<i class="fa fa-comments fa-5x"></i>
-							</div>
-							<div class="col-xs-9 text-right">
-								<div class="huge">${vendorcnts}</div>
+							
+							<div class="col-xs-12 text-right">
+								<div class="huge">VENDOR &nbsp;  &nbsp;  &nbsp;  &nbsp;${vendorcnts}</div>
 								<div>Vendor to Register</div>
 							</div>
 						</div>
@@ -113,11 +111,9 @@ function resultMainNcrList(nlist) {
 				<div class="panel panel-green">
 					<div class="panel-heading">
 						<div class="row">
-							<div class="col-xs-3">
-								<i class="fa fa-tasks fa-5x"></i>
-							</div>
-							<div class="col-xs-9 text-right">
-								<div class="huge">${auditPlanCnts}/${auditRinputCnts}</div>
+							
+							<div class="col-xs-12 text-right">
+								<div class="huge">AUDIT &nbsp;  &nbsp;  &nbsp;  &nbsp;${auditPlanCnts}/${auditRinputCnts}</div>
 								<div>Audit to Plan / Audit to Perform</div>
 							</div>
 						</div>
@@ -135,11 +131,10 @@ function resultMainNcrList(nlist) {
 				<div class="panel panel-yellow">
 					<div class="panel-heading">
 						<div class="row">
-							<div class="col-xs-3">
-								<i class="fa fa-shopping-cart fa-5x"></i>
-							</div>
-							<div class="col-xs-9 text-right">
-								<div class="huge">${ncrCnts}</div>
+							
+							<div class="col-xs-12 text-right">
+								<div class="huge">NCR  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${ncrCnts}</div>
 								<div>NCR to close!</div>
 							</div>
 						</div>

@@ -140,7 +140,7 @@ public class NcrController {
 
 	@RequestMapping(value = "/ncrSearch", method = RequestMethod.POST)
 	public String ncrSearch(NcrSearchCommand nsc, Model model) {
-	
+		
 		List<NcrBean> ncrList = null;
 		try {
 			ncrList = ncrService.getNcrList(nsc);
@@ -190,6 +190,7 @@ public class NcrController {
 	@RequestMapping(value = "/ncrDetail", method = RequestMethod.POST)
 	public String ncrDetailPost(Model model, HttpServletRequest request, HttpSession session,
 			@RequestParam String ncr_id) {
+		
 		List<NcrBean> ncrBean = null;
 		List<NcrReplyBean> ncrReplyBean = null;
 		try {

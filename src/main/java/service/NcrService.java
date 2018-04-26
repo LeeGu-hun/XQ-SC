@@ -51,7 +51,7 @@ public class NcrService {
 	}
 
 	public List<NcrBean> getNcrList(NcrSearchCommand nsc) {
-		List<NcrBean>ncrList = sqlSession.selectList("ncrSQL.getNcrList",nsc);
+				List<NcrBean>ncrList = sqlSession.selectList("ncrSQL.getNcrList",nsc);
 		return ncrList;
 	}
 

@@ -88,48 +88,7 @@
 		$("#ncrListBox").html(ncrList);
 	}
 
-	function searchVendorId() {
-		var vendor_name = document.getElementById("vendor_name").value;
-
-		$.ajax({
-			type : "POST",
-			url : "./searchVendorId",
-			data : "vendor_name=" + vendor_name,
-			success : result,
-		});
-	}
-
-	function result(msg) {
-		$("#vendorList").html(msg);
-	}
-
-	function rowselect(vendor_name, vendor_id) {
-		$("#vendor_name").val(vendor_name);
-		$("#vendor_id").val(vendor_id);
-		$('#vendorSearchModal').modal('hide');
-	}
-
-	function searchIssuerId() {
-		var issuer_name = document.getElementById("issuer_name").value;
-		$.ajax({
-			type : "POST",
-			url : "./searchIssuerId",
-			data : "issuer_name=" + issuer_name,
-			success : result1,
-		});
-
-	}
-
-	function result1(msg1) {
-		$("#issuerList").html(msg1);
-	}
-
-	function rowselect1(issuer_name, issuer_id) {
-		$("#issuer_name").val(issuer_name);
-		$("#issuer_id").val(issuer_id);
-		$('#issuerSearchModal').modal('hide');
-
-	}
+	
 	function rowselectDetail(ncr_id) {
 		$.ajax({
 			type : "POST",
@@ -148,6 +107,28 @@
 		});
 	}
 </script>
+
+<style>
+.modal-dialog {
+	display: inline-block;
+	text-align: left;
+	vertical-align: middle;
+	height: 600px;
+}
+
+.modal {
+	text-align: center;
+}
+
+@media screen and (min-width: 768px) {
+	.modal:before {
+		display: inline-block;
+		vertical-align: middle;
+		content: " ";
+		height: 100%;
+	}
+}
+</style>
 <html lang="ko">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -179,11 +160,9 @@
 											<td>Title :<input type="text" id="ncr_title"
 												name="ncr_title" class="form-control"></td>
 											<td>Vendor ID :<input type="text" id="vendor_id"
-												name="vendor_id" data-target="#vendorSearchModal"
-												data-toggle="modal" class="form-control" />
+												name="vendor_id"class="form-control" />
 											<td>Issuer :<input type="text" id="issuer_id"
-												name="issuer_id" data-target="#issuerSearchModal"
-												data-toggle="modal" class="form-control" />
+												name="issuer_id" class="form-control" />
 											<td>Complete : <select id="ncr_comp" name="ncr_comp"
 												class="form-control">
 													<option value="All">All</option>
@@ -201,95 +180,12 @@
 							</div>
 							<div id="ncrListBox" class="table-responsive" style="max-height:600px"></div>
 
-
-
-							<!--  vendor Search 모달 시작 -->
-							<div class="modal fade" id="vendorSearchModal">
-								<div class="modal-dialog">
-									<div class="modal-content">
-										<!-- header -->
-										<div class="modal-header">
-											<!-- 닫기(x) 버튼 -->
-											<button type="button" class="close" data-dismiss="modal">×</button>
-											<!-- header title -->
-											<h4 class="modal-title">Vendor Search</h4>
-										</div>
-										<!-- body -->
-										<div class="modal-body">
-											<div>
-												<form id="formSearchVendor" name="formSearchVendor"
-													method="post">
-													<table class="table">
-														<tr>
-															<td>Vendor Name: <input type="text"
-																name="vendor_name" id="vendor_name" class="form-control" /></td>
-															<td style="vertical-align: bottom"><button
-																	type="button" class="btn btn-default" id="btnsearch"
-																	onclick="searchVendorId(vendor_name)">Search</button></td>
-														</tr>
-
-													</table>
-												</form>
-											</div>
-											<div id="vendorList"></div>
-										</div>
-										<!-- Footer -->
-										<div class="modal-footer">
-											<button type="button" class="btn btn-default"
-												data-dismiss="modal">close</button>
-										</div>
-									</div>
-								</div>
-							</div>
-
-							<!--  모달 끝 -->
-
-							<!--  Issuer Search모달 시작 -->
-							<div class="modal fade" id="issuerSearchModal">
-								<div class="modal-dialog">
-									<div class="modal-content">
-										<!-- header -->
-										<div class="modal-header">
-											<!-- 닫기(x) 버튼 -->
-											<button type="button" class="close" data-dismiss="modal">×</button>
-											<!-- header title -->
-											<h4 class="modal-title">Issuer Search</h4>
-										</div>
-										<!-- body -->
-										<div class="modal-body">
-											<div>
-												<form id="formSearchIssuer" name="formSearchIssuer"
-													method="post">
-													<table class="table">
-														<tr>
-															<td>Issuer Name: <input class=form-control
-																type="text" name="issuer_name" id="issuer_name"
-																onkeydown="searchIssuerId()" /></td>
-															<td style="vertical-align: bottom"><button
-																	type="button" class="btn btn-default" id="btnsearch"
-																	onclick="searchIssuerId()">Search</button></td>
-														</tr>
-
-													</table>
-												</form>
-											</div>
-											<div id="issuerList"></div>
-										</div>
-										<!-- Footer -->
-										<div class="modal-footer">
-											<button type="button" class="btn btn-default"
-												data-dismiss="modal">close</button>
-										</div>
-									</div>
-								</div>
-							</div>
-
-							<!--  모달 끝 -->
+							
 
 							<!--  detail 모달 시작 -->
 							<div class="modal fade" id="detailModal">
 								<div class="modal-dialog">
-									<div class="modal-content">
+									<div class="modal-content" style="min-width : 800px; ">									
 										<!-- header -->
 										<div class="modal-header">
 											<!-- 닫기(x) 버튼 -->
@@ -298,8 +194,8 @@
 											<h4 class="modal-title">NCR Detail</h4>
 										</div>
 										<!-- body -->
-										<div class="modal-body">
-											<div id="ncrDetailBox"></div>
+										<div class="modal-body" style="max-height:500px ; overflow:auto ;">
+											<div id="ncrDetailBox" ></div>
 
 										</div>
 										<!-- Footer -->

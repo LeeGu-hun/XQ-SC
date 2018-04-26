@@ -25,12 +25,9 @@
 <link href="<c:url value="/css/sb-admin-2.css" />" rel="stylesheet">
 
 <script>
-	
-
 	function vendorReplySave_vendor(ncr_id) {
 		vendorReplyForm.submit(ncr_id);
 	}
-	
 
 	function vendorReply(ncr_id) {
 
@@ -45,7 +42,7 @@
 	function resultvendorreply(reply) {
 		$("#vendorReplyPop").html(reply);
 	}
-	
+
 	function auditorReply(ncr_id) {
 
 		$.ajax({
@@ -141,8 +138,11 @@
 		function showdetail(msg2) {
 			$("#ncrDetailBox").html(msg2);
 		}
-			$('#detailModal_vendor').modal('show');
-			$('#detailModal_vendor').modal({backdrop: 'static', keyboard: false}) ;
+		$('#detailModal_vendor').modal('show');
+		$('#detailModal_vendor').modal({
+			backdrop : 'static',
+			keyboard : false
+		});
 	}
 </script>
 <html lang="ko">
@@ -150,149 +150,164 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>NCR Management</title>
 </head>
-<body>
-<%@ include file="/include/headerV.jsp"%><br>
+<body style="background-color: white">
+	<%@ include file="/include/headerV.jsp"%><br>
 
 	<div id=mainBox class="container">
-		<div>
-			[검색조건]
-			<form action="./ncrSearch" method="post" name="formNcrSearch"
-				id="formNcrSearch">
-				<table class="table ">
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="panel panel-default">
+					<div class="panel-heading">NCR Management</div>
+					<!-- /.panel-heading -->
+					<div class="panel-body">
+						<div class="table-responsive" style="max-height: 600px">
 
-					<tr>
-						<td>NCR No.</td>
-						<td>
-						<div class="form-group input-group">
-                                            <input type="text" class="form-control">
-                                            <span class="input-group-btn">
-                                                <button class="btn btn-default" type="button"><i class="fa fa-search"></i>
-                                                </button>
-                                            </span>
-                                        </div>
-						<input type="text" id="ncr_id" name="ncr_id" class="form-control " /></td>
-						<td>Title</td>
-						<td><input type="text" id="ncr_title" name="ncr_title"></td>
-						<td>Vendor ID</td>
-						<td><input type="text" id="vendor_id" name="vendor_id" value=${vendor_id } readonly>							
-						<td >Complete :						
-						<select id="ncr_comp" name="ncr_comp" style="width: 50px; height:19px;">
-							<option value="All">All</option>
-							<option value="Y">Y</option>
-							<option value="N">N</option>
-						</select>
-						</td>	
-						<td colspan="8"><button type="button" value="search"  class="btn btn-default"
-							onclick="searchNcr()" /></td>
-					</tr>
-				</table>
-			</form>
-		</div>
-		<div id="ncrListBox"></div>
+							<div>
+								[검색조건]
+								<form action="./ncrSearch" method="post" name="formNcrSearch"
+									id="formNcrSearch">
+									<table class="table ">
+
+										<tr>
+											<td>NCR No:<input type="text" id="ncr_id" name="ncr_id"
+												class="form-control " /></td>
+											<td>Title<input type="text" id="ncr_title"
+												name="ncr_title" class="form-control "></td>
+											<td>Vendor<input type="text" id="vendor_id"
+												name="vendor_id" class="form-control " value=${vendor_id }
+												readonly>
+											<td>Complete<select id="ncr_comp" name="ncr_comp"
+												class=" form-control">
+													<option value="All">All</option>
+													<option value="Y">Y</option>
+													<option value="N">N</option>
+											</select>
+											</td>
+											<td style="vertical-align: bottom">
+												<button type="button" class="btn btn-default"
+													onclick="searchNcr()">search</button>
+											</td>
+										</tr>
+									</table>
+								</form>
+							</div>
+							<div id="ncrListBox"></div>
 
 
 
-		<!--  vendor Search 모달 시작 -->
-		<div class="modal fade" id="vendorSearchModal">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<!-- header -->
-					<div class="modal-header">
-						<!-- 닫기(x) 버튼 -->
-						<button type="button" class="close" data-dismiss="modal">×</button>
-						<!-- header title -->
-						<h4 class="modal-title">Vendor Search</h4>
-					</div>
-					<!-- body -->
-					<div class="modal-body">
-						<div>
-							<form id="formSearchVendor" name="formSearchVendor" method="post">
-								<table class="table">
-									<tr>
-										<td>Vendor Name: <input type="text" name="vendor_name"
-											id="vendor_name" /></td>
-										<td><button type="button" class="btn btn-default"  
-									  	id="btnsearch"	onclick="searchVendorId(vendor_name)">Search</button></td>
-											
-									</tr>
+							<!--  vendor Search 모달 시작 -->
+							<div class="modal fade" id="vendorSearchModal">
+								<div class="modal-dialog">
+									<div class="modal-content">
+										<!-- header -->
+										<div class="modal-header">
+											<!-- 닫기(x) 버튼 -->
+											<button type="button" class="close" data-dismiss="modal">×</button>
+											<!-- header title -->
+											<h4 class="modal-title">Vendor Search</h4>
+										</div>
+										<!-- body -->
+										<div class="modal-body">
+											<div>
+												<form id="formSearchVendor" name="formSearchVendor"
+													method="post">
+													<table class="table">
+														<tr>
+															<td>Vendor Name: <input type="text"
+																name="vendor_name" id="vendor_name" /></td>
+															<tdstyle ="vertical-align:bottom">
+															<button type="button" class="btn btn-default"
+																id="btnsearch" onclick="searchVendorId(vendor_name)">Search</button>
+															</td>
+														</tr>
 
-								</table>
-							</form>
+													</table>
+												</form>
+											</div>
+											<div id="vendorList"></div>
+										</div>
+										<!-- Footer -->
+										<div class="modal-footer">
+											<button type="button" class="btn btn-default"
+												data-dismiss="modal">close</button>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<!--  모달 끝 -->
+
+							<!--  Issuer Search모달 시작 -->
+							<div class="modal fade" id="issuerSearchModal">
+								<div class="modal-dialog">
+									<div class="modal-content"">
+										<!-- header -->
+										<div class="modal-header">
+											<!-- 닫기(x) 버튼 -->
+											<button type="button" class="close" data-dismiss="modal">×</button>
+											<!-- header title -->
+											<h4 class="modal-title">Issuer Search</h4>
+										</div>
+										<!-- body -->
+										<div class="modal-body">
+											<div>
+												<form id="formSearchIssuer" name="formSearchIssuer"
+													method="post">
+													<table class="table">
+														<tr>
+															<td>Issuer Name: <input class=form-control
+																type="text" name="issuer_name" id="issuer_name"
+																onkeydown="searchIssuerId()" /></td>
+															<td style="vertical-align: bottom"><button
+																	type="button" class="btn btn-default" id="btnsearch"
+																	onclick="searchIssuerId()">Search</button></td>
+														</tr>
+
+													</table>
+												</form>
+											</div>
+											<div id="issuerList"></div>
+										</div>
+										<!-- Footer -->
+										<div class="modal-footer">
+											<button type="button" class="btn btn-default"
+												data-dismiss="modal">close</button>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<!--  모달 끝 -->
+
+
+
+							<!--  detail 모달 시작 -->
+							<div class="modal fade" id="detailModal_vendor">
+								<div class="modal-dialog">
+									<div class="modal-content">
+										<!-- header -->
+										<div class="modal-header">
+											<!-- 닫기(x) 버튼 -->
+											<button type="button" class="close" data-dismiss="modal">×</button>
+											<!-- header title -->
+											<h4 class="modal-title">NCR Detail</h4>
+										</div>
+										<!-- body -->
+										<div class="modal-body">
+											<div id="ncrDetailBox"></div>
+
+										</div>
+										<!-- Footer -->
+
+									</div>
+								</div>
+							</div>
 						</div>
-						<div id="vendorList"></div>
-					</div>
-					<!-- Footer -->
-					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">close</button>
 					</div>
 				</div>
 			</div>
 		</div>
-
-		<!--  모달 끝 -->
-
-		<!--  Issuer Search모달 시작 -->
-		<div class="modal fade" id="issuerSearchModal">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<!-- header -->
-					<div class="modal-header">
-						<!-- 닫기(x) 버튼 -->
-						<button type="button" class="close" data-dismiss="modal">×</button>
-						<!-- header title -->
-						<h4 class="modal-title">Issuer Search</h4>
-					</div>
-					<!-- body -->
-					<div class="modal-body">
-						<div>
-							<form id="formSearchIssuer" name="formSearchIssuer" method="post">
-								<table class="table">
-									<tr>
-										<td>Issuer Name: <input type="text" name="issuer_name"
-											id="issuer_name" /></td>
-										<td><button type="button" class="btn btn-default"  id="btnsearch" onclick="searchIssuerId()">Search</button>
-										</td>
-									</tr>
-
-								</table>
-							</form>
-						</div>
-						<div id="issuerList"></div>
-					</div>
-					<!-- Footer -->
-					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">close</button>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<!--  모달 끝 -->
-
-		
-		
-		<!--  detail 모달 시작 -->
-		<div class="modal fade" id="detailModal_vendor">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<!-- header -->
-					<div class="modal-header">
-						<!-- 닫기(x) 버튼 -->
-						<button type="button" class="close" data-dismiss="modal">×</button>
-						<!-- header title -->
-						<h4 class="modal-title">NCR Detail</h4>
-					</div>
-					<!-- body -->
-					<div class="modal-body">
-						<div id="ncrDetailBox"></div>
-
-					</div>
-					<!-- Footer -->
-
-				</div>
-			</div>
-		</div>
-
-		<!--  모달 끝 -->
+	</div>
+	<!--  모달 끝 -->
 </body>
 </html>
