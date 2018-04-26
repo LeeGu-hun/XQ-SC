@@ -76,6 +76,9 @@ function rowselect(vendor_name, vendor_id) {
 		
 	}
 }
+
+
+
 </style>
 <body>
 
@@ -89,10 +92,10 @@ function rowselect(vendor_name, vendor_id) {
 			id="statusform" >
 
 			<table class="table table-hover">
+			
 				<tr>
 					<td>Vendor Name:</td>
-					<td><input type="text" class="form-control" style="width:200px;" id="VENDOR_NAME" name="VENDOR_NAME" >				
-							</td>
+					<td><input type="text" class="form-control" style="width:200px;" id="VENDOR_NAME" name="VENDOR_NAME" ></td>
 
 					<td>Product Name:</td>
 					<td><select id="PRODUCT_ID" name="PRODUCT_ID" style="width:200px;"  class="form-control" >
@@ -129,8 +132,9 @@ function rowselect(vendor_name, vendor_id) {
 					<td>Valid</td>
 					<td>NCR</td>
 				</tr>
+			
 				
-				
+	
 				<c:if test="${! empty vendors}">
 				<c:forEach var="v" items="${vendors}">
 					<tr align="center" valign="middle" bordercolor="#333333">
@@ -159,6 +163,7 @@ function rowselect(vendor_name, vendor_id) {
 					</tr>
 				</c:forEach>
 				</c:if>
+			
 	
 				<c:if test="${! empty validY}">
 				<c:forEach var="y" items="${validY}">

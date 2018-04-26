@@ -235,6 +235,8 @@ public class VendorController {
 		
 		List<NcrCount> count = vendorService.ncrCount();
 		List<VendorValid> valid = vendorService.getValid();
+		
+		System.out.println(valid.toString());
 		model.addAttribute("valid",valid);
 		model.addAttribute("count",count);
 		
