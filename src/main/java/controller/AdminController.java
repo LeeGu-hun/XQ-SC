@@ -61,7 +61,7 @@ public class AdminController {
 		
 		try {
 			AuthInfo authInfo = adminService.authenticate(
-					loginCommand.getId(),
+					loginCommand.getId().toUpperCase(),
 					loginCommand.getPassword());
 			session.setAttribute("authInfo", authInfo);
 			Cookie rememberCookie = new Cookie("REMEMBER", loginCommand.getId());
