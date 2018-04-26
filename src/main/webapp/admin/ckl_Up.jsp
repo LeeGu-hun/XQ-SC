@@ -48,7 +48,7 @@
 				</div>
 			</td>
 			<td rowspan="2" style="width:100pt;" align="center">
-				<input type="button" value="MODIFY" class="btn btn-default" onclick="ckLInsert()" 
+				<input type="button" value="MODIFY" class="btn btn-default" onclick="ckLUpdate()" 
 				style="width:80pt; height:50pt">
 				<br>
 				<span id="ckDs" style="font-size:9pt;color:red;"></span>
@@ -62,7 +62,7 @@
 			</td>
 			<td colspan="5">
 				<form:textarea path="CHECKLIST_DISCRIPTION" placeholder="${selCkList.CHECKLIST_DISCRIPTION}"
-				class="form-control" id="inDiscription" cols="100" rows="3"/>
+				class="form-control" id="upDiscription" cols="100" rows="3"/>
 			</td>
 			<td>
 			</td>

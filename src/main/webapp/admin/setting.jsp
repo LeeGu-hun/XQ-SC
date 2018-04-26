@@ -185,13 +185,13 @@
 <body>
 	<%@ include file="/include/header.jsp"%><br>
 <div class="container" >
+		<br><br><br><br>
 	<div id = "auditSet" align="center">
-		<br><br>
-		Audit Period : 
-		<a href="#" data-target="#aPeriodModal" data-toggle="modal">${map.auditPeriod} YEARS</a>
+		<label>Audit Period : 
+		<a href="#" data-target="#aPeriodModal" data-toggle="modal">${map.auditPeriod} YEARS</a></label>
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		Audit Cut-off Score : 
-		<a href="#" data-target="#scoreModal" data-toggle="modal">${map.score} POINTS</a>
+		<label>Audit Cut-off Score : 
+		<a href="#" data-target="#scoreModal" data-toggle="modal">${map.score} POINTS</a></label>
 	</div>
 	<div id = "aform" align="center">
 		<div id ="cform" align="center">
@@ -224,7 +224,7 @@
 						</th>
 					</tr>
 				</thead>
-				<tbody style="overflow-y:auto; overflow-x:hidden; float:left; width:100%; height:300px">
+				<tbody style="overflow-y:auto; overflow-x:hidden; float:left; width:100%; height:400px">
 					<c:forEach var="cate" items="${cateList}">
 						<tr align="center" valign="middle" style="display:table; width:100%;">
 							<td style="width:20%;">
@@ -258,7 +258,7 @@
 						</th>
 					</tr>
 				</thead>
-				<tbody id = "prodList" style="overflow-y:auto; overflow-x:hidden; float:left; width:100%; height:300px">
+				<tbody id = "prodList" style="overflow-y:auto; overflow-x:hidden; float:left; width:100%; height:400px">
 					<%@include file="/admin/set_prodList.jsp" %>
 				</tbody>
 			</table>
