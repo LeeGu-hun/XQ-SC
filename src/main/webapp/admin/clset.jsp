@@ -99,6 +99,7 @@
     
 	<%@ include file="/include/header.jsp"%><br>
 <div class="container">  
+	<br><br>
 	<div align="center">
 		<span id="ckLInUp">
 			<%@include file="/admin/ckl_In.jsp" %>

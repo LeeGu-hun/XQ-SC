@@ -22,18 +22,18 @@
 		</tr><tr>
 			<c:choose>
 				<c:when test="${selProd.PRODUCT_VALID eq 'Y'}">
-					<td style=" width:80pt;">
+					<td>
 						<form:radiobutton path="PRODUCT_VALID" value="Y" label="VALID" checked="checked"/>
 					</td>
-					<td style=" width:80pt;">
+					<td>
 						<form:radiobutton path="PRODUCT_VALID" value="N" label="INVALID"/>
 					</td>
 				</c:when>
 				<c:otherwise>
-					<td style=" width:80pt;">
+					<td>
 						<form:radiobutton path="PRODUCT_VALID" value="Y" label="VALID"/>
 					</td>
-					<td style=" width:80pt;">
+					<td>
 						<form:radiobutton path="PRODUCT_VALID" value="N" label="INVALID" checked="checked"/>
 					</td>
 				</c:otherwise>
@@ -43,7 +43,7 @@
 				<form:hidden path="PRODUCT_ID" value="${selProd.PRODUCT_ID}" />
 			</td>
 			<td>
-				<input type="button" class="btn btn-default" value="수정" onclick="prodUpdate()">
+				<input type="button" class="btn btn-default" value="수정" style="width:48pt;" onclick="prodUpdate()">
 				<a href="javascript:prodInsertForm()">취소</a>	
 			</td>
 		</tr>

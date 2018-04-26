@@ -183,10 +183,10 @@
 </head>
 
 <body>
-
 	<%@ include file="/include/header.jsp"%><br>
 <div class="container" >
 	<div id = "auditSet" align="center">
+		<br><br>
 		Audit Period : 
 		<a href="#" data-target="#aPeriodModal" data-toggle="modal">${map.auditPeriod} YEARS</a>
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
