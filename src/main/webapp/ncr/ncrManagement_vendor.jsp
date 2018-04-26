@@ -152,7 +152,7 @@
 </head>
 <body style="background-color: white">
 	<%@ include file="/include/headerV.jsp"%><br>
-
+	<div> &nbsp;</div> 
 	<div id=mainBox class="container">
 		<div class="row">
 			<div class="col-lg-12">
@@ -195,89 +195,7 @@
 
 
 
-							<!--  vendor Search 모달 시작 -->
-							<div class="modal fade" id="vendorSearchModal">
-								<div class="modal-dialog">
-									<div class="modal-content">
-										<!-- header -->
-										<div class="modal-header">
-											<!-- 닫기(x) 버튼 -->
-											<button type="button" class="close" data-dismiss="modal">×</button>
-											<!-- header title -->
-											<h4 class="modal-title">Vendor Search</h4>
-										</div>
-										<!-- body -->
-										<div class="modal-body">
-											<div>
-												<form id="formSearchVendor" name="formSearchVendor"
-													method="post">
-													<table class="table">
-														<tr>
-															<td>Vendor Name: <input type="text"
-																name="vendor_name" id="vendor_name" /></td>
-															<tdstyle ="vertical-align:bottom">
-															<button type="button" class="btn btn-default"
-																id="btnsearch" onclick="searchVendorId(vendor_name)">Search</button>
-															</td>
-														</tr>
-
-													</table>
-												</form>
-											</div>
-											<div id="vendorList"></div>
-										</div>
-										<!-- Footer -->
-										<div class="modal-footer">
-											<button type="button" class="btn btn-default"
-												data-dismiss="modal">close</button>
-										</div>
-									</div>
-								</div>
-							</div>
-
-							<!--  모달 끝 -->
-
-							<!--  Issuer Search모달 시작 -->
-							<div class="modal fade" id="issuerSearchModal">
-								<div class="modal-dialog">
-									<div class="modal-content"">
-										<!-- header -->
-										<div class="modal-header">
-											<!-- 닫기(x) 버튼 -->
-											<button type="button" class="close" data-dismiss="modal">×</button>
-											<!-- header title -->
-											<h4 class="modal-title">Issuer Search</h4>
-										</div>
-										<!-- body -->
-										<div class="modal-body">
-											<div>
-												<form id="formSearchIssuer" name="formSearchIssuer"
-													method="post">
-													<table class="table">
-														<tr>
-															<td>Issuer Name: <input class=form-control
-																type="text" name="issuer_name" id="issuer_name"
-																onkeydown="searchIssuerId()" /></td>
-															<td style="vertical-align: bottom"><button
-																	type="button" class="btn btn-default" id="btnsearch"
-																	onclick="searchIssuerId()">Search</button></td>
-														</tr>
-
-													</table>
-												</form>
-											</div>
-											<div id="issuerList"></div>
-										</div>
-										<!-- Footer -->
-										<div class="modal-footer">
-											<button type="button" class="btn btn-default"
-												data-dismiss="modal">close</button>
-										</div>
-									</div>
-								</div>
-							</div>
-
-							<!--  모달 끝 -->
+							
 
 
 
