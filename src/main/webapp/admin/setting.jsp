@@ -185,13 +185,13 @@
 <body>
 	<%@ include file="/include/header.jsp"%><br>
 <div class="container" >
+		<br><br><br><br>
 	<div id = "auditSet" align="center">
-		<br><br>
-		Audit Period : 
-		<a href="#" data-target="#aPeriodModal" data-toggle="modal">${map.auditPeriod} YEARS</a>
+		<label>Audit Period : 
+		<a href="#" data-target="#aPeriodModal" data-toggle="modal">${map.auditPeriod} YEARS</a></label>
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		Audit Cut-off Score : 
-		<a href="#" data-target="#scoreModal" data-toggle="modal">${map.score} POINTS</a>
+		<label>Audit Cut-off Score : 
+		<a href="#" data-target="#scoreModal" data-toggle="modal">${map.score} POINTS</a></label>
 	</div>
 	<div id = "aform" align="center">
 		<div id ="cform" align="center">
@@ -214,23 +214,23 @@
 			</p>
 			<table class="table table-striped table-bordered table-hover"
 			style="border-collapse:collapse; width:95%">
-				<thead style="float:left; width:98.77%;">
+				<thead style="float:left; width:100%;">
 					<tr align="center" valign="middle" style="display:table; width:100%;">
-						<th style="width:20%;">
+						<th style="width:120px;">
 							<div align="center">VALID</div>
 						</th>
-						<th style="width:80%;">
+						<th>
 							<div align="center">CATEGORY</div>
 						</th>
 					</tr>
 				</thead>
-				<tbody style="overflow-y:auto; overflow-x:hidden; float:left; width:100%; height:300px">
+				<tbody style="overflow-y:auto; overflow-x:hidden; float:left; width:100%; height:400px">
 					<c:forEach var="cate" items="${cateList}">
 						<tr align="center" valign="middle" style="display:table; width:100%;">
-							<td style="width:20%;">
+							<td style="width:120px;">
 								<div align="center">${cate.CATEGORY_VALID}</div>
 							</td>
-							<td style="width:80%;">
+							<td>
 								<div align="center">
 									<a href="javascript:cateUpdateForm('${cate.CATEGORY_ID}')">
 									${cate.CATEGORY_NAME}
@@ -248,17 +248,17 @@
 			</p>
 			<table class="table table-striped table-bordered table-hover"
 			style="border-collapse:collapse; width:95%">
-				<thead style="float:left; width:98.77%;">
+				<thead style="float:left; width:100%;">
 					<tr align="center" valign="middle" style="display:table; width:100%;">
-						<th style="width:20%;">
+						<th style="width:120px;">
 							<div align="center">VALID</div>
 						</th>
-						<th style="width:80%;">
+						<th>
 							<div align="center">PRODUCT</div>
 						</th>
 					</tr>
 				</thead>
-				<tbody id = "prodList" style="overflow-y:auto; overflow-x:hidden; float:left; width:100%; height:300px">
+				<tbody id = "prodList" style="overflow-y:auto; overflow-x:hidden; float:left; width:100%; height:400px">
 					<%@include file="/admin/set_prodList.jsp" %>
 				</tbody>
 			</table>
