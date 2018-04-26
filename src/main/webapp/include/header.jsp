@@ -63,6 +63,17 @@
 					Management</a>
 			</div>
 		</div>
+		
+		<div class="w3-bar-item w3-right">
+		<a href="./logout">Logout</a>	
+		</div>
+		<div class="w3-bar-item w3-right">
+		<a href="./ChangedPwd">비밀번호변경</a>
+		</div>
+		<div class="w3-bar-item w3-right">
+		${sessionScope.authInfo.name } 님
+		</div>
+		
 	</div>
 
 </body>

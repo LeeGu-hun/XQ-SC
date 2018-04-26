@@ -11,14 +11,20 @@
 <%@ page import="java.text.SimpleDateFormat"%>
 <%@ page import="bean.*"%>
 
-<link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />
 <link href="<c:url value="/css/bootstrap.css" />" rel="stylesheet">
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/css/style.css?ver=1.3">
 <script
 	src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
-
+<script type="text/javascript"
+	href="${pageContext.request.contextPath}/jquery-1.11.1.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+	
 <script language="javascript">
-//
 function searchVendorId() {
 	var vendor_name = document.getElementById("vendor_name").value;
 
@@ -30,9 +36,11 @@ function searchVendorId() {
 	});
 }
 
+
 function result(msg) {
 	$("#vendorList").html(msg);
 }
+
 
 function rowselect(vendor_name, vendor_id) {
 	$("#vendor_name").val(vendor_name);
@@ -47,38 +55,60 @@ function rowselect(vendor_name, vendor_id) {
 	}
 	
 </script>
+<style>
+
+.modal-dialog {
+	display: inline-block;
+	text-align: left;
+	vertical-align: middle;
+}
+
+.modal {
+	text-align: center;
+	
+}
+
+@media screen and (min-width: 768px) {
+	.modal:before {
+		display: inline-block;
+		vertical-align: middle;
+		content: " ";
+		
+	}
+}
+</style>
 <body>
 
 <%@ include file="/include/header.jsp"%>
-<br>
 
-	<div class="container" style="font-family: Tahoma;">
+	<div class="container" >
+	<br>
 		<legend style="font-family: Tahoma; font-size: 20pt;">Vendor
 			Status</legend><br>
 		<form action="./vendorStatus" method="post" name="statusform"
 			id="statusform" >
 
-			<table class="table"">
+			<table class="table table-hover">
 				<tr>
-					<td>회사명:</td>
-					<td><input type="text" id="vendor_id" name="vendor_id"
-							data-target="#vendorSearchModal" data-toggle="modal"></td>
+					<td>Vendor Name:</td>
+					<td><input type="text" class="form-control" style="width:200px;" id="VENDOR_NAME" name="VENDOR_NAME" >				
+							</td>
 
-					<td>품명</td>
-					<td><select id="PRODUCT_ID" name="PRODUCT_ID" >
+					<td>Product Name:</td>
+					<td><select id="PRODUCT_ID" name="PRODUCT_ID" style="width:200px;"  class="form-control" >
 							<option value="All">All</option>
 							<c:forEach var="p" items="${map.prodList}">
 								<option value="${p.PRODUCT_ID}">${p.PRODUCT_NAME}</option>
 							</c:forEach>
 					</select></td>
 
-					<td>유효성:</td>
-					<td><select id="VALID" name="VALID" style="width: 150px;">
+					<td>Valid:</td>
+					<td><select id="VALID" name="VALID" style="width: 150px;" class="form-control">
 							<option value="All">All</option>
 							<option value="Y">Y</option>
 							<option value="N">N</option>
 					</select></td>
-					<td><input class="btn btn-secondary my-2 my-sm-0"
+					<td><input class="btn btn-default"  
 						type="submit" value="조회" onclick="statusSearch()"></td>
 				</tr>
 			</table>
@@ -86,59 +116,20 @@ function rowselect(vendor_name, vendor_id) {
 		</form>
 	</div>
 	
-					
-				<!--  vendor Search 모달 시작 -->
-		<div class="modal fade" id="vendorSearchModal">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<!-- header -->
-					<div class="modal-header">
-						<!-- 닫기(x) 버튼 -->
-						<button type="button" class="close" data-dismiss="modal">×</button>
-						<!-- header title -->
-						<h4 class="modal-title">Vendor Search</h4>
-					</div>
-					<!-- body -->
-					<div class="modal-body">
-						<div>
-							<form id="formSearchVendor" name="formSearchVendor" method="post">
-								<table class="table">
-									<tr>
-										<td>Vendor Name: <input type="text" name="vendor_name"
-											id="vendor_name" /></td>
-										<td><input class="button" type="button" value="Search"
-											id="btnsearch" onclick="searchVendorId(vendor_name)"></td>
-									</tr>
-
-								</table>
-							</form>
-						</div>
-						<div id="vendorList"></div>
-					</div>
-					<!-- Footer -->
-					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">close</button>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<!--  모달 끝 -->
-
-	
 		<div class="container">
-			<table class="table table-striped">
+			<table class="table table-hover" >
 				<tr align="center" valign="middle" bordercolor="#333333">
 					<td>No.</td>
-					<td>회사ID</td>
-					<td>회사명</td>
-					<td>카테고리</td>
-					<td>품목</td>
-					<td>담당자</td>
-					<td>담당자 이메일</td>
-					<td>유효성</td>
+					<td>Vendor ID</td>
+					<td>Vendor Name</td>
+					<td>Category</td>
+					<td>Product_Name</td>
+					<td>QualityIncharge Name</td>
+					<td>QualityIncharge Email</td>
+					<td>Valid</td>
 					<td>NCR</td>
 				</tr>
+				
 				
 				<c:if test="${! empty vendors}">
 				<c:forEach var="v" items="${vendors}">
@@ -208,9 +199,7 @@ function rowselect(vendor_name, vendor_id) {
 					</tr>
 				</c:forEach>
 				</c:if>
-				
-			
-	
+
 			</table>
 		</div>
 

@@ -68,31 +68,32 @@
 			<table class="table">
 				<tr align="center" valign="middle">
 					<td>
-						<div>회사ID</div>
+						<div>Vendor ID</div>
 					</td>
 					<td>
-						<div>회사명</div>
+						<div>Vendor Name</div>
 					</td>
 					<td>
-						<div>품목</div>
+						<div>Product Name</div>
 					</td>
 					<td>
-						<div>영업담당자이름</div>
+						<div>SalesIncharge Name</div>
 					</td>
 					<td>
-						<div>영업담당자연락처</div>
+						<div>SalesIncharge Tel</div>
 					</td>
 					<td>
-						<div>상세보기</div>
+						<div>View</div>
 					</td>
 					<td>
-						<div>등록하기</div>
+						<div>Register</div>
 					</td>
 					<td>
-						<div>취소하기</div>
+						<div>Cancel</div>
 					</td>
 				</tr>
 
+				<div class="pre-scrollable">
 				<c:forEach var="li" items="${list}">
 					<tr align="center" valign="middle" bordercolor="#333333">
 						<td>${li.VENDOR_ID}</td>
@@ -122,7 +123,7 @@
 					</tr>
 
 				</c:forEach>
-
+			</div>
 
 			</table>
 		</form>

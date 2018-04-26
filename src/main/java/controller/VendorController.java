@@ -220,15 +220,16 @@ public class VendorController {
 	public String vendorStatusPost(Model model, HttpServletRequest request,ListCommand listCommand
 			,@RequestParam(defaultValue = "All") String PRODUCT_ID,
 			@RequestParam(defaultValue = "All") String VALID) {
+		
 		List<BeanProduct> prodList = vendorService.productList();
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("prodList", prodList);
 		model.addAttribute("map", map);
 		
-		String VENDOR_ID = request.getParameter("vendor_id");
+		String VENDOR_NAME = request.getParameter("VENDOR_NAME");
 	
 
-		listCommand.setVENDOR_ID(VENDOR_ID);
+		listCommand.setVENDOR_ID(VENDOR_NAME);
 		listCommand.setPRODUCT_ID(PRODUCT_ID);
 		
 		

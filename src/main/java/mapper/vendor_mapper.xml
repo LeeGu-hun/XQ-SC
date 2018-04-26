@@ -7,20 +7,21 @@
 
 
 
-	
+
 	<!-- vendor를 auditId등록 -->
 	<select id="auditCount" resultType="int">
-		SELECT COUNT(*) FROM AUDIT_INFO
+		SELECT COUNT(*) FROM
+		AUDIT_INFO
 	</select>
-	
+
 	<insert id="auditIdRegister" parameterType="bean.BeanVendor">
 		insert into
 		audit_info
 		values(#{AUDIT_ID},'NE','','','','',#{VENDOR_ID},'','','')
 	</insert>
-	
-	
-		<!-- vendor등록 -->
+
+
+	<!-- vendor등록 -->
 	<select id="registerList" resultType="bean.BeanVendor">
 		select
 		v.vendor_id,v.vendor_name,p.PRODUCT_NAME AS
@@ -77,10 +78,8 @@
 	</select>
 
 	<select id="productList" resultType="bean.BeanProduct">
-		select p.product_id
-		,p.product_name from product_item p,vendor_info v
-		where
-		p.product_id=v.product_id
+		select p.product_id ,p.product_name from product_item p,category_info c
+		where c.category_id=p.CATEGORY_ID
 	</select>
 
 
@@ -103,18 +102,19 @@
 	</select>
 
 
-	<select resultType="bean.VendorStatus" id="getStatusList" parameterType="bean.ListCommand">
+	<select resultType="bean.VendorStatus" id="getStatusList"
+		parameterType="bean.ListCommand">
 		select rownum
 		rnum,v.vendor_id,v.vendor_name,c.category_name,p.product_name,v.vendor_q_name,v.vendor_q_email
 		from vendor_info v,product_item
 		p,category_info c
 		<where>
 			v.product_id=p.product_id and p.category_id=c.category_id
-			<if test="VENDOR_ID != ''">
-				and v.vendor_id=#{VENDOR_ID}
+			<if test="VENDOR_NAME != ''">
+				and v.vendor_name=#{VENDOR_NAME}
 			</if>
-			<if test="VENDOR_ID != '' and PRODUCT_ID != 'All'">
-				and v.vendor_id=#{VENDOR_ID} and
+			<if test="VENDOR_NAME != '' and PRODUCT_ID != 'All'">
+				and v.vendor_name=#{VENDOR_NAME} and
 				p.product_id=#{PRODUCT_ID}
 			</if>
 			<if test="VENDOR_ID == '' and PRODUCT_ID != 'All'">
@@ -138,16 +138,18 @@
 		from vendor_info v,product_item p,category_info c
 		where
 		v.product_id=p.product_id and p.category_id=c.category_id
-		and TRUNC(v.AUDIT_NEXT_DATE-sysdate) >0 and v.audit_result='Y'
+		and
+		TRUNC(v.AUDIT_NEXT_DATE-sysdate) >0 and v.audit_result='Y'
 	</select>
 
-		<select id="getNList" resultType="bean.VendorStatus">
+	<select id="getNList" resultType="bean.VendorStatus">
 		select rownum
 		rnum,v.vendor_id,v.vendor_name,c.category_name,p.product_name,v.vendor_q_name,v.vendor_q_email
 		from vendor_info v,product_item p,category_info c
 		where
 		v.product_id=p.product_id and p.category_id=c.category_id
-		and v.audit_result is null
+		and
+		v.audit_result is null
 	</select>
 
 
