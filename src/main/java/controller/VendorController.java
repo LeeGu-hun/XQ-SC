@@ -151,24 +151,19 @@ public class VendorController {
 		return "/vendor/vendorView";
 	}
 
-	@RequestMapping("/vendor/vendorUpdate")
-	public String vendorUpdate(HttpServletRequest request, BeanVendor beanvendor) {
-		String VENDOR_ID = request.getParameter("VENDOR_ID");
-		String VENDOR_NAME = request.getParameter("VENDOR_NAME");
-		String VENDOR_S_TEL = request.getParameter("VENDOR_S_TEL");
-		String VENDOR_S_EMAIL = request.getParameter("VENDOR_S_EMAIL");
+	@RequestMapping("/vendor/vendorUpdate/{VENDOR_ID}")
+	public String vendorUpdate(@PathVariable("VENDOR_ID") String VENDOR_ID,HttpServletRequest request, BeanVendor beanvendor) {
+		BeanVendor bv = null;
+		System.out.println("ID"+VENDOR_ID);
+		bv = vendorService.vendorMem(VENDOR_ID);
+		System.out.println(bv.getVENDOR_ID());
 		
 		int cnt = vendorService.auditCount();
 		String AUDIT_ID = "S" + idForm.format(cnt + 1);
 		
-		BeanVendor bv = new BeanVendor();
 		bv.setAUDIT_ID(AUDIT_ID);
-		bv.setVENDOR_ID(VENDOR_ID);
-		bv.setVENDOR_NAME(VENDOR_NAME);
-		bv.setVENDOR_S_TEL(VENDOR_S_TEL);
-		bv.setVENDOR_S_EMAIL(VENDOR_S_EMAIL);
-		BeanVendor view = vendorService.vendorUpdate(VENDOR_ID);
-		
+
+		vendorService.vendorUpdate(VENDOR_ID);
 		vendorService.vendorMemRegister(bv);
 		vendorService.auditIdRegister(bv);
 		
@@ -178,7 +173,7 @@ public class VendorController {
 	@RequestMapping("/vendor/vendorDelete/{VENDOR_ID}")
 	public String vendorDelete(@PathVariable("VENDOR_ID") String VENDOR_ID, BeanVendor beanvendor) {
 		BeanVendor view = vendorService.vendorDelete(VENDOR_ID);
-		return "redirect:/vendor/vendorRegister";
+		return "redirect:/vendorRegister";
 		
 	}
 	@RequestMapping(value = "/vendor/vendorSearch", method = RequestMethod.GET)

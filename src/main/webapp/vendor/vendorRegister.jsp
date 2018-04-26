@@ -50,15 +50,16 @@
 </style>
 
 <script>
-	function updateRegister() {
+	function updateRegister(id) {
 		//	document.getElementById('updateform').submit();
-		updateform.submit();
+		//updateform.submit(id);
+		location.href = "./vendor/vendorUpdate/" + id;
 	}
 
 	function deleteRegister(id) {
 		//	document.getElementById('updateform').submit();
 		//updateform.submit();
-		location.href = "./vendorDelete/" + id;
+		location.href = "./vendor/vendorDelete/" + id;
 	}
 </script>
 
@@ -117,7 +118,7 @@
 							</div>
 						</div>
 						<td><input type="button" class="btn btn-default"
-							onclick="updateRegister()" value="Register"></td>
+							onclick="updateRegister('${li.VENDOR_ID}')" value="Register"></td>
 						<td><input type="button" class="btn btn-default"
 							onclick="deleteRegister('${li.VENDOR_ID}')" value="Cancel"></td>
 					</tr>

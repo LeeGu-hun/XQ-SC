@@ -65,6 +65,11 @@ public class VendorService {
 	
 	
 	/*   vendor를 member등록   */
+	public BeanVendor vendorMem(String VENDOR_ID) {
+		  BeanVendor ven =  sqlSession.selectOne("vendorSQL.vendorMem", VENDOR_ID);
+		  return ven;
+	}
+	
 	
 	public void vendorMemRegister(BeanVendor beanvendor) {
 		 sqlSession.insert("vendorSQL.vendorMemRegister", beanvendor);

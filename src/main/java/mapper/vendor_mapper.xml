@@ -65,6 +65,12 @@
 
 
 	<!-- vendor를 member등록 -->
+	<select id="vendorMem" resultType="bean.BeanVendor">
+	 select vendor_id,vendor_name,vendor_s_tel,vendor_s_email
+    from vendor_info
+    where vendor_id=#{VENDOR_ID}
+    </select>
+	
 	<insert id="vendorMemRegister" parameterType="bean.BeanVendor">
 		insert into
 		member_info
