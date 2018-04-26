@@ -34,52 +34,11 @@
 	function result(msg){
 		$("#spProd").html(msg);
 	}
-	
-/*	$("#")$(function() {
-		$("#saleDate").datepicker(
-				{
-					dateFormat : 'yy-mm-dd',
-					prevText : '이전 달',
-					nextText : '다음 달',
-					monthNames : [ '1월', '2월', '3월', '4월', '5월', '6월', '7월',
-							'8월', '9월', '10월', '11월', '12월' ],
-					monthNamesShort : [ '1월', '2월', '3월', '4월', '5월', '6월',
-							'7월', '8월', '9월', '10월', '11월', '12월' ],
-					dayNames : [ '일', '월', '화', '수', '목', '금', '토' ],
-					dayNamesShort : [ '일', '월', '화', '수', '목', '금', '토' ],
-					dayNamesMin : [ '일', '월', '화', '수', '목', '금', '토' ],
-					showMonthAfterYear : true,
-					yearSuffix : '년'
-				});
-		$(this).datepicker("show");
-		getDate();
-		
 
-	});
-
-	function getDate() {
-		var newDate = new Date();
-		var yyyy = newDate.getFullYear();
-		var mm = newDate.getMonth() + 1;
-		if (mm < 10) {
-			mm = "0" + mm;
-		}
-		var dd = newDate.getDate();
-		if (dd < 10) {
-			dd = "0" + dd;
-		}
-		var toDay = yyyy + "-" + mm + "-" + dd;
-		<c:if test="${requestScope.date1 eq null }">
-		document.getElementById("saleDate").value = toDay;
-		</c:if>
-
-	}
-*/
 
 function addvendor() {
 	vendorform.submit();
 }
-
 </script>
 
 </head>

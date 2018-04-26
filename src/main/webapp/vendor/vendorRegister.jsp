@@ -12,11 +12,18 @@
 <%@ page import="bean.*"%>
 
 <head>
-<link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />
-<link href="<c:url value="/css/bootstrap.css" />" rel="stylesheet">
 <script
-	src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet"
+	href="https://www.w3schools.com/lib/w3-theme-black.css">
 </head>
 <style>
 .modal-dialog {
@@ -54,15 +61,12 @@
 </script>
 
 <body>
-
-
 <%@ include file="/include/header.jsp"%>
-<br>
 	<div class="container" style="font-family: Tahoma;">
 		<legend style="font-family: Tahoma; font-size: 20pt;">Vendor Register</legend><br>
 		<p>
 			<font style="font-family: Tahoma; font-size: 10pt;">신규등록 요청 : ${cnts} 건</font>
-		</p><br>
+		</p>
 		<form action="./vendor/vendorUpdate" method="POST"
 			enctype="multipart/form-data" name="updateform" commandName="cmd">
 			<table class="table">
@@ -93,7 +97,6 @@
 					</td>
 				</tr>
 
-				<div class="pre-scrollable">
 				<c:forEach var="li" items="${list}">
 					<tr align="center" valign="middle" bordercolor="#333333">
 						<td>${li.VENDOR_ID}</td>
@@ -107,7 +110,7 @@
 						<input type="hidden" id="VENDOR_S_TEL" name="VENDOR_S_TEL" value="${li.VENDOR_S_TEL}"/ >
 						<input type="hidden" id="VENDOR_S_EMAIL" name="VENDOR_S_EMAIL" value="${li.VENDOR_S_EMAIL}"/ >
 						<td><input type="button" class="btn btn-default"
-							href="./vendorView/${li.VENDOR_ID}" data-toggle="modal"
+							href="./vendor/vendorView/${li.VENDOR_ID}" data-toggle="modal"
 							data-target="#viewModal" value="보기"></td>
 
 						<!-- 모달 -->
@@ -123,7 +126,7 @@
 					</tr>
 
 				</c:forEach>
-			</div>
+
 
 			</table>
 		</form>

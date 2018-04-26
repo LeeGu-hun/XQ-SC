@@ -112,7 +112,7 @@ function rowselect(vendor_name, vendor_id) {
 							<option value="N">N</option>
 					</select></td>
 					<td><input class="btn btn-default"  
-						type="submit" value="조회" onclick="statusSearch()"></td>
+						type="submit" value="Search" onclick="statusSearch()"></td>
 				</tr>
 			</table>
 
@@ -131,10 +131,8 @@ function rowselect(vendor_name, vendor_id) {
 					<td>QualityIncharge Email</td>
 					<td>Valid</td>
 					<td>NCR</td>
-				</tr>
-			
+				</tr>	
 				
-	
 				<c:if test="${! empty vendors}">
 				<c:forEach var="v" items="${vendors}">
 					<tr align="center" valign="middle" bordercolor="#333333">

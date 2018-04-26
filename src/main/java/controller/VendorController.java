@@ -148,7 +148,7 @@ public class VendorController {
 		BeanVendor view = vendorService.vendorView(VENDOR_ID);
 		model.addAttribute("view", view);
 
-		return "vendor/vendorView";
+		return "/vendor/vendorView";
 	}
 
 	@RequestMapping("/vendor/vendorUpdate")
@@ -199,10 +199,7 @@ public class VendorController {
 
 		return "vendor/vendorList";
 	}
-	
 
-	
-	
 	
 	@RequestMapping(value = "/vendorStatus", method = RequestMethod.GET)
 	public String vendorStatusGet( Model model, ListCommand listCommand) {
@@ -227,16 +224,13 @@ public class VendorController {
 		model.addAttribute("map", map);
 		
 		String VENDOR_NAME = request.getParameter("VENDOR_NAME");
-	
 
-		listCommand.setVENDOR_ID(VENDOR_NAME);
+		listCommand.setVENDOR_NAME(VENDOR_NAME);
 		listCommand.setPRODUCT_ID(PRODUCT_ID);
-		
 		
 		List<NcrCount> count = vendorService.ncrCount();
 		List<VendorValid> valid = vendorService.getValid();
-		
-		System.out.println(valid.toString());
+
 		model.addAttribute("valid",valid);
 		model.addAttribute("count",count);
 		
@@ -245,12 +239,15 @@ public class VendorController {
 			List<VendorStatus> validY = vendorService.getYList();
 			model.addAttribute("validY", validY);
 			return "vendor/vendorStatus";
+			
 		}else if (VALID.equals("N")) {
 			
 				List<VendorStatus> validN = vendorService.getNList();
 				model.addAttribute("validN", validN);
 				return "vendor/vendorStatus";
+				
 		}else {
+			
 			List<VendorStatus> vendors = vendorService.vendorStatusList(listCommand);
 			model.addAttribute("vendors", vendors);
 			return "vendor/vendorStatus";

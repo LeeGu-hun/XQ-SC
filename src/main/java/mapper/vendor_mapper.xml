@@ -104,7 +104,7 @@
 	</select>
 
 
-	<select resultType="bean.VendorStatus" id="getStatusList"
+	<select id="getStatusList" resultType="bean.VendorStatus" 
 		parameterType="bean.ListCommand">
 		select rownum
 		rnum,v.vendor_id,v.vendor_name,c.category_name,p.product_name,v.vendor_q_name,v.vendor_q_email
