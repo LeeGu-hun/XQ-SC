@@ -39,6 +39,8 @@
 
 </style>
 
+
+
 <link rel="stylesheet" type="text/css" href="/css/style.css?ver=2">
 
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"
@@ -106,7 +108,7 @@
 				<th style="text-align: center;">Result</th>
 				<th style="text-align: center;">Score</th>
 				<th style="text-align: center;">Result</th>
-			</tr>
+				</tr>
 			</div>
 			
 			<c:forEach var="a" items="${arsList}">
@@ -115,7 +117,9 @@
 						<div align="center">${a.RNUM}</div>
 					</td>
 					<td style="font-family: Tahoma; font-size: 12pt;">
-						<div align="center">${a.AUDIT_ID}</div>
+						<div align="center">${a.AUDIT_ID}
+						<input type="hidden" value="${a.AUDIT_ID}" id="AUDIT_ID" name="AUDIT_ID">
+						</div>
 					</td>
 					<td style="font-family: Tahoma; font-size: 12pt;">
 						<div align="center">${a.VENDOR_NAME}(${a.VENDOR_ID})</div>
@@ -167,8 +171,7 @@
 							</c:if>
 						</div>
 					</td>
-					<td><a
-						href="audit/auditVendorResult?vendorname=${a.VENDOR_NAME}
+					<td><a href="audit/auditVendorResult?vendorname=${a.VENDOR_NAME}
 								&id=${a.AUDIT_ID}
 								&type=${a.AUDIT_KIND_ID}
 								&score=${a.AUDIT_SCORE}
@@ -177,22 +180,31 @@
 								&auditor=${a.MEMBER_NAME}
 								&auditorId=${a.MEMBER_ID}
 								&result=${a.AUDIT_RESULT}"
-						data-toggle="modal"
-						data-target="#myModal"
-						style="text-decoration: underline;"
-						>View</a></td>
+								data-toggle="modal"
+								data-target="#myModal"
+								style="text-decoration: underline;"
+								>View</a></td>
+							
 
 				</tr>
 			</c:forEach>
 		</table>
 		</form>
+		<div id="auditorList"></div>
+		
 		<!-- 모달 -->
 		<div id="myModal" class="modal fade" role="dialog">
 			<div class="modal-dialog" style="width: 70%">
 				<div class="modal-content"></div>
 			</div>
 		</div>
+		<div id="myModal2" class="modal fade" role="dialog">
+			<div class="modal-dialog" style="width: 70%">
+				<div class="modal-content"></div>
+			</div>
+		</div>
 	</div>
+	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 <script>
 
 let today = new Date().toISOString().substr(0, 10);

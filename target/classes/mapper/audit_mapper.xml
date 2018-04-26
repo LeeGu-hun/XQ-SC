@@ -38,6 +38,15 @@
 		AND V.AUDIT_NEXT_DATE IS NULL OR V.AUDIT_NEXT_DATE <![CDATA[ <= ]]>
 		TO_DATE(SYSDATE+30)
 	</select>
+	
+	<select id="ncrCount" parameterType="String"  resultType="int">
+	select count(*) from ncr_info where audit_id = #{id}
+	</select>
+	
+	<select id="ncrCountComp" parameterType="String"  resultType="int">
+	 select count(*) from ncr_info where audit_id = #{id} and NCR_COMP = 'Y'
+	</select>
+	
 
 	<!-- check list RE -->
 	<select id="checkListRE" resultType="bean.CheckListBean"
@@ -338,11 +347,12 @@
 		V.VENDOR_ID =
 		AU.VENDOR_ID
 		AND P.PRODUCT_ID = V.PRODUCT_ID
-		and AU.AUDIT_RESULT IS NULL
+		and
+		AU.AUDIT_RESULT IS NULL
 	</select>
 
 	<select id="pass" parameterType="bean.DateCommand" resultType="bean.AuditBean">
-		
+
 		SELECT
 		AU.AUDIT_ID, P.PRODUCT_ID,
 		P.PRODUCT_NAME, V.VENDOR_NAME,
@@ -369,12 +379,14 @@
 		WHERE
 		M.MEMBER_ID = AU.AUDITOR_ID
 		AND
-		V.VENDOR_ID = AU.VENDOR_ID
+		V.VENDOR_ID =
+		AU.VENDOR_ID
 		AND P.PRODUCT_ID = V.PRODUCT_ID
 		AND
-		AU.AUDIT_SCORE >= (SELECT AUDIT_SCORE FROM AUDIT_CRITERION)
-<include refid="planDate"></include>
-		
+		AU.AUDIT_SCORE >=
+		(SELECT AUDIT_SCORE FROM AUDIT_CRITERION)
+		<include refid="planDate"></include>
+
 	</select>
 
 	<!-- audit report list : score Date search -->
@@ -446,5 +458,31 @@
 		RE.CHECKLIST_ID =
 		C.CHECKLIST_ID
 	</select>
+
+	<select id="ncrVendor" parameterType="String" resultType="bean.AuditNcrBean">
+
+		SELECT N.NCR_ID,
+		N.AUDIT_ID,
+		V.VENDOR_NAME,
+		A.AUDIT_COMP_DATE,
+		A.AUDIT_KIND_ID,
+		AK.AUDIT_KIND,
+		A.AUDIT_RESULT,
+		N.NCR_TITLE,
+		M.MEMBER_NAME,
+		N.NCR_DESCRIPTION,
+		N.NCR_GRADE_ID
+		FROM 
+		AUDIT_INFO A, MEMBER_INFO M, NCR_INFO N, AUDIT_KIND AK, VENDOR_INFO V
+		
+		WHERE 
+		N.AUDIT_ID = A.AUDIT_ID 
+		AND A.AUDIT_KIND_ID = AK.AUDIT_KIND_ID
+		AND M.MEMBER_ID=N.ISSUER_ID
+		AND A.VENDOR_ID = V.VENDOR_ID 
+		AND A.AUDIT_ID= #{id}
+
+	</select>
+
 </mapper>
 

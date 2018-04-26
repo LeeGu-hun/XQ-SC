@@ -12,17 +12,22 @@
 	<table class="table table-hover">
 	<c:forEach var="d" items="${date}">
 		<tr>
-			<td nowrap>Audit ID :  ${id} 
+			<td nowrap>Audit ID :  
+			<a href="audit/auditNcr?=${id}&id=${id}"
+						data-toggle="modal"
+						data-target="#myModal2">${id}</a>
+			
 			<input type="hidden" value="${id}" name = "AUDIT_ID" id = "AUDIT_ID"> </td>
 			<td nowrap>Audit Type : ${type}</td>
 			<td nowrap>Vendor Name : ${vendorname} (${vendorid})
 			<input type="hidden" value="${vendorid}" name = "VENDOR_ID" id = "VENDOR_ID">
-			</td>
+			<td nowrap>Product : ${prod}</td>
 		</tr>
 		<tr> 
 				<td nowrap>Audit Date : ${d.AUDIT_COMP_DATE}</td>
 				<td nowrap>Insert Date : ${d.AUDIT_RSINPUT_DATE}</td>
 				<td nowrap>Auditor : ${auditor} (${auditorId })</td>
+				<td nowrap>NCR Progress : ${ncrCountComp} / ${ncrCount}</td>
 		</tr>
 		</c:forEach>
 		</table>
@@ -50,10 +55,20 @@
 			<td nowrap>Total Score : ${score }</td>
 			<td nowrap>Audit Result : ${result }</td>
 		</tr>
-	</table>
-	<div class="modal-footer">
-		<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 		
+	</table>
+	
+		<!-- 2th Modal -->
+	 <div id="myModal2" class="modal fade" role="dialog">
+			<div class="modal-dialog" style="width: 70%">
+				<div class="modal-content"></div>
+			</div>
+		</div>
+	
+	
+	
 	</div>
-	</div>
+	
+
+	
 </body>

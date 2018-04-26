@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 
 import bean.AuditBean;
 import bean.AuditKind;
-
+import bean.AuditNcrBean;
 import bean.AuditResultSearch;
 import bean.AuditSubmitBean;
 import bean.BeanCategory;
@@ -36,6 +36,14 @@ public class AuditService {
 	// audit all count
 	public int allCount() {
 		return sqlSession.selectOne("auditSQL.allCount");
+	}
+	
+	public int ncrCount(String id) {
+		return sqlSession.selectOne("auditSQL.ncrCount",id);
+	}
+	
+	public int ncrCountComp(String id) {
+		return sqlSession.selectOne("auditSQL.ncrCountComp",id);
 	}
 	
 	public int cutLineScore() {
@@ -166,5 +174,9 @@ public class AuditService {
 		List<AuditBean> results = sqlSession.selectList("auditSQL.pass", dateCommand);
 		return results;
 	}
-	
+
+	public List<AuditNcrBean> getNcrVendor(String id) {
+		List<AuditNcrBean> results = sqlSession.selectList("auditSQL.ncrVendor", id);
+		return results;
+	}
 }

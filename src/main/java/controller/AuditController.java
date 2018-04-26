@@ -25,7 +25,7 @@ import bean.AdminMem;
 import bean.AuditBean;
 import bean.AuditCommand;
 import bean.AuditKind;
-
+import bean.AuditNcrBean;
 import bean.AuditResultSearch;
 import bean.AuditScoreCommand;
 import bean.AuditSubmitBean;
@@ -61,6 +61,8 @@ public class AuditController {
 		// audit count
 		int allCount = auditService.allCount();
 		model.addAttribute("allCount", allCount);
+		
+		
 		return "audit/auditManage";
 		
 	}
@@ -239,8 +241,7 @@ public class AuditController {
 	public String auditResultView(
 			Model model, 
 			HttpServletRequest request, 
-			AuditScoreCommand ac,
-			@RequestParam(defaultValue="1") int curPage) {
+			AuditScoreCommand ac) {
 
 		String vendorname = (String) request.getParameter("vendorname");
 		String id = (String) request.getParameter("id");
@@ -264,8 +265,13 @@ public class AuditController {
 
 		List<AuditBean> date = auditService.getDate(id);
 		List<CheckListBean> checkResult = auditService.getEachCheckScore(id);
+		int ncrCount = auditService.ncrCount(id);
+		int ncrCountComp = auditService.ncrCountComp(id);
+		
 		model.addAttribute("date", date);
 		model.addAttribute("checkResult", checkResult);
+		model.addAttribute("ncrCount",ncrCount);
+		model.addAttribute("ncrCountComp",ncrCountComp);
 
 		return "audit/auditVendorResult";
 	}
@@ -273,6 +279,22 @@ public class AuditController {
 	@RequestMapping(value = "audit/auditVendorResult", method = RequestMethod.POST)
 	public String auditResultViewPost() {
 		return "audit/auditVendorResult";
+	}
+	
+	
+	@RequestMapping(value = "audit/auditNcr",method=RequestMethod.GET)
+	public String auditNcrVendor(Model model,HttpServletRequest request) {
+		String id = (String) request.getParameter("id");
+
+		request.setAttribute("id", id);
+		List<AuditNcrBean> vendorNcr = auditService.getNcrVendor(id);
+		model.addAttribute("vendorNcr",vendorNcr);
+			return "audit/auditNcr";
+	}
+	
+	@RequestMapping(value = "audit/auditNcr",method=RequestMethod.POST)
+	public String auditNcrVendorPost() {
+		return "audit/auditNcr";
 	}
 
 }
