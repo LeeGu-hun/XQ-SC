@@ -214,12 +214,12 @@
 			</p>
 			<table class="table table-striped table-bordered table-hover"
 			style="border-collapse:collapse; width:95%">
-				<thead style="float:left; width:98.77%;">
+				<thead style="float:left; width:100%;">
 					<tr align="center" valign="middle" style="display:table; width:100%;">
-						<th style="width:20%;">
+						<th style="width:120px;">
 							<div align="center">VALID</div>
 						</th>
-						<th style="width:80%;">
+						<th>
 							<div align="center">CATEGORY</div>
 						</th>
 					</tr>
@@ -227,10 +227,10 @@
 				<tbody style="overflow-y:auto; overflow-x:hidden; float:left; width:100%; height:400px">
 					<c:forEach var="cate" items="${cateList}">
 						<tr align="center" valign="middle" style="display:table; width:100%;">
-							<td style="width:20%;">
+							<td style="width:120px;">
 								<div align="center">${cate.CATEGORY_VALID}</div>
 							</td>
-							<td style="width:80%;">
+							<td>
 								<div align="center">
 									<a href="javascript:cateUpdateForm('${cate.CATEGORY_ID}')">
 									${cate.CATEGORY_NAME}
@@ -248,12 +248,12 @@
 			</p>
 			<table class="table table-striped table-bordered table-hover"
 			style="border-collapse:collapse; width:95%">
-				<thead style="float:left; width:98.77%;">
+				<thead style="float:left; width:100%;">
 					<tr align="center" valign="middle" style="display:table; width:100%;">
-						<th style="width:20%;">
+						<th style="width:120px;">
 							<div align="center">VALID</div>
 						</th>
-						<th style="width:80%;">
+						<th>
 							<div align="center">PRODUCT</div>
 						</th>
 					</tr>
