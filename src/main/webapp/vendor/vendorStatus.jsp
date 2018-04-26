@@ -80,6 +80,10 @@ function rowselect(vendor_name, vendor_id) {
 
 
 </style>
+
+<head>
+<title>Vendor Status</title>
+</head>
 <body>
 
 <%@ include file="/include/header.jsp"%>

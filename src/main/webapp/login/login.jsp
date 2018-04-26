@@ -22,7 +22,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-<title></title>
+<title>MJ</title>
 </head>
 <style>
 .modal-dialog {
@@ -61,22 +61,22 @@
 	</header>
 
 	<!-- Footer -->
-	<div class="w3-display-container w3-content w3-wide"
+	<div class="w3-display-container w3-content "
 		style="max-width: 1600px;">
 		<div class="w3-row w3-border">
 			<div class="w3-half w3-container">
-				<div class="w3-container " style="margin-left:70px; margin-top:30px;">
+				<div class="w3-container " style="margin-left:70px; margin-top:20px;">
 					<form:form commandName="loginCommand" style="height:100%;"
 						action="loginDiv">
 						<br>
 						<p>
-							<form:input type="text" path="id" placeholder="Id"
-								value="A00001" class="w3-input w3-border " style="width: 450px;" />
+							<form:input type="text" path="id" placeholder="ID"
+								 class="w3-input w3-border " style="width: 450px;" />
 			<span style="font-size:9pt;color:red;"> <form:errors path="id" /></span>
 						</p>
 						<p>
 							<form:password path="password"
-								placeholder="PASSWORD" value="1" class="w3-input w3-border"
+								placeholder="PASSWORD"  class="w3-input w3-border"
 								style="width: 450px;" />
 								<span style="font-size:9pt;color:red;"> <form:errors path="password" /></span>
 						</p>
@@ -86,7 +86,7 @@
 						</p>
 						<p>
 							<input type="checkbox" name="hold" id="hold" value="${check}"
-								class="w3-check" /> <label for="hold">로그인유지</label>&nbsp;&nbsp;
+								class="w3-check" /> <label for="hold">Remember</label>&nbsp;&nbsp;
 
 
 						</p>
@@ -109,7 +109,7 @@
 			</div>
 			<!-- 모달 -->
 			<div id="myModal" class="modal fade" role="dialog">
-				<div class="modal-dialog" style="width: 1400px;">
+				<div class="modal-dialog" style="width: 1700px;">
 					<div class="modal-content"></div>
 				</div>
 			</div>

@@ -103,7 +103,6 @@
 		a.vendor_id=v.vendor_id) group by vendor_id
 	</select>
 
-
 	<select id="getStatusList" resultType="bean.VendorStatus" 
 		parameterType="bean.ListCommand">
 		select rownum
@@ -123,7 +122,6 @@
 				and p.product_id=#{PRODUCT_ID}
 			</if>
 		</where>
-
 	</select>
 
 	<select id="getValid" resultType="bean.VendorValid"

@@ -43,68 +43,68 @@ function addvendor() {
 
 </head>
 <body><div class="modal-header">
-	<h2>신규등록</h2>
+	<h2>New Registration</h2>
 	</div>
-	<div class="modal-body" >
+	<div class="modal-body">
 	<form action="./vendor/newVendor" method="POST" enctype="multipart/form-data"  name="vendorform" >
 		<table class="table">
 			<tr>
-				<td >회사ID :</td>
+				<td>Vendor ID :</td>
 				<td><input type="text" name="VENDOR_ID" value="${cnt}" readonly></td>
-				<td>회사명 :</td>
+				<td>Vendor Name :</td>
 				<td><input type="text" name="VENDOR_NAME"></td>
 			</tr>
 			<tr>
-				<td >사원수 :</td>
+				<td >Employees :</td>
 				<td><input type="text" name="VENDOR_EMP_NO"></td>
 			</tr>
 			
 			<tr>
-				<td>회사주소 :</td>
+				<td>Address :</td>
 				<td><input type="text" name="VENDOR_ADDRESS"></td>
 			</tr>
 			<tr>
 
-				<td>카테고리 :</td>
+				<td>Category :</td>
 				<td><select name="selCate" id="selCate" onchange="prodList();">
-						<option value="cate">카테고리</option>
+						<option value="cate">Category</option>
 						<c:forEach var="c" items="${map.cateList}">
 							<option value="${c.CATEGORY_ID}">${c.CATEGORY_NAME}</option>
 						</c:forEach>
 				</select>
-				<td>품목:</td>
+				<td>Product :</td>
 				<td><span id="spProd"><select name="PRODUCT_ID" id="PRODUCT_ID">
-				<option value="" >상품을 선택하세요</option>
+				<option value="" >Product</option>
 					   </select>
 					   </span>
 					   </td>
 				</td>
 			
 			<tr>
-				<td>품질담당자이름 :</td>
+				<td>Quality Incharge Name :</td>
 				<td><input type="text" name="VENDOR_Q_NAME"></td>
-				<td>품질 담당자 이메일 :</td>
+				<td>Quality Incharge Email :</td>
 				<td><input type="text" name="VENDOR_Q_EMAIL"></td>
-				<td>품질담당자연락처 :</td>
+				<td>Quality Incharge Tel :</td>
 				<td><input type="text" name="VENDOR_Q_TEL"></td>
 			</tr>
 			
 			<tr>
-				<td >영업담당자이름 :</td>
+				<td >Sales Incharge Name :</td>
 				<td><input type="text" name="VENDOR_S_NAME"></td>
-				<td >영업담당자이메일 :</td>
+				<td >Sales Incharge Email :</td>
 				<td><input type="text" name="VENDOR_S_EMAIL"></td>
-				<td >영업담당자연락처 :</td>
+				<td >Sales Incharge Tel :</td>
 				<td><input type="text" name="VENDOR_S_TEL"></td>
 			</tr>
 			
 			<tr>
-				<td>품질보증서 :</td>
+				<td>Certificate Of Quality :</td>
 				<td><input type="file" name="VENDOR_ISO_FILE"></td>
 			</tr>
 			
 			<tr>
-				<td >사업자등록증 :</td>
+				<td >Business License :</td>
 				<td><input type="file" name="VENDOR_CERT_FILE"></td>
 			</tr>
 
@@ -112,8 +112,8 @@ function addvendor() {
 		</div>
 		</form>
 		<div class="modal-footer">
-		<button type="button" class="btn btn-default" onclick="addvendor()">등록</button>
-		<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+		<button type="button" class="btn btn-default" onclick="addvendor()">Register</button>
+		<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 	</div>
 	
 </body>

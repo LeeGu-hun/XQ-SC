@@ -27,7 +27,10 @@
 
 <body>
 
+			
+		
 	<div class="w3-bar w3-black w3-right">
+	<a href="#" class="w3-bar-item w3-gray w3-wide w3-padding-large "><b>MJ</b>Company</a>&nbsp;&nbsp;&nbsp;
 		<a href="./main" class="w3-bar-item w3-button w3-padding-large">Home</a>
 		<div class="w3-dropdown-hover">
 			<button class="w3-button w3-padding-large">Vendor</button>
@@ -35,7 +38,6 @@
 				<a href="./vendorRegister" class="w3-bar-item w3-button ">Vendor
 					Register</a> <a href="./vendorStatus" class="w3-bar-item w3-button">Vendor
 					Status</a>
-
 			</div>
 		</div>
 		<div class="w3-dropdown-hover">

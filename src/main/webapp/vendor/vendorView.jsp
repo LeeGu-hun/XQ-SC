@@ -19,53 +19,53 @@
 <body>
 
 	<div class="modal-body">
-		<h2>상세보기</h2>
+		<h2>Detail View</h2>
 		<table class="table">
 			<tr>
-				<td>회사ID :</td>
+				<td>Vendor ID :</td>
 				<td>${view.VENDOR_ID}</td>
-				<td>회사명 :</td>
+				<td>Vendor Name :</td>
 				<td>${view.VENDOR_NAME}</td>
 			</tr>
 			<tr>
-				<td>사원수 :</td>
+				<td>Employees :</td>
 				<td>${view.VENDOR_EMP_NO}</td>
 			</tr>
 
 			<tr>
-				<td>회사주소 :</td>
+				<td>Address :</td>
 				<td>${view.VENDOR_ADDRESS}</td>
 			</tr>
 			<tr>
 
-				<td>카테고리 :</td>
+				<td>Category :</td>
 				<td>${view.CATEGORY_NAME}</td>
-				<td>품목:</td>
+				<td>Product :</td>
 				<td>${view.PRODUCT_NAME}</td>
 				</td>
 			<tr>
-				<td>요청일자 :</td>
+				<td>Request Date :</td>
 				<td><fmt:formatDate value="${view.VENDOR_REQ_DATE}"
 						pattern="yyyy-MM-dd" /></td>
 			</tr>
 			<tr>
-				<td>품질담당자이름 :</td>
+				<td>Quality Incharge Name :</td>
 				<td>${view.VENDOR_Q_NAME}</td>
-				<td>품질 담당자 이메일 :</td>
+				<td>Quality Incharge Email</td>
 				<td>${view.VENDOR_Q_EMAIL}</td>
-				<td>품질담당자연락처 :</td>
+				<td>Quality Incharge Tel :</td>
 				<td>${view.VENDOR_Q_TEL}</td>
 			</tr>
 			<tr>
-				<td>영업담당자이름 :</td>
+				<td>Sales Incharge Name :</td>
 				<td>${view.VENDOR_S_NAME}</td>
-				<td>영업담당자이메일 :</td>
+				<td>Sales Incharge Email :</td>
 				<td>${view.VENDOR_S_EMAIL}</td>
-				<td>영업담당자연락처 :</td>
+				<td>Sales Incharge Tel :</td>
 				<td>${view.VENDOR_Q_TEL}</td>
 			</tr>
 			<tr>
-				<td>품질보증서 :</td>
+				<td>Certificate Of Quality :</td>
 				<td><a data-toggle="modal" data-target="#isoModal">${view.VENDOR_ISO_FILE}</td>
 				
 				<!-- 모달 -->
@@ -85,7 +85,7 @@
 				</div>
 			</tr>
 			<tr>
-				<td>사업자등록증 :</td>
+				<td>Business License :</td>
 				<td><a data-toggle="modal" data-target="#certModal">${view.VENDOR_CERT_FILE}</td>
 				<!-- 모달 -->
 				<div id="certModal" class="modal fade" role="dialog">
@@ -106,7 +106,7 @@
 
 	</div>
 	<div class="modal-footer">
-		<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+		<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 	</div>
 
 </body>

@@ -24,6 +24,8 @@
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet"
 	href="https://www.w3schools.com/lib/w3-theme-black.css">
+	<title>Vendor Register</title>
+	
 </head>
 <style>
 .modal-dialog {
@@ -81,20 +83,15 @@
 						<div>Product Name</div>
 					</td>
 					<td>
-						<div>SalesIncharge Name</div>
+						<div>Sales Incharge Name</div>
 					</td>
 					<td>
-						<div>SalesIncharge Tel</div>
+						<div>Sales Incharge Tel</div>
 					</td>
-					<td>
-						<div>View</div>
+					<td colspan="3">
+						
 					</td>
-					<td>
-						<div>Register</div>
-					</td>
-					<td>
-						<div>Cancel</div>
-					</td>
+					
 				</tr>
 
 				<c:forEach var="li" items="${list}">
@@ -111,7 +108,7 @@
 						<input type="hidden" id="VENDOR_S_EMAIL" name="VENDOR_S_EMAIL" value="${li.VENDOR_S_EMAIL}"/ >
 						<td><input type="button" class="btn btn-default"
 							href="./vendor/vendorView/${li.VENDOR_ID}" data-toggle="modal"
-							data-target="#viewModal" value="보기"></td>
+							data-target="#viewModal" value="View"></td>
 
 						<!-- 모달 -->
 						<div id="viewModal" class="modal fade" role="dialog">
@@ -120,9 +117,9 @@
 							</div>
 						</div>
 						<td><input type="button" class="btn btn-default"
-							onclick="updateRegister()" value="등록"></td>
+							onclick="updateRegister()" value="Register"></td>
 						<td><input type="button" class="btn btn-default"
-							onclick="deleteRegister('${li.VENDOR_ID}')" value="취소"></td>
+							onclick="deleteRegister('${li.VENDOR_ID}')" value="Cancel"></td>
 					</tr>
 
 				</c:forEach>
