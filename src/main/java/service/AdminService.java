@@ -15,6 +15,7 @@ import bean.BeanMember;
 import bean.BeanProduct;
 import spring.AuthInfo;
 import spring.IdPasswordNotMatchingException;
+import spring.InvalidMemberException;
 import spring.MemberNotFoundException;
 
 public class AdminService {
@@ -33,6 +34,8 @@ public class AdminService {
 			throw new MemberNotFoundException();
 		if(!m.mathPassword(password))
 			throw new IdPasswordNotMatchingException();
+		if(!m.getMEMBER_VALID().equals("Y"))
+			throw new InvalidMemberException();
 		return new AuthInfo(m.getMEMBER_ID(),m.getMEMBER_DEPART(),m.getMEMBER_NAME());
 	}
 	
@@ -99,7 +102,10 @@ public class AdminService {
 	public List<BeanMember> getMemList(AdminMem mem) {
 		return sqlSession.selectList("adminSQL.getMemList", mem);
 	}
-	
+
+	public int ingmemberCount() {
+		return sqlSession.selectOne("adminSQL.ingmemberCount");
+	}
 	
 
 	/////////////////////////////////////////Setting////////

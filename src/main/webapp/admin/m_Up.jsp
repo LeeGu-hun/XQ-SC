@@ -45,9 +45,9 @@
 					<form:input path="MEMBER_TEL" value="${selMember.MEMBER_TEL}" style=" width:120pt;" class="form-control"/>
 				</td>
 				<td align="center" style=" width:125pt;">
-					<input type="button" class="btn btn-default" style=" width:60pt;" value="수정" onclick="mUpdate()"
+					<input type="button" class="btn btn-default" style=" width:60pt;" value="MODIFY" onclick="mUpdate()"
 					style=" width:70pt;">
-					<a href="javascript:inMemForm()">취소</a>
+					<a href="javascript:inMemForm()">CANCEL</a>
 					<br>
 					<span id="mInUp" style="font-size:9pt;color:red;"></span>
 				</td>

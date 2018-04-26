@@ -10,7 +10,7 @@
 			<td colspan="2">
 				<input type="hidden" id="cateid" value="${selProd.CATEGORY_ID}">
 				<form:select path="CATEGORY_ID" class="form-control" onchange="prodTable();" id="prodCate">
-					<form:option value="cate">카테고리</form:option>
+					<form:option value="cate">CATEGORY</form:option>
 					<c:forEach var = "c" items="${cateList}">
 						<form:option value="${c.CATEGORY_ID}">${c.CATEGORY_NAME}</form:option>
 					</c:forEach>
@@ -18,6 +18,7 @@
 			</td>
 			<td colspan="2" align="right">
 				<span id="ckProd" style="font-size:9pt;color:red;"></span>
+			<a href="javascript:prodInsertForm()">CANCEL</a>
 			</td>
 		</tr><tr>
 			<c:choose>
@@ -43,8 +44,7 @@
 				<form:hidden path="PRODUCT_ID" value="${selProd.PRODUCT_ID}" />
 			</td>
 			<td>
-				<input type="button" class="btn btn-default" value="수정" style="width:48pt;" onclick="prodUpdate()">
-				<a href="javascript:prodInsertForm()">취소</a>	
+				<input type="button" class="btn btn-default" value="MODIFY" style="width:70pt;" onclick="prodUpdate()">
 			</td>
 		</tr>
 		<tr><td colspan="4"></td></tr>

@@ -8,7 +8,7 @@
 <html lang="ko">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Setting</title>
+<title>Member Management</title>
 
 
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />
@@ -57,11 +57,11 @@
 		var pattern = /^[a-z0-9_+.-]+@([a-z0-9-]+\.)+[a-z0-9]{2,4}$/;
 
 		if(name == "" || email == "" ||pass == "" ||tel == "" ){
-			document.getElementById('mInUp').textContent= '내용을 입력해주세요';
+			document.getElementById('mInUp').textContent= 'ENTER CONTENTS';
 			return;
 		}
 		if(!pattern.test(email)){
-			document.getElementById('mInUp').textContent= '잘못된 이메일 양식입니다.';
+			document.getElementById('mInUp').textContent= 'INVALID EMAIL FORM';
 			document.getElementById('MEMBER_EMAIL').focus();
 			return;
 		}
@@ -78,11 +78,11 @@
 		var pattern = /^[a-z0-9_+.-]+@([a-z0-9-]+\.)+[a-z0-9]{2,4}$/;
 		
 		if(name == "" || email == "" ||pass == "" ||tel == "" ){
-			document.getElementById('mInUp').textContent= '내용을 입력해주세요';
+			document.getElementById('mInUp').textContent= 'ENTER CONTENTS';
 			return;
 		}
 		if(!pattern.test(email)){
-			document.getElementById('mInUp').textContent= '잘못된 이메일 양식입니다.';
+			document.getElementById('mInUp').textContent= 'INVALID EMAIL FORM';
 			document.getElementById('MEMBER_EMAIL').focus();
 			return;
 		}
@@ -117,6 +117,7 @@
 	<%@ include file="/include/header.jsp"%><br>
 <div class="container" >
 	<br><br>
+	<div align="right">UNREGISTERED VENDOR : ${map.ingmem}&nbsp;&nbsp;&nbsp;&nbsp;</div>
 	<table class="table table-striped table-bordered table-hover"
 	style="border-collapse:collapse; width:100%">
 		<thead style="float:left; width:98.77%;">
@@ -179,9 +180,9 @@
 		</tbody>
 	</table>
 	<div id="mInUpForm"><%@include file="/admin/m_In.jsp" %></div>
-	<div align="center" style="background-color: gray">
+	<div align="center" style="background-color:#c3c6cc">
 		<br>
-		<%@include file="/admin/m_S.jsp" %><a href="./MSet">전체보기</a>
+		<%@include file="/admin/m_S.jsp" %><a href="./MSet">VIEW ALL</a>
 		<br>
 		<br>
 	</div>

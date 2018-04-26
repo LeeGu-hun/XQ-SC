@@ -2,16 +2,20 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <div class="paginate">
-    <a href="javascript:list(${param.firstPageNo})" class="first">처음</a>
-    <a href="javascript:list(${param.prevPageNo})" class="prev">이전</a>
-    <span>
+	<button type="button" class="btn btn-link" onclick="list(${param.firstPageNo})">First</button>
+	<button type="button" class="btn btn-link" onclick="list(${param.prevPageNo})">Previous</button>
+	<span>
         <c:forEach var="i" begin="${param.startPageNo}" end="${param.endPageNo}" step="1">
             <c:choose>
-                <c:when test="${i eq param.pageNo}"><a href="javascript:list(${i})" class="choice">${i}</a></c:when>
-                <c:otherwise><a href="javascript:list(${i})">${i}</a></c:otherwise>
+                <c:when test="${i eq param.pageNo}">
+					<button type="button" class="btn btn-default" onclick="list(${i})">${i}</button>
+                </c:when>
+                <c:otherwise>
+					<button type="button" class="btn btn-link" onclick="list(${i})">${i}</button>
+                </c:otherwise>
             </c:choose>
         </c:forEach>
     </span>
-    <a href="javascript:list(${param.nextPageNo})" class="next">다음</a>
-    <a href="javascript:list(${param.finalPageNo})" class="last">마지막</a>
+	<button type="button" class="btn btn-link" onclick="list(${param.nextPageNo})">Next</button>
+	<button type="button" class="btn btn-link" onclick="list(${param.finalPageNo})">Last</button>
 </div>
