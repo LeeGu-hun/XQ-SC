@@ -46,6 +46,9 @@
 			<if test="ncr_comp!='All'">
 				and n.ncr_comp= #{ncr_comp}
 			</if>
+			<if test="audit_id!=null and audit_id!=''">
+				and a.audit_id= #{audit_id}
+			</if>
 		
 			
 		
@@ -64,7 +67,7 @@
     
     <select id="getNcrDetailList"  parameterType = "Int" resultType="bean.NcrBean">
    		select n.ncr_id, n.audit_id,v.vendor_name,a.audit_comp_date,a.audit_kind_id,ak.audit_kind,a.audit_result
-        ,n.ncr_title,m.member_name as issuer_name,n.ncr_description,n.ncr_grade_id 
+        ,n.ncr_title,m.member_name as issuer_name,n.ncr_description,n.ncr_grade_id,n.ncr_comp 
         from audit_info a, member_info m, ncr_info n, audit_kind ak, vendor_info v
         where n.audit_id = a.audit_id and a.audit_kind_id = ak.audit_kind_id and m.member_id=n.issuer_id
             and a.vendor_id = v.vendor_id and ncr_id=#{ncr_id}

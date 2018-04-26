@@ -24,6 +24,7 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
 <script>
+
 	function vendorReplySave(ncr_id) {
 		vendorReplyForm.submit(ncr_id);
 	}
@@ -159,11 +160,13 @@
 											</td>
 											<td>Title :<input type="text" id="ncr_title"
 												name="ncr_title" class="form-control"></td>
-											<td>Vendor ID :<input type="text" id="vendor_id"
+											<td>Vendor Name :<input type="text" id="vendor_id"
 												name="vendor_id"class="form-control" />
-											<td>Issuer :<input type="text" id="issuer_id"
+											<td>Issuer Name:<input type="text" id="issuer_id"
 												name="issuer_id" class="form-control" />
-											<td>Complete : <select id="ncr_comp" name="ncr_comp"
+											<td>Audit ID:<input type="text" id="audit_id"
+											name="audit_id" class="form-control" />
+											<td>Closed: <select id="ncr_comp" name="ncr_comp"
 												class="form-control">
 													<option value="All">All</option>
 													<option value="Y">Y</option>

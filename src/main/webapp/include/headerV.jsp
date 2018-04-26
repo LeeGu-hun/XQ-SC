@@ -9,8 +9,11 @@
 <html lang="ko">
 
 <head>
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/css/style.css?ver=1.3">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet"
+	href="https://www.w3schools.com/lib/w3-theme-black.css">
 
 <script type="text/javascript"
 	href="${pageContext.request.contextPath}/jquery-1.11.1.min.js"></script>
@@ -18,63 +21,33 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-<script type="text/javascript">
-$(function(){
-  $('a[href="#"]').on('click', function(e){
-    e.preventDefault();
-  });
-  
-  $('#menu > li').on('mouseover', function(e){
-    $(this).find("ul:first").show();
-    $(this).find('> a').addClass('active');
-  }).on('mouseout', function(e){
-    $(this).find("ul:first").hide();
-    $(this).find('> a').removeClass('active');
-  });
-  
-  $('#menu li li').on('mouseover',function(e){
-    if($(this).has('ul').length) {
-      $(this).parent().addClass('expanded');
-    }
-    $('ul:first',this).parent().find('> a').addClass('active');
-    $('ul:first',this).show();
-  }).on('mouseout',function(e){
-    $(this).parent().removeClass('expanded');
-    $('ul:first',this).parent().find('> a').removeClass('active');
-    $('ul:first', this).hide();
-  });
-});
-</script>
+
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 </head>
 
 <body>
-<header class="site-header-wrap">
-<a href="./logout">로그아웃</a>	
-	<div class="site-logo"> 
-	
-	<a class="site-logo">XQ-SC</a>
-	</div>
-</header>
-	<nav>
-		<div class="wrapper">
 
-			<ul id="menu" class="clearfix">
-				<li><a href="index.html">Home</a></li>
+	<div class="w3-bar w3-black w3-right">
+		<a href="./ncrManagement_vendor" class="w3-bar-item w3-button w3-padding-large">Home</a>
 
-				
-				<li><a href="#">부적합관리</a>
-					<ul>
-						
-						<li><a href='./ncrManagement_vendor'>NCR Management</a></li>
-						
-					</ul>
-				</li>
-
-			
-			</ul>
+		<div class="w3-dropdown-hover">
+			<button class="w3-button w3-padding-large">NCR</button>
+			<div class="w3-dropdown-content w3-bar-block w3-card-4">
+				<a href="./ncrManagement_vendor" class="w3-bar-item w3-button">NCR
+					Management</a>
+			</div>
 		</div>
-	</nav>
+
+		<div class="w3-bar-item w3-right">
+			<a href="./logout">Logout</a>
+		</div>
+		<div class="w3-bar-item w3-right">
+			<a href="./ChangedPwd">비밀번호변경</a>
+		</div>
+		<div class="w3-bar-item w3-right">${sessionScope.authInfo.name }
+			님</div>
+
+	</div>
 
 </body>
 </html>

@@ -140,7 +140,7 @@ public class NcrController {
 
 	@RequestMapping(value = "/ncrSearch", method = RequestMethod.POST)
 	public String ncrSearch(NcrSearchCommand nsc, Model model) {
-		
+		System.out.println(nsc.getAudit_id());
 		List<NcrBean> ncrList = null;
 		try {
 			ncrList = ncrService.getNcrList(nsc);
@@ -196,6 +196,7 @@ public class NcrController {
 		try {
 			ncrBean = ncrService.getNcrDetail(Integer.parseInt(ncr_id));
 		} catch (Exception e) {e.printStackTrace();	}
+				
 		List<BeanNcrAttach> uploadFileList = ncrService.getFileList(Integer.parseInt(ncr_id));
 		
 		try {
@@ -405,7 +406,7 @@ public class NcrController {
 	@RequestMapping(value = "/ncrManagement_vendor", method = RequestMethod.GET)
 	public String searchIssuer(Model model, HttpSession session) {
 		AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
-		String vendor_id = authInfo.getId();
+		String vendor_id = authInfo.getName();
 		
 		model.addAttribute("vendor_id",vendor_id);
 		
