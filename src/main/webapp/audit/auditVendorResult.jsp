@@ -24,13 +24,17 @@
 				<td nowrap>Insert Date : ${d.AUDIT_RSINPUT_DATE}</td>
 				<td nowrap>Auditor : ${auditor} (${auditorId })</td>
 		</tr>
+		</c:forEach>
+		</table>
+		
+		<table class="table table-hover">
 		<tr>
 			<th nowrap>No</th>
 			<th nowrap>Audit Description</th>
 			<th nowrap>Score</th>
 		</tr>
 		
-		</c:forEach>
+		
 		<c:forEach var="c" items="${checkResult}">
 			<tr>
 				<td>

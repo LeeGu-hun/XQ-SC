@@ -54,7 +54,6 @@
 			window.event.returnValue = false;
 			return;
 		}
-
 	}
 </script>
 </head>
@@ -75,7 +74,6 @@
 					<td nowrap>Audit Type : ${auditType}</td>
 					<td><input type="hidden" value="${auditType}"
 						name="AUDIT_KIND_ID"></td>
-
 				</tr>
 				<tr>
 					<td nowrap>Vendor ID : ${vendorid}</td>
@@ -150,8 +148,8 @@
 							</tr>
 						</c:forEach>
 					</c:if>
-					<td nowrap>총 합계: <input type="text" name="total" id="total"
-						name="AUDIT_SCORE">
+					<td nowrap>Total Score: <input type="text" name="total" id="total"
+						name="AUDIT_SCORE" readonly="readonly">
 					</td>
 				</table>
 			</span>
@@ -160,6 +158,7 @@
 			<input type="submit" value="Submit" class="btn btn-default"/>
 			<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 		</div>
+		
 	</form>
 </div>
 <script>

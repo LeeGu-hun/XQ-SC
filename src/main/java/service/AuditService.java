@@ -161,4 +161,10 @@ public class AuditService {
 		List<AuditBean> results = sqlSession.selectList("auditSQL.incomplete", dateCommand);
 		return results;
 	}
+	
+	public List<AuditBean> complete(DateCommand dateCommand) {
+		List<AuditBean> results = sqlSession.selectList("auditSQL.pass", dateCommand);
+		return results;
+	}
+	
 }

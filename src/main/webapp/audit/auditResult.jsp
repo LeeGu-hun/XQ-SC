@@ -68,16 +68,16 @@
 		<form action="./AuditResult" method="POST">
 			<p>
 				<input type="radio" id="plandate" name="plandate" value="plan" checked="checked"> 
-				<label for="plandate">Audit Plan Date</label> 
+				<label>Audit Plan Date</label> 
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 				<input type="radio" id="plandate" name="plandate" value="score"> 
-				<label for="plandate">Audit Score Input Date</label>
+				<label>Audit Score Input Date</label>
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-				<input type="radio" id="plandate" name="plandate" value="incomplete" checked="checked"> 
-				<label for="plandate">Incomplete</label> 
+				<input type="radio" id="plandate" name="plandate" value="incomplete" > 
+				<label>Incomplete</label> 
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-				<input type="radio" id="plandate" name="plandate" value="compelete" checked="checked"> 
-				<label for="plandate">Complete</label> 
+				<input type="radio" id="plandate" name="plandate" value="compelete" > 
+				<label>Passed Vendor</label> 
 				<br><br>
 				<label>from : <input id="from" name="from" type="date" style="height: 30px"/></label> 
 				~ 
@@ -90,7 +90,7 @@
 		
 		</form>
 		<br> <br>
-		<table class="table table-hover">
+		<table class="table table-hover" style="width: 200%">
 			<div align="center" style="text-align: center;">
 			<tr align="center" valign="middle" bordercolor="#333333" style="text-align: center;">
 				<th style="text-align: center;">No</th>

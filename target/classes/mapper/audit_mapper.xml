@@ -307,37 +307,14 @@
 		<include refid="planDate"></include>
 	</select>
 
-	<sql id="planDate">
-		<choose>
-			<when test="from != null">
-				AND AUDIT_RSINPUT_DATE
-				BETWEEN #{from} AND
-				#{to}
-			</when>
-			<otherwise>
-			</otherwise>
-		</choose>
-		<choose>
-			<when test="vSearch !=null">
-				and vendor_name like '%'||#{vSearch}||'%'
-			</when>
-			<otherwise>
-			</otherwise>
-		</choose>
-		<choose>
-			<when test="complete != null">
-				 and  AU.AUDIT_RESULT is not null
-			</when>
-			<otherwise>
-			</otherwise>
-		</choose>
-	</sql>
-	
+
+
 	<select id="incomplete" parameterType="bean.DateCommand"
 		resultType="bean.AuditBean">
 		SELECT
 		AU.AUDIT_ID, P.PRODUCT_ID,
-		P.PRODUCT_NAME, V.VENDOR_NAME,
+		P.PRODUCT_NAME,
+		V.VENDOR_NAME,
 		V.VENDOR_ID, AU.AUDIT_PLAN_DATE,
 		AU.AUDIT_RSINPUT_DATE,
 		V.AUDIT_RESULT,
@@ -361,7 +338,43 @@
 		V.VENDOR_ID =
 		AU.VENDOR_ID
 		AND P.PRODUCT_ID = V.PRODUCT_ID
-		 and  AU.AUDIT_RESULT IS NULL
+		and AU.AUDIT_RESULT IS NULL
+	</select>
+
+	<select id="pass" parameterType="bean.DateCommand" resultType="bean.AuditBean">
+		
+		SELECT
+		AU.AUDIT_ID, P.PRODUCT_ID,
+		P.PRODUCT_NAME, V.VENDOR_NAME,
+		V.VENDOR_ID, AU.AUDIT_PLAN_DATE,
+		AU.AUDIT_RSINPUT_DATE,
+		V.AUDIT_RESULT,
+		AU.AUDIT_NEXT_DATE,
+		AU.AUDIT_COMP_DATE,
+		ROWNUM RNUM,
+		AU.AUDIT_KIND_ID,
+		M.MEMBER_NAME,
+		M.MEMBER_ID,
+		M.MEMBER_TEL,
+		V.VENDOR_Q_NAME,
+		V.VENDOR_Q_TEL,
+		V.VENDOR_S_NAME,
+		V.VENDOR_S_TEL,
+		V.VENDOR_ADDRESS,
+		AU.AUDIT_SCORE
+		FROM
+		VENDOR_INFO V, PRODUCT_ITEM P,
+		AUDIT_INFO AU,
+		MEMBER_INFO M
+		WHERE
+		M.MEMBER_ID = AU.AUDITOR_ID
+		AND
+		V.VENDOR_ID = AU.VENDOR_ID
+		AND P.PRODUCT_ID = V.PRODUCT_ID
+		AND
+		AU.AUDIT_SCORE >= (SELECT AUDIT_SCORE FROM AUDIT_CRITERION)
+<include refid="planDate"></include>
+		
 	</select>
 
 	<!-- audit report list : score Date search -->
@@ -389,11 +402,10 @@
 		AND V.VENDOR_ID =
 		AU.VENDOR_ID
 		AND P.PRODUCT_ID = V.PRODUCT_ID
-		<include refid="scoreDate"></include>
+		<include refid="planDate"></include>
 	</select>
 
-
-	<sql id="scoreDate">
+	<sql id="planDate">
 		<choose>
 			<when test="from != null">
 				AND AUDIT_RSINPUT_DATE
@@ -411,6 +423,7 @@
 			</otherwise>
 		</choose>
 	</sql>
+
 
 	<!-- Report page get Date -->
 	<select id="getDate" parameterType="String" resultType="bean.AuditBean">

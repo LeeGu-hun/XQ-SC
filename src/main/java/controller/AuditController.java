@@ -224,11 +224,10 @@ public class AuditController {
 			List<AuditBean> arsList = auditService.getByPlanDate(dateCommand);
 			model.addAttribute("arsList", arsList);
 		} else if (dateCommand.getPlandate().equals("incomplete")) {
-			System.out.println(dateCommand.getPlandate());
 			List<AuditBean> arsList = auditService.incomplete(dateCommand);
 			model.addAttribute("arsList", arsList);
 		} else if (dateCommand.getPlandate().equals("compelete")) {
-			List<AuditBean> arsList = auditService.getByPlanDate(dateCommand);
+			List<AuditBean> arsList = auditService.complete(dateCommand);
 			model.addAttribute("arsList", arsList);
 		} 
 		
