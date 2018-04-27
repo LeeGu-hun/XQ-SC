@@ -4,7 +4,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
-<label>DEPART</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<label><b>DEPART</b></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <input id = "mda" type = "radio" name="mDepart" value="ALL" onclick="ckdepart('ALL')"
 <c:out value="${map.mDepart == 'ALL'?'checked':''}"/>	/>
 <label for = "mda">ALL</label>&nbsp;&nbsp;
@@ -22,7 +22,7 @@
 <label for = "vendor">VENDOR</label>&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-<label>VALID</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<label><b>VALID</b></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <input id = "alv" type = "radio" name="mValid" value="A" onclick="ckvalid('A')"
 <c:out value="${map.mValid == 'A'?'checked':''}"/>	/>
 <label for = "alv">ALL</label>&nbsp;&nbsp;

@@ -8,21 +8,21 @@
 	<table><tbody>
 		<tr>
 			<td style="width:100pt;" align="right">
-				<label>KIND</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<label><b>KIND</b></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			</td>
 			<td>
 				<form:radiobutton path="AUDIT_KIND_ID" value="NE" label="NEW" checked="checked"/>&nbsp;&nbsp;
 				<form:radiobutton path="AUDIT_KIND_ID" value="RE" label="REGULAR"/>
 			</td>
 			<td style="width:100pt;"  align="right">
-				<label>VALID</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<label><b>VALID</b></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			</td>
 			<td>
 				<form:radiobutton path="CHECKLIST_VALID" value="Y" label="VALID" checked="checked"/>&nbsp;&nbsp;
 				<form:radiobutton path="CHECKLIST_VALID" value="N" label="INVALID"/>
 			</td>
 			<td align="right">
-				<label>FULLSCORE</label>&nbsp;&nbsp;&nbsp;
+				<label><b>FULLSCORE</b></label>&nbsp;&nbsp;&nbsp;
 			</td>
 			<td align="right">
 				<div class="form-group input-group" style="float: left;">
@@ -39,7 +39,7 @@
 		</tr>
 		<tr>
 			<td style="width:100pt;">
-				<label>DISCRIPTION</label>
+				<label><b>DISCRIPTION</b></label>
 			</td>
 			<td colspan="5">
 				<form:textarea path="CHECKLIST_DISCRIPTION" class="form-control" id="inDiscription" cols="100" rows="3"/>

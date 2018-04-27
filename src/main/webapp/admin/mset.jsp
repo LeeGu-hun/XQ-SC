@@ -26,6 +26,11 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
+<style>
+	label{
+				font-weight : normal;
+			}
+</style>
 <script>
 	function inMemForm() {
 		$.ajax({
@@ -117,10 +122,10 @@
 	<%@ include file="/include/header.jsp"%><br>
 <div class="container" >
 	<br><br>
-	<div align="right">UNREGISTERED VENDOR : ${map.ingmem}&nbsp;&nbsp;&nbsp;&nbsp;</div>
+	<div align="right">UNREGISTERED VENDOR : <b>${map.ingmem}</b>&nbsp;&nbsp;&nbsp;&nbsp;</div>
 	<table class="table table-striped table-bordered table-hover"
 	style="border-collapse:collapse; width:100%">
-		<thead style="float:left; width:98.77%;">
+		<thead style="float:left; width:98.74%;">
 			<tr align="center" valign="middle" style="display:table; width:100%;">
 				<th style="width:15%;">
 					<div align="center">DEPART</div>
@@ -144,7 +149,7 @@
 		</thead>
 		<tbody style="overflow-y:auto; overflow-x:hidden; float:left; width:100%; height:90px">	
 			<c:forEach var="m" items="${map.ingMemberList}">
-				<tr style="display:table; width:100%;">
+				<tr onclick="upMemForm('${m.MEMBER_ID}')" style="display:table; width:100%;">
 					<td style="width:15%;">
 						<div align="center">
 							${m.MEMBER_DEPART}
@@ -172,7 +177,7 @@
 					</td>
 					<td style="width:15%;">
 						<div align="center">
-							<a href="javascript:upMemForm('${m.MEMBER_ID}')">${m.MEMBER_ID}</a>
+							${m.MEMBER_ID}
 						</div>
 					</td>
 				</tr>
@@ -182,7 +187,7 @@
 	<div id="mInUpForm"><%@include file="/admin/m_In.jsp" %></div>
 	<div align="center" style="background-color:#c3c6cc">
 		<br>
-		<%@include file="/admin/m_S.jsp" %><a href="./MSet">VIEW ALL</a>
+		<%@include file="/admin/m_S.jsp" %><b><a href="./MSet">VIEW ALL</a></b>
 		<br>
 		<br>
 	</div>
@@ -214,7 +219,7 @@
 		</thead>
 		<tbody>
 			<c:forEach var="m" items="${map.getMemList}">
-				<tr>
+				<tr onclick="upMemForm('${m.MEMBER_ID}')">
 					<td>
 						<div align="center">
 							${m.MEMBER_DEPART}
@@ -247,7 +252,7 @@
 					</td>
 					<td>
 						<div align="center">
-							<a href="javascript:upMemForm('${m.MEMBER_ID}')">${m.MEMBER_ID}</a>
+							${m.MEMBER_ID}
 						</div>
 					</td>
 				</tr>

@@ -6,15 +6,12 @@
 
 
 <c:forEach var="p" items="${prodList}">
-	<tr align="center" valign="middle" style="display:table; width:100%;">
+	<tr onclick="prodUpdateForm('${p.PRODUCT_ID}')" align="center" valign="middle" style="display:table; width:100%;">
 		<td style="width:120px;">
 			<div align="center">${p.PRODUCT_VALID}</div>
 		</td>
 		<td>
-			<div align="center">
-				<a href="javascript:prodUpdateForm('${p.PRODUCT_ID}')">
-				<c:out value="${p.PRODUCT_NAME}"/>
-			</div>
+			<div align="center"><c:out value="${p.PRODUCT_NAME}"/></div>
 		</td>
 		
 	</tr>

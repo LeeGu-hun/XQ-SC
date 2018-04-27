@@ -9,7 +9,7 @@
 		<tr>
 			<td style="width:100pt;" align="right">
 				<form:hidden path="CHECKLIST_ID" value ="${selCkList.CHECKLIST_ID}"/>
-				<label>KIND</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<label><b>KIND</b></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			</td>
 			<td>
 				<c:choose>
@@ -24,7 +24,7 @@
 				</c:choose>
 			</td>
 			<td style="width:100pt;"  align="right">
-				<label>VALID</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<label><b>VALID</b></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			</td>
 			<td>
 				<c:choose>
@@ -39,7 +39,7 @@
 				</c:choose>
 			</td>
 			<td align="right">
-				<label>FULLSCORE</label>&nbsp;&nbsp;&nbsp;
+				<label><b>FULLSCORE</b></label>&nbsp;&nbsp;&nbsp;
 			</td>
 			<td align="right">
 				<div class="form-group input-group" style="float: left;">
@@ -58,7 +58,7 @@
 		</tr>
 		<tr>
 			<td style="width:100pt;">
-				<label>DISCRIPTION</label>
+				<label><b>DISCRIPTION</b></label>
 			</td>
 			<td colspan="5">
 				<form:textarea path="CHECKLIST_DISCRIPTION" placeholder="${selCkList.CHECKLIST_DISCRIPTION}"
