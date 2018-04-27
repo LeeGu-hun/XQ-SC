@@ -247,7 +247,7 @@
 	<!-- audit report list -->
 	<select id="resultSearch" resultType="bean.AuditBean">
 		SELECT
-		AU.AUDIT_ID, P.PRODUCT_ID,
+		AU.AUDIT_ID, P.PRODUCT_ID, P.PRODUCT_NAME,
 		V.VENDOR_NAME, V.VENDOR_ID,
 		AU.AUDIT_PLAN_DATE, AU.AUDIT_RSINPUT_DATE,
 		AU.AUDIT_RESULT,
@@ -392,7 +392,7 @@
 	<select id="getByScoreDate" parameterType="bean.DateCommand"
 		resultType="bean.AuditBean">
 		SELECT
-		AU.AUDIT_ID, P.PRODUCT_ID,
+		AU.AUDIT_ID, P.PRODUCT_ID, P.PRODUCT_NAME,
 		V.VENDOR_NAME, V.VENDOR_ID,
 		AU.AUDIT_PLAN_DATE, AU.AUDIT_RSINPUT_DATE,
 		AU.AUDIT_RESULT,

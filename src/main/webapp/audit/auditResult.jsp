@@ -197,8 +197,7 @@
 		</div>
 
 	</div>
-	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-<script>
+	<script>
 
 let today = new Date().toISOString().substr(0, 10);
 document.querySelector("#from").value = today;
