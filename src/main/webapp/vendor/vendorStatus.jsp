@@ -159,22 +159,16 @@
 														<c:forEach var="cy" items="${countY}">
 															<c:choose>
 																<c:when test="${cy.VENDOR_ID==v.VENDOR_ID}">
-												${cy.comp}
-												</c:when>
+																	${cy.comp}
+																</c:when>
 																<c:when test="${cy.VENDOR_ID !=v.VENDOR_ID}">
 
 																</c:when>
 															</c:choose>
-
 														</c:forEach>
-										/ ${ca.total}
-										
-									</c:if>
-
-
-
+														/ ${ca.total}			
+													</c:if>
 												</c:forEach></td>
-
 										</tr>
 									</c:forEach>
 								</c:if>
@@ -192,15 +186,20 @@
 											<td>${y.VENDOR_Q_EMAIL}</td>
 											<td>Y</td>
 											<td><c:forEach var="ca" items="${count}">
-													<c:if test="${ca.VENDOR_ID==y.VENDOR_ID}">
-									/${ca.total}
-										<c:forEach var="cy" items="${countY}">
-															<c:if test="${cy.VENDOR_ID==y.VENDOR_ID}">
-										${cy.comp}/${ca.total}
-									</c:if>
-														</c:forEach>
-													</c:if>
 
+													<c:if test="${ca.VENDOR_ID==y.VENDOR_ID}">
+														<c:forEach var="cy" items="${countY}">
+															<c:choose>
+																<c:when test="${cy.VENDOR_ID==y.VENDOR_ID}">
+																	${cy.comp}
+																</c:when>
+																<c:when test="${cy.VENDOR_ID !=y.VENDOR_ID}">
+
+																</c:when>
+															</c:choose>
+														</c:forEach>
+														/ ${ca.total}			
+													</c:if>
 												</c:forEach></td>
 										</tr>
 									</c:forEach>
@@ -218,14 +217,20 @@
 											<td>${n.VENDOR_Q_EMAIL}</td>
 											<td></td>
 											<td><c:forEach var="ca" items="${count}">
+
 													<c:if test="${ca.VENDOR_ID==n.VENDOR_ID}">
 														<c:forEach var="cy" items="${countY}">
-															<c:if test="${cy.VENDOR_ID==n.VENDOR_ID}">
-										${cy.comp}/${ca.total}
-									</c:if>
-														</c:forEach>
-													</c:if>
+															<c:choose>
+																<c:when test="${cy.VENDOR_ID==n.VENDOR_ID}">
+																	${cy.comp}
+																</c:when>
+																<c:when test="${cy.VENDOR_ID !=n.VENDOR_ID}">
 
+																</c:when>
+															</c:choose>
+														</c:forEach>
+														/ ${ca.total}			
+													</c:if>
 												</c:forEach></td>
 										</tr>
 									</c:forEach>
