@@ -3,6 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 
+
+
 <div class="row">
 	<div class="col-lg-12">
 		<div class="panel panel-default">
@@ -25,7 +27,7 @@
 								<td><textarea class="form-control col-sm-5" rows="5"
 										id="reply_description" name="reply_description"></textarea></td>
 								<td style="vertical-align: bottom"><button type="button" class="btn btn-default" 
-										id="btnReplySavea" onclick="onclick="auditorReplySave(${ncr_id })">Save</button></td>
+										id="btnReplySavea" onclick="auditorReplySave(${ncr_id })">Save</button></td>
 
 							</tr>
 
@@ -36,5 +38,7 @@
 		</div>
 	</div>
 </div>
+
+
 
 

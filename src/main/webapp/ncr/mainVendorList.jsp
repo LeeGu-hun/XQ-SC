@@ -13,11 +13,11 @@
 					<table class="table table-hover">
 						<thead>
 							<tr >
-								<th>회사ID</th>
-								<th>회사회사명</th>
-								<th>품목ID</th>
-								<th>회사영업담당자이름</th>
-								<th>영업담당자연락처</th>
+								<th>Vendor ID</th>
+								<th>Vendor Name</th>
+								<th>Product </th>
+								<th>Person in Sales</th>
+								<th>Contact Info.</th>
 							</tr>
 						</thead>
 						<tbody>

@@ -23,9 +23,7 @@
 								<td>Comment</td>
 								<td><textarea class="form-control col-sm-5" rows="5" id="reply_description" name="reply_description"></textarea>
 									</td>
-								<td colspan="2"><input type="textarea"
-									class="form-control col-sm-5" rows="5" id="reply_description"
-									name="reply_description"></td>
+								
 
 							</tr>
 

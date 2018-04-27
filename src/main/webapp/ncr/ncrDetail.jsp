@@ -38,7 +38,7 @@
 			<td>File</td>
 			<td colspan="2"><c:forEach var="uploadFile"
 					items="${uploadFileList}">
-					<a href="../upload/${uploadFile.file_name}">${uploadFile.o_name}</a> &nbsp;&nbsp;
+					<a href="./upload/${uploadFile.file_name}">${uploadFile.o_name}</a> &nbsp;&nbsp;
                	 </c:forEach></td>
 		</tr>
 </table>
@@ -66,13 +66,12 @@
 									</td>
 								<tr>
 									<td>File</td>
-									<tdcolspan=> <c:forEach var="f"
-										items="${uploadReplyFileList}">
-										<c:if test="${r.reply_id == f.reply_id}">
-											<a href="../upload2/${f.file_name}">${f.o_name}</a> &nbsp;&nbsp;
+									<td colspan=><c:forEach var="f"
+											items="${uploadReplyFileList}">
+											<c:if test="${r.reply_id == f.reply_id}">
+												<a href="./upload2/${f.file_name}">${f.o_name}</a> &nbsp;&nbsp;
              		  	 </c:if>
-									</c:forEach>
-									</td>
+										</c:forEach></td>
 									</td>
 								</tr>
 
@@ -109,3 +108,6 @@
 
 </div>
 </c:forEach>
+
+
+

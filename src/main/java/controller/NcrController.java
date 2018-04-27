@@ -111,9 +111,9 @@ public class NcrController {
 				String saveFileName = genId + "." + originalfileName;
 				// 저장되는 파일 이름
 				String root_path = request.getSession().getServletContext().getRealPath("/");
-				String attach_path = "upload/";
+				String attach_path = "./upload/";
 				String savePath = root_path + attach_path + saveFileName;
-				
+				System.out.println("ncr_IssueFile"+savePath);
 				long fileSize = mf.get(i).getSize(); // 파일 사이즈
 				mf.get(i).transferTo(new File(savePath)); // 파일 저장
 				
@@ -140,7 +140,7 @@ public class NcrController {
 
 	@RequestMapping(value = "/ncrSearch", method = RequestMethod.POST)
 	public String ncrSearch(NcrSearchCommand nsc, Model model) {
-		System.out.println(nsc.getAudit_id());
+		
 		List<NcrBean> ncrList = null;
 		try {
 			ncrList = ncrService.getNcrList(nsc);
@@ -301,11 +301,12 @@ public class NcrController {
 				String saveFileName = genId + "." + originalfileName;
 				// 저장되는 파일 이름
 				String root_path = request.getSession().getServletContext().getRealPath("/");
-				String attach_path = "upload2/";
+				String attach_path = "./upload2/";
 				String savePath = root_path + attach_path + saveFileName;
 				
 				long fileSize = mf.get(i).getSize(); // 파일 사이즈
 				mf.get(i).transferTo(new File(savePath)); // 파일 저장
+				System.out.println("vendor Reply File" +savePath);
 				ncrService.replyFileUpload(originalfileName, saveFileName, fileSize,Integer.parseInt(nrc.getNcr_id()));
 				
 			}
@@ -336,9 +337,9 @@ public class NcrController {
 				String saveFileName = genId + "." + originalfileName;
 				// 저장되는 파일 이름
 				String root_path = request.getSession().getServletContext().getRealPath("/");
-				String attach_path = "upload2/";
+				String attach_path = "./upload2/";
 				String savePath = root_path + attach_path + saveFileName;
-				
+				System.out.println("vendor Reply File" +savePath);
 				long fileSize = mf.get(i).getSize(); // 파일 사이즈
 				mf.get(i).transferTo(new File(savePath)); // 파일 저장
 				ncrService.replyFileUpload(originalfileName, saveFileName, fileSize,Integer.parseInt(nrc.getNcr_id()));
