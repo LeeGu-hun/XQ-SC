@@ -102,95 +102,96 @@
 </head>
 
 <body>
-    
-	<%@ include file="/include/header.jsp"%><br>
-<div class="container">  
-	<br><br>
-	<table class="table"><tbody><tr><td></td></tr></tbody></table>
-	<div align="center">
-		<span id="ckLInUp">
-			<%@include file="/admin/ckl_In.jsp" %>
-		</span>	
-	</div>
-	<br>
-	<br>
-	<div>
-		<%@include file="/admin/ckl_S.jsp" %>
-	</div>
-	<div align="right">
-		REGULAR : <a href="./CLSet?auditKindId=RE&cklValid=Y"><b>${map.ckLSumRe}</b> POINTS</a>
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		NEW : <a href="./CLSet?auditKindId=NE&cklValid=Y"><b>${map.ckLSumNe}</b> POINTS</a>
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<b><a href="./CLSet">VIEW ALL</a></b>
-	</div>
-	<table class="table table-striped table-bordered table-hover">
-		<thead>
-			<tr>
-				<th>
-					<div align="center">KIND</div>
-				</th>
-				<th>
-					<div align="center">DISCRIPTION</div>
-				</th>
-				<th>
-					<div align="center">FULLSCORE</div>
-				</th>
-				<th>
-					<div align="center">VALID</div>
-				</th>
-				<th style="font-size:9pt;">
-					<div align="center">
-					A total of ${map.listCnt}
-					</div>
-				</th>
-			</tr>
-		</thead>
-		<tbody>
-			<c:forEach var="c" items="${map.getCkList}">
-				<tr onclick="updateForm('${c.CHECKLIST_ID}')">
-					<td>
-						<div align="center">
-							${c.AUDIT_KIND}
-						</div>
-					</td>
-					<td>
-						<div align="center">
-							${c.CHECKLIST_DISCRIPTION}
-						</div>
-					</td>
-					<td>
-						<div align="center">
-							${c.CHECKLIST_FULLSCORE}
-						</div>
-					</td>
-					<td>
-						<div align="center">
-							${c.CHECKLIST_VALID}
-						</div>
-					</td>
-					<td>
-						<div align="center">
-							${c.CHECKLIST_ID}
-	    				</div>
-					</td>
-				</tr>
-			</c:forEach>
-			<tr align=center height=20>
-				<td colspan=5 style="font-family: Tahoma; font-size: 10pt;">
-					<jsp:include page="/admin/paging.jsp" flush="true">
-						<jsp:param name="firstPageNo" value="${paging.firstPageNo}" />
-						<jsp:param name="prevPageNo" value="${paging.prevPageNo}" />
-						<jsp:param name="startPageNo" value="${paging.startPageNo}" />
-						<jsp:param name="pageNo" value="${paging.pageNo}" />
-						<jsp:param name="endPageNo" value="${paging.endPageNo}" />
-						<jsp:param name="nextPageNo" value="${paging.nextPageNo}" />
-						<jsp:param name="finalPageNo" value="${paging.finalPageNo}" />
-					</jsp:include>
-				</td>
-			</tr>
-		</tbody>
-	</table>
-</div>
+	<%@ include file="/include/header.jsp"%>
+	<div>&nbsp;</div>
+	<div id=mainBox class="container"><div class="row"><div class="col-lg-12"><div class="panel panel-default">
+		<div class="panel-heading">Checklist Management</div>
+		<div class="panel-body">
+			<div align="center">
+				<span id="ckLInUp">
+					<%@include file="/admin/ckl_In.jsp" %>
+				</span>	
+			</div>
+			<br>
+			<br>
+			<div>
+				<%@include file="/admin/ckl_S.jsp" %>
+			</div>
+			<div align="right">
+				REGULAR : <a href="./CLSet?auditKindId=RE&cklValid=Y"><b>${map.ckLSumRe}</b> POINTS</a>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				NEW : <a href="./CLSet?auditKindId=NE&cklValid=Y"><b>${map.ckLSumNe}</b> POINTS</a>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<b><a href="./CLSet">VIEW ALL</a></b>
+			</div>
+			<table class="table table-striped table-bordered table-hover">
+				<thead>
+					<tr>
+						<th>
+							<div align="center">KIND</div>
+						</th>
+						<th>
+							<div align="center">DISCRIPTION</div>
+						</th>
+						<th>
+							<div align="center">FULLSCORE</div>
+						</th>
+						<th>
+							<div align="center">VALID</div>
+						</th>
+						<th style="font-size:9pt;">
+							<div align="center">
+							A total of ${map.listCnt}
+							</div>
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach var="c" items="${map.getCkList}">
+						<tr onclick="updateForm('${c.CHECKLIST_ID}')">
+							<td>
+								<div align="center">
+									${c.AUDIT_KIND}
+								</div>
+							</td>
+							<td>
+								<div align="center">
+									${c.CHECKLIST_DISCRIPTION}
+								</div>
+							</td>
+							<td>
+								<div align="center">
+									${c.CHECKLIST_FULLSCORE}
+								</div>
+							</td>
+							<td>
+								<div align="center">
+									${c.CHECKLIST_VALID}
+								</div>
+							</td>
+							<td>
+								<div align="center">
+									${c.CHECKLIST_ID}
+			    				</div>
+							</td>
+						</tr>
+					</c:forEach>
+					<tr align=center height=20>
+						<td colspan=5 style="font-family: Tahoma; font-size: 10pt;">
+							<jsp:include page="/admin/paging.jsp" flush="true">
+								<jsp:param name="firstPageNo" value="${paging.firstPageNo}" />
+								<jsp:param name="prevPageNo" value="${paging.prevPageNo}" />
+								<jsp:param name="startPageNo" value="${paging.startPageNo}" />
+								<jsp:param name="pageNo" value="${paging.pageNo}" />
+								<jsp:param name="endPageNo" value="${paging.endPageNo}" />
+								<jsp:param name="nextPageNo" value="${paging.nextPageNo}" />
+								<jsp:param name="finalPageNo" value="${paging.finalPageNo}" />
+							</jsp:include>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div></div></div></div>
 </body>
 </html>
