@@ -218,26 +218,22 @@ public class VendorController {
 		map.put("prodList", prodList);
 		model.addAttribute("map", map);
 		
-		String VENDOR_NAME = request.getParameter("VENDOR_NAME");
-
-		listCommand.setVENDOR_NAME(VENDOR_NAME);
-		listCommand.setPRODUCT_ID(PRODUCT_ID);
-		
-		List<NcrCount> count = vendorService.ncrCount();
+		List<NcrCount> count = vendorService.ncrAllCount();
+		List<NcrCount> countY = vendorService.ncrYCount();
 		List<VendorValid> valid = vendorService.getValid();
-
+		
 		model.addAttribute("valid",valid);
 		model.addAttribute("count",count);
+		model.addAttribute("countY",countY);
 		
 		 if(VALID.equals("Y")) {
 
-			List<VendorStatus> validY = vendorService.getYList();
+			List<VendorStatus> validY = vendorService.getYList(listCommand);
 			model.addAttribute("validY", validY);
 			return "vendor/vendorStatus";
 			
 		}else if (VALID.equals("N")) {
-			
-				List<VendorStatus> validN = vendorService.getNList();
+				List<VendorStatus> validN = vendorService.getNList(listCommand);
 				model.addAttribute("validN", validN);
 				return "vendor/vendorStatus";
 				

@@ -106,21 +106,26 @@ public class VendorService {
 		return list;
 	}
 	
-	public List<NcrCount> ncrCount() {
-		List<NcrCount> lists = sqlSession.selectList("vendorSQL.ncrCount");
+	public List<NcrCount> ncrAllCount() {
+		List<NcrCount> lists = sqlSession.selectList("vendorSQL.ncrAllCount");
 		return lists;
 	}
+	public List<NcrCount> ncrYCount() {
+		List<NcrCount> lists = sqlSession.selectList("vendorSQL.ncrYCount");
+		return lists;
+	}
+	
 	public List<VendorValid> getValid() {
 		List<VendorValid> result = sqlSession.selectList("vendorSQL.getValid");
 		return result;
 	}
-	public List<VendorStatus>getYList() {
+	public List<VendorStatus>getYList(ListCommand listCommand) {
 
-		List<VendorStatus> result = sqlSession.selectList("vendorSQL.getYList");
+		List<VendorStatus> result = sqlSession.selectList("vendorSQL.getYList",listCommand);
 		return result;
 	}
-	public List<VendorStatus>getNList() {
-		List<VendorStatus> result = sqlSession.selectList("vendorSQL.getNList");
+	public List<VendorStatus>getNList(ListCommand listCommand) {
+		List<VendorStatus> result = sqlSession.selectList("vendorSQL.getNList",listCommand);
 		return result;
 	}
 	

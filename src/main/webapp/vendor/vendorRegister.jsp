@@ -74,12 +74,13 @@
 					<div class="panel-body">
 						<p>
 						<div class="container" style="font-family: Tahomsa;">
-							<font style="font-family: Tahoma; font-size: 10pt;">신규등록
-								요청 : ${cnts} 건</font>
+							<font style="font-family: Tahoma; font-size: 10pt;">New Registration : ${cnts} </font>
 							</p>
 							<form action="./vendor/vendorUpdate" method="POST"
 								enctype="multipart/form-data" name="updateform"
 								commandName="cmd">
+								
+								<div class="table-responsive" style="max-height: 700px;">
 								<table class="table">
 									<tr align="center" valign="middle">
 										<td>
@@ -138,6 +139,7 @@
 
 
 								</table>
+								</div>
 							</form>
 
 						</div>
