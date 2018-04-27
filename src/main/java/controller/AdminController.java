@@ -34,6 +34,7 @@ import spring.AuthInfo;
 import spring.ChangePwdCommand;
 import spring.ChangePwdCommandValidator;
 import spring.IdPasswordNotMatchingException;
+import spring.InvalidMemberException;
 import spring.MemberNotFoundException;
 @Controller
 public class AdminController {
@@ -60,7 +61,7 @@ public class AdminController {
 		
 		try {
 			AuthInfo authInfo = adminService.authenticate(
-					loginCommand.getId(),
+					loginCommand.getId().toUpperCase(),
 					loginCommand.getPassword());
 			session.setAttribute("authInfo", authInfo);
 			Cookie rememberCookie = new Cookie("REMEMBER", loginCommand.getId());
@@ -84,7 +85,13 @@ public class AdminController {
 			}
 			//return "redirect:/main";
 		} catch (IdPasswordNotMatchingException e) {
-			errors.reject("idPasswordNotMatching");
+			errors.rejectValue("password","idPasswordNotMatching");
+			return "login/login";
+		} catch (InvalidMemberException ime) {
+			errors.rejectValue("password","invalidMember");
+			return "login/login";
+		} catch (MemberNotFoundException mnfe) {
+			errors.rejectValue("password","idPasswordNotMatching");
 			return "login/login";
 		}
 	}
@@ -302,6 +309,8 @@ public class AdminController {
 		List<BeanMember> memberList = adminService.allMemberList();
 		List<BeanMember> ingMemberList = adminService.ingMemberList();
 		List<BeanMember> edMemberList = adminService.edMemberList();
+		
+		int ingmem = adminService.ingmemberCount();
 
 	    map.put("getMemList", getMemList);
 	    map.put("memberList", memberList);
@@ -311,6 +320,7 @@ public class AdminController {
 	    map.put("mValid", mValid);
 	    map.put("curPage", curPage);
 	    map.put("state", state);
+	    map.put("ingmem", ingmem);
 	    model.addAttribute("paging", paging);
 		model.addAttribute("map", map);
 

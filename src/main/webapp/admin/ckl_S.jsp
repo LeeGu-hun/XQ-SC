@@ -7,7 +7,7 @@
 <form name="cklserch" method="get">
 	<table class ="table"><tbody><tr>
 		<td>
-			<label>KIND</label>
+			<label><b>KIND</b></label>
 		</td>
 		<td>
 			<input id = "aaki" type = "radio" name="auditKindId" value="ALL"
@@ -21,7 +21,7 @@
 			<label for = "regular">REGULAR</label>&nbsp;&nbsp;&nbsp;&nbsp;
 		</td>
 		<td>
-			<label>VALID</label>
+			<label><b>VALID</b></label>
 		</td>
 		<td>
 			<input id = "alv" type = "radio" name="cklValid" value="A"
@@ -35,7 +35,7 @@
 			<label for = "invalid">INVALID</label>&nbsp;&nbsp;&nbsp;&nbsp;
 		</td>
 		<td>
-			<label id = "keyword">DISCRIPTION</label>
+			<label id = "keyword"><b>DISCRIPTION</b></label>
 		</td>
 		<td>
 			<div class="form-group input-group" style="float: left;">

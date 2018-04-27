@@ -23,6 +23,13 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
+
+<style>
+	label{
+				font-weight : normal;
+			}
+</style>
+
 <script>
 		
 	function insertForm() {
@@ -111,11 +118,11 @@
 		<%@include file="/admin/ckl_S.jsp" %>
 	</div>
 	<div align="right">
-		REGULAR : <a href="./CLSet?auditKindId=RE&cklValid=Y">${map.ckLSumRe} POINTS</a>
+		REGULAR : <a href="./CLSet?auditKindId=RE&cklValid=Y"><b>${map.ckLSumRe}</b> POINTS</a>
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		NEW : <a href="./CLSet?auditKindId=NE&cklValid=Y">${map.ckLSumNe} POINTS</a>
+		NEW : <a href="./CLSet?auditKindId=NE&cklValid=Y"><b>${map.ckLSumNe}</b> POINTS</a>
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<a href="./CLSet">VIEW ALL</a>
+		<b><a href="./CLSet">VIEW ALL</a></b>
 	</div>
 	<table class="table table-striped table-bordered table-hover">
 		<thead>
@@ -141,7 +148,7 @@
 		</thead>
 		<tbody>
 			<c:forEach var="c" items="${map.getCkList}">
-				<tr>
+				<tr onclick="updateForm('${c.CHECKLIST_ID}')">
 					<td>
 						<div align="center">
 							${c.AUDIT_KIND}
@@ -164,7 +171,7 @@
 					</td>
 					<td>
 						<div align="center">
-							<a href="javascript:updateForm('${c.CHECKLIST_ID}')">${c.CHECKLIST_ID}</a>
+							${c.CHECKLIST_ID}
 	    				</div>
 					</td>
 				</tr>

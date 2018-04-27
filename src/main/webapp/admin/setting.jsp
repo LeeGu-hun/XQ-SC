@@ -24,15 +24,20 @@
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	<style>
-		#auditSet { height:100px;}
-		#aform{overflow:hidden;}
-		#cform{float:left; width:50%; }
-		#pform{float:right; width:50%; }
-		#product{overflow:hidden;}
-		#cate{float:left; width:50%; }
-		#prod{float:right; width:50%; }
-	</style>
+
+<style>
+	#auditSet { height:100px;}
+	#aform{overflow:hidden;}
+	#cform{float:left; width:50%; }
+	#pform{float:right; width:50%; }
+	#product{overflow:hidden;}
+	#cate{float:left; width:50%; }
+	#prod{float:right; width:50%; }
+	label{
+		font-weight : normal;
+	}
+</style>
+
 <script>
 	function cateInsertForm() {
 		$.ajax({
@@ -186,12 +191,15 @@
 	<%@ include file="/include/header.jsp"%><br>
 <div class="container" >
 		<br><br><br><br>
-	<div id = "auditSet" align="center">
-		<label>Audit Period : 
-		<a href="#" data-target="#aPeriodModal" data-toggle="modal">${map.auditPeriod} YEARS</a></label>
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<label>Audit Cut-off Score : 
-		<a href="#" data-target="#scoreModal" data-toggle="modal">${map.score} POINTS</a></label>
+	<div id = "auditSet" align="center" style="overflow: hidden;">
+		<div class="well well-sm" data-target="#aPeriodModal" data-toggle="modal" 
+		style="float:left; height:80%; width:300px; margin: 0 30px">
+			<h4><b>Audit Period</b></h4><p><b>${map.auditPeriod}</b> YEARS</p>
+		</div>
+		<div class="well well-sm" data-target="#scoreModal" data-toggle="modal" 
+		style="float:right; height:80%; width:300px; margin: 0 30px">
+			<h4><b>Audit Cut-off Score</b></h4><p><b>${map.score}</b> POINTS</p>
+		</div>
 	</div>
 	<div id = "aform" align="center">
 		<div id ="cform" align="center">
@@ -210,7 +218,7 @@
 	<div id = "product" align="center">
 		<div id ="cate">
 			<p align="right">
-				A total of ${map.cateCount}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				A total of <b>${map.cateCount}</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			</p>
 			<table class="table table-striped table-bordered table-hover"
 			style="border-collapse:collapse; width:95%">
@@ -226,16 +234,12 @@
 				</thead>
 				<tbody style="overflow-y:auto; overflow-x:hidden; float:left; width:100%; height:400px">
 					<c:forEach var="cate" items="${cateList}">
-						<tr align="center" valign="middle" style="display:table; width:100%;">
+						<tr onclick="cateUpdateForm('${cate.CATEGORY_ID}')" align="center" valign="middle" style="display:table; width:100%;">
 							<td style="width:120px;">
 								<div align="center">${cate.CATEGORY_VALID}</div>
 							</td>
 							<td>
-								<div align="center">
-									<a href="javascript:cateUpdateForm('${cate.CATEGORY_ID}')">
-									${cate.CATEGORY_NAME}
-									</a>
-								</div>
+								<div align="center">${cate.CATEGORY_NAME}</div>
 							</td>
 						</tr>
 					</c:forEach>
@@ -244,7 +248,7 @@
 		</div>
 		<div id ="prod">
 			<p align="right">
-				A total of ${map.prodCount}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				A total of <b>${map.prodCount}</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			</p>
 			<table class="table table-striped table-bordered table-hover"
 			style="border-collapse:collapse; width:95%">
