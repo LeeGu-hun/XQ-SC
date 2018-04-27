@@ -113,7 +113,7 @@ function resultMainNcrList(nlist) {
 						<div class="row">
 							
 							<div class="col-xs-12 text-right">
-								<div class="huge">AUDIT &nbsp;  &nbsp;  &nbsp;  &nbsp;${auditPlanCnts}/${auditRinputCnts}</div>
+								<div class="huge">AUDIT &nbsp;  &nbsp; ${auditPlanCnts}/${auditRinputCnts}</div>
 								<div>Audit to Plan / Audit to Perform</div>
 							</div>
 						</div>

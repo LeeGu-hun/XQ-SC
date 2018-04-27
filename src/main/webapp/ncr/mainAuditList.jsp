@@ -15,11 +15,9 @@
 							<tr>
 								<th>No</th>
 								<th>Vendor Name</th>
-								<th>Vendor ID</th>
 								<th>Audit ID</th>
 								<th>Audit Type</th>
-								<th>Vendor Quality Manager(Tel)</th>
-								<th>Vendor Sales Manager (Tel)</th>
+								<th>Product</th>
 								<th>Vendor Address</th>
 
 
@@ -32,14 +30,13 @@
 									<td>${audit.RNUM}</td>
 									<td>${audit.VENDOR_NAME}</td>
 									<td>${audit.AUDIT_ID}</td>
-									<td>${audit.VENDOR_ID}</td>
+
 									<td><c:if test="${audit.AUDIT_NEXT_DATE == null }">
 									New
 									</c:if> <c:if test="${audit.AUDIT_NEXT_DATE !=null }">
 									Regular
 									</c:if></td>
-									<td>${audit.VENDOR_Q_NAME}(${audit.VENDOR_Q_TEL})</td>
-									<td>${audit.VENDOR_S_NAME}(${audit.VENDOR_S_TEL})</td>
+									<td>${audit.PRODUCT_NAME }</td>									
 									<td>${audit.VENDOR_ADDRESS}</td>
 								</tr>
 							</c:forEach>
@@ -53,11 +50,11 @@
 
 <div class="row">
 	<div class="col-lg-12">
-		<div class="panel panel-default" style="max-height: 300px">
+		<div class="panel panel-default" style="max-height: 250px">
 			<div class="panel-heading">Audit to be performed</div>
 			<!-- /.panel-heading -->
 			<div class="panel-body">
-				<div class="table-responsive" style="max-height: 300px">
+				<div class="table-responsive" style="max-height: 250px">
 
 					<table class="table table-hover">
 						<thead>
