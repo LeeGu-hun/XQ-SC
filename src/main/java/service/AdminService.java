@@ -29,13 +29,19 @@ public class AdminService {
 	//******************************************************
 	
 	public AuthInfo authenticate(String id, String password) {
-		BeanMember m = sqlSession.selectOne("loginSQL.loginCheck", id);
-		if(m == null) 
+		
+		BeanMember m;
+		try {
+			m = sqlSession.selectOne("loginSQL.loginCheck", id);
+			if(m == null) 
+				throw new MemberNotFoundException();
+			if(!m.mathPassword(password))
+				throw new IdPasswordNotMatchingException();
+			if(!m.getMEMBER_VALID().equals("Y"))
+				throw new InvalidMemberException();
+		} catch (Exception e) {
 			throw new MemberNotFoundException();
-		if(!m.mathPassword(password))
-			throw new IdPasswordNotMatchingException();
-		if(!m.getMEMBER_VALID().equals("Y"))
-			throw new InvalidMemberException();
+		}
 		return new AuthInfo(m.getMEMBER_ID(),m.getMEMBER_DEPART(),m.getMEMBER_NAME());
 	}
 	
