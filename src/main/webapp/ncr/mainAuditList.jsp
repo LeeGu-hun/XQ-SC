@@ -62,11 +62,11 @@
 								<th>No</th>
 								<th>Audit ID</th>
 								<th>Plan Date</th>
-								<th>Vendor(ID)</th>
-								<th>Category</th>
-								<th>Product(ID)</th>
+								<th>Vendor</th>
+								
+								<th>Product</th>
 								<th>Audit Type</th>
-								<th>Auditor(ID)</th>
+								<th>Auditor</th>
 								<th>Vendor Address</th>
 
 							</tr>
@@ -78,12 +78,13 @@
 									<td>${a.RNUM}</td>
 									<td>${a.AUDIT_ID}</td>
 									<td>${a.AUDIT_PLAN_DATE}</td>
-									<td>${a.VENDOR_NAME}(${a.VENDOR_ID})</td>
-									<td>${a.CATEGORY_NAME}</td>
-									<td>${a.PRODUCT_NAME}(${a.PRODUCT_ID})</td>
+									<td>${a.VENDOR_NAME}</td>
+									
+									<td>${a.PRODUCT_NAME}</td>
 									<td>${a.AUDIT_KIND_ID}</td>
-									<td>${a.MEMBER_NAME}(${a.MEMBER_ID})</td>
+									<td>${a.MEMBER_NAME}</td>
 									<td>${a.VENDOR_ADDRESS}</td>
+									
 
 								</tr>
 

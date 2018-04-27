@@ -34,7 +34,6 @@ import spring.AuthInfo;
 import spring.ChangePwdCommand;
 import spring.ChangePwdCommandValidator;
 import spring.IdPasswordNotMatchingException;
-import spring.InvalidMemberException;
 import spring.MemberNotFoundException;
 @Controller
 public class AdminController {
@@ -61,7 +60,7 @@ public class AdminController {
 		
 		try {
 			AuthInfo authInfo = adminService.authenticate(
-					loginCommand.getId().toUpperCase(),
+					loginCommand.getId(),
 					loginCommand.getPassword());
 			session.setAttribute("authInfo", authInfo);
 			Cookie rememberCookie = new Cookie("REMEMBER", loginCommand.getId());
@@ -79,19 +78,13 @@ public class AdminController {
 			}else if(authInfo.getDepart().equals("PURCHASE")) {
 				return "redirect:/main";
 			}else if(authInfo.getDepart().equals("VENDOR")) {
-				return "redirect:/mainV";
+				return "redirect:/ncrManagement_vendor";
 			}else{
 				return "login/login";
 			}
 			//return "redirect:/main";
 		} catch (IdPasswordNotMatchingException e) {
-			errors.rejectValue("password","idPasswordNotMatching");
-			return "login/login";
-		} catch (InvalidMemberException ime) {
-			errors.rejectValue("password","invalidMember");
-			return "login/login";
-		} catch (MemberNotFoundException mnfe) {
-			errors.rejectValue("password","idPasswordNotMatching");
+			errors.reject("idPasswordNotMatching");
 			return "login/login";
 		}
 	}
@@ -309,8 +302,6 @@ public class AdminController {
 		List<BeanMember> memberList = adminService.allMemberList();
 		List<BeanMember> ingMemberList = adminService.ingMemberList();
 		List<BeanMember> edMemberList = adminService.edMemberList();
-		
-		int ingmem = adminService.ingmemberCount();
 
 	    map.put("getMemList", getMemList);
 	    map.put("memberList", memberList);
@@ -320,7 +311,6 @@ public class AdminController {
 	    map.put("mValid", mValid);
 	    map.put("curPage", curPage);
 	    map.put("state", state);
-	    map.put("ingmem", ingmem);
 	    model.addAttribute("paging", paging);
 		model.addAttribute("map", map);
 

@@ -30,7 +30,7 @@
 								<td>${i.audit_id}</td>
 								<td>${i.vendor_name}</td>
 								<td>${i.ncr_title}</td>
-								<td style="max-width:150px">${i.ncr_description}</td>
+								<td style="max-width:300px">${i.ncr_description}</td>
 								<td>${i.issuer_name}</td>
 							</tr>
 						</c:forEach>
