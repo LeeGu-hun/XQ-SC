@@ -126,7 +126,7 @@
 			<div align="right">UNREGISTERED VENDOR : <b>${map.ingmem}</b>&nbsp;&nbsp;&nbsp;&nbsp;</div>
 			<table class="table table-striped table-bordered table-hover"
 			style="border-collapse:collapse; width:100%">
-				<thead style="float:left; width:98.74%;">
+				<thead style="float:left; width:98.60%;">
 					<tr align="center" valign="middle" style="display:table; width:100%;">
 						<th style="width:15%;">
 							<div align="center">DEPART</div>
