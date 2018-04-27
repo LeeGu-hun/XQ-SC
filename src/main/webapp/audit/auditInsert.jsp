@@ -29,11 +29,12 @@
 	function scoreCal() {
 		total = 0;
 		var scores = document.querySelectorAll('#score');
+		var fulls = document.querySelectorAll('#full');
 		for (var i = 0; i < scores.length; i++) {
 			if (scores[i].value == "") {
 				total = total + 0;
-			} else if (scores[i].value > 20) {
-				scores[i].value = 0;
+			} else if (scores[i].value > fulls[i].value) {
+				scores[i].value = "";
 				scores[i].focus();
 			} else {
 				total = total + parseInt(scores[i].value);
@@ -93,8 +94,7 @@
 					<td><input type="date" name="AUDIT_RSINPUT_DATE"
 					id="AUDIT_RSINPUT_DATE" style="height: 30px"></td>
 				</tr>
-
-			</table>
+	</table>
 			<br> <span id="result">
 				<table class="table">
 					<tr>
@@ -122,7 +122,9 @@
 								<td><input type="text" class="score" maxlength="2"
 									name="score" id="score" onKeyUp="onlyNum();"
 									onKeyPress="onlyNum();" onKeyDown="onlyNum();"></td>
-								<td><div>${c.CHECKLIST_FULLSCORE}</div></td>
+								<td><div>${c.CHECKLIST_FULLSCORE}
+								<input type="hidden" value="${c.CHECKLIST_FULLSCORE}" name="full" id="full">
+								</div></td>
 							</tr>
 						</c:forEach>
 					</c:if>
@@ -137,8 +139,7 @@
 
 								<td>
 									<div>${c.CHECKLIST_DISCRIPTION}
-										<input type="hidden" value="${c.CHECKLIST_DISCRIPTION}"
-											name="" />
+										<input type="hidden" value="${c.CHECKLIST_FULLSCORE}" name="full" id="full">
 									</div>
 								</td>
 								<td><input type="text" class="score" maxlength="2"

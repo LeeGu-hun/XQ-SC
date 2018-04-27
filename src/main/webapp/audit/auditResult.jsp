@@ -92,25 +92,24 @@
 		
 		</form>
 		<br> <br>
-		<table class="table table-hover" style="width: 200%">
+		<table class="table table-hover" style="width: 100%">
 			<div align="center" style="text-align: center;">
 			<tr align="center" valign="middle" bordercolor="#333333" style="text-align: center;">
 				<th style="text-align: center;">No</th>
 				<th style="text-align: center;">ID</th>
 				<th style="text-align: center;">Vendor</th>
 				<th style="text-align: center;">Product</th>
-				<th style="text-align: center;">Plan Date</th>
-				<th style="text-align: center;">Comp Date</th>
-				<th style="text-align: center;">Score Date</th>
+				<th style="text-align: center; width: 100px">Plan Date</th>
+				<th style="text-align: center; width: 100px"">Comp Date</th>
+				<th style="text-align: center; width: 100px">Score Date</th>
 				<th style="text-align: center;">Type</th>
-				<th style="text-align: center;">Auditor</th>
-				<th style="text-align: center;">Address</th>
-				<th style="text-align: center;">Result</th>
-				<th style="text-align: center;">Score</th>
+				<th style="text-align: center; width: 100px">Auditor</th>
+				<th style="text-align: center;  max-width: 200px"">Address</th>
+				<th style="text-align: center; width: 40px">Result</th>
+				<th style="text-align: center; width: 40px">Score</th>
 				<th style="text-align: center;">Result</th>
 				</tr>
 			</div>
-			
 			<c:forEach var="a" items="${arsList}">
 				<tr align="center" valign="middle" bordercolor="#333333">
 					<td style="font-family: Tahoma; font-size: 12pt;" height="">
@@ -125,7 +124,7 @@
 						<div align="center">${a.VENDOR_NAME}(${a.VENDOR_ID})</div>
 					</td>
 					<td style="font-family: Tahoma; font-size: 12pt;">
-						<div align="center">${a.PRODUCT_NAME}(${a.PRODUCT_ID})</div>
+						<div align="center">${a.PRODUCT_NAME}</div>
 					</td>
 					<td style="font-family: Tahoma; font-size: 12pt;">
 						<div align="center">${a.AUDIT_PLAN_DATE}
@@ -184,8 +183,6 @@
 								data-target="#myModal"
 								style="text-decoration: underline;"
 								>View</a></td>
-							
-
 				</tr>
 			</c:forEach>
 		</table>
@@ -195,14 +192,10 @@
 		<!-- 모달 -->
 		<div id="myModal" class="modal fade" role="dialog">
 			<div class="modal-dialog" style="width: 70%">
-				<div class="modal-content"></div>
+				<div class="modal-content" style="height:700px; overflow-y: scroll;"></div>
 			</div>
 		</div>
-		<div id="myModal2" class="modal fade" role="dialog">
-			<div class="modal-dialog" style="width: 70%">
-				<div class="modal-content"></div>
-			</div>
-		</div>
+
 	</div>
 	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 <script>

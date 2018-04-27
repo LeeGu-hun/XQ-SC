@@ -121,24 +121,26 @@
 <body>
 	<%@ include file="/include/header.jsp"%><br>
 	<div class="container" style="font-family: Tahoma;" >
-		<legend style="font-family: Tahoma; font-size: 20pt;">Audit
-			Manager</legend>
-		<br> <font style="font-family: Tahoma; font-size: 10pt;">Total
-			: <a href='./AuditManage'><span>${allCount}</span></a>
+		<legend style="font-family: Tahoma; font-size: 20pt;">Audit Manager</legend>
+		<br> 
+		<font style="font-family: Tahoma; font-size: 10pt;">
+		Total: <a href='./AuditManage'><span>${allCount}</span></a>
 		</font> <br> <br> <span id="result">
-			<table class="table table-hover">
-					
+			<table class="table table-hover" style="width: 80%;">
 					<th style="text-align: center;">No</th>
 					<th style="text-align: center;">ID</th>
 					<th style="text-align: center;">Vendor</th>
 					<th style="text-align: center;">Type</th>
-					<th style="text-align: center;">Quality Manager</th>
-					<th style="text-align: center;">Sales Manager</th>
-					<th style="text-align: center;">Address</th>
+					<th style="text-align: center; max-width: 200px">Quality Manager</th>
+					<th style="text-align: center;">Product</th>
+					<th style="text-align: center; max-width: 200px" >Address</th>
 					<th style="text-align: center;">Auditor</th>
 					<th style="text-align: center;">Plan Date</th>
 					<th style="text-align: center;">Submit</th>
-					
+			<!-- 		
+					<th style="text-align: center;">Plan Register</th>
+			 -->
+			 
 			<c:forEach var="audit" items="${listBean}" varStatus="status">
 					<form action="./audit/auditManage" method="POST" name="form">
 						<tr align="center" valign="middle" bordercolor="#333333">
@@ -176,7 +178,7 @@
 								<div align="center">${audit.VENDOR_Q_NAME}(${audit.VENDOR_Q_TEL})</div>
 							</td>
 							<td nowrap style="font-family: Tahoma; font-size: 12pt;">
-								<div align="center">${audit.VENDOR_S_NAME}(${audit.VENDOR_S_TEL})</div>
+								<div align="center">${audit.PRODUCT_NAME}</div>
 							</td>
 							<td nowrap style="font-family: Tahoma; font-size: 12pt;">
 								<div align="center">${audit.VENDOR_ADDRESS}</div>
@@ -187,17 +189,26 @@
 								<div align="center">
 									<input type="text" name="AUDITOR_ID" id="AUDITOR_ID"
 										data-toggle="modal" onclick="auditorSearch(${status.index })" 
-										style="height: 30px"/>
+										style="height: 30px; width: 100px"/>
 								</div></td>
 							<td nowrap style="font-family: Tahoma; font-size: 12pt;">
 								<div align="center">
 									<input type="date" name="AUDIT_PLAN_DATE" id="AUDIT_PLAN_DATE"
-									style="height: 30px">
+									style="height: 30px; width: 120px">
 								</div>
 							</td>
 
 							<td nowrap style="font-family: Tahoma; font-size: 12pt;"><input
 								type="submit" value="Submit"  class="btn btn-default" /></td>
+								<!-- 
+								<td><a
+								href="audit/auditPlan?vendorname=${audit.VENDOR_NAME}
+								&vendorid=$${audit.VENDOR_ID}"
+								data-toggle="modal"
+								data-target="#myModal"  
+								style="text-decoration: underline;"
+								>Register</a></td>
+								 -->
 						</tr>
 					</form>
 				</c:forEach>
@@ -210,13 +221,11 @@
 				<div class="modal-content">
 					<!-- header -->
 					<div class="modal-header">
-						<!-- 닫기(x) 버튼 -->
-						<button type="button" class="btn btn-default" data-dismiss="modal">×</button>
 						<!-- header title -->
 						<h4 class="modal-title">Auditor Search</h4>
 					</div>
 					<!-- body -->
-					<div class="modal-body">
+					<div class="modal-body" style="height:200px; overflow-y: scroll;" >
 						<div>
 							<form id="formSearchauditor" name="formSearchAuditor"
 								method="post">
@@ -246,6 +255,13 @@
 			</div>
 		</div>
 		<!--  모달 끝 -->
+		
+		<div id="myModal" class="modal fade" role="dialog">
+			<div class="modal-dialog" style="width: 70%">
+				<div class="modal-content" style="height:700px; overflow-y: scroll;"></div>
+			</div>
+		</div>
+		
 	</div>
 
 </body>

@@ -29,6 +29,7 @@ import bean.AuditNcrBean;
 import bean.AuditResultSearch;
 import bean.AuditScoreCommand;
 import bean.AuditSubmitBean;
+import bean.AuditVendorInfo;
 import bean.BeanCategory;
 import bean.BeanIssuer;
 import bean.BeanMember;
@@ -282,19 +283,19 @@ public class AuditController {
 	}
 	
 	
-	@RequestMapping(value = "audit/auditNcr",method=RequestMethod.GET)
-	public String auditNcrVendor(Model model,HttpServletRequest request) {
-		String id = (String) request.getParameter("id");
-
-		request.setAttribute("id", id);
-		List<AuditNcrBean> vendorNcr = auditService.getNcrVendor(id);
-		model.addAttribute("vendorNcr",vendorNcr);
-			return "audit/auditNcr";
-	}
-	
-	@RequestMapping(value = "audit/auditNcr",method=RequestMethod.POST)
-	public String auditNcrVendorPost() {
-		return "audit/auditNcr";
-	}
+//	@RequestMapping(value = "audit/auditPlan",method=RequestMethod.GET)
+//	public String auditNcrVendor(Model model,HttpServletRequest request) {
+//		String vendorid = (String) request.getParameter("vendorid");
+//
+//		request.setAttribute("vendorid", vendorid);
+//		List<AuditVendorInfo> vendorInfo = auditService.vendorInfo(vendorid);
+//		model.addAttribute("vendorInfo",vendorInfo);
+//		return "audit/auditPlan";
+//	}
+//	
+//	@RequestMapping(value = "audit/auditPlan",method=RequestMethod.POST)
+//	public String auditNcrVendorPost() {
+//		return "audit/auditPlanInsert";
+//	}
 
 }

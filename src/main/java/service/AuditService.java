@@ -16,6 +16,7 @@ import bean.AuditKind;
 import bean.AuditNcrBean;
 import bean.AuditResultSearch;
 import bean.AuditSubmitBean;
+import bean.AuditVendorInfo;
 import bean.BeanCategory;
 import bean.BeanChecklist;
 import bean.BeanIssuer;
@@ -54,6 +55,11 @@ public class AuditService {
 	public List<AuditBean> auditList() {
 		List<AuditBean> listBean = sqlSession.selectList("auditSQL.auditAllList");
 		return listBean;
+	}
+	
+	public List<AuditVendorInfo> vendorInfo(String vendorId) {
+		List <AuditVendorInfo> vendorInfo = sqlSession.selectList("auditSQL.vendorInfo", vendorId);
+		return vendorInfo;
 	}
 
 	// *********** audit report page ***********//

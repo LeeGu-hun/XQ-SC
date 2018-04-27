@@ -8,10 +8,11 @@
 
 	<!-- audit not plan list -->
 	<select id="auditAllList" resultType="bean.AuditBean">
-		SELECT ROWNUM RNUM,
+	SELECT ROWNUM RNUM,
 		V.VENDOR_NAME, V.VENDOR_ADDRESS,
 		V.VENDOR_ID,
 		V.AUDIT_RESULT,
+        P.PRODUCT_NAME,
 		V.VENDOR_Q_NAME,V.VENDOR_Q_TEL,
 		V.VENDOR_S_NAME,V.VENDOR_S_TEL,
 		V.AUDIT_NEXT_DATE,A.AUDIT_PLAN_DATE,
@@ -19,11 +20,17 @@
 		FROM VENDOR_INFO V ,
 		(SELECT * FROM AUDIT_INFO WHERE
 		AUDIT_PLAN_DATE IS NULL
-		OR AUDITOR_ID IS NULL) A
+		OR AUDITOR_ID IS NULL) A,
+        PRODUCT_ITEM P
 		WHERE V.VENDOR_ID =
 		A.VENDOR_ID
-		AND V.AUDIT_NEXT_DATE IS NULL OR V.AUDIT_NEXT_DATE <![CDATA[ <= ]]>
+        AND V.PRODUCT_ID = P.PRODUCT_ID
+		AND V.AUDIT_NEXT_DATE IS NULL OR V.AUDIT_NEXT_DATE  <![CDATA[ <= ]]>
 		TO_DATE(SYSDATE+30)
+	</select>
+	
+	<select id="vendorInfo" resultType="bean.AuditVendorInfo">
+	SELECT * FROM VENDOR_INFO WHERE VENDOR_ID = #{vendorId}
 	</select>
 
 	<!-- audit not plan count -->
@@ -38,15 +45,7 @@
 		AND V.AUDIT_NEXT_DATE IS NULL OR V.AUDIT_NEXT_DATE <![CDATA[ <= ]]>
 		TO_DATE(SYSDATE+30)
 	</select>
-	
-	<select id="ncrCount" parameterType="String"  resultType="int">
-	select count(*) from ncr_info where audit_id = #{id}
-	</select>
-	
-	<select id="ncrCountComp" parameterType="String"  resultType="int">
-	 select count(*) from ncr_info where audit_id = #{id} and NCR_COMP = 'Y'
-	</select>
-	
+
 
 	<!-- check list RE -->
 	<select id="checkListRE" resultType="bean.CheckListBean"
@@ -483,6 +482,16 @@
 		AND A.AUDIT_ID= #{id}
 
 	</select>
+	
+		
+	<select id="ncrCount" parameterType="String"  resultType="int">
+	select count(*) from ncr_info where audit_id = #{id}
+	</select>
+	
+	<select id="ncrCountComp" parameterType="String"  resultType="int">
+	 select count(*) from ncr_info where audit_id = #{id} and NCR_COMP = 'Y'
+	</select>
+	
 
 </mapper>
 

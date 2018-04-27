@@ -152,7 +152,7 @@
 		<!-- 모달 -->
 		<div id="myModal" class="modal fade" role="dialog">
 			<div class="modal-dialog" style="width: 70%">
-				<div class="modal-content"></div>
+				<div class="modal-content" style="height:700px; overflow-y: scroll;"></div>
 			</div>
 		</div>
 	</div>
