@@ -125,7 +125,7 @@
 		<div class="panel-body">
 			<div align="right">UNREGISTERED VENDOR : <b>${map.ingmem}</b>&nbsp;&nbsp;&nbsp;&nbsp;</div>
 			<table class="table table-striped table-bordered table-hover"
-			style="border-collapse:collapse; width:100%">
+			style="border-collapse:collapse; width:100%; margin: 2px 0">
 				<thead style="float:left; width:98.60%;">
 					<tr align="center" valign="middle" style="display:table; width:100%;">
 						<th style="width:15%;">
@@ -186,13 +186,11 @@
 				</tbody>
 			</table>
 			<div id="mInUpForm"><%@include file="/admin/m_In.jsp" %></div>
-			<div align="center" style="background-color:#c3c6cc">
-				<br>
+			<div align="center" style="background-color:#dedfe2; padding: 3px 0">
 				<%@include file="/admin/m_S.jsp" %><b><a href="./MSet">VIEW ALL</a></b>
 				<br>
-				<br>
 			</div>
-			<table class="table table-striped table-bordered table-hover">
+			<table class="table table-striped table-bordered table-hover" style="margin: 0">
 				<thead>
 					<tr align="center" valign="middle">
 						<th>
