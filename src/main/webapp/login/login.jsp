@@ -60,7 +60,7 @@
 			style="width: 1600px; height: 600px;">
 	</header>
 
-	<!-- Footer -->
+	
 	<div class="w3-display-container w3-content "
 		style="max-width: 1600px;">
 		<div class="w3-row w3-border">
@@ -115,11 +115,6 @@
 			</div>
 		</div>
 	</div>
-
-
-
-
-
 
 
 </body>

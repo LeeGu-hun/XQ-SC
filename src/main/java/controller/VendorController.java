@@ -153,10 +153,9 @@ public class VendorController {
 
 	@RequestMapping("/vendor/vendorUpdate/{VENDOR_ID}")
 	public String vendorUpdate(@PathVariable("VENDOR_ID") String VENDOR_ID,HttpServletRequest request, BeanVendor beanvendor) {
+		
 		BeanVendor bv = null;
-		System.out.println("ID"+VENDOR_ID);
 		bv = vendorService.vendorMem(VENDOR_ID);
-		System.out.println(bv.getVENDOR_ID());
 		
 		int cnt = vendorService.auditCount();
 		String AUDIT_ID = "S" + idForm.format(cnt + 1);
