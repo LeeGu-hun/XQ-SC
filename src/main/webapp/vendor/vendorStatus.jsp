@@ -73,7 +73,7 @@
 <head>
 <title>Vendor Status</title>
 </head>
-<body>
+<body style="background: white;">
 
 	<%@ include file="/include/header.jsp"%>
 	<div>&nbsp;</div>
