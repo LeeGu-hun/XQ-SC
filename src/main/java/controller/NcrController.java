@@ -309,7 +309,7 @@ public class NcrController {
 				ncrService.replyFileUpload(originalfileName, saveFileName, fileSize,Integer.parseInt(nrc.getNcr_id()));
 				
 			}
-		}
+		} 
 		return "ncr/ncrManagement";
 	}
 	
