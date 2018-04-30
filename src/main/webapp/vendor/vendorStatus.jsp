@@ -50,6 +50,7 @@
 		$("#VALID option selected").val();
 		statusform.submit();
 	}
+
 </script>
 <style>
 .modal-dialog {
@@ -97,18 +98,23 @@
 									<td>Product Name:</td>
 									<td><select id="PRODUCT_ID" name="PRODUCT_ID"
 										style="width: 200px;" class="form-control">
-											<option value="All">All</option>
+											<option value="All"
+												<c:out value="${PRODUCT_ID == 'All'?'selected':''}"/>>All</option>
 											<c:forEach var="p" items="${map.prodList}">
-												<option value="${p.PRODUCT_ID}">${p.PRODUCT_NAME}</option>
+												<option value="${p.PRODUCT_ID}"
+													<c:out value="${PRODUCT_ID ==p.PRODUCT_ID?'selected':''}"/>>${p.PRODUCT_NAME}</option>
 											</c:forEach>
 									</select></td>
 
 									<td>Valid:</td>
 									<td><select id="VALID" name="VALID" style="width: 150px;"
 										class="form-control">
-											<option value="All">All</option>
-											<option value="Y">Y</option>
-											<option value="N">N</option>
+											<option value="All"
+												<c:out value="${VALID == 'All'?'selected':''}"/>>All</option>
+												<option value="Y"
+												<c:out value="${VALID == 'Y'?'selected':''}"/>>Y</option>
+												<option value="N"
+												<c:out value="${VALID == 'N'?'selected':''}"/>>N</option>
 									</select></td>
 									<td><input class="btn btn-default" type="submit"
 										value="Search" onclick="statusSearch()"></td>

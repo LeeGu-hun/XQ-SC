@@ -196,21 +196,26 @@ public class VendorController {
 
 	
 	@RequestMapping(value = "/vendorStatus", method = RequestMethod.GET)
-	public String vendorStatusGet( Model model, ListCommand listCommand) {
+	public String vendorStatusGet( Model model,ListCommand listCommand,
+			@RequestParam(defaultValue = "") String PRODUCT_ID,
+			@RequestParam(defaultValue = "All") String VALID) {
+	
 		List<BeanProduct> prodList = vendorService.productList();
-
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("prodList", prodList);
+ 
+
 
 		model.addAttribute("map", map);
-
+		model.addAttribute("PRODUCT_ID",listCommand.getPRODUCT_ID());
+		model.addAttribute("VALID",listCommand.getVALID());
+		
 		return "vendor/vendorStatus";
 	}
 
 	@RequestMapping(value = "/vendorStatus", method = RequestMethod.POST)
 	public String vendorStatusPost(Model model, HttpServletRequest request,ListCommand listCommand
-			,@RequestParam(defaultValue = "All") String PRODUCT_ID,
-			@RequestParam(defaultValue = "All") String VALID) {
+			) {
 		
 		List<BeanProduct> prodList = vendorService.productList();
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -224,14 +229,17 @@ public class VendorController {
 		model.addAttribute("valid",valid);
 		model.addAttribute("count",count);
 		model.addAttribute("countY",countY);
+		model.addAttribute("PRODUCT_ID",listCommand.getPRODUCT_ID());
+		model.addAttribute("VALID",listCommand.getVALID());
 		
-		 if(VALID.equals("Y")) {
+		 if(listCommand.getVALID().equals("Y")) {
 
 			List<VendorStatus> validY = vendorService.getYList(listCommand);
 			model.addAttribute("validY", validY);
+			
 			return "vendor/vendorStatus";
 			
-		}else if (VALID.equals("N")) {
+		}else if (listCommand.getVALID().equals("N")) {
 				List<VendorStatus> validN = vendorService.getNList(listCommand);
 				model.addAttribute("validN", validN);
 				return "vendor/vendorStatus";

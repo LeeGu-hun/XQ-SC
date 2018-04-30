@@ -73,12 +73,11 @@
 					<div class="modal-dialog">
 						<div class="modal-content">
 							<div class="modal-body">
-								<img width="200" height="200"
-									src="../upload/${view.VENDOR_ISO_FILE}">
+								<img style="width:100%; height:450px;"
+									src="./upload/${view.VENDOR_ISO_FILE}">
 							</div>
 							<div class="modal-footer">
-								<button type="button" class="btn btn-default"
-									data-dismiss="modal">Close</button>
+								
 							</div>
 						</div>
 					</div>
@@ -92,11 +91,11 @@
 					<div class="modal-dialog">
 						<div class="modal-content">
 							<div class="modal-body">
-								<img width="300" height="200"
-									src="../upload/${view.VENDOR_CERT_FILE}">
+								<img style="width:100%; height:450px;"
+									src="./upload/${view.VENDOR_CERT_FILE}">
 							</div>
 							<div class="modal-footer">
-								<button type="button" class="btn btn-default"data-dismiss="modal">닫기</button>
+								
 							</div>
 						</div>
 					</div>
