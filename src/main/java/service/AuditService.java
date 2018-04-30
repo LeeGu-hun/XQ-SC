@@ -160,8 +160,23 @@ public class AuditService {
 	}
 
 	// Result Page Plan Date Search
-	public List<AuditBean> getByPlanDate(DateCommand dateCommand) {
-		List<AuditBean> results = sqlSession.selectList("auditSQL.getByPlanDate", dateCommand);
+	public List<AuditBean> getAll(DateCommand dateCommand) {
+		List<AuditBean> results = sqlSession.selectList("auditSQL.all", dateCommand);
+		return results;
+	}
+	
+	public List<AuditBean> incomplete(DateCommand dateCommand) {
+		List<AuditBean> results = sqlSession.selectList("auditSQL.incomplete", dateCommand);
+		return results;
+	}
+	
+	public List<AuditBean> getPassed(DateCommand dateCommand) {
+		List<AuditBean> results = sqlSession.selectList("auditSQL.pass", dateCommand);
+		return results;
+	}
+	
+	public List<AuditBean> getNotPassed(DateCommand dateCommand) {
+		List<AuditBean> results = sqlSession.selectList("auditSQL.notPassed", dateCommand);
 		return results;
 	}
 
@@ -171,15 +186,9 @@ public class AuditService {
 	}
 
 	
-	public List<AuditBean> incomplete(DateCommand dateCommand) {
-		List<AuditBean> results = sqlSession.selectList("auditSQL.incomplete", dateCommand);
-		return results;
-	}
 	
-	public List<AuditBean> complete(DateCommand dateCommand) {
-		List<AuditBean> results = sqlSession.selectList("auditSQL.pass", dateCommand);
-		return results;
-	}
+	
+
 
 	public List<AuditNcrBean> getNcrVendor(String id) {
 		List<AuditNcrBean> results = sqlSession.selectList("auditSQL.ncrVendor", id);

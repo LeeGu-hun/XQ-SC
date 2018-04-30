@@ -8,11 +8,11 @@
 
 	<!-- audit not plan list -->
 	<select id="auditAllList" resultType="bean.AuditBean">
-	SELECT ROWNUM RNUM,
+		SELECT ROWNUM RNUM,
 		V.VENDOR_NAME, V.VENDOR_ADDRESS,
 		V.VENDOR_ID,
 		V.AUDIT_RESULT,
-        P.PRODUCT_NAME,
+		P.PRODUCT_NAME,
 		V.VENDOR_Q_NAME,V.VENDOR_Q_TEL,
 		V.VENDOR_S_NAME,V.VENDOR_S_TEL,
 		V.AUDIT_NEXT_DATE,A.AUDIT_PLAN_DATE,
@@ -20,17 +20,22 @@
 		FROM VENDOR_INFO V ,
 		(SELECT * FROM AUDIT_INFO WHERE
 		AUDIT_PLAN_DATE IS NULL
-		OR AUDITOR_ID IS NULL) A,
-        PRODUCT_ITEM P
-		WHERE V.VENDOR_ID =
+		OR AUDITOR_ID IS
+		NULL) A,
+		PRODUCT_ITEM P
+		WHERE
+		V.VENDOR_ID =
 		A.VENDOR_ID
-        AND V.PRODUCT_ID = P.PRODUCT_ID
-		AND V.AUDIT_NEXT_DATE IS NULL OR V.AUDIT_NEXT_DATE  <![CDATA[ <= ]]>
+		AND V.PRODUCT_ID = P.PRODUCT_ID
+		AND
+		V.AUDIT_NEXT_DATE IS NULL OR
+		V.AUDIT_NEXT_DATE  <![CDATA[ <= ]]>
 		TO_DATE(SYSDATE+30)
 	</select>
-	
+
 	<select id="vendorInfo" resultType="bean.AuditVendorInfo">
-	SELECT * FROM VENDOR_INFO WHERE VENDOR_ID = #{vendorId}
+		SELECT * FROM VENDOR_INFO
+		WHERE VENDOR_ID = #{vendorId}
 	</select>
 
 	<!-- audit not plan count -->
@@ -247,7 +252,7 @@
 	<!-- audit report list -->
 	<select id="resultSearch" resultType="bean.AuditBean">
 		SELECT
-		AU.AUDIT_ID, P.PRODUCT_ID, P.PRODUCT_NAME,
+		AU.AUDIT_ID, P.PRODUCT_ID,
 		V.VENDOR_NAME, V.VENDOR_ID,
 		AU.AUDIT_PLAN_DATE, AU.AUDIT_RSINPUT_DATE,
 		AU.AUDIT_RESULT,
@@ -315,6 +320,33 @@
 		<include refid="planDate"></include>
 	</select>
 
+	<!-- audit report list : score Date search -->
+	<select id="all" parameterType="bean.DateCommand" resultType="bean.AuditBean">
+		SELECT
+		AU.AUDIT_ID, P.PRODUCT_ID, P.PRODUCT_NAME,
+		V.VENDOR_NAME, V.VENDOR_ID,
+		AU.AUDIT_PLAN_DATE, AU.AUDIT_RSINPUT_DATE,
+		AU.AUDIT_RESULT,
+		AU.AUDIT_NEXT_DATE,
+		AU.AUDIT_COMP_DATE, ROWNUM RNUM,
+		AU.AUDIT_KIND_ID,
+		M.MEMBER_NAME,
+		M.MEMBER_ID, M.MEMBER_TEL, V.VENDOR_Q_NAME,
+		V.VENDOR_Q_TEL, V.VENDOR_S_NAME,
+		V.VENDOR_S_TEL, V.VENDOR_ADDRESS,
+		AU.AUDIT_SCORE
+		FROM
+		VENDOR_INFO V, PRODUCT_ITEM P,
+		AUDIT_INFO AU,
+		MEMBER_INFO M
+		WHERE
+		M.MEMBER_ID = AU.AUDITOR_ID
+		AND V.VENDOR_ID =
+		AU.VENDOR_ID
+		AND P.PRODUCT_ID = V.PRODUCT_ID
+		<include refid="planDate"></include>
+		order by au.audit_plan_date
+	</select>
 
 
 	<select id="incomplete" parameterType="bean.DateCommand"
@@ -348,10 +380,10 @@
 		AND P.PRODUCT_ID = V.PRODUCT_ID
 		and
 		AU.AUDIT_RESULT IS NULL
+		ORDER BY AU.AUDIT_PLAN_DATE
 	</select>
 
 	<select id="pass" parameterType="bean.DateCommand" resultType="bean.AuditBean">
-
 		SELECT
 		AU.AUDIT_ID, P.PRODUCT_ID,
 		P.PRODUCT_NAME, V.VENDOR_NAME,
@@ -385,11 +417,12 @@
 		AU.AUDIT_SCORE >=
 		(SELECT AUDIT_SCORE FROM AUDIT_CRITERION)
 		<include refid="planDate"></include>
+		ORDER BY AUDIT_PLAN_DATE
 
 	</select>
 
-	<!-- audit report list : score Date search -->
-	<select id="getByScoreDate" parameterType="bean.DateCommand"
+
+	<select id="notPassed" parameterType="bean.DateCommand"
 		resultType="bean.AuditBean">
 		SELECT
 		AU.AUDIT_ID, P.PRODUCT_ID, P.PRODUCT_NAME,
@@ -413,7 +446,13 @@
 		AND V.VENDOR_ID =
 		AU.VENDOR_ID
 		AND P.PRODUCT_ID = V.PRODUCT_ID
+		AND
+		(SELECT AUDIT_SCORE FROM AUDIT_CRITERION)
+		>=
+		AU.AUDIT_SCORE
+		
 		<include refid="planDate"></include>
+		order by au.audit_plan_date
 	</select>
 
 	<sql id="planDate">
@@ -460,7 +499,8 @@
 
 	<select id="ncrVendor" parameterType="String" resultType="bean.AuditNcrBean">
 
-		SELECT N.NCR_ID,
+		SELECT
+		N.NCR_ID,
 		N.AUDIT_ID,
 		V.VENDOR_NAME,
 		A.AUDIT_COMP_DATE,
@@ -471,27 +511,31 @@
 		M.MEMBER_NAME,
 		N.NCR_DESCRIPTION,
 		N.NCR_GRADE_ID
-		FROM 
-		AUDIT_INFO A, MEMBER_INFO M, NCR_INFO N, AUDIT_KIND AK, VENDOR_INFO V
-		
-		WHERE 
-		N.AUDIT_ID = A.AUDIT_ID 
+		FROM
+		AUDIT_INFO A, MEMBER_INFO M,
+		NCR_INFO N, AUDIT_KIND AK, VENDOR_INFO V
+
+		WHERE
+		N.AUDIT_ID = A.AUDIT_ID
 		AND A.AUDIT_KIND_ID = AK.AUDIT_KIND_ID
 		AND M.MEMBER_ID=N.ISSUER_ID
-		AND A.VENDOR_ID = V.VENDOR_ID 
+		AND
+		A.VENDOR_ID = V.VENDOR_ID
 		AND A.AUDIT_ID= #{id}
 
 	</select>
-	
-		
-	<select id="ncrCount" parameterType="String"  resultType="int">
-	select count(*) from ncr_info where audit_id = #{id}
+
+
+	<select id="ncrCount" parameterType="String" resultType="int">
+		select
+		count(*) from ncr_info where audit_id = #{id}
 	</select>
-	
-	<select id="ncrCountComp" parameterType="String"  resultType="int">
-	 select count(*) from ncr_info where audit_id = #{id} and NCR_COMP = 'Y'
+
+	<select id="ncrCountComp" parameterType="String" resultType="int">
+		select count(*) from ncr_info where audit_id = #{id} and NCR_COMP =
+		'Y'
 	</select>
-	
+
 
 </mapper>
 

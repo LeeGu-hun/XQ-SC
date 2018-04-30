@@ -66,8 +66,16 @@
 <body>
 
 <%@ include file="/include/header.jsp"%><br>
-	<div class="container" style="font-family: Tahoma;">
-	<legend style="font-family: Tahoma; font-size: 20pt;">Audit Report</legend><br>
+	<div>&nbsp;</div>
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-15">
+				<div class="panel panel-default">
+					<div class="panel-heading">Audit Result INnput</div>
+					<!-- /.panel-heading -->
+					<div class="panel-body">
+						<p>
+						<div class="container" style="font-family: Tahomsa;">
 		<form action="./AuditReport" method="POST">
 		<p>
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
@@ -87,6 +95,7 @@
 
 	</form>
 			<br> 
+			<div class="table-responsive" style="max-height: 700px;">
 			<table class="table table-hover">
 				<tr align="center" bordercolor="#333333">
 					<th style="text-align: center;">No</th>
@@ -148,6 +157,7 @@
 					</c:if>
 				</c:forEach>
 			</table>
+			</div>
 	
 		<!-- 모달 -->
 		<div id="myModal" class="modal fade" role="dialog">
@@ -156,6 +166,12 @@
 			</div>
 		</div>
 	</div>
+	</div>
+	</div>
+	</div>
+	</div>
+	</div>
+
 <script>
 
 let today = new Date().toISOString().substr(0, 10);

@@ -209,9 +209,7 @@ public class AuditController {
 	public String auditResultGet(Model model, 
 			HttpServletRequest request, 
 			DateCommand dateCommand) {
-		AuditResultSearch ars = new AuditResultSearch();
-		List<AuditBean> arsList = auditService.getByPlanDate(dateCommand);
-		model.addAttribute("arsList", arsList);
+
 		
 		return "audit/auditResult";
 	}
@@ -220,17 +218,17 @@ public class AuditController {
 	@RequestMapping(value = "/AuditResult", method = RequestMethod.POST)
 	public String auditResultPost(Model model, DateCommand dateCommand) {
 		
-		if (dateCommand.getPlandate().equals("score")) {
-			List<AuditResultSearch> arsList = auditService.getByScoreDate(dateCommand);
-			model.addAttribute("arsList", arsList);
-		} else if (dateCommand.getPlandate().equals("plan")) {
-			List<AuditBean> arsList = auditService.getByPlanDate(dateCommand);
+		if (dateCommand.getPlandate().equals("all")) {
+			List<AuditBean> arsList = auditService.getAll(dateCommand);
 			model.addAttribute("arsList", arsList);
 		} else if (dateCommand.getPlandate().equals("incomplete")) {
 			List<AuditBean> arsList = auditService.incomplete(dateCommand);
 			model.addAttribute("arsList", arsList);
-		} else if (dateCommand.getPlandate().equals("compelete")) {
-			List<AuditBean> arsList = auditService.complete(dateCommand);
+		} else if (dateCommand.getPlandate().equals("passed")) {
+			List<AuditBean> arsList = auditService.getPassed(dateCommand);
+			model.addAttribute("arsList", arsList);
+		} else if (dateCommand.getPlandate().equals("notPassed")) {
+			List<AuditBean> arsList = auditService.getNotPassed(dateCommand);
 			model.addAttribute("arsList", arsList);
 		} 
 		

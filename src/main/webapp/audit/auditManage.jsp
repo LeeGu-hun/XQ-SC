@@ -120,12 +120,19 @@
 </head>
 <body>
 	<%@ include file="/include/header.jsp"%><br>
-	<div class="container" style="font-family: Tahoma;" >
-		<legend style="font-family: Tahoma; font-size: 20pt;">Audit Manager</legend>
-		<br> 
-		<font style="font-family: Tahoma; font-size: 10pt;">
+	<div>&nbsp;</div>
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-15">
+				<div class="panel panel-default">
+					<div class="panel-heading">Audit Plan</div>
+					<!-- /.panel-heading -->
+					<div class="panel-body">
+						<p>
+						<div class="container" style="font-family: Tahomsa;">
 		Total: <a href='./AuditManage'><span>${allCount}</span></a>
 		</font> <br> <br> <span id="result">
+				<div class="table-responsive" style="max-height: 700px;">
 			<table class="table table-hover" style="width: 80%;">
 					<th style="text-align: center;">No</th>
 					<th style="text-align: center;">ID</th>
@@ -213,7 +220,10 @@
 					</form>
 				</c:forEach>
 			</table>
+			</div>
+			
 		</span>
+		
 
 		<!--  모달 시작 -->
 		<div class="modal fade" id="auditorSearchModal">
@@ -263,6 +273,12 @@
 		</div>
 		
 	</div>
+	</div>
+	</div>
+	</div>
+	</div>
+	</div>
+	
 
 </body>
 </html>

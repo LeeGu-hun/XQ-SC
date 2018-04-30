@@ -12,8 +12,35 @@ public class DateCommand {
 	private String vSearch;
 	private String incomplete;
 	private String complete;
+	private String	passed;
+	private String	notPassed;
+	private String all; 
 	
 	
+
+	public String getAll() {
+		return all;
+	}
+
+	public void setAll(String all) {
+		this.all = all;
+	}
+
+	public String getPassed() {
+		return passed;
+	}
+
+	public void setPassed(String passed) {
+		this.passed = passed;
+	}
+
+	public String getNotPassed() {
+		return notPassed;
+	}
+
+	public void setNotPassed(String notPassed) {
+		this.notPassed = notPassed;
+	}
 
 	public String getComplete() {
 		return complete;

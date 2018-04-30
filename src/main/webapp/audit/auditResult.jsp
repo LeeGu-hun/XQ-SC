@@ -63,27 +63,33 @@
 </head>
 <body>
 	<%@ include file="/include/header.jsp"%><br>
-	<div class="container" style="font-family: Tahoma;">
-		<legend style="font-family: Tahoma; font-size: 20pt;">Audit
-			Result</legend>
-		<br>
+	<div>&nbsp;</div>
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-15">
+				<div class="panel panel-default">
+					<div class="panel-heading">Audit Status</div>
+					<!-- /.panel-heading -->
+					<div class="panel-body">
+						<p>
+						<div class="container" style="font-family: Tahomsa;">
 		<form action="./AuditResult" method="POST">
 			<p>
-				<input type="radio" id="plandate" name="plandate" value="plan" checked="checked"> 
-				<label>Audit Plan Date</label> 
+				<input type="radio" id="plandate" name="plandate" value="all"> 
+				<label>All</label> 
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-				<input type="radio" id="plandate" name="plandate" value="score"> 
-				<label>Audit Score Input Date</label>
-				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-				<input type="radio" id="plandate" name="plandate" value="incomplete" > 
+				<input type="radio" id="plandate" name="plandate" value="incomplete"  checked="checked" > 
 				<label>Incomplete</label> 
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-				<input type="radio" id="plandate" name="plandate" value="compelete" > 
+				<input type="radio" id="plandate" name="plandate" value="passed" > 
 				<label>Passed Vendor</label> 
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+				<input type="radio" id="plandate" name="plandate" value="notPassed" > 
+				<label>Not Passed Vendor</label> 
 				<br><br>
-				<label>from : <input id="from" name="from" type="date" style="height: 30px"/></label> 
+				<label>Plan Date : <input id="from" name="from" type="date" style="height: 30px"/></label> 
 				~ 
-				<label>to : <input id="to" name="to" type="date" style="height: 30px" /></label> 
+				<input id="to" name="to" type="date" style="height: 30px" />
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 				<input type="text" id="vSearch" name="vSearch" placeholder="Vendor Search..."
 				style="height: 30px">
@@ -92,10 +98,11 @@
 		
 		</form>
 		<br> <br>
+		<div class="table-responsive" style="max-height: 700px;">
 		<table class="table table-hover" style="width: 100%">
 			<div align="center" style="text-align: center;">
 			<tr align="center" valign="middle" bordercolor="#333333" style="text-align: center;">
-				<th style="text-align: center;">No</th>
+				
 				<th style="text-align: center;">ID</th>
 				<th style="text-align: center;">Vendor</th>
 				<th style="text-align: center;">Product</th>
@@ -104,17 +111,15 @@
 				<th style="text-align: center; width: 100px">Score Date</th>
 				<th style="text-align: center;">Type</th>
 				<th style="text-align: center; width: 100px">Auditor</th>
-				<th style="text-align: center;  max-width: 200px"">Address</th>
+			
 				<th style="text-align: center; width: 40px">Result</th>
-				<th style="text-align: center; width: 40px">Score</th>
+				
 				<th style="text-align: center;">Result</th>
 				</tr>
 			</div>
 			<c:forEach var="a" items="${arsList}">
 				<tr align="center" valign="middle" bordercolor="#333333">
-					<td style="font-family: Tahoma; font-size: 12pt;" height="">
-						<div align="center">${a.RNUM}</div>
-					</td>
+			
 					<td style="font-family: Tahoma; font-size: 12pt;">
 						<div align="center">${a.AUDIT_ID}
 						<input type="hidden" value="${a.AUDIT_ID}" id="AUDIT_ID" name="AUDIT_ID">
@@ -153,9 +158,7 @@
 					<td style="font-family: Tahoma; font-size: 12pt;">
 						<div align="center">${a.MEMBER_NAME}(${a.MEMBER_ID})</div>
 					</td>
-					<td style="font-family: Tahoma; font-size: 12pt;">
-						<div align="center">${a.VENDOR_ADDRESS}</div>
-					</td>
+					
 					<td style="font-family: Tahoma; font-size: 12pt;">
 						<div align="center">${a.AUDIT_RESULT}
 							<c:if test="${a.AUDIT_RESULT ==null}">
@@ -163,13 +166,7 @@
 							</c:if>
 						</div>
 					</td>
-					<td style="font-family: Tahoma; font-size: 12pt;">
-						<div align="center">${a.AUDIT_SCORE}
-							<c:if test="${a.AUDIT_SCORE ==null}">
-							-
-							</c:if>
-						</div>
-					</td>
+		
 					<td><a href="audit/auditVendorResult?vendorname=${a.VENDOR_NAME}
 								&id=${a.AUDIT_ID}
 								&type=${a.AUDIT_KIND_ID}
@@ -186,6 +183,7 @@
 				</tr>
 			</c:forEach>
 		</table>
+		</div>
 		</form>
 		<div id="auditorList"></div>
 		
@@ -197,13 +195,12 @@
 		</div>
 
 	</div>
-	<script>
+	</div>
+	</div>
+	</div>
+	</div>
+	</div>
+	
 
-let today = new Date().toISOString().substr(0, 10);
-document.querySelector("#from").value = today;
-
-document.querySelector("#to").valueAsDate = new Date();
-
-</script>
 </body>
 </html>
