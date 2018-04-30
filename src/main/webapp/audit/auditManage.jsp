@@ -121,7 +121,7 @@
 <body>
 	<%@ include file="/include/header.jsp"%><br>
 	<div>&nbsp;</div>
-	<div class="container" style="width:1440px;">
+	<div class="container" style="width:1200px;">
 		<div class="row">
 			<div class="col-lg-15">
 				<div class="panel panel-default">
@@ -129,11 +129,11 @@
 					<!-- /.panel-heading -->
 					<div class="panel-body">
 						<p>
-						<div class="container" style="font-family: Tahomsa;width:1400px; ">
+						<div class="container" style="font-family: Tahomsa;">
 		Total: <a href='./AuditManage'><span>${allCount}</span></a>
 		</font> <br> <br> <span id="result">
 				<div class="table-responsive" style="height: 700px;">
-			<table class="table table-hover" style="width: 80%;">
+			<table class="table table-hover">
 					<th style="text-align: center;">No</th>
 					<th style="text-align: center;">ID</th>
 					<th style="text-align: center;">Vendor</th>
