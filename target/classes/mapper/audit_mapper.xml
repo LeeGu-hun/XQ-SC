@@ -324,16 +324,19 @@
 	<select id="all" parameterType="bean.DateCommand" resultType="bean.AuditBean">
 		SELECT
 		AU.AUDIT_ID, P.PRODUCT_ID, P.PRODUCT_NAME,
-		V.VENDOR_NAME, V.VENDOR_ID,
+		V.VENDOR_NAME,
+		V.VENDOR_ID,
 		AU.AUDIT_PLAN_DATE, AU.AUDIT_RSINPUT_DATE,
 		AU.AUDIT_RESULT,
 		AU.AUDIT_NEXT_DATE,
 		AU.AUDIT_COMP_DATE, ROWNUM RNUM,
 		AU.AUDIT_KIND_ID,
 		M.MEMBER_NAME,
-		M.MEMBER_ID, M.MEMBER_TEL, V.VENDOR_Q_NAME,
+		M.MEMBER_ID, M.MEMBER_TEL,
+		V.VENDOR_Q_NAME,
 		V.VENDOR_Q_TEL, V.VENDOR_S_NAME,
-		V.VENDOR_S_TEL, V.VENDOR_ADDRESS,
+		V.VENDOR_S_TEL,
+		V.VENDOR_ADDRESS,
 		AU.AUDIT_SCORE
 		FROM
 		VENDOR_INFO V, PRODUCT_ITEM P,
@@ -341,7 +344,8 @@
 		MEMBER_INFO M
 		WHERE
 		M.MEMBER_ID = AU.AUDITOR_ID
-		AND V.VENDOR_ID =
+		AND
+		V.VENDOR_ID =
 		AU.VENDOR_ID
 		AND P.PRODUCT_ID = V.PRODUCT_ID
 		<include refid="planDate"></include>
@@ -380,6 +384,7 @@
 		AND P.PRODUCT_ID = V.PRODUCT_ID
 		and
 		AU.AUDIT_RESULT IS NULL
+		<include refid="planDate"></include>
 		ORDER BY AU.AUDIT_PLAN_DATE
 	</select>
 
@@ -416,6 +421,7 @@
 		AND
 		AU.AUDIT_SCORE >=
 		(SELECT AUDIT_SCORE FROM AUDIT_CRITERION)
+		AND AU.AUDIT_RESULT = 'Y'
 		<include refid="planDate"></include>
 		ORDER BY AUDIT_PLAN_DATE
 
@@ -426,16 +432,19 @@
 		resultType="bean.AuditBean">
 		SELECT
 		AU.AUDIT_ID, P.PRODUCT_ID, P.PRODUCT_NAME,
-		V.VENDOR_NAME, V.VENDOR_ID,
+		V.VENDOR_NAME,
+		V.VENDOR_ID,
 		AU.AUDIT_PLAN_DATE, AU.AUDIT_RSINPUT_DATE,
 		AU.AUDIT_RESULT,
 		AU.AUDIT_NEXT_DATE,
 		AU.AUDIT_COMP_DATE, ROWNUM RNUM,
 		AU.AUDIT_KIND_ID,
 		M.MEMBER_NAME,
-		M.MEMBER_ID, M.MEMBER_TEL, V.VENDOR_Q_NAME,
+		M.MEMBER_ID, M.MEMBER_TEL,
+		V.VENDOR_Q_NAME,
 		V.VENDOR_Q_TEL, V.VENDOR_S_NAME,
-		V.VENDOR_S_TEL, V.VENDOR_ADDRESS,
+		V.VENDOR_S_TEL,
+		V.VENDOR_ADDRESS,
 		AU.AUDIT_SCORE
 		FROM
 		VENDOR_INFO V, PRODUCT_ITEM P,
@@ -443,22 +452,37 @@
 		MEMBER_INFO M
 		WHERE
 		M.MEMBER_ID = AU.AUDITOR_ID
-		AND V.VENDOR_ID =
+		AND
+		V.VENDOR_ID =
 		AU.VENDOR_ID
 		AND P.PRODUCT_ID = V.PRODUCT_ID
 		AND
-		(SELECT AUDIT_SCORE FROM AUDIT_CRITERION)
+		(SELECT
+		AUDIT_SCORE FROM AUDIT_CRITERION)
 		>=
 		AU.AUDIT_SCORE
-		
-		<include refid="planDate"></include>
+		AND AU.AUDIT_RESULT =
+		'N'
+
+		<include refid="vSearch"></include>
 		order by au.audit_plan_date
 	</select>
+	
+		<sql id="vSearch">
+		<choose>
+			<when test="vSearch !=null">
+				and vendor_name like '%'||#{vSearch}||'%'
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</sql>
+	
 
 	<sql id="planDate">
 		<choose>
 			<when test="from != null">
-				AND AUDIT_RSINPUT_DATE
+				AND AU.AUDIT_PLAN_DATE
 				BETWEEN #{from} AND
 				#{to}
 			</when>
@@ -473,6 +497,7 @@
 			</otherwise>
 		</choose>
 	</sql>
+
 
 
 	<!-- Report page get Date -->
@@ -522,6 +547,26 @@
 		AND
 		A.VENDOR_ID = V.VENDOR_ID
 		AND A.AUDIT_ID= #{id}
+
+	</select>
+
+	<select id="notPlanVendor" parameterType="bean.DateCommand"
+		resultType="bean.AuditBean">
+
+		SELECT
+		A.AUDIT_ID, A.AUDIT_KIND_ID, A.AUDIT_PLAN_DATE, A.AUDIT_COMP_DATE,
+		A.VENDOR_ID,
+		A.AUDIT_RSINPUT_DATE, V.VENDOR_NAME,
+		V.AUDIT_NEXT_DATE,
+		A.AUDIT_NEXT_DATE, A.AUDITOR_ID, P.PRODUCT_NAME
+		FROM AUDIT_INFO A,
+		VENDOR_INFO V, PRODUCT_ITEM P
+		WHERE A.VENDOR_ID = V.VENDOR_ID
+		AND
+		A.AUDIT_PLAN_DATE IS NULL
+		and V.AUDIT_NEXT_DATE IS NULL
+		AND V.PRODUCT_ID
+		= P.PRODUCT_ID
 
 	</select>
 

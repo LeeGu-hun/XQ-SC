@@ -78,7 +78,7 @@
 				<input type="radio" id="plandate" name="plandate" value="all"> 
 				<label>All</label> 
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-				<input type="radio" id="plandate" name="plandate" value="incomplete"  checked="checked" > 
+				<input type="radio" id="plandate" name="plandate" value="incomplete"> 
 				<label>Incomplete</label> 
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 				<input type="radio" id="plandate" name="plandate" value="passed" > 
@@ -86,6 +86,9 @@
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 				<input type="radio" id="plandate" name="plandate" value="notPassed" > 
 				<label>Not Passed Vendor</label> 
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+				<input type="radio" id="plandate" name="plandate" value="notPlanVendor" > 
+				<label>Not Planed Vendor</label> 
 				<br><br>
 				<label>Plan Date : <input id="from" name="from" type="date" style="height: 30px"/></label> 
 				~ 
@@ -150,13 +153,21 @@
 							<c:if test="${a.AUDIT_RSINPUT_DATE ==null}">
 							-
 							</c:if>
+							
 						</div>
 					</td>
 					<td style="font-family: Tahoma; font-size: 12pt;">
 						<div align="center">${a.AUDIT_KIND_ID}</div>
 					</td>
 					<td style="font-family: Tahoma; font-size: 12pt;">
-						<div align="center">${a.MEMBER_NAME}(${a.MEMBER_ID})</div>
+						<div align="center">
+						<c:if test="${a.AUDIT_PLAN_DATE ==null}">
+						-
+						</c:if>
+						<c:if test="${a.AUDIT_PLAN_DATE !=null}">
+						${a.MEMBER_NAME}(${a.MEMBER_ID})
+						</c:if>
+						</div>
 					</td>
 					
 					<td style="font-family: Tahoma; font-size: 12pt;">
@@ -171,7 +182,7 @@
 								&id=${a.AUDIT_ID}
 								&type=${a.AUDIT_KIND_ID}
 								&score=${a.AUDIT_SCORE}
-								&prod=${a.PRODUCT_NAME}
+								
 								&vendorid=${a.VENDOR_ID}
 								&auditor=${a.MEMBER_NAME}
 								&auditorId=${a.MEMBER_ID}

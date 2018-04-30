@@ -68,14 +68,13 @@ public class AuditController {
 		
 	}
 
-	// plan date, auditor insert page
+	// plan date, auditor insert pagexxxx
 	@RequestMapping(value = "/audit/auditManage", method = RequestMethod.POST)
 	public String auditManagePost(Model model, AuditCommand ac, AuditBean auditBean) {
 		List<AuditBean> auditBeans = auditService.auditList();
 		AuditBean ab = new AuditBean();
 
 		ab.setAUDITOR_ID(ac.getAUDITOR_ID());
-
 		ab.setAUDIT_ID(ac.getAUDIT_ID());
 		ab.setAUDIT_PLAN_DATE(ac.getAUDIT_PLAN_DATE());
 
@@ -111,8 +110,7 @@ public class AuditController {
 	// Report page
 	@RequestMapping(value = "/AuditReport", method = RequestMethod.GET)
 	public String auditReportGet(Model model, AuditBean auditBean, HttpServletRequest request, DateCommand dc) {
-		List<AuditBean> auditBeans = auditService.auditListReport(dc);
-		request.setAttribute("auditBeans", auditBeans);
+	
 
 		return "audit/auditReport";
 	}
@@ -132,19 +130,11 @@ public class AuditController {
 
 		String vendorid = (String) request.getParameter("vendorid");
 		String vendorname = (String) request.getParameter("vendorname");
-		String date = (String) request.getParameter("date");
-		String manager = (String) request.getParameter("manager");
-		String category = (String) request.getParameter("category");
-		String product = (String) request.getParameter("product");
 		String auditid = (String) request.getParameter("auditid");
 		String auditType = (String) request.getParameter("auditType");
 
 		request.setAttribute("vendorid", vendorid);
 		request.setAttribute("vendorname", vendorname);
-		request.setAttribute("date", date);
-		request.setAttribute("manager", manager);
-		request.setAttribute("category", category);
-		request.setAttribute("product", product);
 		request.setAttribute("auditid", auditid);
 		request.setAttribute("auditType", auditType);
 
@@ -230,7 +220,10 @@ public class AuditController {
 		} else if (dateCommand.getPlandate().equals("notPassed")) {
 			List<AuditBean> arsList = auditService.getNotPassed(dateCommand);
 			model.addAttribute("arsList", arsList);
-		} 
+		} else if (dateCommand.getPlandate().equals("notPlanVendor")) {
+			List<AuditBean> arsList = auditService.notPlanVendor(dateCommand);
+			model.addAttribute("arsList", arsList);
+		}
 		
 		return "audit/auditResult";
 	}
@@ -245,7 +238,7 @@ public class AuditController {
 		String vendorname = (String) request.getParameter("vendorname");
 		String id = (String) request.getParameter("id");
 		String vendorid = (String) request.getParameter("vendorid");
-		String prod = (String) request.getParameter("prod");
+		
 		String type = (String) request.getParameter("type");
 		String auditor = (String) request.getParameter("auditor");
 		String auditorId = (String) request.getParameter("auditorId");
@@ -256,7 +249,7 @@ public class AuditController {
 		request.setAttribute("id", id);
 		request.setAttribute("type", type);
 		request.setAttribute("vendorid", vendorid);
-		request.setAttribute("prod", prod);
+	
 		request.setAttribute("auditor", auditor);
 		request.setAttribute("auditorId", auditorId);
 		request.setAttribute("result", result);

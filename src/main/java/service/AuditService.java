@@ -108,8 +108,8 @@ public class AuditService {
 	}
 
 	// auditor list
-	public List<AuditBean> getAuditorList(String auditor_name) {
-		List<AuditBean> auditorList = sqlSession.selectList("auditSQL.getAuditorList", auditor_name);
+	public List<AuditBean> getAuditorList(String AUDITOR_ID) {
+		List<AuditBean> auditorList = sqlSession.selectList("auditSQL.getAuditorList", AUDITOR_ID);
 		return auditorList;
 	}
 
@@ -185,7 +185,10 @@ public class AuditService {
 		return results;
 	}
 
-	
+	public List<AuditBean> notPlanVendor(DateCommand dateCommand) {
+		List<AuditBean> results = sqlSession.selectList("auditSQL.notPlanVendor", dateCommand);
+		return results;
+	}
 	
 	
 

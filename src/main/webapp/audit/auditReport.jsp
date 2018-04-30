@@ -71,7 +71,7 @@
 		<div class="row">
 			<div class="col-lg-15">
 				<div class="panel panel-default">
-					<div class="panel-heading">Audit Result INnput</div>
+					<div class="panel-heading">Audit Result Input</div>
 					<!-- /.panel-heading -->
 					<div class="panel-body">
 						<p>
@@ -96,7 +96,7 @@
 	</form>
 			<br> 
 			<div class="table-responsive" style="max-height: 700px;">
-			<table class="table table-hover">
+			<table class="table table-hover" style="max-width: 1000px; margin: auto;">
 				<tr align="center" bordercolor="#333333">
 					<th style="text-align: center;">No</th>
 					<th style="text-align: center;">ID</th>
@@ -143,10 +143,6 @@
 							<td><a
 								href="audit/auditInsert?vendorname=${a.VENDOR_NAME}
 								&vendorid=${a.VENDOR_ID}
-								&date=${a.AUDIT_PLAN_DATE}
-								&manager=${a.MEMBER_NAME}
-								&category=${a.CATEGORY_NAME}
-								&product=${a.PRODUCT_NAME}
 								&auditid=${a.AUDIT_ID}
 								&auditType=${a.AUDIT_KIND_ID}"
 								data-toggle="modal"

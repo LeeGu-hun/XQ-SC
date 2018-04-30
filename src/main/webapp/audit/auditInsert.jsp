@@ -67,7 +67,6 @@
 		<div class="modal-body">
 			<table class="table">
 			<br>
-				<label>${manager}님 환영합니다</label>
 				<br>
 				<tr>
 					<td nowrap>Audit ID : ${auditid}</td>
@@ -81,18 +80,15 @@
 					<td><input type="hidden" value="${vendorid}" name="VENDOR_ID"></td>
 					<td nowrap>Vendor Name : ${vendorname}</td>
 					<td><input type="hidden" value="${vendorname}"></td>
-					<td nowrap>Audit Date :</td>
-					<td><input type="date" name="AUDIT_COMP_DATE"
-					id="AUDIT_COMP_DATE" style="height: 30px"></td>
+					
 				</tr>
 				<tr>
-					<td nowrap>Category : ${category}</td>
-					<td><input type="hidden" value="${category}" readonly></td>
-					<td nowrap>Product : ${product}</td>
-					<td><input type="hidden" value="${product}"></td>
 					<td nowrap>Insert Date :</td>
 					<td><input type="date" name="AUDIT_RSINPUT_DATE"
 					id="AUDIT_RSINPUT_DATE" style="height: 30px"></td>
+					<td nowrap>Audit Date :</td>
+					<td><input type="date" name="AUDIT_COMP_DATE"
+					id="AUDIT_COMP_DATE" style="height: 30px"></td>
 				</tr>
 	</table>
 			<br> <span id="result">

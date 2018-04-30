@@ -17,7 +17,7 @@
 			<td nowrap>Audit Type : ${type}</td>
 			<td nowrap>Vendor Name : ${vendorname} (${vendorid})
 			<input type="hidden" value="${vendorid}" name = "VENDOR_ID" id = "VENDOR_ID">
-			<td nowrap>Product : ${prod}</td>
+			
 		</tr>
 		<tr> 
 				<td nowrap>Audit Date : ${d.AUDIT_COMP_DATE}</td>
