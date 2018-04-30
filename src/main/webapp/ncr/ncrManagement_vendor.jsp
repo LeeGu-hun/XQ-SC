@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 <!DOCTYPE html>
-
 <link rel="stylesheet"
 	href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css"
 	type="text/css" />
@@ -22,22 +22,24 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-<link href="<c:url value="/css/sb-admin-2.css" />" rel="stylesheet">
 
 <script>
-	function vendorReplySave_vendor(ncr_id) {
-		vendorReplyForm.submit(ncr_id);
-	}
 
-	function vendorReply(ncr_id) {
 
-		$.ajax({
-			type : "POST",
-			url : "./ncrVendorReply",
-			data : "ncr_id=" + ncr_id,
-			success : resultvendorreply,
-		});
-	}
+function vendorReplySave(ncr_id) {
+	vendorReplyForm.submit(ncr_id);
+}
+
+
+function vendorReply(ncr_id) {
+
+	$.ajax({
+		type : "POST",
+		url : "./ncrVendorReply",
+		data : "ncr_id=" + ncr_id,
+		success : resultvendorreply,
+	});
+}
 
 	function resultvendorreply(reply) {
 		$("#vendorReplyPop").html(reply);

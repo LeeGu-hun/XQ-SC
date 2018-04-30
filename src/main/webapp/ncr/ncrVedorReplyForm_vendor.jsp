@@ -33,9 +33,9 @@
 								<td>file_upload</td>
 								<td colspan="5"><input type="file" multiple id="reply_file"
 									name="reply_file"></input></td>
-								<td><input class="button" type="button" value="Save"
-									id="btnReplySave" onclick="vendorReplySave_vendor(${ncr_id })">
-								</td>
+									<td><button type="button" class="btn btn-default"
+										onclick="vendorReplySave_vendor(${ncr_id })">Save</button></td>
+								
 							</tr>
 
 

@@ -10,7 +10,7 @@
 			<!-- /.panel-heading -->
 			<div class="panel-body">
 				<div class="table-responsive">
-					<form id="vendorReplyForm" action="./ncrVendorReplySave"
+					<form id="vendorReplyForm" action="./ncrVendorReplySave_vendor"
 						method="post" name="vendorReplyForm" enctype="multipart/form-data">
 
 						<table class="table">

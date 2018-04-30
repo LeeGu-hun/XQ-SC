@@ -318,8 +318,7 @@ public class NcrController {
 	public String issue_vendor(NcrReplyCommand nrc, HttpSession session, HttpServletRequest request,			
 			MultipartHttpServletRequest mhsq) throws IllegalStateException, IOException {			
 		AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
-		
-		
+				
 		nrc.setReplier_id(authInfo.getId());
 		ncrService.saveVendorReply(nrc);		
 
@@ -339,7 +338,7 @@ public class NcrController {
 				String root_path = request.getSession().getServletContext().getRealPath("/");
 				String attach_path = "./upload2/";
 				String savePath = root_path + attach_path + saveFileName;
-				System.out.println("vendor Reply File" +savePath);
+				
 				long fileSize = mf.get(i).getSize(); // 파일 사이즈
 				mf.get(i).transferTo(new File(savePath)); // 파일 저장
 				ncrService.replyFileUpload(originalfileName, saveFileName, fileSize,Integer.parseInt(nrc.getNcr_id()));
