@@ -26,16 +26,16 @@
 <script>
 
 
-function vendorReplySave(ncr_id) {
+function vendorReplySave_vendor(ncr_id) {
 	vendorReplyForm.submit(ncr_id);
 }
 
 
-function vendorReply(ncr_id) {
+function vendorReply_vendor(ncr_id) {
 
 	$.ajax({
 		type : "POST",
-		url : "./ncrVendorReply",
+		url : "./ncrVendorReply_vendor",
 		data : "ncr_id=" + ncr_id,
 		success : resultvendorreply,
 	});
@@ -45,34 +45,7 @@ function vendorReply(ncr_id) {
 		$("#vendorReplyPop").html(reply);
 	}
 
-	function auditorReply(ncr_id) {
-
-		$.ajax({
-			type : "POST",
-			url : "./ncrAuditorReply",
-			data : "ncr_id=" + ncr_id,
-			success : resultauditorreply,
-		});
-	}
-
-	function resultauditorreply(replya) {
-		$("#auditorReplyPop").html(replya);
-	}
-
-	function complete(ncr_id) {
-
-		$.ajax({
-			type : "POST",
-			url : "./ncrComplete",
-			data : "ncr_id=" + ncr_id,
-			success : resultComplete,
-		});
-	}
-
-	function resultComplete() {
-		$('#detailModal').modal('hide');
-	}
-
+	
 	function searchNcr() {
 		var params = $('#formNcrSearch').serialize();
 		$.ajax({
@@ -86,49 +59,7 @@ function vendorReply(ncr_id) {
 	function resultNcr(ncrList) {
 		$("#ncrListBox").html(ncrList);
 	}
-
-	function searchVendorId() {
-		var vendor_name = document.getElementById("vendor_name").value;
-
-		$.ajax({
-			type : "POST",
-			url : "./searchVendorId",
-			data : "vendor_name=" + vendor_name,
-			success : result,
-		});
-	}
-
-	function result(msg) {
-		$("#vendorList").html(msg);
-	}
-
-	function rowselect(vendor_name, vendor_id) {
-		$("#vendor_name").val(vendor_name);
-		$("#vendor_id").val(vendor_id);
-		$('#vendorSearchModal').modal('hide');
-	}
-
-	function searchIssuerId() {
-		var issuer_name = document.getElementById("issuer_name").value;
-		$.ajax({
-			type : "POST",
-			url : "./searchIssuerId",
-			data : "issuer_name=" + issuer_name,
-			success : result1,
-		});
-
-	}
-
-	function result1(msg1) {
-		$("#issuerList").html(msg1);
-	}
-
-	function rowselect1(issuer_name, issuer_id) {
-		$("#issuer_name").val(issuer_name);
-		$("#issuer_id").val(issuer_id);
-		$('#issuerSearchModal').modal('hide');
-
-	}
+	
 	function rowselectDetail(ncr_id) {
 		$.ajax({
 			type : "POST",
@@ -222,7 +153,7 @@ function vendorReply(ncr_id) {
 							<!--  detail 모달 시작 -->
 							<div class="modal fade" id="detailModal_vendor">
 								<div class="modal-dialog">
-									<div class="modal-content" style="max-width : 800px; ">									
+									<div class="modal-content" style="min-width : 800px; ">									
 										<!-- header -->
 										<div class="modal-header">
 											<!-- 닫기(x) 버튼 -->

@@ -65,7 +65,7 @@
 									</td>
 								<tr>
 									<td>File</td>
-									<tdcolspan=> <c:forEach var="f"
+									<td colspan=> <c:forEach var="f"
 										items="${uploadReplyFileList}">
 										<c:if test="${r.reply_id == f.reply_id}">
 											<a href="./upload2/${f.file_name}">${f.o_name}</a> &nbsp;&nbsp;
@@ -90,7 +90,7 @@
 <div class="modal-footer">
 
 	<button type="button" class="btn btn-default"
-		onclick="vendorReply(${b.ncr_id})">vendor reply</button>
+		onclick="vendorReply_vendor(${b.ncr_id})">vendor reply</button>
 	
 	<button type="button" class="btn btn-default" data-dismiss="modal">close</button>
 

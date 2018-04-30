@@ -10,39 +10,37 @@
 			<!-- /.panel-heading -->
 			<div class="panel-body">
 				<div class="table-responsive">
-					<form id="vendorReplyForm" action="./ncrVendorReplySave_vendor"
+					<form id="vendorReplyForm" action="./ncrVendorReplySave"
 						method="post" name="vendorReplyForm" enctype="multipart/form-data">
 
 						<table class="table">
 							<tr>
-								<td>Vendor Reply</td>
-							</tr>
-							<tr>
-								<td>Reply From</td>
-								<td>${issuer_id }</td>
-								<td>${issuer_name }</td>
+								<td colspan="3">Reply From Vendor : ${issuer_name }</td>
 								<input type="hidden" name="ncr_id" value=${ncr_id }>
 
 							</tr>
 							<tr>
-								<td>Comment</td>
-								<td colspan="4"><input type="textarea"
-									class="form-control col-sm-5" id="reply_description"
-									name="reply_description"></td>
-							<tr>
-								<td>file_upload</td>
-								<td colspan="5"><input type="file" multiple id="reply_file"
-									name="reply_file"></input></td>
-									<td><button type="button" class="btn btn-default"
-										onclick="vendorReplySave_vendor(${ncr_id })">Save</button></td>
+								<td>Comment
+								<form:form 	commandName="ncrReplyCommand">
+								<span style="font-size: 9pt; color: red;">
+								<form:errors path="reply_description" /></span>
+								</form:form></td>
+								<td><textarea class="form-control col-sm-5" rows="5" id="reply_description" name="reply_description"></textarea>
+									</td>
 								
+
 							</tr>
 
-
+							<tr>
+								<td>file_upload</td>
+								<td><input type="file" multiple id="reply_file"
+									name="reply_file"></input></td>
+								<td><button type="button" class="btn btn-default"
+										onclick="vendorReplySave(${ncr_id })">Save</button></td>
+								
+							</tr>
 						</table>
-
 					</form>
-
 				</div>
 			</div>
 		</div>

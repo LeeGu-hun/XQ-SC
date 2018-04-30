@@ -41,20 +41,11 @@ import spring.NcrIssueCommandValidator;
 @Controller
 public class NcrController {
 	private AuditService auditService;
-
-	public void setAuditService(AuditService auditService) {
-		this.auditService = auditService;
-	}
-
+	public void setAuditService(AuditService auditService) {this.auditService = auditService;}
 	private VendorService vendorService;
-
-	public void setVendorService(VendorService vendorService) {
-		this.vendorService = vendorService;
-	}
-
+	public void setVendorService(VendorService vendorService) {	this.vendorService = vendorService;	}
 	
 	private NcrService ncrService;
-
 	public void setNcrService(NcrService ncrService) {this.ncrService = ncrService;	}
 
 	@RequestMapping("/searchAuditPopup")
@@ -262,7 +253,7 @@ public class NcrController {
 		model.addAttribute("issuer_id", loginId);
 		model.addAttribute("issuer_name", loginName);
 		model.addAttribute("ncr_id",ncr_id);
-		return "ncr/ncrVedorReplyForm";
+		return "ncr/ncrVendorReplyForm";
 	}
 	
 	@RequestMapping(value = "/ncrVendorReply", method = RequestMethod.GET)
@@ -274,9 +265,20 @@ public class NcrController {
 		model.addAttribute("issuer_id", loginId);
 		model.addAttribute("issuer_name", loginName);
 		model.addAttribute("ncr_id",ncr_id);
-		return "ncr/ncrVedorReplyForm";
+		return "ncr/ncrVendorReplyForm";
 	}
 	
+	@RequestMapping(value = "/ncrVendorReply_vendor", method = RequestMethod.POST)
+	public String ncrVendorReplyVendor_post(HttpSession session, Model model,@RequestParam(defaultValue = "") String ncr_id) {		
+		
+		AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
+		String loginId = authInfo.getId();
+		String loginName = authInfo.getName();
+		model.addAttribute("issuer_id", loginId);
+		model.addAttribute("issuer_name", loginName);
+		model.addAttribute("ncr_id",ncr_id);
+		return "ncr/ncrVendorReplyForm_vendor";
+	}
 	
 	@RequestMapping(value = "/ncrVendorReplySave", method = RequestMethod.POST)
 	public String issue(NcrReplyCommand nrc, HttpSession session, HttpServletRequest request,			
@@ -306,7 +308,7 @@ public class NcrController {
 				
 				long fileSize = mf.get(i).getSize(); // 파일 사이즈
 				mf.get(i).transferTo(new File(savePath)); // 파일 저장
-				System.out.println("vendor Reply File" +savePath);
+				
 				ncrService.replyFileUpload(originalfileName, saveFileName, fileSize,Integer.parseInt(nrc.getNcr_id()));
 				
 			}

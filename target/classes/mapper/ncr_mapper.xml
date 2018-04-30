@@ -4,176 +4,163 @@
 
 <mapper namespace="ncrSQL">
 
-   <select id="getAuditList"  parameterType = "bean.NcrAuditSearchCommand" resultType="bean.NcrAuditListCommand">
-   
-      select a.audit_id,v.vendor_name,a.audit_comp_date,a.audit_kind_Id,ak.audit_kind,
-      a.audit_result,a.auditor_id,m.member_name
-      from audit_info a, vendor_info v, audit_kind ak, member_info m
-      where a.vendor_id=v.vendor_id and a.audit_kind_Id=ak.audit_kind_id and a.auditor_id=m.member_id
-      and v.vendor_name like '%'||#{vendorName}||'%'
-      
-    </select>    
-  
-	<insert id="ncrIssue" parameterType="bean.NcrBean">
-      insert into ncr_info values((select count(*)from ncr_info)+1,#{audit_id},#{issuer_id},
-      sysdate,null,'N',#{ncr_title},#{ncr_description},#{ncr_grade_id})  
-	</insert>
-	
-	<insert id="ncrFileUpload" parameterType="HashMap">
-    	INSERT INTO ncr_attach values((select count(*)from ncr_info),(select count(*)from ncr_attach)+1, #{originalfileName}, #{saveFileName},#{fileSize})
-    </insert>
+	<select id="getAuditList" parameterType="bean.NcrAuditSearchCommand"
+		resultType="bean.NcrAuditListCommand">
+		select
+		a.audit_id,v.vendor_name,a.audit_comp_date,a.audit_kind_Id,ak.audit_kind,
+		a.audit_result,a.auditor_id,m.member_name
+		from audit_info a, vendor_info v, audit_kind ak, member_info m
+		where a.vendor_id=v.vendor_id and a.audit_kind_Id=ak.audit_kind_id and
+		a.auditor_id=m.member_id
+		and v.vendor_name like '%'||#{vendorName}||'%'
+	</select>
 
-	<select id="getNcrList"  parameterType = "bean.NcrSearchCommand" resultType="bean.NcrBean">
-   				
-		 select n.ncr_id, n.ncr_title,n.ncr_comp , a.vendor_id, v.vendor_name, m.member_name as issuer_name ,g.ncr_grade_name, n.audit_id 
-		from ncr_info n , audit_info a, member_info m  ,ncr_grade g , vendor_info v
-     	where   n.audit_id=a.audit_id and n.issuer_id=m.member_id and n.ncr_grade_id=g.ncr_grade_id and v.vendor_id=a.vendor_id
-						
-			<if test="ncr_id!=null and ncr_id!='' ">
-				and n.ncr_id = #{ncr_id}
-			</if>
-			
-			<if test="ncr_title!=null and ncr_title!='' ">
-				and n.ncr_title like '%' || #{ncr_title} || '%'
-			</if>
-			<if test="vendor_id !=null and vendor_id !='' ">
-				 and v.vendor_name like '%' ||#{vendor_id} || '%'
-			</if>
-			<if test="issuer_id!=null and issuer_id!='' ">
-				 and m.member_name like '%' ||#{issuer_id}  || '%'				
-			</if>
-			
-			<if test="ncr_comp!='All'">
-				and n.ncr_comp= #{ncr_comp}
-			</if>
-			<if test="audit_id!=null and audit_id!=''">
-				and a.audit_id= #{audit_id}
-			</if>
-		
-			
-		
-			
-				
-    </select>  
-	
-	<select id="getVendorList"  parameterType = "String" resultType="bean.BeanVendor">   
-     select vendor_id,vendor_name from vendor_info where vendor_name like '%'||#{vendor_name}||'%'		      
-    </select>    
-	
-	
-	<select id="getIssuerList"  parameterType = "String" resultType="bean.BeanIssuer">   
-     select distinct n.issuer_id,m.member_name as issuer_name from ncr_info n, member_info m where m.member_id=n.issuer_id and m.member_name like '%'||#{isuer_name}||'%'		      
-    </select>  
-    
-    <select id="getNcrDetailList"  parameterType = "Int" resultType="bean.NcrBean">
-   		select n.ncr_id, n.audit_id,v.vendor_name,a.audit_comp_date,a.audit_kind_id,ak.audit_kind,a.audit_result
-        ,n.ncr_title,m.member_name as issuer_name,n.ncr_description,n.ncr_grade_id,n.ncr_comp 
-        from audit_info a, member_info m, ncr_info n, audit_kind ak, vendor_info v
-        where n.audit_id = a.audit_id and a.audit_kind_id = ak.audit_kind_id and m.member_id=n.issuer_id
-            and a.vendor_id = v.vendor_id and ncr_id=#{ncr_id}
-		
-    </select>  
-    
-     <select id="getFileList"  parameterType = "Int" resultType="bean.BeanNcrAttach">
-   		select * from ncr_attach where ncr_id=#{ncr_id}		
-    </select>  
-    
-    <update id="ncrComplete" parameterType="Int">
-      update ncr_info set ncr_comp='Y' ,ncr_comp_date= sysdate where ncr_id=#{ncr_id}  
+	<insert id="ncrIssue" parameterType="bean.NcrBean">
+		insert into ncr_info values((select count(*)from
+		ncr_info)+1,#{audit_id},#{issuer_id},
+		sysdate,null,'N',#{ncr_title},#{ncr_description},#{ncr_grade_id})
+	</insert>
+
+	<insert id="ncrFileUpload" parameterType="HashMap">
+		INSERT INTO ncr_attach values((select count(*)from ncr_info),(select
+		count(*)from ncr_attach)+1, #{originalfileName},
+		#{saveFileName},#{fileSize})
+	</insert>
+
+	<select id="getNcrList" parameterType="bean.NcrSearchCommand"
+		resultType="bean.NcrBean">
+		select n.ncr_id, n.ncr_title,n.ncr_comp , a.vendor_id, v.vendor_name,
+		m.member_name as issuer_name ,g.ncr_grade_name, n.audit_id
+		from ncr_info n , audit_info a, member_info m ,ncr_grade g , vendor_info v
+		where n.audit_id=a.audit_id and n.issuer_id=m.member_id and
+		n.ncr_grade_id=g.ncr_grade_id and v.vendor_id=a.vendor_id
+		<if test="ncr_id!=null and ncr_id!='' ">
+			and n.ncr_id = #{ncr_id}
+		</if>
+		<if test="ncr_title!=null and ncr_title!='' ">
+			and n.ncr_title like '%' || #{ncr_title} || '%'
+		</if>
+		<if test="vendor_id !=null and vendor_id !='' ">
+			and v.vendor_name like '%' ||#{vendor_id} || '%'
+		</if>
+		<if test="issuer_id!=null and issuer_id!='' ">
+			and m.member_name like '%' ||#{issuer_id} || '%'
+		</if>
+		<if test="ncr_comp!='All'">
+			and n.ncr_comp= #{ncr_comp}
+		</if>
+		<if test="audit_id!=null and audit_id!=''">
+			and a.audit_id= #{audit_id}
+		</if>
+	</select>
+
+	<select id="getVendorList" parameterType="String" resultType="bean.BeanVendor">
+		select vendor_id,vendor_name from vendor_info where vendor_name like
+		'%'||#{vendor_name}||'%'
+	</select>
+
+	<select id="getIssuerList" parameterType="String" resultType="bean.BeanIssuer">
+		select distinct n.issuer_id,m.member_name as issuer_name from ncr_info
+		n, member_info m where m.member_id=n.issuer_id and m.member_name like
+		'%'||#{isuer_name}||'%'
+	</select>
+
+	<select id="getNcrDetailList" parameterType="Int" resultType="bean.NcrBean">
+		select n.ncr_id,
+		n.audit_id,v.vendor_name,a.audit_comp_date,a.audit_kind_id,ak.audit_kind,a.audit_result
+		,n.ncr_title,m.member_name as
+		issuer_name,n.ncr_description,n.ncr_grade_id,n.ncr_comp
+		from audit_info a, member_info m, ncr_info n, audit_kind ak, vendor_info v
+		where n.audit_id = a.audit_id and a.audit_kind_id = ak.audit_kind_id
+		and m.member_id=n.issuer_id
+		and a.vendor_id = v.vendor_id and ncr_id=#{ncr_id}
+	</select>
+
+	<select id="getFileList" parameterType="Int" resultType="bean.BeanNcrAttach">
+		select * from ncr_attach where ncr_id=#{ncr_id}
+	</select>
+
+	<update id="ncrComplete" parameterType="Int">
+		update ncr_info set ncr_comp='Y' ,ncr_comp_date= sysdate where
+		ncr_id=#{ncr_id}
 	</update>
-	
+
 	<insert id="saveVendorReply" parameterType="bean.NcrReplyCommand">
-      insert into ncr_reply values(#{ncr_id},(select count(*)from ncr_reply)+1,sysdate,#{replier_id},
-      #{reply_description},'VENDOR')  
+		insert into ncr_reply values(#{ncr_id},(select count(*)from
+		ncr_reply)+1,sysdate,#{replier_id},
+		#{reply_description},'VENDOR')
 	</insert>
-	
+
 	<insert id="replyFileUpload" parameterType="HashMap">
-    	INSERT INTO reply_attach values((select count(*)from ncr_reply),(select count(*)from reply_attach)+1, #{originalfileName}, #{saveFileName},#{fileSize},#{ncr_id})
-    </insert>
-	
-	
-	 <select id="getReplyDetailList"  parameterType = "Int" resultType="bean.NcrReplyBean">
-   		select r.ncr_id,r.reply_id,r.replier_id,m.member_name as replier_name,r.reply_date,r.reply_description,r.reply_from
-		from ncr_reply r, member_info m 
-		where m.member_id=r.replier_id and ncr_id= #{ncr_id} order by reply_date desc
-		
-    </select>  
-	
-	<select id="getReplyFileList"  parameterType = "Int" resultType="bean.BeanReplyAttach">
-   		select * from reply_attach where ncr_id=#{ncr_id}		
-    </select> 
-	
-	<insert id="saveAuditorReply" parameterType="bean.NcrReplyCommand">
-      insert into ncr_reply values(#{ncr_id},(select count(*)from ncr_reply)+1,sysdate,#{replier_id},
-      #{reply_description},'AUDITOR')  
+		INSERT INTO reply_attach values((select count(*)from ncr_reply),(select
+		count(*)from reply_attach)+1, #{originalfileName},
+		#{saveFileName},#{fileSize},#{ncr_id})
 	</insert>
-	
-    <select id="auditPlanCnts" resultType="int">
-		select count(*) from(SELECT ROWNUM RNUM,
-		V.VENDOR_NAME, V.VENDOR_ADDRESS,
-		V.VENDOR_ID,
+
+	<select id="getReplyDetailList" parameterType="Int"
+		resultType="bean.NcrReplyBean">
+		select r.ncr_id,r.reply_id,r.replier_id,m.member_name as
+		replier_name,r.reply_date,r.reply_description,r.reply_from
+		from
+		ncr_reply r, member_info m
+		where m.member_id=r.replier_id and ncr_id= #{ncr_id} order by reply_date
+		desc
+	</select>
+
+	<select id="getReplyFileList" parameterType="Int"
+		resultType="bean.BeanReplyAttach">
+		select * from reply_attach where ncr_id=#{ncr_id}
+	</select>
+
+	<insert id="saveAuditorReply" parameterType="bean.NcrReplyCommand">
+		insert into ncr_reply values(#{ncr_id},(select count(*)from
+		ncr_reply)+1,sysdate,#{replier_id},
+		#{reply_description},'AUDITOR')
+	</insert>
+
+	<select id="auditPlanCnts" resultType="int">
+		select count(*) from(SELECT ROWNUM RNUM,V.VENDOR_NAME,
+		V.VENDOR_ADDRESS,V.VENDOR_ID,
 		V.AUDIT_RESULT,
-        P.PRODUCT_NAME,
-		V.VENDOR_Q_NAME,V.VENDOR_Q_TEL,
+		P.PRODUCT_NAME,V.VENDOR_Q_NAME,V.VENDOR_Q_TEL,
 		V.VENDOR_S_NAME,V.VENDOR_S_TEL,
-		V.AUDIT_NEXT_DATE,A.AUDIT_PLAN_DATE,
-		A.AUDIT_ID
-		FROM VENDOR_INFO V ,
-		(SELECT * FROM AUDIT_INFO WHERE
-		AUDIT_PLAN_DATE IS NULL
-		OR AUDITOR_ID IS NULL) A,
-        PRODUCT_ITEM P
-		WHERE V.VENDOR_ID =
-		A.VENDOR_ID
-        AND V.PRODUCT_ID = P.PRODUCT_ID
-		AND V.AUDIT_NEXT_DATE IS NULL OR V.AUDIT_NEXT_DATE  <![CDATA[ <= ]]>
+		V.AUDIT_NEXT_DATE,A.AUDIT_PLAN_DATE,A.AUDIT_ID
+		FROM VENDOR_INFO V ,(SELECT * FROM AUDIT_INFO WHERE AUDIT_PLAN_DATE IS
+		NULL OR AUDITOR_ID IS NULL) A,
+		PRODUCT_ITEM P
+		WHERE V.VENDOR_ID = A.VENDOR_ID AND V.PRODUCT_ID = P.PRODUCT_ID AND
+		V.AUDIT_NEXT_DATE IS NULL
+		OR V.AUDIT_NEXT_DATE  <![CDATA[ <= ]]>
 		TO_DATE(SYSDATE+30))
 	</select>
-    
-	<select id="auditRinputCnts" resultType="int">
-		select count(*)from (SELECT
-		ROWNUM RNUM,
-		AU.AUDIT_ID,
-		V.VENDOR_NAME,
-		V.VENDOR_ID,
-		C.CATEGORY_NAME,
-		V.VENDOR_ADDRESS,
-		P.PRODUCT_NAME,
-		P.PRODUCT_ID,
-		Au.AUDIT_PLAN_DATE,
-		Au.AUDIT_KIND_ID,
-		M. MEMBER_NAME,
-		M.MEMBER_ID
-		FROM
-		VENDOR_INFO V,
-		PRODUCT_ITEM P,
-		AUDIT_INFO AU,
-		MEMBER_INFO M,
-		CATEGORY_INFO C
 
-		WHERE
-		M.MEMBER_ID = AU.AUDITOR_ID
-		AND V.VENDOR_ID =
-		AU.VENDOR_ID
+	<select id="auditRinputCnts" resultType="int">
+		select count(*)from
+		(SELECT ROWNUM RNUM,AU.AUDIT_ID,V.VENDOR_NAME,
+		V.VENDOR_ID,C.CATEGORY_NAME,
+		V.VENDOR_ADDRESS,P.PRODUCT_NAME,P.PRODUCT_ID,Au.AUDIT_PLAN_DATE,Au.AUDIT_KIND_ID,M.
+		MEMBER_NAME,
+		M.MEMBER_ID FROM VENDOR_INFO V, PRODUCT_ITEM P, AUDIT_INFO
+		AU, MEMBER_INFO M, CATEGORY_INFO C
+		WHERE M.MEMBER_ID = AU.AUDITOR_ID
+		AND V.VENDOR_ID =AU.VENDOR_ID AND P.PRODUCT_ID = V.PRODUCT_ID
 		AND
-		P.PRODUCT_ID = V.PRODUCT_ID
-		AND P.CATEGORY_ID =
-		C.CATEGORY_ID
-		AND
-		AU.AUDIT_PLAN_DATE IS NOT NULL
-		and au.audit_id not in
+		P.CATEGORY_ID = C.CATEGORY_ID AND AU.AUDIT_PLAN_DATE IS NOT NULL and
+		au.audit_id not in
 		(select audit_id from audit_result))
-		
 	</select>
-	
+
 	<select id="ncrCnts" resultType="int">
-		select count(*) from ncr_info where ncr_comp = 'N' 
+		select count(*) from ncr_info
+		where ncr_comp = 'N'
 	</select>
-	
-	<select id="ncrImcompList"  resultType="bean.NcrBean">   
-     select n.ncr_id, n.audit_id ,a.vendor_id ,v.vendor_name ,n.ncr_title,n.ncr_description,m.member_name as issuer_name
-	from ncr_info n, audit_info a,vendor_info v,member_info m 
-	where n.audit_id = a.audit_id and a.vendor_id=v.vendor_id and n.issuer_id=m.member_id and n.ncr_comp='N' 	      
-    </select>  
-	
+
+	<select id="ncrImcompList" resultType="bean.NcrBean">
+		select n.ncr_id, n.audit_id ,a.vendor_id ,v.vendor_name
+		,n.ncr_title,n.ncr_description,m.member_name as issuer_name
+		from ncr_info n, audit_info a,vendor_info v,member_info m
+		where n.audit_id = a.audit_id and a.vendor_id=v.vendor_id and
+		n.issuer_id=m.member_id and n.ncr_comp='N' order by ncr_id
+	</select>
+
 </mapper>
