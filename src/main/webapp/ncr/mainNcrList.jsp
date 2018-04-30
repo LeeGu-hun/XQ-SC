@@ -7,7 +7,7 @@
 <div class="row">
 	<div class="col-lg-12">
 		<div class="panel panel-default" >
-			<div class="panel-heading">Ncr to be</div>
+			<div class="panel-heading">Ncr to be closed</div>
 			<!-- /.panel-heading -->
 			<div class="panel-body">
 				<div class="table-responsive" style="max-height:600px">

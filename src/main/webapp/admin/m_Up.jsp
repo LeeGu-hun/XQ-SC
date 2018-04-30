@@ -5,7 +5,7 @@
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
 <form:form commandName="MemberCommand" method="post" action="MSet?state=1">
-	<table class="table">
+	<table class="table" style="margin: 0">
 		<tbody>
 			<tr>
 				<td colspan="7" align="center">
@@ -34,7 +34,7 @@
 				</td>
 				<td>
 					<label><b>EMAIL</b></label><br>
-					<form:input path="MEMBER_EMAIL" value="${selMember.MEMBER_EMAIL}" style=" width:180pt;" class="form-control"/>
+					<form:input path="MEMBER_EMAIL" value="${selMember.MEMBER_EMAIL}" style=" width:170pt;" class="form-control"/>
 				</td>
 				<td>
 					<label><b>PASSWORD</b></label><br>
@@ -50,10 +50,6 @@
 					<a href="javascript:inMemForm()">CANCEL</a>
 					<br>
 					<span id="mInUp" style="font-size:9pt;color:red;"></span>
-				</td>
-			</tr>
-			<tr>
-				<td colspan="7" align="right">
 				</td>
 			</tr>
 		</tbody>

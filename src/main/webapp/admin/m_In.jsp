@@ -6,7 +6,7 @@
 
 
 <form:form commandName="MemberCommand" method="post" action="MSet?state=0">
-	<table class="table">
+	<table class="table" style="margin: 0">
 		<tbody>
 			<tr>
 				<td>
@@ -27,7 +27,7 @@
 				<td>
 					<br>
 					<label><b>EMAIL</b></label><br>
-					<form:input path="MEMBER_EMAIL" class="form-control" style=" width:180pt;"/>
+					<form:input path="MEMBER_EMAIL" class="form-control" style=" width:170pt;"/>
 					
 				</td>
 				<td>
@@ -55,10 +55,6 @@
 					<input type="button" class="btn btn-default" value="REGISTER" onclick="mInsert()" 
 					style=" width:90pt; height: 30pt"><br>
 					<span id="mInUp" style="font-size:9pt;color:red;"></span>
-				</td>
-			</tr>
-			<tr>
-				<td colspan="7" align="right">
 				</td>
 			</tr>
 		</tbody>

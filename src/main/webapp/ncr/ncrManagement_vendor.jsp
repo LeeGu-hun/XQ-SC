@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 <!DOCTYPE html>
-
 <link rel="stylesheet"
 	href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css"
 	type="text/css" />
@@ -22,22 +22,24 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-<link href="<c:url value="/css/sb-admin-2.css" />" rel="stylesheet">
 
 <script>
-	function vendorReplySave_vendor(ncr_id) {
-		vendorReplyForm.submit(ncr_id);
-	}
 
-	function vendorReply(ncr_id) {
 
-		$.ajax({
-			type : "POST",
-			url : "./ncrVendorReply",
-			data : "ncr_id=" + ncr_id,
-			success : resultvendorreply,
-		});
-	}
+function vendorReplySave(ncr_id) {
+	vendorReplyForm.submit(ncr_id);
+}
+
+
+function vendorReply(ncr_id) {
+
+	$.ajax({
+		type : "POST",
+		url : "./ncrVendorReply",
+		data : "ncr_id=" + ncr_id,
+		success : resultvendorreply,
+	});
+}
 
 	function resultvendorreply(reply) {
 		$("#vendorReplyPop").html(reply);
@@ -145,6 +147,27 @@
 		});
 	}
 </script>
+<style>
+.modal-dialog {
+	display: inline-block;
+	text-align: left;
+	vertical-align: middle;
+	height: 600px;
+}
+
+.modal {
+	text-align: center;
+}
+
+@media screen and (min-width: 768px) {
+	.modal:before {
+		display: inline-block;
+		vertical-align: middle;
+		content: " ";
+		height: 100%;
+	}
+}
+</style>
 <html lang="ko">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -160,7 +183,7 @@
 					<div class="panel-heading">NCR Management</div>
 					<!-- /.panel-heading -->
 					<div class="panel-body">
-						<div class="table-responsive" style="max-height: 600px">
+						<div class="table-responsive" style="max-height: 800px">
 
 							<div>
 								[검색조건]
@@ -191,10 +214,7 @@
 									</table>
 								</form>
 							</div>
-							<div id="ncrListBox"></div>
-
-
-
+							<div id="ncrListBox" class="table-responsive" style="max-height:800px"></div>
 							
 
 
@@ -202,7 +222,7 @@
 							<!--  detail 모달 시작 -->
 							<div class="modal fade" id="detailModal_vendor">
 								<div class="modal-dialog">
-									<div class="modal-content">
+									<div class="modal-content" style="max-width : 800px; ">									
 										<!-- header -->
 										<div class="modal-header">
 											<!-- 닫기(x) 버튼 -->
@@ -211,21 +231,25 @@
 											<h4 class="modal-title">NCR Detail</h4>
 										</div>
 										<!-- body -->
-										<div class="modal-body">
-											<div id="ncrDetailBox"></div>
+										<div class="modal-body" style="max-height:600px ; overflow:auto ;">
+											<div id="ncrDetailBox" ></div>
 
 										</div>
 										<!-- Footer -->
 
 									</div>
 								</div>
-							</div>
-						</div>
+
 					</div>
+	<!--  모달 끝 -->
+	
+	
+	
+	
+	
 				</div>
 			</div>
 		</div>
 	</div>
-	<!--  모달 끝 -->
 </body>
 </html>

@@ -118,160 +118,160 @@
 </head>
 
 <body>
-    
-	<%@ include file="/include/header.jsp"%><br>
-<div class="container" >
-	<br><br>
-	<div align="right">UNREGISTERED VENDOR : <b>${map.ingmem}</b>&nbsp;&nbsp;&nbsp;&nbsp;</div>
-	<table class="table table-striped table-bordered table-hover"
-	style="border-collapse:collapse; width:100%">
-		<thead style="float:left; width:98.74%;">
-			<tr align="center" valign="middle" style="display:table; width:100%;">
-				<th style="width:15%;">
-					<div align="center">DEPART</div>
-				</th>
-				<th style="width:10%;">
-					<div align="center">NAME</div>
-				</th>
-				<th style="width:27%;">
-					<div align="center">EMAIL</div>
-				</th>
-				<th style="width:25%;">
-					<div align="center">TEL</div>
-				</th>
-				<th style="width:8%;">
-					<div align="center">VALID</div>
-				</th>
-				<th style="width:15%;">
-					<div align="center">ID</div>
-				</th>
-			</tr>
-		</thead>
-		<tbody style="overflow-y:auto; overflow-x:hidden; float:left; width:100%; height:90px">	
-			<c:forEach var="m" items="${map.ingMemberList}">
-				<tr onclick="upMemForm('${m.MEMBER_ID}')" style="display:table; width:100%;">
-					<td style="width:15%;">
-						<div align="center">
-							${m.MEMBER_DEPART}
-						</div>
-					</td>
-					<td style="width:10%;">
-						<div align="center">
-							${m.MEMBER_NAME}
-						</div>
-					</td>
-					<td style="width:27%;">
-						<div align="center">
-							${m.MEMBER_EMAIL}
-						</div>
-					</td>
-					<td style="width:25%;">
-						<div align="center">
-							${m.MEMBER_TEL}
-						</div>
-					</td>
-					<td style="width:8%;">
-						<div align="center">
-							${m.MEMBER_VALID}
-						</div>
-					</td>
-					<td style="width:15%;">
-						<div align="center">
-							${m.MEMBER_ID}
-						</div>
-					</td>
-				</tr>
-			</c:forEach>
-		</tbody>
-	</table>
-	<div id="mInUpForm"><%@include file="/admin/m_In.jsp" %></div>
-	<div align="center" style="background-color:#c3c6cc">
-		<br>
-		<%@include file="/admin/m_S.jsp" %><b><a href="./MSet">VIEW ALL</a></b>
-		<br>
-		<br>
-	</div>
-	<table class="table table-striped table-bordered table-hover">
-		<thead>
-			<tr align="center" valign="middle">
-				<th>
-					<div align="center">DEPART</div>
-				</th>
-				<th>
-					<div align="center">NAME</div>
-				</th>
-				<th>
-					<div align="center">EMAIL</div>
-				</th>
-				<th>
-					<div align="center">TEL</div>
-				</th>
-				<th>
-					<div align="center">PASSWORD</div>
-				</th>
-				<th>
-					<div align="center">VALID</div>
-				</th>
-				<th>
-					<div align="center">ID</div>
-				</th>
-			</tr>
-		</thead>
-		<tbody>
-			<c:forEach var="m" items="${map.getMemList}">
-				<tr onclick="upMemForm('${m.MEMBER_ID}')">
-					<td>
-						<div align="center">
-							${m.MEMBER_DEPART}
-						</div>
-					</td>
-					<td>
-						<div align="center">
-							${m.MEMBER_NAME}
-						</div>
-					</td>
-					<td>
-						<div align="center">
-							${m.MEMBER_EMAIL}
-						</div>
-					</td>
-					<td>
-						<div align="center">
-							${m.MEMBER_TEL}
-						</div>
-					</td>
-					<td>
-						<div align="center">
-							${m.MEMBER_PASS}
-						</div>
-					</td>
-					<td>
-						<div align="center">
-							${m.MEMBER_VALID}
-						</div>
-					</td>
-					<td>
-						<div align="center">
-							${m.MEMBER_ID}
-						</div>
-					</td>
-				</tr>
-			</c:forEach>
-			<tr align=center height=20>
-				<td colspan=7 style="font-family: Tahoma; font-size: 10pt;">
-					<jsp:include page="/admin/paging.jsp" flush="true">
-						<jsp:param name="firstPageNo" value="${paging.firstPageNo}" />
-						<jsp:param name="prevPageNo" value="${paging.prevPageNo}" />
-						<jsp:param name="startPageNo" value="${paging.startPageNo}" />
-						<jsp:param name="pageNo" value="${paging.pageNo}" />
-						<jsp:param name="endPageNo" value="${paging.endPageNo}" />
-						<jsp:param name="nextPageNo" value="${paging.nextPageNo}" />
-						<jsp:param name="finalPageNo" value="${paging.finalPageNo}" />
-					</jsp:include>
-				</td>
-			</tr>
-		</tbody>
-	</table>
-</div>
+	<%@ include file="/include/header.jsp"%>
+	<div>&nbsp;</div>
+	<div id=mainBox class="container"><div class="row"><div class="col-lg-12"><div class="panel panel-default">
+		<div class="panel-heading">Member Management</div>
+		<div class="panel-body">
+			<div align="right">UNREGISTERED VENDOR : <b>${map.ingmem}</b>&nbsp;&nbsp;&nbsp;&nbsp;</div>
+			<table class="table table-striped table-bordered table-hover"
+			style="border-collapse:collapse; width:100%; margin: 2px 0">
+				<thead style="float:left; width:98.60%;">
+					<tr align="center" valign="middle" style="display:table; width:100%;">
+						<th style="width:15%;">
+							<div align="center">DEPART</div>
+						</th>
+						<th style="width:10%;">
+							<div align="center">NAME</div>
+						</th>
+						<th style="width:27%;">
+							<div align="center">EMAIL</div>
+						</th>
+						<th style="width:25%;">
+							<div align="center">TEL</div>
+						</th>
+						<th style="width:8%;">
+							<div align="center">VALID</div>
+						</th>
+						<th style="width:15%;">
+							<div align="center">ID</div>
+						</th>
+					</tr>
+				</thead>
+				<tbody style="overflow-y:auto; overflow-x:hidden; float:left; width:100%; height:90px">	
+					<c:forEach var="m" items="${map.ingMemberList}">
+						<tr onclick="upMemForm('${m.MEMBER_ID}')" style="display:table; width:100%;">
+							<td style="width:15%;">
+								<div align="center">
+									${m.MEMBER_DEPART}
+								</div>
+							</td>
+							<td style="width:10%;">
+								<div align="center">
+									${m.MEMBER_NAME}
+								</div>
+							</td>
+							<td style="width:27%;">
+								<div align="center">
+									${m.MEMBER_EMAIL}
+								</div>
+							</td>
+							<td style="width:25%;">
+								<div align="center">
+									${m.MEMBER_TEL}
+								</div>
+							</td>
+							<td style="width:8%;">
+								<div align="center">
+									${m.MEMBER_VALID}
+								</div>
+							</td>
+							<td style="width:15%;">
+								<div align="center">
+									${m.MEMBER_ID}
+								</div>
+							</td>
+						</tr>
+					</c:forEach>
+				</tbody>
+			</table>
+			<div id="mInUpForm"><%@include file="/admin/m_In.jsp" %></div>
+			<div align="center" style="background-color:#dedfe2; padding: 3px 0">
+				<%@include file="/admin/m_S.jsp" %><b><a href="./MSet">VIEW ALL</a></b>
+				<br>
+			</div>
+			<table class="table table-striped table-bordered table-hover" style="margin: 0">
+				<thead>
+					<tr align="center" valign="middle">
+						<th>
+							<div align="center">DEPART</div>
+						</th>
+						<th>
+							<div align="center">NAME</div>
+						</th>
+						<th>
+							<div align="center">EMAIL</div>
+						</th>
+						<th>
+							<div align="center">TEL</div>
+						</th>
+						<th>
+							<div align="center">PASSWORD</div>
+						</th>
+						<th>
+							<div align="center">VALID</div>
+						</th>
+						<th>
+							<div align="center">ID</div>
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach var="m" items="${map.getMemList}">
+						<tr onclick="upMemForm('${m.MEMBER_ID}')">
+							<td>
+								<div align="center">
+									${m.MEMBER_DEPART}
+								</div>
+							</td>
+							<td>
+								<div align="center">
+									${m.MEMBER_NAME}
+								</div>
+							</td>
+							<td>
+								<div align="center">
+									${m.MEMBER_EMAIL}
+								</div>
+							</td>
+							<td>
+								<div align="center">
+									${m.MEMBER_TEL}
+								</div>
+							</td>
+							<td>
+								<div align="center">
+									${m.MEMBER_PASS}
+								</div>
+							</td>
+							<td>
+								<div align="center">
+									${m.MEMBER_VALID}
+								</div>
+							</td>
+							<td>
+								<div align="center">
+									${m.MEMBER_ID}
+								</div>
+							</td>
+						</tr>
+					</c:forEach>
+					<tr align=center height=20>
+						<td colspan=7 style="font-family: Tahoma; font-size: 10pt;">
+							<jsp:include page="/admin/paging.jsp" flush="true">
+								<jsp:param name="firstPageNo" value="${paging.firstPageNo}" />
+								<jsp:param name="prevPageNo" value="${paging.prevPageNo}" />
+								<jsp:param name="startPageNo" value="${paging.startPageNo}" />
+								<jsp:param name="pageNo" value="${paging.pageNo}" />
+								<jsp:param name="endPageNo" value="${paging.endPageNo}" />
+								<jsp:param name="nextPageNo" value="${paging.nextPageNo}" />
+								<jsp:param name="finalPageNo" value="${paging.finalPageNo}" />
+							</jsp:include>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div></div></div></div>
 </body>
 </html>

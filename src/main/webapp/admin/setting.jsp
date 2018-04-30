@@ -188,87 +188,90 @@
 </head>
 
 <body>
-	<%@ include file="/include/header.jsp"%><br>
-<div class="container" >
-		<br><br><br><br>
-	<div id = "auditSet" align="center" style="overflow: hidden;">
-		<div class="well well-sm" data-target="#aPeriodModal" data-toggle="modal" 
-		style="float:left; height:80%; width:300px; margin: 0 30px">
-			<h4><b>Audit Period</b></h4><p><b>${map.auditPeriod}</b> YEARS</p>
-		</div>
-		<div class="well well-sm" data-target="#scoreModal" data-toggle="modal" 
-		style="float:right; height:80%; width:300px; margin: 0 30px">
-			<h4><b>Audit Cut-off Score</b></h4><p><b>${map.score}</b> POINTS</p>
-		</div>
-	</div>
-	<div id = "aform" align="center">
-		<div id ="cform" align="center">
-			<div>
-				<span id ="cateInUp">
-					<%@include file="/admin/set_cateIn.jsp" %>
-				</span>
+	<%@ include file="/include/header.jsp"%>
+<div>&nbsp;</div>
+	<div id=mainBox class="container"><div class="row"><div class="col-lg-12"><div class="panel panel-default">
+		<div class="panel-heading">System Configuration</div>
+		<div class="panel-body">
+			<div id = "auditSet" align="center" style="overflow: hidden;">
+				<div class="well well-sm" data-target="#aPeriodModal" data-toggle="modal" 
+				style="float:left; height:80%; width:300px; margin: 0 30px">
+					<h4><b>Audit Period</b></h4><p><b>${map.auditPeriod}</b> YEARS</p>
+				</div>
+				<div class="well well-sm" data-target="#scoreModal" data-toggle="modal" 
+				style="float:right; height:80%; width:300px; margin: 0 30px">
+					<h4><b>Audit Cut-off Score</b></h4><p><b>${map.score}</b> POINTS</p>
+				</div>
+			</div>
+			<div id = "aform" align="center">
+				<div id ="cform" align="center">
+					<div>
+						<span id ="cateInUp">
+							<%@include file="/admin/set_cateIn.jsp" %>
+						</span>
+					</div>
+				</div>
+				<div id ="pform" align="center">
+					<span id ="prodInUp">
+						<%@include file="/admin/set_prodIn.jsp" %>
+					</span>
+				</div>
+			</div>
+			<div id = "product" align="center">
+				<div id ="cate">
+					<p align="right">
+						A total of <b>${map.cateCount}</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					</p>
+					<table class="table table-striped table-bordered table-hover"
+					style="border-collapse:collapse; width:95%">
+						<thead style="float:left; width:100%;">
+							<tr align="center" valign="middle" style="display:table; width:100%;">
+								<th style="width:120px;">
+									<div align="center">VALID</div>
+								</th>
+								<th>
+									<div align="center">CATEGORY</div>
+								</th>
+							</tr>
+						</thead>
+						<tbody style="overflow-y:auto; overflow-x:hidden; float:left; width:100%; height:400px">
+							<c:forEach var="cate" items="${cateList}">
+								<tr onclick="cateUpdateForm('${cate.CATEGORY_ID}')" align="center" valign="middle" style="display:table; width:100%;">
+									<td style="width:120px;">
+										<div align="center">${cate.CATEGORY_VALID}</div>
+									</td>
+									<td>
+										<div align="center">${cate.CATEGORY_NAME}</div>
+									</td>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
+				</div>
+				<div id ="prod">
+					<p align="right">
+						A total of <b>${map.prodCount}</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					</p>
+					<table class="table table-striped table-bordered table-hover"
+					style="border-collapse:collapse; width:95%">
+						<thead style="float:left; width:100%;">
+							<tr align="center" valign="middle" style="display:table; width:100%;">
+								<th style="width:120px;">
+									<div align="center">VALID</div>
+								</th>
+								<th>
+									<div align="center">PRODUCT</div>
+								</th>
+							</tr>
+						</thead>
+						<tbody id = "prodList" style="overflow-y:auto; overflow-x:hidden; float:left; width:100%; height:400px">
+							<%@include file="/admin/set_prodList.jsp" %>
+						</tbody>
+					</table>
+				</div>
 			</div>
 		</div>
-		<div id ="pform" align="center">
-			<span id ="prodInUp">
-				<%@include file="/admin/set_prodIn.jsp" %>
-			</span>
-		</div>
-	</div>
-	<div id = "product" align="center">
-		<div id ="cate">
-			<p align="right">
-				A total of <b>${map.cateCount}</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			</p>
-			<table class="table table-striped table-bordered table-hover"
-			style="border-collapse:collapse; width:95%">
-				<thead style="float:left; width:100%;">
-					<tr align="center" valign="middle" style="display:table; width:100%;">
-						<th style="width:120px;">
-							<div align="center">VALID</div>
-						</th>
-						<th>
-							<div align="center">CATEGORY</div>
-						</th>
-					</tr>
-				</thead>
-				<tbody style="overflow-y:auto; overflow-x:hidden; float:left; width:100%; height:400px">
-					<c:forEach var="cate" items="${cateList}">
-						<tr onclick="cateUpdateForm('${cate.CATEGORY_ID}')" align="center" valign="middle" style="display:table; width:100%;">
-							<td style="width:120px;">
-								<div align="center">${cate.CATEGORY_VALID}</div>
-							</td>
-							<td>
-								<div align="center">${cate.CATEGORY_NAME}</div>
-							</td>
-						</tr>
-					</c:forEach>
-				</tbody>
-			</table>
-		</div>
-		<div id ="prod">
-			<p align="right">
-				A total of <b>${map.prodCount}</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			</p>
-			<table class="table table-striped table-bordered table-hover"
-			style="border-collapse:collapse; width:95%">
-				<thead style="float:left; width:100%;">
-					<tr align="center" valign="middle" style="display:table; width:100%;">
-						<th style="width:120px;">
-							<div align="center">VALID</div>
-						</th>
-						<th>
-							<div align="center">PRODUCT</div>
-						</th>
-					</tr>
-				</thead>
-				<tbody id = "prodList" style="overflow-y:auto; overflow-x:hidden; float:left; width:100%; height:400px">
-					<%@include file="/admin/set_prodList.jsp" %>
-				</tbody>
-			</table>
-		</div>
-	</div>
-</div>
+	</div></div></div></div>
 	
 	<div class="modal fade" id="aPeriodModal">
 		<div class="modal-dialog" align="center">
@@ -329,9 +332,5 @@
 			</div>
 		</div>
 	</div>
-
 </body>
-
-
-
 </html>
