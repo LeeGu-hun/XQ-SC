@@ -22,7 +22,7 @@
 		<tr> 
 				<td nowrap>Audit Date : ${d.AUDIT_COMP_DATE}</td>
 				<td nowrap>Insert Date : ${d.AUDIT_RSINPUT_DATE}</td>
-				<td nowrap>Auditor : ${auditor} (${auditorId })</td>
+				<td nowrap>Auditor : ${d.MEMBER_NAME }</td>
 				<td nowrap>NCR Progress : ${ncrCountComp} / ${ncrCount}</td>
 		</tr>
 		</c:forEach>

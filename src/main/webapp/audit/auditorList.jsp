@@ -17,7 +17,6 @@
 					<c:forEach var="a" items="${auditorList}">
 						<tr onclick="rowselect1('${a.MEMBER_NAME}'
 							,'${a.AUDITOR_ID}','${index}')">									
-							
 							<td>${a.MEMBER_NAME}</td>
 							<td>${a.AUDITOR_ID}</td>
 						</tr>

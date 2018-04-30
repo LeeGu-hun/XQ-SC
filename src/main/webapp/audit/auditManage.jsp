@@ -121,25 +121,26 @@
 <body>
 	<%@ include file="/include/header.jsp"%><br>
 	<div>&nbsp;</div>
-	<div class="container" style="min-width: 1500px">
+	<div class="container" style="width:1440px;">
 		<div class="row">
 			<div class="col-lg-15">
 				<div class="panel panel-default">
 					<div class="panel-heading">Audit Plan</div>
 					<!-- /.panel-heading -->
 					<div class="panel-body">
-						<div class="container" style="font-family: Tahomsa;">
+						<p>
+						<div class="container" style="font-family: Tahomsa;width:1400px; ">
 		Total: <a href='./AuditManage'><span>${allCount}</span></a>
 		</font> <br> <br> <span id="result">
-<div class="table-responsive" style="max-height: 700px; min-width: 1200px">
-			<table class="table table-hover" style="max-width: 1000px; margin: auto;">
-					<th style="text-align: center; ">No</th>
+				<div class="table-responsive" style="height: 700px;">
+			<table class="table table-hover" style="width: 80%;">
+					<th style="text-align: center;">No</th>
 					<th style="text-align: center;">ID</th>
-					<th style="text-align: center; ">Vendor</th>
+					<th style="text-align: center;">Vendor</th>
 					<th style="text-align: center;">Type</th>
-					<th style="text-align: center; ">Quality Manager</th>
-					<th style="text-align: center; ">Product</th>
-					<th style="text-align: center; ">Address</th>
+					<th style="text-align: center; max-width: 200px">Quality Manager</th>
+					<th style="text-align: center;">Product</th>
+					<th style="text-align: center; max-width: 200px" >Address</th>
 					<th style="text-align: center;">Auditor</th>
 					<th style="text-align: center;">Plan Date</th>
 					<th style="text-align: center;">Submit</th>
@@ -148,25 +149,25 @@
 			 -->
 			 
 			<c:forEach var="audit" items="${listBean}" varStatus="status">
-					<form action="./audit/auditManage" method="POST" name="form">
+					<form action="./AuditManage" method="POST" name="form">
 						<tr align="center" valign="middle" bordercolor="#333333">
-							<td nowrap style="font-family: Tahoma; font-size: 11pt;"
+							<td nowrap style="font-family: Tahoma; font-size: 12pt;"
 								height="">
 								<div align="center">${audit.RNUM}</div>
 							</td>
-							<td nowrap style="font-family: Tahoma; font-size: 11pt;">
-								<div align="center" style="width: ">${audit.AUDIT_ID}
+							<td nowrap style="font-family: Tahoma; font-size: 12pt;">
+								<div align="center">${audit.AUDIT_ID}
 									<input type="hidden" value="${audit.AUDIT_ID}"
 										readonly="readonly" name="AUDIT_ID">
 								</div>
 							</td>
-							<td nowrap style="font-family: Tahoma; font-size: 11pt;">
-								<div align="center">${audit.VENDOR_NAME}</div>
+							<td nowrap style="font-family: Tahoma; font-size: 12pt;">
+								<div align="center">${audit.VENDOR_NAME}(${audit.VENDOR_ID})</div>
 								<input type="hidden" value="${audit.VENDOR_ID}"
 										readonly="readonly" name="VENDOR_ID">
 							</td>
 
-							<td nowrap style="font-family: Tahoma; font-size: 11pt;">
+							<td nowrap style="font-family: Tahoma; font-size: 12pt;">
 								<div align="center">
 									<c:if test="${audit.AUDIT_NEXT_DATE == null }">
 									NE
@@ -180,41 +181,32 @@
 									</c:if>
 								</div>
 							</td>
-							<td nowrap style="font-family: Tahoma; font-size: 11pt;">
+							<td nowrap style="font-family: Tahoma; font-size: 12pt;">
 								<div align="center">${audit.VENDOR_Q_NAME}(${audit.VENDOR_Q_TEL})</div>
 							</td>
-							<td nowrap style="font-family: Tahoma; font-size: 11pt;">
+							<td nowrap style="font-family: Tahoma; font-size: 12pt;">
 								<div align="center">${audit.PRODUCT_NAME}</div>
 							</td>
-							<td nowrap style="font-family: Tahoma; font-size: 11pt;">
+							<td nowrap style="font-family: Tahoma; font-size: 12pt;">
 								<div align="center">${audit.VENDOR_ADDRESS}</div>
 							</td>
-							<td nowrap style="font-family: Tahoma; font-size: 11pt;"><script>
+							<td nowrap style="font-family: Tahoma; font-size: 12pt;"><script>
 						
 						</script>
 								<div align="center">
 									<input type="text" name="AUDITOR_ID" id="AUDITOR_ID"
-										data-toggle="modal" onclick="auditorSearch(${status.index })" 
-										style="height: 30px; width: 50px"/>
+										data-toggle="modal" onclick="auditorSearch(${status.index})" 
+										style="height: 30px; width: 100px"/>
 								</div></td>
-							<td nowrap style="font-family: Tahoma; font-size: 11pt;">
+							<td nowrap style="font-family: Tahoma; font-size: 12pt;">
 								<div align="center">
 									<input type="date" name="AUDIT_PLAN_DATE" id="AUDIT_PLAN_DATE"
 									style="height: 30px; width: 140px">
 								</div>
 							</td>
 
-							<td nowrap style="font-family: Tahoma; font-size: 11pt; width: 50px"><input
-								type="submit" value="Submit"  class="btn btn-default" /></td>
-								<!-- 
-								<td><a
-								href="audit/auditPlan?vendorname=${audit.VENDOR_NAME}
-								&vendorid=$${audit.VENDOR_ID}"
-								data-toggle="modal"
-								data-target="#myModal"  
-								style="text-decoration: underline;"
-								>Register</a></td>
-								 -->
+							<td nowrap style="font-family: Tahoma; font-size: 12pt;"><input
+								type="submit" value="submit"  class="btn btn-default" /></td>
 						</tr>
 					</form>
 				</c:forEach>
@@ -234,7 +226,7 @@
 						<h4 class="modal-title">Auditor Search</h4>
 					</div>
 					<!-- body -->
-					<div class="modal-body" style="height:200px; overflow-y: scroll;" >
+					<div class="modal-body" style="height:500px; overflow-y: scroll;" >
 						<div>
 							<form id="formSearchauditor" name="formSearchAuditor"
 								method="post">
@@ -242,7 +234,7 @@
 									<tr>
 										<td>Auditor Name: <input type="text" name="auditor_name"
 											id="auditor_name" /></td>
-										<input type="hidden" name="index" id="index" value="" />
+										<input type="hidden" name="index" id="index" value=""/>
 
 										<td><input class="button" type="button" value="Search"
 											id="btnsearch" onclick="searchAuditorId(index.value)"

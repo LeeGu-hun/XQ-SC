@@ -68,19 +68,18 @@ public class AuditController {
 		
 	}
 
-	// plan date, auditor insert pagexxxx
-	@RequestMapping(value = "/audit/auditManage", method = RequestMethod.POST)
-	public String auditManagePost(Model model, AuditCommand ac, AuditBean auditBean) {
-		List<AuditBean> auditBeans = auditService.auditList();
-		AuditBean ab = new AuditBean();
+// plan date, auditor insert page
+		@RequestMapping(value = "/AuditManage", method = RequestMethod.POST)
+		public String auditManagePost(Model model, AuditCommand ac) {
+			AuditBean ab = new AuditBean();
+			
+			ab.setAUDITOR_ID(ac.getAUDITOR_ID());
+			ab.setAUDIT_ID(ac.getAUDIT_ID());
+			ab.setAUDIT_PLAN_DATE(ac.getAUDIT_PLAN_DATE());
 
-		ab.setAUDITOR_ID(ac.getAUDITOR_ID());
-		ab.setAUDIT_ID(ac.getAUDIT_ID());
-		ab.setAUDIT_PLAN_DATE(ac.getAUDIT_PLAN_DATE());
-
-		auditService.idInsert(ab);
-		return "redirect:/AuditManage";
-	}
+			auditService.idInsert(ab);
+			return "redirect:/AuditManage";
+		}
 
 	// search Auditor Id
 	@RequestMapping(value = "audit/searchAuditorId", method = RequestMethod.POST)
@@ -99,7 +98,7 @@ public class AuditController {
 
 		return "audit/auditorList";
 	}
-
+	
 	@RequestMapping(value = "audit/searchAuditorId", method = RequestMethod.GET)
 	public String searchIssuerget(Model model) {
 		return "audit/auditorList";
@@ -270,6 +269,8 @@ public class AuditController {
 
 	@RequestMapping(value = "audit/auditVendorResult", method = RequestMethod.POST)
 	public String auditResultViewPost() {
+		
+		
 		return "audit/auditVendorResult";
 	}
 	

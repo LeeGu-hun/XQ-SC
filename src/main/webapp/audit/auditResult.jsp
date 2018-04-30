@@ -167,6 +167,7 @@
 						<c:if test="${a.AUDIT_PLAN_DATE !=null}">
 						${a.MEMBER_NAME}(${a.MEMBER_ID})
 						</c:if>
+						<input type="hidden" value="${a.MEMBER_NAME}">
 						</div>
 					</td>
 					
@@ -182,9 +183,7 @@
 								&id=${a.AUDIT_ID}
 								&type=${a.AUDIT_KIND_ID}
 								&score=${a.AUDIT_SCORE}
-								
 								&vendorid=${a.VENDOR_ID}
-								&auditor=${a.MEMBER_NAME}
 								&auditorId=${a.MEMBER_ID}
 								&result=${a.AUDIT_RESULT}"
 								data-toggle="modal"
