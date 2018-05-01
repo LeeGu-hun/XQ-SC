@@ -197,7 +197,8 @@ public class VendorController {
 	
 	@RequestMapping(value = "/vendorStatus", method = RequestMethod.GET)
 	public String vendorStatusGet( Model model,ListCommand listCommand,
-			@RequestParam(defaultValue = "") String PRODUCT_ID,
+			@RequestParam(defaultValue = "") String VENDOR_NAME,
+			@RequestParam(defaultValue = "All") String PRODUCT_ID,
 			@RequestParam(defaultValue = "All") String VALID) {
 	
 		List<BeanProduct> prodList = vendorService.productList();
@@ -207,6 +208,7 @@ public class VendorController {
 
 
 		model.addAttribute("map", map);
+		model.addAttribute("VENDOR_NAME",listCommand.getPRODUCT_NAME());
 		model.addAttribute("PRODUCT_ID",listCommand.getPRODUCT_ID());
 		model.addAttribute("VALID",listCommand.getVALID());
 		
@@ -214,8 +216,7 @@ public class VendorController {
 	}
 
 	@RequestMapping(value = "/vendorStatus", method = RequestMethod.POST)
-	public String vendorStatusPost(Model model, HttpServletRequest request,ListCommand listCommand
-			) {
+	public String vendorStatusPost(Model model, HttpServletRequest request,ListCommand listCommand) {
 		
 		List<BeanProduct> prodList = vendorService.productList();
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -229,6 +230,7 @@ public class VendorController {
 		model.addAttribute("valid",valid);
 		model.addAttribute("count",count);
 		model.addAttribute("countY",countY);
+		model.addAttribute("VENDOR_NAME",listCommand.getVENDOR_NAME());
 		model.addAttribute("PRODUCT_ID",listCommand.getPRODUCT_ID());
 		model.addAttribute("VALID",listCommand.getVALID());
 		

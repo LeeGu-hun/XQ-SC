@@ -84,7 +84,7 @@
 				<div class="panel panel-default">
 					<div class="panel-heading">Vendor Register</div>
 					<!-- /.panel-heading -->
-					<div class="panel-body">
+					<div class="panel-body" >
 						<form action="./vendorStatus" method="post" name="statusform"
 							id="statusform">
 
@@ -93,7 +93,8 @@
 								<tr>
 									<td>Vendor Name:</td>
 									<td><input type="text" class="form-control"
-										style="width: 200px;" id="VENDOR_NAME" name="VENDOR_NAME"></td>
+										style="width: 200px;" id="VENDOR_NAME" name="VENDOR_NAME"
+										value="${VENDOR_NAME}"></td>
 
 									<td>Product Name:</td>
 									<td><select id="PRODUCT_ID" name="PRODUCT_ID"
@@ -124,9 +125,9 @@
 						</form>
 					</div>
 
-					<div class="container">
+					<div class="container" >
 						<div class="table-responsive" style="max-height: 700px;">
-							<table class="table table-hover">
+							<table class="table table-hover" style="max-width:1400px;">
 								<tr align="center" valign="middle" bordercolor="#333333">
 									<td>No.</td>
 									<td>Vendor ID</td>
@@ -136,7 +137,7 @@
 									<td>QualityIncharge Name</td>
 									<td>QualityIncharge Email</td>
 									<td>Valid</td>
-									<td>NCR</td>
+									<td style="width:70px;">NCR</td>
 								</tr>
 
 								<c:if test="${! empty vendors}">
