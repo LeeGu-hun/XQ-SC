@@ -123,7 +123,11 @@ ncr_id number
 );
 
 
+create table audit_criterion(
 
+audit_criterion_kind varchar2(20) primary key,
+audit_score number(3,0)
+);
 
 
 
