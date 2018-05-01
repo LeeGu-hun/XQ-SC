@@ -72,12 +72,14 @@ public class NcrController {
 
 	@RequestMapping(value = "/ncrIssue", method = RequestMethod.POST)
 	public String issue(NcrIssueCommand nic ,Errors errors, HttpSession session, HttpServletRequest request,
-			MultipartHttpServletRequest mhsq) throws IllegalStateException, IOException {
+			MultipartHttpServletRequest mhsq, Model model) throws IllegalStateException, IOException {
 		
 		new NcrIssueCommandValidator().validate(nic, errors);
-		if(errors.hasErrors())
+		if(errors.hasErrors()) {			
+			AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
+			model.addAttribute("issuer_name",authInfo.getName());
 			return "ncr/ncrRegister";
-		
+		}
 		
 		AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
 		NcrBean nb = new NcrBean();
@@ -110,7 +112,7 @@ public class NcrController {
 				
 				ncrService.ncrFileUpload(originalfileName, saveFileName, fileSize);
 			}
-		}
+		}							
 		return "redirect:./ncrRegister";
 	}
 

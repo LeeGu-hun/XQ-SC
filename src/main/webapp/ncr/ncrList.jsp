@@ -15,6 +15,7 @@
 					<th>NCR grade</th>
 					<th>Issuer ID</th>			
 					<th>NCR Status</th>	
+					<th>Issue Date</th>
 			
 			</thead>
 			<tbody>
@@ -29,6 +30,8 @@
 							<td>${n.ncr_grade_name}</td>
 							<td>${n.issuer_name }</td>
 							<td>${n.ncr_comp}</td>
+							<td style="max-width:70px"><input type="text"pattern="\d{4}\/\d{2}\/\d{2}"value=${n.issue_date} readonly
+							style="border:none; max-width:100%" ></input></td>
 						</tr>
 					</c:forEach>
 			

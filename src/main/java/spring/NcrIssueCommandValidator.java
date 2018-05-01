@@ -1,5 +1,7 @@
 package spring;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;

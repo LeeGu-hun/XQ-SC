@@ -1,7 +1,7 @@
 package bean;
 
 public class NcrBean {
-String audit_id,issuer_id,issuer_name, ncr_title,ncr_description,ncr_grade_id, ncr_grade_name, ncr_id,ncr_comp_date,ncr_issue_date,ncr_comp,vendor_id,vendor_name
+String audit_id,issuer_id,issuer_name, ncr_title,ncr_description,ncr_grade_id, ncr_grade_name, ncr_id,ncr_comp_date,issue_date,ncr_comp,vendor_id,vendor_name
 		,audit_kind_id,audit_kind,audit_result,auditor_id,auditor_name;
 
 public String getVendor_name() {
@@ -88,9 +88,7 @@ public void setNcr_comp_date(String ncr_comp_date) {
 	this.ncr_comp_date = ncr_comp_date;
 }
 
-public String getNcr_issue_date() {
-	return ncr_issue_date;
-}
+
 
 public String getIssuer_name() {
 	return issuer_name;
@@ -116,9 +114,6 @@ public void setVendor_id(String vendor_id) {
 	this.vendor_id = vendor_id;
 }
 
-public void setNcr_issue_date(String ncr_issue_date) {
-	this.ncr_issue_date = ncr_issue_date;
-}
 
 public String getNcr_comp() {
 	return ncr_comp;
@@ -148,8 +143,20 @@ public void setNcr_grade_id(String ncr_grade_id) {
 	this.ncr_grade_id = ncr_grade_id;
 }
 
+public String getIssue_date() {
+	return issue_date;
+}
+
+public void setIssue_date(String issue_date) {
+	this.issue_date = issue_date;
+}
+
+public void setAudit_kind(String audit_kind) {
+	this.audit_kind = audit_kind;
+}
+
 public NcrBean(String audit_id, String issuer_id, String issuer_name, String ncr_title, String ncr_description,
-		String ncr_grade_id, String ncr_grade_name, String ncr_id, String ncr_comp_date, String ncr_issue_date,
+		String ncr_grade_id, String ncr_grade_name, String ncr_id, String ncr_comp_date, String issue_date,
 		String ncr_comp, String vendor_id, String vendor_name, String audit_kind_id, String audit_kind,
 		String audit_result, String auditor_id, String auditor_name) {
 	super();
@@ -162,11 +169,12 @@ public NcrBean(String audit_id, String issuer_id, String issuer_name, String ncr
 	this.ncr_grade_name = ncr_grade_name;
 	this.ncr_id = ncr_id;
 	this.ncr_comp_date = ncr_comp_date;
-	this.ncr_issue_date = ncr_issue_date;
+	this.issue_date = issue_date;
 	this.ncr_comp = ncr_comp;
 	this.vendor_id = vendor_id;
 	this.vendor_name = vendor_name;
-	this.audit_kind_id = audit_kind_id;	
+	this.audit_kind_id = audit_kind_id;
+	this.audit_kind = audit_kind;
 	this.audit_result = audit_result;
 	this.auditor_id = auditor_id;
 	this.auditor_name = auditor_name;
