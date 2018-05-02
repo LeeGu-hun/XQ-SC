@@ -6,12 +6,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -37,9 +40,17 @@ import bean.BeanProduct;
 import bean.BeanVendor;
 import bean.CheckListBean;
 import bean.DateCommand;
+import bean.LoginCommand;
+import bean.LoginCommandValidator;
+import bean.NcrBean;
+import bean.NcrSearchCommand;
 import bean.Paging;
 import oracle.net.aso.a;
 import service.AuditService;
+import spring.AuthInfo;
+import spring.IdPasswordNotMatchingException;
+import spring.InvalidMemberException;
+import spring.MemberNotFoundException;
 
 @SessionAttributes("countInfo")
 @Controller
@@ -70,7 +81,9 @@ public class AuditController {
 
 // plan date, auditor insert page
 		@RequestMapping(value = "/AuditManage", method = RequestMethod.POST)
-		public String auditManagePost(Model model, AuditCommand ac) {
+		public String auditManagePost(LoginCommand loginCommand,
+				Errors errors, Model model, AuditCommand ac, HttpSession session,
+				HttpServletResponse response) {
 			AuditBean ab = new AuditBean();
 			
 			ab.setAUDITOR_ID(ac.getAUDITOR_ID());
@@ -78,8 +91,26 @@ public class AuditController {
 			ab.setAUDIT_PLAN_DATE(ac.getAUDIT_PLAN_DATE());
 
 			auditService.idInsert(ab);
+			
+			new LoginCommandValidator().validate(loginCommand, errors);
+			if(errors.hasErrors())
+				return "redirect:/AuditManage";
 			return "redirect:/AuditManage";
 		}
+		
+		
+	
+		public String form(LoginCommand loginCommand,
+				Errors errors, HttpSession session,
+				HttpServletResponse response) {
+			new LoginCommandValidator().validate(loginCommand, errors);
+			if(errors.hasErrors())
+			return "login/login";
+			return "redirect:/";
+			
+			
+		}
+		
 
 	// search Auditor Id
 	@RequestMapping(value = "audit/searchAuditorId", method = RequestMethod.POST)
@@ -108,19 +139,16 @@ public class AuditController {
 	
 	// Report page
 	@RequestMapping(value = "/AuditReport", method = RequestMethod.GET)
-	public String auditReportGet(Model model, AuditBean auditBean, HttpServletRequest request, DateCommand dc) {
-	
-
+	public String auditReportGet(Model model, 
+			AuditBean auditBean, HttpServletRequest request, DateCommand dc) {
 		return "audit/auditReport";
 	}
-
-	// Report page
-	@RequestMapping(value = "/AuditReport", method = RequestMethod.POST)
-	public String auditReportPost(Model model, AuditBean auditBean, HttpServletRequest request, DateCommand dc) {
+	
+	@RequestMapping(value = "/auditSearch")
+	public String ncrSearch(HttpServletRequest request,  Model model, DateCommand dc) {
 		List<AuditBean> auditBeans = auditService.auditListReport(dc);
-		request.setAttribute("auditBeans", auditBeans);
-
-		return "audit/auditReport";
+		model.addAttribute("auditBeans",auditBeans);
+		return "audit/checkList";
 	}
 
 	// report page : insert modal
@@ -144,6 +172,9 @@ public class AuditController {
 
 		return "audit/auditInsert";
 	}
+	
+	
+
 
 	// report page : insert modal
 	@RequestMapping(value = "/audit/auditInsert", method = RequestMethod.POST)
@@ -203,8 +234,11 @@ public class AuditController {
 		return "audit/auditResult";
 	}
 
+	
+
+
 	// result page :post
-	@RequestMapping(value = "/AuditResult", method = RequestMethod.POST)
+	@RequestMapping(value = "/audit/resultSearch")
 	public String auditResultPost(Model model, DateCommand dateCommand) {
 		
 		if (dateCommand.getPlandate().equals("all")) {
@@ -224,7 +258,7 @@ public class AuditController {
 			model.addAttribute("arsList", arsList);
 		}
 		
-		return "audit/auditResult";
+		return "audit/auditResultAjax";
 	}
 
 	// result page : modal
