@@ -245,10 +245,12 @@
 								method="post">
 								<table class="table">
 									<tr>
-										<td>Auditor Name: 
-										<input type="text" name="auditor_name" id="auditor_name" class="form-control" width="140px"/>
+										<td>Auditor Name: </td>
+										<td>
+										<input type="text" name="auditor_name" id="auditor_name" 
+										class="form-control" style="width: 140px"/>
 										<input type="hidden" name="index" id="index" /></td>
-										<td><input class="button" type="button"
+										<td><input type="button"
 											value="Search" id="btnsearch"
 											onclick="searchAuditorId(index.value)"
 											class="btn btn-default"></td>
