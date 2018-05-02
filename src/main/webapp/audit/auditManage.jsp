@@ -115,6 +115,14 @@
 	}
 }
 
+.td {
+    width: 50px;
+    height: 22px;
+    display: inline-block;
+    border: 1px solid #111;
+    word-wrap: break-word;
+}
+
 </style>
 
 </head>
@@ -132,42 +140,44 @@
 						<div class="container" style="font-family: Tahomsa;">
 		Total: <a href='./AuditManage'><span>${allCount}</span></a>
 		</font> <br> <br> <span id="result">
+				<div class="container" style="word-break:break-all;">
 				<div class="table-responsive" style="height: 700px;">
-			<table class="table table-hover">
+			<table  style="table-layout: fixed; 
+			word-break:break-all; height: auto;" class="table table-hover">
+				<thead style=" word-break:break-all;">
 					<th style="text-align: center;">No</th>
 					<th style="text-align: center;">ID</th>
 					<th style="text-align: center;">Vendor</th>
 					<th style="text-align: center;">Type</th>
-					<th style="text-align: center; max-width: 200px">Quality Manager</th>
+					<th style="text-align: center;">Q-Manager</th>
 					<th style="text-align: center;">Product</th>
-					<th style="text-align: center; max-width: 200px" >Address</th>
+					<th style="text-align: center; " >Address</th>
 					<th style="text-align: center;">Auditor</th>
 					<th style="text-align: center;">Plan Date</th>
 					<th style="text-align: center;">Submit</th>
-			<!-- 		
-					<th style="text-align: center;">Plan Register</th>
-			 -->
-			 
+					</thead>
+					<tbody style="word-break:break-all;">
 			<c:forEach var="audit" items="${listBean}" varStatus="status">
-					<form action="./AuditManage" method="POST" name="form">
+			<form:form commandName="loginCommand" style="height:100%;"  action="./AuditManage" 
+			method="POST" name="form">
+					<td  style="font-family: Tahoma; font-size: 12pt; word-break:break-all; ">
 						<tr align="center" valign="middle" bordercolor="#333333">
-							<td nowrap style="font-family: Tahoma; font-size: 12pt;"
-								height="">
+							<td  style="font-family: Tahoma; font-size: 12pt; word-break:break-all; ">
 								<div align="center">${audit.RNUM}</div>
 							</td>
-							<td nowrap style="font-family: Tahoma; font-size: 12pt;">
+							<td  style="font-family: Tahoma; font-size: 12pt;">
 								<div align="center">${audit.AUDIT_ID}
 									<input type="hidden" value="${audit.AUDIT_ID}"
 										readonly="readonly" name="AUDIT_ID">
 								</div>
 							</td>
-							<td nowrap style="font-family: Tahoma; font-size: 12pt;">
+							<td  style="font-family: Tahoma; font-size: 12pt; word-break:break-all; ">
 								<div align="center">${audit.VENDOR_NAME}(${audit.VENDOR_ID})</div>
 								<input type="hidden" value="${audit.VENDOR_ID}"
 										readonly="readonly" name="VENDOR_ID">
 							</td>
 
-							<td nowrap style="font-family: Tahoma; font-size: 12pt;">
+							<td  style="font-family: Tahoma; font-size: 12pt; word-break:break-all;">
 								<div align="center">
 									<c:if test="${audit.AUDIT_NEXT_DATE == null }">
 									NE
@@ -181,37 +191,44 @@
 									</c:if>
 								</div>
 							</td>
-							<td nowrap style="font-family: Tahoma; font-size: 12pt;">
+							<td  style="font-family: Tahoma; font-size: 12pt; word-break:break-all; ">
 								<div align="center">${audit.VENDOR_Q_NAME}(${audit.VENDOR_Q_TEL})</div>
 							</td>
-							<td nowrap style="font-family: Tahoma; font-size: 12pt;">
+							<td  style="font-family: Tahoma; font-size: 12pt;">
 								<div align="center">${audit.PRODUCT_NAME}</div>
 							</td>
-							<td nowrap style="font-family: Tahoma; font-size: 12pt;">
+							<td  style="font-family: Tahoma; font-size: 12pt; word-break:break-all; ">
 								<div align="center">${audit.VENDOR_ADDRESS}</div>
 							</td>
-							<td nowrap style="font-family: Tahoma; font-size: 12pt;"><script>
-						
-						</script>
+							<td  style="font-family: Tahoma; font-size: 12pt; word-break:break-all;">
+							
 								<div align="center">
-									<input type="text" name="AUDITOR_ID" id="AUDITOR_ID"
+									<input type="text" name="AUDITOR_ID" id="AUDITOR_ID" 
 										data-toggle="modal" onclick="auditorSearch(${status.index})" 
-										style="height: 30px; width: 100px"/>
-								</div></td>
-							<td nowrap style="font-family: Tahoma; font-size: 12pt;">
+										style="height: 30px; width: 100px" path="id"/>
+								</div>
+												<span style="font-size: 9pt; color: red;"><form:errors
+														path="id" /></span>
+											
+								</td>
+							<td  style="font-family: Tahoma; font-size: 12pt; word-break:break-all;">
 								<div align="center">
 									<input type="date" name="AUDIT_PLAN_DATE" id="AUDIT_PLAN_DATE"
 									style="height: 30px; width: 140px">
 								</div>
 							</td>
 
-							<td nowrap style="font-family: Tahoma; font-size: 12pt;"><input
-								type="submit" value="submit"  class="btn btn-default" /></td>
+							<td style="font-family: Tahoma; font-size: 12pt; word-break:break-all;">
+							<input type="submit" value="submit"  class="btn btn-default" /></td>
 						</tr>
-					</form>
+					</form:form>
 				</c:forEach>
+				</tbody>
 			</table>
+
 			</div>
+			</div>
+			
 			
 		</span>
 		
@@ -244,6 +261,7 @@
 								</table>
 							</form>
 						</div>
+						
 
 						<div id="auditorList"></div>
 
@@ -255,6 +273,7 @@
 				</div>
 			</div>
 		</div>
+		<
 		<!--  모달 끝 -->
 		
 		<div id="myModal" class="modal fade" role="dialog">
@@ -269,6 +288,7 @@
 	</div>
 	</div>
 	</div>
+	
 	
 
 </body>
