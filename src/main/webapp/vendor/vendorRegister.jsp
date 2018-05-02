@@ -121,12 +121,14 @@
 												name="VENDOR_S_EMAIL" value="${li.VENDOR_S_EMAIL}"/ >
 											<td><input type="button" class="btn btn-default"
 												href="./vendor/vendorView/${li.VENDOR_ID}"
-												data-toggle="modal" data-target="#viewModal" value="View"></td>
+												data-toggle="modal" data-target="#viewModal" data-backdrop="static"
+												data-keyboard="false" value="View"></td>
 
 											<!-- 모달 -->
 											<div id="viewModal" class="modal fade" role="dialog">
 												<div class="modal-dialog" style="width: 60%;">
-													<div class="modal-content"></div>
+													<div class="modal-content">
+													</div>
 												</div>
 											</div>
 											<td><input type="button" class="btn btn-default"
