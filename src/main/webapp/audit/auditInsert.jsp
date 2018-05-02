@@ -66,27 +66,27 @@
 		</div>
 		<div class="modal-body">
 			<table class="table">
-			<br>
+			
 				<br>
 				<tr>
-					<td nowrap>Audit ID : ${auditid}</td>
+					<td >Audit ID : ${auditid}</td>
 					<td><input type="hidden" value="${auditid}" name="AUDIT_ID"></td>
-					<td nowrap>Audit Type : ${auditType}</td>
+					<td >Audit Type : ${auditType}</td>
 					<td><input type="hidden" value="${auditType}"
 						name="AUDIT_KIND_ID"></td>
 				</tr>
 				<tr>
-					<td nowrap>Vendor ID : ${vendorid}</td>
+					<td >Vendor ID : ${vendorid}</td>
 					<td><input type="hidden" value="${vendorid}" name="VENDOR_ID"></td>
-					<td nowrap>Vendor Name : ${vendorname}</td>
+					<td >Vendor Name : ${vendorname}</td>
 					<td><input type="hidden" value="${vendorname}"></td>
 					
 				</tr>
 				<tr>
-					<td nowrap>Insert Date :</td>
+					<td >Insert Date :</td>
 					<td><input type="date" name="AUDIT_RSINPUT_DATE"
 					id="AUDIT_RSINPUT_DATE" style="height: 30px"></td>
-					<td nowrap>Audit Date :</td>
+					<td >Audit Date :</td>
 					<td><input type="date" name="AUDIT_COMP_DATE"
 					id="AUDIT_COMP_DATE" style="height: 30px"></td>
 				</tr>
@@ -94,33 +94,39 @@
 			<br> <span id="result">
 				<table class="table">
 					<tr>
-						<th nowrap>No</th>
-						<th nowrap>Audit Description</th>
-						<th nowrap>Audit</th>
-						<th nowrap>Score</th>
+						<th  style="width: 20px">No</th>
+						<th >Audit Description</th>
+						<th >Audit</th>
+						<th >Highest Score</th>
 					</tr>
 					</td>
 					<c:if test="${auditType == 'NE'}">
 						<c:forEach var="c" items="${checkListNE}">
 							<tr>
-								<td>
-									<div>${c.RNUM}
+								<td style="width: 20px">
+									<div style="align-content: center; width: 20px">${c.RNUM}
 										<input type="hidden" value="${c.CHECKLIST_ID}" name="cId">
 									</div>
 								</td>
 
 								<td>
 									<div>${c.CHECKLIST_DISCRIPTION}
-										<input type="hidden" value="${c.CHECKLIST_DISCRIPTION}"
-											name="" />
+										<input type="hidden" value="${c.CHECKLIST_DISCRIPTION}">
 									</div>
 								</td>
-								<td><input type="text" class="score" maxlength="2"
+								<td>
+								
+								<input type="text" path="id" class="score" maxlength="2"
 									name="score" id="score" onKeyUp="onlyNum();"
-									onKeyPress="onlyNum();" onKeyDown="onlyNum();"></td>
-								<td><div>${c.CHECKLIST_FULLSCORE}
+									onKeyPress="onlyNum();" onKeyDown="onlyNum();">
+												<span style="font-size: 9pt; color: red;">
+												<form:errors path="id" /></span>
+									</td>
+									<td><div style="align-content: center;">${c.CHECKLIST_FULLSCORE}
 								<input type="hidden" value="${c.CHECKLIST_FULLSCORE}" name="full" id="full">
 								</div></td>
+							
+								
 							</tr>
 						</c:forEach>
 					</c:if>
@@ -140,12 +146,20 @@
 								</td>
 								<td><input type="text" class="score" maxlength="2"
 									name="score" id="score" onKeyUp="onlyNum();"
-									onKeyPress="onlyNum();" onKeyDown="onlyNum();"></td>
-								<td><div>${c.CHECKLIST_FULLSCORE}</div></td>
+									onKeyPress="onlyNum();" onKeyDown="onlyNum();">
+									
+												<form:form
+												commandName="ncrIssueCommand">
+												<span style="font-size: 9pt; color: red;"><form:errors
+														path="audit_id" /></span>
+											</form:form>
+									
+									</td>
+								<td><div style="align-content: center;">${c.CHECKLIST_FULLSCORE}</div></td>
 							</tr>
 						</c:forEach>
 					</c:if>
-					<td nowrap>Total Score: <input type="text" name="total" id="total"
+					<td >Total Score: <input type="text" name="total" id="total"
 						name="AUDIT_SCORE" readonly="readonly">
 					</td>
 				</table>

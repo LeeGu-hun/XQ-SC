@@ -39,7 +39,24 @@
 
 </style>
 
+<script type="text/javascript">
 
+function searchVendorId() {
+var params = $('#formSearch').serialize();
+	$.ajax({
+		type : "POST",
+		url : "./audit/resultSearch",
+		data : params,
+		success : result,
+	});
+}
+
+function result(msg) {
+	$("#vendorList").html(msg);
+}
+
+
+</script>
 
 <link rel="stylesheet" type="text/css" href="/css/style.css?ver=2">
 
@@ -60,7 +77,7 @@
 	type="text/javascript"></script>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.css">
-</head>
+
 <body>
 	<%@ include file="/include/header.jsp"%><br>
 	<div>&nbsp;</div>
@@ -73,12 +90,13 @@
 					<div class="panel-body">
 						<p>
 						<div class="container" style="font-family: Tahomsa;">
-		<form action="./AuditResult" method="POST">
+		<form action="./audit/resultSearch" method="POST" name="formSearch"
+									id="formSearch">
 			<p>
 				<input type="radio" id="plandate" name="plandate" value="all"> 
 				<label>All</label> 
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-				<input type="radio" id="plandate" name="plandate" value="incomplete"> 
+				<input type="radio" id="plandate" name="plandate" value="incomplete" checked="checked"> 
 				<label>Incomplete</label> 
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 				<input type="radio" id="plandate" name="plandate" value="passed" > 
@@ -96,114 +114,16 @@
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 				<input type="text" id="vSearch" name="vSearch" placeholder="Vendor Search..."
 				style="height: 30px">
-				<input type="submit" value="Search" class="btn btn-default" style="height: 30px">
+				<input type="button" value="Search" class="btn btn-default" style="height: 30px" onclick="searchVendorId()">
 			</p>
 		
 		</form>
 		<br> <br>
-		<div class="table-responsive" style="max-height: 700px;">
-		<table class="table table-hover" style="width: 100%">
-			<div align="center" style="text-align: center;">
-			<tr align="center" valign="middle" bordercolor="#333333" style="text-align: center;">
-				
-				<th style="text-align: center;">ID</th>
-				<th style="text-align: center;">Vendor</th>
-				<th style="text-align: center;">Product</th>
-				<th style="text-align: center; width: 100px">Plan Date</th>
-				<th style="text-align: center; width: 100px"">Comp Date</th>
-				<th style="text-align: center; width: 100px">Score Date</th>
-				<th style="text-align: center;">Type</th>
-				<th style="text-align: center; width: 100px">Auditor</th>
-			
-				<th style="text-align: center; width: 40px">Result</th>
-				
-				<th style="text-align: center;">Result</th>
-				</tr>
-			</div>
-			<c:forEach var="a" items="${arsList}">
-				<tr align="center" valign="middle" bordercolor="#333333">
-			
-					<td style="font-family: Tahoma; font-size: 12pt;">
-						<div align="center">${a.AUDIT_ID}
-						<input type="hidden" value="${a.AUDIT_ID}" id="AUDIT_ID" name="AUDIT_ID">
-						</div>
-					</td>
-					<td style="font-family: Tahoma; font-size: 12pt;">
-						<div align="center">${a.VENDOR_NAME}(${a.VENDOR_ID})</div>
-					</td>
-					<td style="font-family: Tahoma; font-size: 12pt;">
-						<div align="center">${a.PRODUCT_NAME}</div>
-					</td>
-					<td style="font-family: Tahoma; font-size: 12pt;">
-						<div align="center">${a.AUDIT_PLAN_DATE}
-							<c:if test="${a.AUDIT_PLAN_DATE ==null}">
-							-
-							</c:if>
-						</div>
-					</td>
-					<td style="font-family: Tahoma; font-size: 12pt;">
-						<div align="center">${a.AUDIT_COMP_DATE}
-							<c:if test="${a.AUDIT_COMP_DATE ==null}">
-							-
-							</c:if>
-						</div>
-					</td>
-					<td style="font-family: Tahoma; font-size: 12pt;">
-						<div align="center">${a.AUDIT_RSINPUT_DATE}
-							<c:if test="${a.AUDIT_RSINPUT_DATE ==null}">
-							-
-							</c:if>
-							
-						</div>
-					</td>
-					<td style="font-family: Tahoma; font-size: 12pt;">
-						<div align="center">${a.AUDIT_KIND_ID}</div>
-					</td>
-					<td style="font-family: Tahoma; font-size: 12pt;">
-						<div align="center">
-						<c:if test="${a.AUDIT_PLAN_DATE ==null}">
-						-
-						</c:if>
-						<c:if test="${a.AUDIT_PLAN_DATE !=null}">
-						${a.MEMBER_NAME}(${a.MEMBER_ID})
-						</c:if>
-						<input type="hidden" value="${a.MEMBER_NAME}">
-						</div>
-					</td>
-					
-					<td style="font-family: Tahoma; font-size: 12pt;">
-						<div align="center">${a.AUDIT_RESULT}
-							<c:if test="${a.AUDIT_RESULT ==null}">
-							-
-							</c:if>
-						</div>
-					</td>
 		
-					<td><a href="audit/auditVendorResult?vendorname=${a.VENDOR_NAME}
-								&id=${a.AUDIT_ID}
-								&type=${a.AUDIT_KIND_ID}
-								&score=${a.AUDIT_SCORE}
-								&vendorid=${a.VENDOR_ID}
-								&auditorId=${a.MEMBER_ID}
-								&result=${a.AUDIT_RESULT}"
-								data-toggle="modal"
-								data-target="#myModal"
-								style="text-decoration: underline;"
-								>View</a></td>
-				</tr>
-			</c:forEach>
-		</table>
-		</div>
 		</form>
-		<div id="auditorList"></div>
 		
-		<!-- 모달 -->
-		<div id="myModal" class="modal fade" role="dialog">
-			<div class="modal-dialog" style="width: 70%">
-				<div class="modal-content" style="height:700px; overflow-y: scroll;"></div>
-			</div>
-		</div>
-
+		<div id="vendorList" class="table-responsive" style="max-height:600px"></div>
+	
 	</div>
 	</div>
 	</div>

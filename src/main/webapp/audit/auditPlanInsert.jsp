@@ -22,7 +22,6 @@
 <body>
 
 
-QQQQQQQQQQQQQQQQQQQ
 <div class="container" style="font-family: Tahoma;">
 	<form method="POST" action="./audit/auditPlan" name="auditForm">
 		<div class="modal-header">

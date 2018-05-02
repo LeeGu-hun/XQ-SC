@@ -12,27 +12,27 @@
 	<table class="table table-hover">
 	<c:forEach var="d" items="${date}">
 		<tr>
-			<td nowrap>Audit ID :  ${id}
+			<td >Audit ID :  ${id}
 			<input type="hidden" value="${id}" name = "AUDIT_ID" id = "AUDIT_ID"> </td>
-			<td nowrap>Audit Type : ${type}</td>
-			<td nowrap>Vendor Name : ${vendorname} (${vendorid})
+			<td >Audit Type : ${type}</td>
+			<td >Vendor Name : ${vendorname} (${vendorid})
 			<input type="hidden" value="${vendorid}" name = "VENDOR_ID" id = "VENDOR_ID">
 			
 		</tr>
 		<tr> 
-				<td nowrap>Audit Date : ${d.AUDIT_COMP_DATE}</td>
-				<td nowrap>Insert Date : ${d.AUDIT_RSINPUT_DATE}</td>
-				<td nowrap>Auditor : ${d.MEMBER_NAME }</td>
-				<td nowrap>NCR Progress : ${ncrCountComp} / ${ncrCount}</td>
+				<td >Audit Date : ${d.AUDIT_COMP_DATE}</td>
+				<td >Insert Date : ${d.AUDIT_RSINPUT_DATE}</td>
+				<td >Auditor : ${d.MEMBER_NAME }</td>
+				<td >NCR Progress : ${ncrCountComp} / ${ncrCount}</td>
 		</tr>
 		</c:forEach>
 		</table>
 		
 		<table class="table table-hover">
 		<tr>
-			<th nowrap style="max-width: 50px">No</th>
-			<th nowrap>Audit Description</th>
-			<th nowrap>Score</th>
+			<th  style="max-width: 50px">No</th>
+			<th >Audit Description</th>
+			<th >Score</th>
 		</tr>
 		
 		
@@ -48,8 +48,8 @@
 			</tr>
 		</c:forEach>
 		<tr>
-			<td nowrap>Total Score : ${score }</td>
-			<td nowrap>Audit Result : ${result }</td>
+			<td >Total Score : ${score }</td>
+			<td >Audit Result : ${result }</td>
 		</tr>
 		
 	</table>
