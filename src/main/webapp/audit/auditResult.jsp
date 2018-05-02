@@ -81,7 +81,7 @@ function result(msg) {
 <body>
 	<%@ include file="/include/header.jsp"%><br>
 	<div>&nbsp;</div>
-	<div class="container">
+	<div class="container" style="width: 1400px">
 		<div class="row">
 			<div class="col-lg-15">
 				<div class="panel panel-default">
@@ -92,30 +92,52 @@ function result(msg) {
 						<div class="container" style="font-family: Tahomsa;">
 		<form action="./audit/resultSearch" method="POST" name="formSearch"
 									id="formSearch">
-			<p>
+			
+			<table style="align-content: center; width: 1200px">
+				<tr align="center">
+				<td>
 				<input type="radio" id="plandate" name="plandate" value="all"> 
 				<label>All</label> 
-				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+				&nbsp;&nbsp;&nbsp;&nbsp;
+				</td>
+				<td>
 				<input type="radio" id="plandate" name="plandate" value="incomplete" checked="checked"> 
 				<label>Incomplete</label> 
-				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+				&nbsp;&nbsp;&nbsp;&nbsp;
+				</td>
+				<td>
 				<input type="radio" id="plandate" name="plandate" value="passed" > 
-				<label>Passed Vendor</label> 
-				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+				<label>Passed</label> 
+				&nbsp;&nbsp;&nbsp;&nbsp;
+				</td>
+				<td>
 				<input type="radio" id="plandate" name="plandate" value="notPassed" > 
-				<label>Not Passed Vendor</label> 
-				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+				<label>Failed</label> 
+				&nbsp;&nbsp;&nbsp;&nbsp;
+				</td>
+				<td>
 				<input type="radio" id="plandate" name="plandate" value="notPlanVendor" > 
-				<label>Not Planed Vendor</label> 
-				<br><br>
-				<label>Plan Date : <input id="from" name="from" type="date" style="height: 30px"/></label> 
+				<label>Not Planed</label> 
+				&nbsp;&nbsp;&nbsp;&nbsp;
+				</td>
+				<td>
+				<label>Plan Date :</label> 
+				&nbsp;&nbsp;&nbsp;&nbsp;
+				<input id="from" name="from" type="date" style="height: 30px" placeholder="avc"/> 
 				~ 
 				<input id="to" name="to" type="date" style="height: 30px" />
-				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+				&nbsp;&nbsp;&nbsp;&nbsp;
+				</td>
+				<td>
 				<input type="text" id="vSearch" name="vSearch" placeholder="Vendor Search..."
-				style="height: 30px">
-				<input type="button" value="Search" class="btn btn-default" style="height: 30px" onclick="searchVendorId()">
-			</p>
+				style="height: 30px ; width: 140px" class="form-control">
+				</td>
+				<td>
+				<input type="button" value="Search" class="btn btn-default" 
+				style="height: 30px;" onclick="searchVendorId()">
+				</td>
+				</tr>
+			</table>
 		
 		</form>
 		<br> <br>

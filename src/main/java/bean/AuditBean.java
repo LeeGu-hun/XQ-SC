@@ -24,6 +24,7 @@ public class AuditBean {
 	private String VENDOR_Q_NAME;
 	private String VENDOR_Q_TEL;
 	private String VENDOR_ADDRESS;
+	private String VENDOR_Q_EMAIL;
 	private String PRODUCT_ID;
 	private String CATEGORY_NAME;
 	private String PRODUCT_NAME;
@@ -35,6 +36,16 @@ public class AuditBean {
 	private Date from, to;
 
 	public AuditBean() {
+	}
+
+
+	public String getVENDOR_Q_EMAIL() {
+		return VENDOR_Q_EMAIL;
+	}
+
+
+	public void setVENDOR_Q_EMAIL(String vENDOR_Q_EMAIL) {
+		VENDOR_Q_EMAIL = vENDOR_Q_EMAIL;
 	}
 
 

@@ -60,24 +60,22 @@
 	type="text/javascript"></script>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.css">
-
+<br>
 <div style="max-height: 700px;">
 		<table class="table table-hover" style="width: 100%">
 			<div align="center" style="text-align: center;">
 			<tr align="center" valign="middle" bordercolor="#333333" style="text-align: center;">
 				
-				<th style="text-align: center;">ID</th>
-				<th style="text-align: center;">Vendor</th>
-				<th style="text-align: center;">Product</th>
-				<th style="text-align: center; width: 100px">Plan Date</th>
-				<th style="text-align: center; width: 100px"">Comp Date</th>
-				<th style="text-align: center; width: 100px">Score Date</th>
-				<th style="text-align: center;">Type</th>
-				<th style="text-align: center; width: 100px">Auditor</th>
-			
-				<th style="text-align: center; width: 40px">Result</th>
-				
-				<th style="text-align: center;">Result</th>
+				<th style="text-align: center; width: 7% ">ID</th>
+				<th style="text-align: center; width: 13%">Vendor</th>
+				<th style="text-align: center; width: 13%">Product</th>
+				<th style="text-align: center; width: 10%">Plan Date</th>
+				<th style="text-align: center; width: 10%">Comp Date</th>
+				<th style="text-align: center; width: 10%">Score Date</th>
+				<th style="text-align: center; width: 7%">Type</th>
+				<th style="text-align: center; width: 16%">Auditor</th>
+				<th style="text-align: center; width: 7%">Result</th>
+				<th style="text-align: center; width: 7%">View</th>
 				</tr>
 			</div>
 			<c:forEach var="a" items="${arsList}">
@@ -125,7 +123,7 @@
 						-
 						</c:if>
 						<c:if test="${a.AUDIT_PLAN_DATE !=null}">
-						${a.MEMBER_NAME}(${a.MEMBER_ID})
+						${a.MEMBER_NAME}<br>(${a.MEMBER_ID})
 						</c:if>
 						<input type="hidden" value="${a.MEMBER_NAME}">
 						</div>

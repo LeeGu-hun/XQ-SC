@@ -62,23 +62,22 @@
 	type="text/javascript"></script>
 
 
-			
+			</html>
+			<br>
 			<table class="table table-hover" style="max-width: 1000px; margin: auto;">
 				<tr align="center" bordercolor="#333333">
-					<th style="text-align: center;">No</th>
-					<th style="text-align: center;">ID</th>
-					<th style="text-align: center;">Plan Date</th>
-					<th style="text-align: center;">Vendor</th>
-					<th style="text-align: center;">Category</th>
-					<th style="text-align: center;">Product</th>
-					<th style="text-align: center;">Audit Type</th>
-					<th style="text-align: center;">Manager</th>
-					
-					<th style="text-align: center;">Submit Result</th>
+					<th style="text-align: center; width: 7%">No</th>
+					<th style="text-align: center; width: 10%">ID</th>
+					<th style="text-align: center; width: 10%">Plan Date</th>
+					<th style="text-align: center; width: 13%">Vendor</th>
+					<th style="text-align: center; width: 20%">Product</th>
+					<th style="text-align: center; width: 10%">Audit Type</th>
+					<th style="text-align: center; width: 15%">Manager</th>
+					<th style="text-align: center; width: 15%">Submit</th>
 				</tr>
 					<c:forEach var="a" items="${auditBeans}">
 					<c:if test="${a.AUDIT_PLAN_DATE!=null}">
-						<tr align="center" valign="middle" bordercolor="#333333">
+						<tr valign="middle" bordercolor="#333333">
 							<td style="font-family: Tahoma; font-size: 12pt;" height="">
 								<div align="center">${a.RNUM}</div>
 							</td>
@@ -89,29 +88,31 @@
 								<div align="center">${a.AUDIT_PLAN_DATE}</div>
 							</td>
 							<td style="font-family: Tahoma; font-size: 12pt;">
-								<div align="center">${a.VENDOR_NAME}(${a.VENDOR_ID})</div>
+								<div align="center">${a.VENDOR_NAME}<br>(${a.VENDOR_ID})</div>
 							</td>
+						
 							<td style="font-family: Tahoma; font-size: 12pt;">
-								<div align="center">${a.CATEGORY_NAME}</div>
-							</td>
-							<td style="font-family: Tahoma; font-size: 12pt;">
-								<div align="center">${a.PRODUCT_NAME}(${a.PRODUCT_ID})</div>
+								${a.PRODUCT_NAME}
 							</td>
 							<td style="font-family: Tahoma; font-size: 12pt;">
 								<div align="center">${a.AUDIT_KIND_ID}</div>
 							</td>
 							<td style="font-family: Tahoma; font-size: 12pt;">
-								<div align="center">${a.MEMBER_NAME}(${a.MEMBER_ID})</div>
+								<div align="center">${a.MEMBER_NAME}<br>(${a.MEMBER_ID})</div>
 							</td>
 
-							<td><a
+							<td>
+							<div align="center">
+							<a
 								href="audit/auditInsert?vendorname=${a.VENDOR_NAME}
 								&vendorid=${a.VENDOR_ID}
 								&auditid=${a.AUDIT_ID}
 								&auditType=${a.AUDIT_KIND_ID}"
 								data-toggle="modal"
 								data-target="#myModal"  
-								style="text-decoration: underline;" >Register</a></td>
+								style="text-decoration: underline; text-align: center;">Register</a>
+								</div>
+								</td>
 						</tr>
 					</c:if>
 				</c:forEach>

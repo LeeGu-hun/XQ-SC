@@ -14,7 +14,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-	<link rel="stylesheet"
+<link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.css">
 <title>Audit Report</title>
 </head>
@@ -40,7 +40,6 @@
 		height: 100%;
 	}
 }
-
 </style>
 
 <link rel="stylesheet" type="text/css" href="/css/style.css?ver=2">
@@ -63,28 +62,24 @@
 
 
 <script>
+	function search() {
+		var params = $('#formSearch').serialize();
+		$.ajax({
+			type : "POST",
+			url : "./auditSearch",
+			data : params,
+			success : result,
+		});
+	}
 
-
-function search() {
-	var params = $('#formSearch').serialize();
-	$.ajax({
-		type : "POST",
-		url : "./auditSearch",
-		data : params,
-		success : result,
-	});
-}
-
-function result(auditBeans) {
-	$("#listBox").html(auditBeans);
-}
-
-
+	function result(auditBeans) {
+		$("#listBox").html(auditBeans);
+	}
 </script>
 
 <body>
 
-<%@ include file="/include/header.jsp"%><br>
+	<%@ include file="/include/header.jsp"%><br>
 	<div>&nbsp;</div>
 	<div class="container">
 		<div class="row">
@@ -93,38 +88,42 @@ function result(auditBeans) {
 					<div class="panel-heading">Audit Result Input</div>
 					<!-- /.panel-heading -->
 					<div class="panel-body">
-					
+
 						<p>
-						<div class="container" style="font-family: Tahomsa;">
-		<form action="./auditSearch" method="post" name = "formSearch" id="formSearch">
-		<table>
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-			<label for="scoreDate">Date Search</label>
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-			<label>from : <input id="from" name="from" type="date" style="height: 30px"/> </label> ~ 
-			<label>to : <input id="to" name="to" type="date" style="height: 30px"/></label> 
-			
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-			<label for = "vSearch">Vendor Search    </label> 
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-			<input type="text" id="vSearch" name="vSearch" placeholder="Vendor Search..." 
-			style="height: 30px">
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-			<input type="button" value="Search" class="btn btn-default"	
-			style="height: 30px" onclick="search()">
-</table>
+						<div class="container" style="font-family: Tahomsa;"
+							align="center">
+							<form action="./auditSearch" method="post" name="formSearch"
+								id="formSearch">
+								<table style="align-content: center;" class="table table-hover">
+									<tr>
+										<td>
+										<label>Date: </label>
+												<input id="from" name="from" type="date"
+													style="height: 30px" /> ~ <input id="to" name="to"
+													type="date" style="height: 30px" />
+										</td>
+										<td>
+										<input type="text" class="form-control"
+													style="height: 30px; width: 140px" id="vSearch"
+													name="vSearch" placeholder="Vendor Search...">
+										</td>
+										<td>
+										<input type="button" value="Search"
+											class="btn btn-default" style="height: 30px"
+											onclick="search()">
+										</td>
+									</tr>
+								</table>
+							</form>
+							<div id="listBox" class="table-responsive"
+								style="max-height: 600px">
+								<table></table>
+							</div>
+						</div>
+					</div>
 
-	</form>
-	<div id="listBox" class="table-responsive" style="max-height:600px"><table></table></div>
-	</div>
-	</div>
-	
-	</div>
-	</div>
-	</div>
-	
-				
-
-
+				</div>
+			</div>
+		</div>
 </body>
 </html>

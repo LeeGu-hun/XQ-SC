@@ -116,122 +116,117 @@
 }
 
 .td {
-    width: 50px;
-    height: 22px;
-    display: inline-block;
-    border: 1px solid #111;
-    word-wrap: break-word;
+	width: 50px;
+	height: 22px;
+	display: inline-block;
+	border: 1px solid #111;
+	word-wrap: break-word;
 }
-
 </style>
 
 </head>
 <body>
 	<%@ include file="/include/header.jsp"%><br>
 	<div>&nbsp;</div>
-	<div class="container" style="width:1200px;">
+	<div class="container" style="width: 1600px;">
 		<div class="row">
 			<div class="col-lg-15">
 				<div class="panel panel-default">
 					<div class="panel-heading">Audit Plan</div>
 					<!-- /.panel-heading -->
-					<div class="panel-body">
+					<div class="panel-body" style="width: 1400px;">
 						<p>
-						<div class="container" style="font-family: Tahomsa;">
-		Total: <a href='./AuditManage'><span>${allCount}</span></a>
-		</font> <br> <br> <span id="result">
-				<div class="container" style="word-break:break-all;">
-				<div class="table-responsive" style="height: 700px;">
-			<table  style="table-layout: fixed; 
-			word-break:break-all; height: auto;" class="table table-hover">
-				<thead style=" word-break:break-all;">
-					<th style="text-align: center;">No</th>
-					<th style="text-align: center;">ID</th>
-					<th style="text-align: center;">Vendor</th>
-					<th style="text-align: center;">Type</th>
-					<th style="text-align: center;">Q-Manager</th>
-					<th style="text-align: center;">Product</th>
-					<th style="text-align: center; " >Address</th>
-					<th style="text-align: center;">Auditor</th>
-					<th style="text-align: center;">Plan Date</th>
-					<th style="text-align: center;">Submit</th>
-					</thead>
-					<tbody style="word-break:break-all;">
-			<c:forEach var="audit" items="${listBean}" varStatus="status">
-			<form:form commandName="loginCommand" style="height:100%;"  action="./AuditManage" 
-			method="POST" name="form">
-					<td  style="font-family: Tahoma; font-size: 12pt; word-break:break-all; ">
-						<tr align="center" valign="middle" bordercolor="#333333">
-							<td  style="font-family: Tahoma; font-size: 12pt; word-break:break-all; ">
-								<div align="center">${audit.RNUM}</div>
-							</td>
-							<td  style="font-family: Tahoma; font-size: 12pt;">
-								<div align="center">${audit.AUDIT_ID}
-									<input type="hidden" value="${audit.AUDIT_ID}"
-										readonly="readonly" name="AUDIT_ID">
-								</div>
-							</td>
-							<td  style="font-family: Tahoma; font-size: 12pt; word-break:break-all; ">
-								<div align="center">${audit.VENDOR_NAME}(${audit.VENDOR_ID})</div>
-								<input type="hidden" value="${audit.VENDOR_ID}"
-										readonly="readonly" name="VENDOR_ID">
-							</td>
-
-							<td  style="font-family: Tahoma; font-size: 12pt; word-break:break-all;">
-								<div align="center">
-									<c:if test="${audit.AUDIT_NEXT_DATE == null }">
-									NE
-									<input type="hidden" value="NE" readonly="readonly"
-											name="AUDIT_KIND_ID" id="AUDIT_KIND_ID">
-									</c:if>
-									<c:if test="${audit.AUDIT_NEXT_DATE !=null }">
-									RE
-										<input type="hidden" value="RE" readonly="readonly"
-											name="AUDIT_KIND_ID">
-									</c:if>
-								</div>
-							</td>
-							<td  style="font-family: Tahoma; font-size: 12pt; word-break:break-all; ">
-								<div align="center">${audit.VENDOR_Q_NAME}(${audit.VENDOR_Q_TEL})</div>
-							</td>
-							<td  style="font-family: Tahoma; font-size: 12pt;">
-								<div align="center">${audit.PRODUCT_NAME}</div>
-							</td>
-							<td  style="font-family: Tahoma; font-size: 12pt; word-break:break-all; ">
-								<div align="center">${audit.VENDOR_ADDRESS}</div>
-							</td>
-							<td  style="font-family: Tahoma; font-size: 12pt; word-break:break-all;">
-							
-								<div align="center">
-									<input type="text" name="AUDITOR_ID" id="AUDITOR_ID" 
-										data-toggle="modal" onclick="auditorSearch(${status.index})" 
-										style="height: 30px; width: 100px" path="id"/>
-								</div>
-												<span style="font-size: 9pt; color: red;"><form:errors
-														path="id" /></span>
-											
-								</td>
-							<td  style="font-family: Tahoma; font-size: 12pt; word-break:break-all;">
-								<div align="center">
-									<input type="date" name="AUDIT_PLAN_DATE" id="AUDIT_PLAN_DATE"
-									style="height: 30px; width: 140px">
-								</div>
-							</td>
-
-							<td style="font-family: Tahoma; font-size: 12pt; word-break:break-all;">
-							<input type="submit" value="submit"  class="btn btn-default" /></td>
-						</tr>
-					</form:form>
-				</c:forEach>
-				</tbody>
+						<div class="container" style="font-family: Tahomsa; width: 1200px">
+							Total: <a href='./AuditManage'><span>${allCount}</span></a> </font> <br>
+							<br> <span id="result">
+								<div class="container" style="word-break: break-all;">
+									<div class="table-responsive" style="height: 700px; width: 1400px">
+			<table style="table-layout: fixed; word-break: break-all; 
+			height: auto; align-content: center;"
+				class="table table-hover" align="center">
+					<th style="text-align: center; width: 7%">ID</th>
+					<th style="text-align: center; width: 11%">Vendor</th>
+					<th style="text-align: center; width: 5%">Type</th>
+					<th style="text-align: center; width: 13%">Q-Manager</th>
+					<th style="text-align: center; width: 18%">Product</th>
+					<th style="text-align: center; width: 15%">Address</th>
+					<th style="text-align: center; width: 10%">Auditor</th>
+					<th style="text-align: center; width: 14%">Plan Date</th>
+					<th style="text-align: center; width: 7%">Submit</th>
+		<c:forEach var="audit" items="${listBean}" varStatus="status">
+				<form:form commandName="loginCommand" style="height:100%;"
+				action="./AuditManage" method="POST" name="form">
+				
+				<tr valign="middle" bordercolor="#333333">
+				
+					<td style="font-family: Tahoma; font-size: 12pt;" align="center" >
+						<div align="center">${audit.AUDIT_ID}
+							<input type="hidden" value="${audit.AUDIT_ID}"
+								readonly="readonly" name="AUDIT_ID">
+						</div>
+					</td>
+					<td style="font-family: Tahoma; font-size: 12pt; word-break: break-all;">
+						<div>${audit.VENDOR_NAME}<br>(${audit.VENDOR_ID})</div>
+						<input type="hidden" value="${audit.VENDOR_ID}"
+						readonly="readonly" name="VENDOR_ID">
+					</td>
+					<td style="font-family: Tahoma; font-size: 12pt; 
+					word-break: break-all;">
+						<div style="width: 30px; text-align: center;">
+							<c:if test="${audit.AUDIT_NEXT_DATE == null }">
+								NE
+							<input type="hidden" value="NE" readonly="readonly" 
+							name="AUDIT_KIND_ID" id="AUDIT_KIND_ID">
+							</c:if>
+							<c:if test="${audit.AUDIT_NEXT_DATE !=null }">
+								RE
+							<input type="hidden" value="RE" readonly="readonly" 
+							name="AUDIT_KIND_ID" id="AUDIT_KIND_ID">
+							</c:if>
+						</div>
+					</td>
+					<td style="font-family: Tahoma; font-size: 12pt;
+					 word-break: break-all; align-content: center; align="center" >
+						${audit.VENDOR_Q_NAME}<br>
+						(${audit.VENDOR_Q_EMAIL})
+					</td>
+					<td style="font-family: Tahoma; font-size: 12pt;">
+						<div>${audit.PRODUCT_NAME}</div>
+					</td>
+					
+					<td style="font-family: Tahoma; font-size: 12pt; word-break: break-all;">
+						<div>${audit.VENDOR_ADDRESS}</div>
+					</td>
+					<td style="font-family: Tahoma; font-size: 12pt; word-break: break-all; width: auto;">
+						<div align="center">
+							<input type="text" name="AUDITOR_ID" id="AUDITOR_ID"
+								data-toggle="modal"
+								onclick="auditorSearch(${status.index})"
+								path="id" style="height: 30px; width: 80px" class="form-control"/>
+						</div> <span style="font-size: 9pt; color: red;"><form:errors
+								path="id" /></span>
+					</td>
+					<td style="font-family: Tahoma; font-size: 12pt; word-break: break-all;">
+							<input type="date" name="AUDIT_PLAN_DATE"
+								id="AUDIT_PLAN_DATE"
+								style="height: 30px">
+					</td>
+					&nbsp; 
+					<td style="font-family: Tahoma; font-size: 12pt; word-break: break-all;" align="center" >
+						<input type="submit" value="submit"
+						class="btn btn-default" align="center" />
+					</td>
+				</tr>
+			</form:form>
+			
+					</c:forEach>
+				
 			</table>
 
-			</div>
-			</div>
-			
-			
-		</span>
-		
+									</div>
+								</div>
+							</span>
+
 
 		<!--  모달 시작 -->
 		<div class="modal fade" id="auditorSearchModal">
@@ -243,54 +238,50 @@
 						<h4 class="modal-title">Auditor Search</h4>
 					</div>
 					<!-- body -->
-					<div class="modal-body" style="height:500px; overflow-y: scroll;" >
+					<div class="modal-body"
+						style="height: 500px; overflow-y: scroll;">
 						<div>
 							<form id="formSearchauditor" name="formSearchAuditor"
 								method="post">
 								<table class="table">
 									<tr>
-										<td>Auditor Name: <input type="text" name="auditor_name"
-											id="auditor_name" /></td>
-										<input type="hidden" name="index" id="index" value=""/>
-
-										<td><input class="button" type="button" value="Search"
-											id="btnsearch" onclick="searchAuditorId(index.value)"
+										<td>Auditor Name: 
+										<input type="text" name="auditor_name" id="auditor_name" class="form-control" /></td>
+										<input type="hidden" name="index" id="index" width="140px"/>
+										<td><input class="button" type="button"
+											value="Search" id="btnsearch"
+											onclick="searchAuditorId(index.value)"
 											class="btn btn-default"></td>
 									</tr>
-
 								</table>
 							</form>
 						</div>
-						
-
 						<div id="auditorList"></div>
-
 					</div>
 					<!-- Footer -->
 					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">close</button>
+						<button type="button" class="btn btn-default"
+							data-dismiss="modal">close</button>
 					</div>
 				</div>
 			</div>
 		</div>
-		<
+
 		<!--  모달 끝 -->
-		
 		<div id="myModal" class="modal fade" role="dialog">
 			<div class="modal-dialog" style="width: 70%">
-				<div class="modal-content" style="height:700px; overflow-y: scroll;"></div>
+				<div class="modal-content"
+					style="height: 700px; overflow-y: scroll;"></div>
 			</div>
 		</div>
+		<!--  모달 끝 -->		
 		
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
-	</div>
-	</div>
-	</div>
-	</div>
-	</div>
-	
-	
-
 </body>
 </html>
 
