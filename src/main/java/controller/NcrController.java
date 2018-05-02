@@ -105,8 +105,8 @@ public class NcrController {
 				// 저장되는 파일 이름
 				String root_path = request.getSession().getServletContext().getRealPath("/");
 				String attach_path = "./upload/";
-				String savePath = root_path + attach_path + saveFileName;
-				System.out.println("ncr_IssueFile"+savePath);
+				String savePath = root_path + attach_path + saveFileName;			
+				
 				long fileSize = mf.get(i).getSize(); // 파일 사이즈
 				mf.get(i).transferTo(new File(savePath)); // 파일 저장
 				

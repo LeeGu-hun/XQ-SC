@@ -46,6 +46,10 @@
 	function ncrIssue() {
 		formNcrIssue.submit();
 	}
+	
+	function searchModalPop(){
+		$("#layerpop").modal('show');
+	}
 </script>
 <style>
 .modal-dialog {
@@ -85,8 +89,7 @@
 									<tr>
 										<td>Audit No.</td>
 										<td><input type="text" id="audit_id" name="audit_id"
-											data-target="#layerpop" data-toggle="modal"
-											class="form-control"> <form:form
+											onclick="searchModalPop()" class="form-control"> <form:form
 												commandName="ncrIssueCommand">
 												<span style="font-size: 9pt; color: red;"><form:errors
 														path="audit_id" /></span>
