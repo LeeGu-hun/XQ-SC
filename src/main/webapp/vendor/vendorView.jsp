@@ -66,40 +66,13 @@
 			</tr>
 			<tr>
 				<td>Certificate Of Quality :</td>
-				<td><a data-toggle="modal" data-target="#isoModal">${view.VENDOR_ISO_FILE}</td>
-				
-				<!-- 모달 -->
-				<div id="isoModal" class="modal fade" role="dialog">
-					<div class="modal-dialog">
-						<div class="modal-content">
-							<div class="modal-body">
-								<img style="width:100%; height:450px;"
-									src="./upload/${view.VENDOR_ISO_FILE}">
-							</div>
-							<div class="modal-footer">
-								
-							</div>
-						</div>
-					</div>
-				</div>
+				<td><a href="./upload/${view.VENDOR_ISO_FILE}" >${view.VENDOR_ISO_FILE}</td>	
 			</tr>
+			
 			<tr>
 				<td>Business License :</td>
-				<td><a data-toggle="modal" data-target="#certModal">${view.VENDOR_CERT_FILE}</td>
-				<!-- 모달 -->
-				<div id="certModal" class="modal fade" role="dialog">
-					<div class="modal-dialog">
-						<div class="modal-content">
-							<div class="modal-body">
-								<img style="width:100%; height:450px;"
-									src="./upload/${view.VENDOR_CERT_FILE}">
-							</div>
-							<div class="modal-footer">
-								
-							</div>
-						</div>
-					</div>
-				</div>
+				<td><a href="./upload/${view.VENDOR_CERT_FILE}"  >${view.VENDOR_CERT_FILE}</td>
+				
 			</tr>
 		</table>
 
