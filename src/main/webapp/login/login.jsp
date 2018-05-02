@@ -21,9 +21,15 @@
 	href="https://www.w3schools.com/lib/w3-theme-black.css">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
 <title>MJ</title>
 </head>
+
+<script>
+function registerpopup(){
+	$("#myModal").modal('show');
+}
+
+</script>
 <style>
 .modal-dialog {
 	display: inline-block;
@@ -101,8 +107,7 @@
 						<div>
 							<img src="${pageContext.request.contextPath}/images/register.png"></img>
 							<button class="w3-bar-item w3-button w3-dark-grey"
-								href="vendor/newVendor" data-toggle="modal"
-								data-target="#myModal">Register</button>
+								 onclick="registerpopup()">Register</button>
 						</div>
 					</div>
 				</div>
@@ -110,7 +115,10 @@
 			<!-- 모달 -->
 			<div id="myModal" class="modal fade" role="dialog">
 				<div class="modal-dialog" style="width: 1700px;">
-					<div class="modal-content"></div>
+					<div class="modal-content">
+					<%@ include file="../vendor/newVendor.jsp"%>
+					</div>
+					
 				</div>
 			</div>
 		</div>
