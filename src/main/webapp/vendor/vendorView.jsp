@@ -16,6 +16,14 @@
 
 </head>
 
+<script>
+function isopopup()
+{window.open("./upload/${view.VENDOR_ISO_FILE}");}
+
+function certpopup()
+{window.open("./upload/${view.VENDOR_CERT_FILE}");}
+</script>
+
 <body>
 
 	<div class="modal-body">
@@ -66,12 +74,12 @@
 			</tr>
 			<tr>
 				<td>Certificate Of Quality :</td>
-				<td><a href="./upload/${view.VENDOR_ISO_FILE}" >${view.VENDOR_ISO_FILE}</td>	
+				<td><a href="#" onclick="isopopup()">${view.VENDOR_ISO_FILE}</td>	
 			</tr>
 			
 			<tr>
 				<td>Business License :</td>
-				<td><a href="./upload/${view.VENDOR_CERT_FILE}"  >${view.VENDOR_CERT_FILE}</td>
+				<td><a href="#" onclick="certpopup()">${view.VENDOR_CERT_FILE}</td>
 				
 			</tr>
 		</table>
