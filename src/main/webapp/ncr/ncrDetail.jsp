@@ -89,16 +89,23 @@
 
 <div class="modal-footer">
 
-	<button type="button" class="btn btn-default"
-		onclick="vendorReply(${b.ncr_id})">vendor reply</button>
-	<button type="button" class="btn btn-default"
-		onclick="auditorReply(${b.ncr_id})">auditor reply</button>
+
 
 	<c:if test="${b.ncr_comp eq 'Y' }">
 		<button type="button" class="btn btn-default disabled"
+			onclick="vendorReply(${b.ncr_id})">vendor reply</button>
+		<button type="button" class="btn btn-default disabled"
+			onclick="auditorReply(${b.ncr_id})">auditor reply</button>
+		<button type="button" class="btn btn-default disabled"
 			onclick="complete(${b.ncr_id})">complete</button>
+
 	</c:if>
+
 	<c:if test="${b.ncr_comp eq 'N' }">
+		<button type="button" class="btn btn-default"
+			onclick="vendorReply(${b.ncr_id})">vendor reply</button>
+		<button type="button" class="btn btn-default"
+			onclick="auditorReply(${b.ncr_id})">auditor reply</button>
 		<button type="button" class="btn btn-default"
 			onclick="complete(${b.ncr_id})">complete</button>
 	</c:if>

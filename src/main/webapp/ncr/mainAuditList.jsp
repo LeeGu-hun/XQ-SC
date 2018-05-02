@@ -50,12 +50,11 @@
 
 <div class="row">
 	<div class="col-lg-12">
-		<div class="panel panel-default" style="max-height: 250px">
+		<div class="panel panel-default" >
 			<div class="panel-heading">Audit to be performed</div>
 			<!-- /.panel-heading -->
 			<div class="panel-body">
-				<div class="table-responsive" style="max-height: 250px">
-
+				<div class="table-responsive" style="max-height: 300px">
 					<table class="table table-hover">
 						<thead>
 							<tr>
