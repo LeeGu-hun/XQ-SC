@@ -4,17 +4,12 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <link href="<c:url value="/css/bootstrap.css" />" rel="stylesheet">
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/css/style.css?ver=1.3">
-<script
-	src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css"	href="${pageContext.request.contextPath}/css/style.css?ver=1.3">
+<script	src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
-<script type="text/javascript"
-	href="${pageContext.request.contextPath}/jquery-1.11.1.min.js"></script>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<script type="text/javascript"	href="${pageContext.request.contextPath}/jquery-1.11.1.min.js"></script>
+<script	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
 <script>
 	function searchAudit() {
