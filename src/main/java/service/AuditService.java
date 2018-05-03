@@ -69,6 +69,11 @@ public class AuditService {
 		List<AuditBean> listResult = sqlSession.selectList("auditSQL.auditListReport", dc);
 		return listResult;
 	}
+	
+	public List<AuditBean> auditVendorName(String AUDIT_ID) {
+		List<AuditBean> vendorName = sqlSession.selectList("auditSQL.getVendorName",AUDIT_ID);
+		return vendorName;
+	}
 
 	// checkList - RE
 	public List<CheckListBean> checkListRe() {
@@ -108,8 +113,8 @@ public class AuditService {
 	}
 
 	// auditor list
-	public List<AuditBean> getAuditorList(String AUDITOR_ID) {
-		List<AuditBean> auditorList = sqlSession.selectList("auditSQL.getAuditorList", AUDITOR_ID);
+	public List<AuditBean> getAuditorList(String AUDIT_ID) {
+		List<AuditBean> auditorList = sqlSession.selectList("auditSQL.getAuditorList", AUDIT_ID);
 		return auditorList;
 	}
 

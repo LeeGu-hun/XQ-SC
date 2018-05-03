@@ -156,12 +156,10 @@ public class AuditController {
 	public String auditInsert(Model model, AuditBean auditBean, HttpServletRequest request) {
 
 		String vendorid = (String) request.getParameter("vendorid");
-		String vendorname = (String) request.getParameter("vendorname");
 		String auditid = (String) request.getParameter("auditid");
 		String auditType = (String) request.getParameter("auditType");
 
 		request.setAttribute("vendorid", vendorid);
-		request.setAttribute("vendorname", vendorname);
 		request.setAttribute("auditid", auditid);
 		request.setAttribute("auditType", auditType);
 
@@ -169,6 +167,10 @@ public class AuditController {
 		model.addAttribute("checkListNE", checkListNE);
 		List<CheckListBean> checkListRE = auditService.checkListRe();
 		model.addAttribute("checkListRE", checkListRE);
+		List<AuditBean> getVendorName = auditService.auditVendorName(auditid);
+		System.out.println(getVendorName);
+		model.addAttribute("getVendorName", getVendorName);
+		
 
 		return "audit/auditInsert";
 	}
@@ -183,7 +185,9 @@ public class AuditController {
 		AuditBean ab = new AuditBean();
 
 		String total = (String) request.getParameter("total");
+		String auditid = request.getParameter("auditid");
 		request.setAttribute("total", total);
+		request.setAttribute("auditid", auditid);
 		request.setAttribute("auditType", request.getParameter("AUDIT_KIND_ID"));
 
 		ab.setAUDIT_SCORE(Integer.parseInt(total));
@@ -268,21 +272,19 @@ public class AuditController {
 			HttpServletRequest request, 
 			AuditScoreCommand ac) {
 
-		String vendorname = (String) request.getParameter("vendorname");
+		
 		String id = (String) request.getParameter("id");
 		String vendorid = (String) request.getParameter("vendorid");
-		
 		String type = (String) request.getParameter("type");
 		String auditor = (String) request.getParameter("auditor");
 		String auditorId = (String) request.getParameter("auditorId");
 		String result = (String) request.getParameter("result");
 		String score = (String) request.getParameter("score");
 
-		request.setAttribute("vendorname", vendorname);
+	
 		request.setAttribute("id", id);
 		request.setAttribute("type", type);
 		request.setAttribute("vendorid", vendorid);
-	
 		request.setAttribute("auditor", auditor);
 		request.setAttribute("auditorId", auditorId);
 		request.setAttribute("result", result);
@@ -292,11 +294,14 @@ public class AuditController {
 		List<CheckListBean> checkResult = auditService.getEachCheckScore(id);
 		int ncrCount = auditService.ncrCount(id);
 		int ncrCountComp = auditService.ncrCountComp(id);
+		List<AuditBean> getVendorName = auditService.auditVendorName(id);
+		
 		
 		model.addAttribute("date", date);
 		model.addAttribute("checkResult", checkResult);
 		model.addAttribute("ncrCount",ncrCount);
 		model.addAttribute("ncrCountComp",ncrCountComp);
+		model.addAttribute("getVendorName",getVendorName);
 
 		return "audit/auditVendorResult";
 	}

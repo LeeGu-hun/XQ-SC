@@ -137,8 +137,7 @@
 						</div>
 					</td>
 		
-					<td><a href="audit/auditVendorResult?vendorname=${a.VENDOR_NAME}
-								&id=${a.AUDIT_ID}
+					<td><a href="audit/auditVendorResult?id=${a.AUDIT_ID}
 								&type=${a.AUDIT_KIND_ID}
 								&score=${a.AUDIT_SCORE}
 								&vendorid=${a.VENDOR_ID}

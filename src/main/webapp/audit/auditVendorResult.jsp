@@ -15,7 +15,7 @@
 			<td >Audit ID :  ${id}
 			<input type="hidden" value="${id}" name = "AUDIT_ID" id = "AUDIT_ID"> </td>
 			<td >Audit Type : ${type}</td>
-			<td >Vendor Name : ${vendorname} (${vendorid})
+			<td >Vendor Name : ${d.VENDOR_NAME} (${vendorid})
 			<input type="hidden" value="${vendorid}" name = "VENDOR_ID" id = "VENDOR_ID">
 			
 		</tr>

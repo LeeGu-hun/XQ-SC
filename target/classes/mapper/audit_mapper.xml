@@ -93,6 +93,12 @@
 		AUDIT_ID = #{AUDIT_ID}
 	</update>
 	
+	<select id="getVendorName" parameterType="String" resultType="bean.AuditBean">
+	SELECT V.VENDOR_NAME, V.VENDOR_ID FROM VENDOR_INFO V, AUDIT_INFO A  
+	WHERE A.AUDIT_ID=#{AUDIT_ID} AND A.VENDOR_ID = V.VENDOR_ID
+	
+	</select>
+	
 	
 
 	<!-- *********** audit Report page *********** -->
@@ -501,11 +507,15 @@
 
 	<!-- Report page get Date -->
 	<select id="getDate" parameterType="String" resultType="bean.AuditBean">
-		SELECT
-		AUDIT_PLAN_DATE,AUDIT_RSINPUT_DATE,AUDIT_COMP_DATE, auditor_id,
-		member_name FROM AUDIT_INFO a ,member_info m
+
+		
+			SELECT
+		AUDIT_PLAN_DATE,AUDIT_RSINPUT_DATE,AUDIT_COMP_DATE, auditor_id, v.vendor_name, A.AUDIT_ID
+		member_name FROM AUDIT_INFO a ,member_info m, vendor_info v
 		WHERE AUDIT_ID =#{AUDIT_ID} 
 		and a.auditor_id = m.member_id
+        AND A.VENDOR_ID=V.VENDOR_ID
+	
 
 	</select>
 

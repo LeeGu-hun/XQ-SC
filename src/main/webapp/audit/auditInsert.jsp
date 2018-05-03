@@ -21,6 +21,7 @@
 <script>
 	var total = document.querySelectorAll('#total');
 	var vendorId = document.querySelectorAll('#vendorId');
+	var auditid = document.querySelectorAll('#auditid');
 
 	function updateScore() {
 		auditForm.submit();
@@ -56,129 +57,124 @@
 			return;
 		}
 	}
+	
+	
 </script>
 </head>
 <body>
-<div class="container" style="font-family: Tahoma;">
-	<form method="POST" action="./audit/auditInsert" name="auditForm">
-		<div class="modal-header">
-			<h1>Audit Result Report</h1>
-		</div>
-		<div class="modal-body">
-			<table class="table">
-			
-				<br>
-				<tr>
-					<td >Audit ID : ${auditid}</td>
-					<td><input type="hidden" value="${auditid}" name="AUDIT_ID"></td>
-					<td >Audit Type : ${auditType}</td>
-					<td><input type="hidden" value="${auditType}"
-						name="AUDIT_KIND_ID"></td>
-				</tr>
-				<tr>
-					<td >Vendor ID : ${vendorid}</td>
-					<td><input type="hidden" value="${vendorid}" name="VENDOR_ID"></td>
-					<td >Vendor Name : ${vendorname}</td>
-					<td><input type="hidden" value="${vendorname}"></td>
-					
-				</tr>
-				<tr>
-					<td >Insert Date :</td>
-					<td><input type="date" name="AUDIT_RSINPUT_DATE"
-					id="AUDIT_RSINPUT_DATE" style="height: 30px"></td>
-					<td >Audit Date :</td>
-					<td><input type="date" name="AUDIT_COMP_DATE"
-					id="AUDIT_COMP_DATE" style="height: 30px"></td>
-				</tr>
-	</table>
-			<br> <span id="result">
+	<div class="container" style="font-family: Tahoma;">
+		<form method="POST" action="./audit/auditInsert" name="auditForm">
+			<div class="modal-header">
+				<h1>Audit Result Report</h1>
+			</div>
+			<div class="modal-body">
 				<table class="table">
+					<br>
 					<tr>
-						<th  style="width: 20px">No</th>
-						<th >Audit Description</th>
-						<th >Audit</th>
-						<th >Highest Score</th>
+						<td>Audit ID : ${auditid}
+						<input type="hidden" value="${auditid}" id="auditid" name="auditid">
+						</td>
+						<td><input type="hidden" value="${auditid}" name="AUDIT_ID"></td>
+						<td>Audit Type : ${auditType}</td>
+						<td><input type="hidden" value="${auditType}"
+							name="AUDIT_KIND_ID"></td>
 					</tr>
-					</td>
-					<c:if test="${auditType == 'NE'}">
-						<c:forEach var="c" items="${checkListNE}">
-							<tr>
-								<td style="width: 20px">
-									<div style="align-content: center; width: 20px">${c.RNUM}
-										<input type="hidden" value="${c.CHECKLIST_ID}" name="cId">
-									</div>
-								</td>
-
-								<td>
-									<div>${c.CHECKLIST_DISCRIPTION}
-										<input type="hidden" value="${c.CHECKLIST_DISCRIPTION}">
-									</div>
-								</td>
-								<td>
-								
-								<input type="text" path="id" class="score" maxlength="2"
-									name="score" id="score" onKeyUp="onlyNum();"
-									onKeyPress="onlyNum();" onKeyDown="onlyNum();">
-												<span style="font-size: 9pt; color: red;">
-												<form:errors path="id" /></span>
-									</td>
-									<td><div style="align-content: center;">${c.CHECKLIST_FULLSCORE}
-								<input type="hidden" value="${c.CHECKLIST_FULLSCORE}" name="full" id="full">
-								</div></td>
-							
-								
-							</tr>
+					<tr>
+					<c:forEach var="g" items="${getVendorName}">
+						<td>Vendor ID : ${g.VENDOR_ID}</td>
+						<td><input type="hidden" value="${g.VENDOR_ID}" name="VENDOR_ID"></td>
+						<td>Vendor Name : ${g.VENDOR_NAME}</td>
+						<td><input type="hidden" value="${g.VENDOR_NAME}"></td>
+					</tr>
 						</c:forEach>
-					</c:if>
-					<c:if test="${auditType == 'RE'}">
-						<c:forEach var="c" items="${checkListRE}">
-							<tr>
-								<td>
-									<div>${c.RNUM}
-										<input type="hidden" value="${c.CHECKLIST_ID}" name="cId">
-									</div>
-								</td>
-
-								<td>
-									<div>${c.CHECKLIST_DISCRIPTION}
-										<input type="hidden" value="${c.CHECKLIST_FULLSCORE}" name="full" id="full">
-									</div>
-								</td>
-								<td><input type="text" class="score" maxlength="2"
-									name="score" id="score" onKeyUp="onlyNum();"
-									onKeyPress="onlyNum();" onKeyDown="onlyNum();">
-									
-												<form:form
-												commandName="ncrIssueCommand">
-												<span style="font-size: 9pt; color: red;"><form:errors
-														path="audit_id" /></span>
-											</form:form>
-									
-									</td>
-								<td><div style="align-content: center;">${c.CHECKLIST_FULLSCORE}</div></td>
-							</tr>
-						</c:forEach>
-					</c:if>
-					<td >Total Score: <input type="text" name="total" id="total"
-						name="AUDIT_SCORE" readonly="readonly">
-					</td>
+					<tr>
+						<td>Insert Date :</td>
+						<td><input type="date" name="AUDIT_RSINPUT_DATE"
+							id="AUDIT_RSINPUT_DATE" style="height: 30px"></td>
+						<td>Audit Date :</td>
+						<td><input type="date" name="AUDIT_COMP_DATE"
+							id="AUDIT_COMP_DATE" style="height: 30px"></td>
+					</tr>
 				</table>
-			</span>
-		</div>
-		<div class="modal-footer">
-			<input type="submit" value="Submit" class="btn btn-default"/>
-			<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-		</div>
-		
-	</form>
-</div>
-<script>
+				<br> <span id="result">
+					<table class="table">
+						<tr>
+							<th style="width: 10%">No</th>
+							<th style="width: 55%">Audit Description</th>
+							<th style="width: 25%">Audit</th>
+							<th style="width: 10%">Highest Score</th>
+						</tr>
+						</td>
+						<c:if test="${auditType == 'NE'}">
+							<c:forEach var="c" items="${checkListNE}">
+								<tr>
+									<td style="width: 20px">
+										<div style="align-content: center; width: 20px">${c.RNUM}
+											<input type="hidden" value="${c.CHECKLIST_ID}" name="cId">
+										</div>
+									</td>
 
-let today = new Date().toISOString().substr(0, 10);
-document.querySelector("#AUDIT_COMP_DATE").value = today;
+									<td>
+										<div>${c.CHECKLIST_DISCRIPTION}
+											<input type="hidden" value="${c.CHECKLIST_DISCRIPTION}">
+										</div>
+									</td>
+									<td><input type="text" path="id" class="score"
+										maxlength="2" name="score" id="score" onKeyUp="onlyNum();"
+										onKeyPress="onlyNum();" onKeyDown="onlyNum();"> <span
+										style="font-size: 9pt; color: red;"> <form:errors
+												path="id" /></span></td>
+									<td><div style="align-content: center;">${c.CHECKLIST_FULLSCORE}
+											<input type="hidden" value="${c.CHECKLIST_FULLSCORE}"
+												name="full" id="full">
+										</div></td>
+								</tr>
+							</c:forEach>
+						</c:if>
+						<c:if test="${auditType == 'RE'}">
+							<c:forEach var="c" items="${checkListRE}">
+								<tr>
+									<td>
+										<div>${c.RNUM}
+											<input type="hidden" value="${c.CHECKLIST_ID}" name="cId">
+										</div>
+									</td>
 
-document.querySelector("#AUDIT_RSINPUT_DATE").valueAsDate = new Date();
+									<td>
+										<div>${c.CHECKLIST_DISCRIPTION}
+											<input type="hidden" value="${c.CHECKLIST_FULLSCORE}"
+												name="full" id="full">
+										</div>
+									</td>
+									<td><input type="text" class="score" maxlength="2"
+										name="score" id="score" onKeyUp="onlyNum();"
+										onKeyPress="onlyNum();" onKeyDown="onlyNum();"> <form:form
+											commandName="ncrIssueCommand">
+											<span style="font-size: 9pt; color: red;"><form:errors
+													path="audit_id" /></span>
+										</form:form></td>
+									<td><div style="align-content: center;">${c.CHECKLIST_FULLSCORE}</div></td>
+								</tr>
+							</c:forEach>
+						</c:if>
+						<td>Total Score: <input type="text" name="total" id="total"
+							name="AUDIT_SCORE" readonly="readonly">
+						</td>
+					</table>
+				</span>
+			</div>
+			<div class="modal-footer">
+				<input type="submit" value="Submit" class="btn btn-default" />
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
 
-</script>
+		</form>
+	</div>
+	<script>
+		let today = new Date().toISOString().substr(0, 10);
+		document.querySelector("#AUDIT_COMP_DATE").value = today;
+
+		document.querySelector("#AUDIT_RSINPUT_DATE").valueAsDate = new Date();
+	</script>
 </body>
 </html>

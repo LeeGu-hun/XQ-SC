@@ -104,8 +104,7 @@
 							<td>
 							<div align="center">
 							<a
-								href="audit/auditInsert?vendorname=${a.VENDOR_NAME}
-								&vendorid=${a.VENDOR_ID}
+								href="audit/auditInsert?vendorid=${a.VENDOR_ID}
 								&auditid=${a.AUDIT_ID}
 								&auditType=${a.AUDIT_KIND_ID}"
 								data-toggle="modal"
