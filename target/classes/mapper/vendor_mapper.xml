@@ -90,7 +90,7 @@
 		select p.product_id
 		,p.product_name from product_item p,category_info c
 		where
-		c.category_id=p.CATEGORY_ID and p.product_valid='Y'
+		c.category_id=p.CATEGORY_ID 
 	</select>
 
 	<select id="ncrAllCount" resultType="bean.NcrCount">
