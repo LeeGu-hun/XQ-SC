@@ -21,15 +21,9 @@
 	href="https://www.w3schools.com/lib/w3-theme-black.css">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
 <title>MJ</title>
 </head>
-
-<script>
-function registerpopup(){
-	$("#myModal").modal('show');
-}
-
-</script>
 <style>
 .modal-dialog {
 	display: inline-block;
@@ -93,10 +87,7 @@ function registerpopup(){
 						<p>
 							<input type="checkbox" name="hold" id="hold" value="${check}"
 								class="w3-check" /> <label for="hold">Remember</label>&nbsp;&nbsp;
-
-
 						</p>
-
 					</form:form>
 				</div>
 
@@ -107,7 +98,9 @@ function registerpopup(){
 						<div>
 							<img src="${pageContext.request.contextPath}/images/register.png"></img>
 							<button class="w3-bar-item w3-button w3-dark-grey"
-								 onclick="registerpopup()">Register</button>
+								href="vendor/newVendor" data-toggle="modal"
+								data-target="#myModal" data-backdrop="static"
+								data-keyboard="false">Register</button>
 						</div>
 					</div>
 				</div>
@@ -115,10 +108,7 @@ function registerpopup(){
 			<!-- 모달 -->
 			<div id="myModal" class="modal fade" role="dialog">
 				<div class="modal-dialog" style="width: 1700px;">
-					<div class="modal-content">
-					<%@ include file="../vendor/newVendor.jsp"%>
-					</div>
-					
+					<div class="modal-content"></div>
 				</div>
 			</div>
 		</div>
