@@ -117,7 +117,7 @@ function vendorReply_vendor(ncr_id) {
 						<div class="table-responsive" style="max-height: 800px">
 
 							<div>
-								[검색조건]
+								[Search Option]
 								<form action="./ncrSearch" method="post" name="formNcrSearch"
 									id="formNcrSearch">
 									<table class="table ">
