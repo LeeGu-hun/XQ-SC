@@ -140,7 +140,7 @@
 						<div class="table-responsive">
 							<div>&nbsp;</div>
 							<div>
-								[검색조건]
+								[Search Option]
 								<form action="./ncrSearch" method="post" name="formNcrSearch"
 									id="formNcrSearch">
 									<table class="table">

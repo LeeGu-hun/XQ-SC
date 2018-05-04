@@ -349,7 +349,7 @@ public class NcrController {
 				
 			}
 		}
-		return "ncr/ncrManagement_vendor";
+		return "redirect:./ncrManagement_vendor";
 	}
 	
 	

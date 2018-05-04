@@ -117,7 +117,7 @@ function vendorReply_vendor(ncr_id) {
 						<div class="table-responsive" style="max-height: 800px">
 
 							<div>
-								[검색조건]
+								[Search Option]
 								<form action="./ncrSearch" method="post" name="formNcrSearch"
 									id="formNcrSearch">
 									<table class="table ">
@@ -128,8 +128,7 @@ function vendorReply_vendor(ncr_id) {
 											<td>Title<input type="text" id="ncr_title"
 												name="ncr_title" class="form-control "></td>
 											<td>Vendor<input type="text" id="vendor_id"
-												name="vendor_id" class="form-control " value=${vendor_id }
-												readonly>
+												name="vendor_id" class="form-control " value=${vendor_id } readonly>
 											<td>Complete<select id="ncr_comp" name="ncr_comp"
 												class=" form-control">
 													<option value="All">All</option>
