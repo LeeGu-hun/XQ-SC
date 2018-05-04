@@ -20,7 +20,15 @@
 <script src="${pageContext.request.contextPath}/js/sb-admin-2"></script>
 </head>
 <body>
-	<%@ include file="/include/header.jsp"%>
+
+	<c:if test="${sessionScope.authInfo.depart eq 'VENDOR' }">
+	             	<%@ include file="/include/headerV.jsp"%>
+	             </c:if>
+	             <c:if test="${sessionScope.authInfo.depart ne 'VENDOR' }">
+	             	
+            		 <%@ include file="/include/header.jsp"%>
+	             </c:if>
+	
 	<br>
 	<div class="container" style="position: relative;   
     width: 60%;
