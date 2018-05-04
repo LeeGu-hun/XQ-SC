@@ -112,10 +112,9 @@
 		a.vendor_id=v.vendor_id and n.ncr_comp='Y') group by vendor_id
 	</select>
 	
-
 	<select id="getStatusList" resultType="bean.VendorStatus"
 		parameterType="bean.ListCommand">
-		select rownum
+		select  rownum
 		rnum,v.vendor_id,v.vendor_name,c.category_name,p.product_name,v.vendor_q_name,v.vendor_q_email
 		from vendor_info v,product_item
 		p,category_info c
@@ -138,14 +137,14 @@
 		select
 		distinct vendor_id,TRUNC(AUDIT_NEXT_DATE-sysdate)
 		as
-		validdate, AUDIT_RESULT
-		from audit_info
+		VALIDDATE, AUDIT_RESULT
+		from vendor_info
 
 	</select>
 
 	<select id="getYList" resultType="bean.VendorStatus"
 		parameterType="bean.ListCommand">
-		select rownum
+		select  rownum
 		rnum,v.vendor_id,v.vendor_name,c.category_name,p.product_name,v.vendor_q_name,v.vendor_q_email
 		from vendor_info v,product_item p,category_info c
 		<where>
@@ -168,7 +167,7 @@
 
 	<select id="getNList" resultType="bean.VendorStatus"
 		parameterType="bean.ListCommand">
-		select rownum
+		select  rownum
 		rnum,v.vendor_id,v.vendor_name,c.category_name,p.product_name,v.vendor_q_name,v.vendor_q_email
 		from vendor_info v,product_item p,category_info c
 		<where>

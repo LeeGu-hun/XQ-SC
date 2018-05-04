@@ -50,7 +50,6 @@
 		$("#VALID option selected").val();
 		statusform.submit();
 	}
-
 </script>
 <style>
 .modal-dialog {
@@ -84,7 +83,7 @@
 				<div class="panel panel-default">
 					<div class="panel-heading">Vendor Register</div>
 					<!-- /.panel-heading -->
-					<div class="panel-body" >
+					<div class="panel-body">
 						<form action="./vendorStatus" method="post" name="statusform"
 							id="statusform">
 
@@ -112,9 +111,9 @@
 										class="form-control">
 											<option value="All"
 												<c:out value="${VALID == 'All'?'selected':''}"/>>All</option>
-												<option value="Y"
+											<option value="Y"
 												<c:out value="${VALID == 'Y'?'selected':''}"/>>Y</option>
-												<option value="N"
+											<option value="N"
 												<c:out value="${VALID == 'N'?'selected':''}"/>>N</option>
 									</select></td>
 									<td><input class="btn btn-default" type="submit"
@@ -125,9 +124,9 @@
 						</form>
 					</div>
 
-					<div class="container" >
+					<div class="container">
 						<div class="table-responsive" style="max-height: 700px;">
-							<table class="table table-hover" style="max-width:1400px;">
+							<table class="table table-hover" style="max-width: 1400px;">
 								<tr align="center" valign="middle" bordercolor="#333333">
 									<td>No.</td>
 									<td>Vendor ID</td>
@@ -137,7 +136,7 @@
 									<td>QualityIncharge Name</td>
 									<td>QualityIncharge Email</td>
 									<td>Valid</td>
-									<td style="width:70px;">NCR</td>
+									<td style="width: 70px;">NCR</td>
 								</tr>
 
 								<c:if test="${! empty vendors}">
@@ -153,10 +152,9 @@
 
 											<td><c:if test="${! empty valid}">
 													<c:forEach var="c" items="${valid}">
-														<c:if
-															test="${c.VENDOR_ID==v.VENDOR_ID && c.VALIDDATE>0 && c.AUDIT_RESULT == 'Y'}">
-									Y
-								</c:if>
+														<c:if test="${c.VENDOR_ID==v.VENDOR_ID && c.VALIDDATE>0 && c.AUDIT_RESULT == 'Y'}">
+															Y
+														</c:if>
 													</c:forEach>
 												</c:if></td>
 
