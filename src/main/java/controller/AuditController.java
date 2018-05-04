@@ -168,7 +168,7 @@ public class AuditController {
 		List<CheckListBean> checkListRE = auditService.checkListRe();
 		model.addAttribute("checkListRE", checkListRE);
 		List<AuditBean> getVendorName = auditService.auditVendorName(auditid);
-		System.out.println(getVendorName);
+		
 		model.addAttribute("getVendorName", getVendorName);
 		
 
