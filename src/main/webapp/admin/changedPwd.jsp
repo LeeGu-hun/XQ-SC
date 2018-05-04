@@ -40,7 +40,13 @@
 	                 ${sessionScope.authInfo.name }'S PASSWORD HAS BEEN CHANGED.
 	             </div>
 	             <div class="panel-body">
+	             <c:if test="${sessionScope.authInfo.depart eq 'VENDOR' }">
+	             	<a href="<c:url value='./ncrManagement_vendor'/>">GO MAIN</a>
+	             </c:if>
+	             <c:if test="${sessionScope.authInfo.depart ne 'VENDOR' }">
+	             	
             		 <a href="<c:url value='main'/>">GO MAIN</a>
+	             </c:if>
 				 </div>
 	             <div class="panel-footer">
 	             </div>
